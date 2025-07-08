@@ -1,0 +1,758 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>(주)씨앤비즈</title>
+<link rel="stylesheet" href="https://cnbiznet.co.kr/theme/default/css/fonts.css?ver=20250709">
+<link rel="stylesheet" href="https://cnbiznet.co.kr/theme/default/css/common.css?ver=20250709">
+<link rel="stylesheet" href="https://cnbiznet.co.kr/theme/default/css/global.css?ver=20250709asd">
+<link rel="stylesheet" href="https://cnbiznet.co.kr/theme/default/css/default_shop.css?ver=20250709">
+<link rel="stylesheet" href="https://cnbiznet.co.kr/theme/default/css/respond.css?ver=20250709asd">
+<!--[if lte IE 8]>
+<script src="https://cnbiznet.co.kr/js/html5.js"></script>
+<![endif]-->
+<script>
+// 자바스크립트에서 사용하는 전역변수 선언
+var g5_url       = "https://cnbiznet.co.kr";
+var g5_bbs_url   = "https://cnbiznet.co.kr/bbs";
+var g5_is_member = "";
+var g5_is_admin  = "";
+var g5_is_mobile = "";
+var g5_bo_table  = "";
+var g5_sca       = "";
+var g5_editor    = "";
+var g5_cookie_domain = "";
+var g5_theme_shop_url = "https://cnbiznet.co.kr/theme/default/shop";
+var g5_shop_url = "https://cnbiznet.co.kr/shop";
+</script>
+<script src="https://cnbiznet.co.kr/js/wm.jquery.min.js"></script>
+<script src="https://cnbiznet.co.kr/theme/default/js/global.js"></script>
+<script type="text/javascript">
+$(function(){if($('body .new_win').length > 0){$('html').css('padding',0);}});
+</script>
+
+
+<script src="https://cnbiznet.co.kr/js/common.js?ver=20250709"></script>
+<script src="https://cnbiznet.co.kr/js/wrest.js?ver=20250709"></script>
+<script src="https://cnbiznet.co.kr/js/ajaxController.js?ver=20250709"></script>
+<script src="https://cnbiznet.co.kr/js/dynamicController.js?ver=20250709"></script>
+<script src="https://cnbiznet.co.kr/js/formController.js?ver=20250709"></script>
+</head>
+<body  class="main">
+
+<!-- 팝업레이어 시작 { -->
+<div id="hd_pop">
+    <h2>팝업레이어 알림</h2>
+
+<span class="sound_only">팝업레이어 알림이 없습니다.</span></div>
+
+<script>
+$(function() {
+    $(".hd_pops_reject").click(function() {
+        var id = $(this).attr('class').split(' ');
+        var ck_name = id[1];
+        var exp_time = parseInt(id[2]);
+        $("#"+id[1]).css("display", "none");
+        set_cookie(ck_name, 1, exp_time, g5_cookie_domain);
+    });
+    $('.hd_pops_close').click(function() {
+        var idb = $(this).attr('class').split(' ');
+        $('#'+idb[1]).css('display','none');
+    });
+    $("#hd").css("z-index", 1000);
+});
+</script>
+<!-- } 팝업레이어 끝 -->
+
+
+<div id="wrap">
+
+
+
+
+<div id="_device_pc"></div>
+<div id="_device_ta"></div>
+<div id="_device_mo"></div>
+
+<!--
+PC,Mobile 공통 header
+-->
+<header id="header">
+	<div class="inner">
+
+		<div class="gnbWrap">
+			<!-- logo -->
+			<h1 class="logo"><a href="https://cnbiznet.co.kr/shop/"><img src="https://cnbiznet.co.kr/data/common/logo_img" alt="(주)씨앤비즈" /></a></h1>
+
+			<!-- gnb -->
+			<ul id="gnb">
+				
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/company/aboutus">회사소개</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/aboutus">회사개요</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=gallery">회사연혁</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/organization">조직도</a></li>
+	<!-- 업체 요청으로 숨김처리 0915	<li class=""><a href="https://cnbiznet.co.kr/content/company/certification">기업인증</a></li> -->
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/location">오시는길</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/hardware/content1">HARDWARE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/hardware/content1">IT 유통</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/hardware/content2">전자칠판</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/software/content1">SOFTWARE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content1">ZWCAD</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content2">Auto CAD</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content3">Microsoft</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content4">Adobe</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content5">한글과 컴퓨터</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content7">Avast</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content6">백신</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/rental/content">SERVICE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/rental/content">렌탈 서비스</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content1">IT 아웃소싱 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content2">네트워크 구축 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content3">소프트웨어 저작권 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content4">기업유지보수서비스</a></li>
+	</ul>
+</li>
+
+<!-- <li class="">
+	<a href="https://cnbiznet.co.kr/content/support/content1">지원 서비스</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content1">IT 아웃소싱 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content2">네트워크 구축 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content3">소프트웨어 저작권 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content4">기업유지보수서비스</a></li>
+	</ul>
+</li> -->
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/customer/inquiry">고객지원</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/customer/inquiry">견적문의</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice">공지사항</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=free">자료실</a></li>
+	</ul>
+</li>
+
+<li class=" li_shop">
+    <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=10">렌탈 쇼핑몰</a><ul>
+        <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=10">전자칠판</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=20">노트북</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=25">태블릿</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=30">데스크탑</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=60">서버</a>
+        </li>
+        </ul>
+</li>
+
+<!--
+서브페이지에 LNB 자동 생성을 위해 GNB 소스코드가 추가 되어야 하지만 GNB에는 노출되지 않길 원하는 경우
+li 에 'hidden-gnb' Class 추가
+-->
+<li class=" hidden-gnb">
+	<a href="https://cnbiznet.co.kr/content/doc/policy">약관 및 정책</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=privacy">개인정보처리방침</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=entiemail">이메일무단수집거부</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=provision">이용약관</a></li>
+	</ul>
+</li>
+			</ul>
+		</div>
+
+		<a href="/shop/list.php?ca_id=10" class="rental_shop"><i class="axi axi-shopping-cart"></i> 렌탈 쇼핑몰</a>
+
+		<a href="https://smartstore.naver.com/cnbiznet" target="_blank" class="smart_store"><img src="/theme/default/images/layout/store_icon.png" alt="">스마트 스토어</a>
+
+		<!-- slide button -->
+        <div id="slide-btn">
+			<button><span></span></button>
+			Open menu
+		</div>
+
+	</div>
+</header>
+<div id="drdw"><ul class="inner"></ul></div>
+
+
+<!--
+Mobile 햄버거메뉴
+-->
+<div id="slide-menu">
+	<div class="tit">
+		<a href="#" id="slide-close"></a>
+	</div>
+
+	<!-- tnb -->
+	<ul id="tnb-mo">
+				<li><a href="https://cnbiznet.co.kr/bbs/register.php">회원가입</a></li>
+		<li><a href="https://cnbiznet.co.kr/bbs/login.php?url=%2F">로그인</a></li>
+				
+		<li><a href="https://cnbiznet.co.kr/shop/mypage.php">마이페이지</a></li>
+	</ul>
+
+	<!-- gnb -->
+	<ul id="gnb-mo">
+		
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/company/aboutus">회사소개</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/aboutus">회사개요</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=gallery">회사연혁</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/organization">조직도</a></li>
+	<!-- 업체 요청으로 숨김처리 0915	<li class=""><a href="https://cnbiznet.co.kr/content/company/certification">기업인증</a></li> -->
+		<li class=""><a href="https://cnbiznet.co.kr/content/company/location">오시는길</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/hardware/content1">HARDWARE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/hardware/content1">IT 유통</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/hardware/content2">전자칠판</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/software/content1">SOFTWARE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content1">ZWCAD</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content2">Auto CAD</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content3">Microsoft</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content4">Adobe</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content5">한글과 컴퓨터</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content7">Avast</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/software/content6">백신</a></li>
+	</ul>
+</li>
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/rental/content">SERVICE</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/rental/content">렌탈 서비스</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content1">IT 아웃소싱 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content2">네트워크 구축 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content3">소프트웨어 저작권 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content4">기업유지보수서비스</a></li>
+	</ul>
+</li>
+
+<!-- <li class="">
+	<a href="https://cnbiznet.co.kr/content/support/content1">지원 서비스</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content1">IT 아웃소싱 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content2">네트워크 구축 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content3">소프트웨어 저작권 컨설팅</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/content/support/content4">기업유지보수서비스</a></li>
+	</ul>
+</li> -->
+<li class="">
+	<a href="https://cnbiznet.co.kr/content/customer/inquiry">고객지원</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/content/customer/inquiry">견적문의</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice">공지사항</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=free">자료실</a></li>
+	</ul>
+</li>
+
+<li class=" li_shop">
+    <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=10">렌탈 쇼핑몰</a><ul>
+        <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=10">전자칠판</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=20">노트북</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=25">태블릿</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=30">데스크탑</a>
+        </li>
+                <li class="">
+            <a href="https://cnbiznet.co.kr/shop/list.php?ca_id=60">서버</a>
+        </li>
+        </ul>
+</li>
+
+<!--
+서브페이지에 LNB 자동 생성을 위해 GNB 소스코드가 추가 되어야 하지만 GNB에는 노출되지 않길 원하는 경우
+li 에 'hidden-gnb' Class 추가
+-->
+<li class=" hidden-gnb">
+	<a href="https://cnbiznet.co.kr/content/doc/policy">약관 및 정책</a>
+	<ul>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=privacy">개인정보처리방침</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=entiemail">이메일무단수집거부</a></li>
+		<li class=""><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=provision">이용약관</a></li>
+	</ul>
+</li>
+	</ul>
+</div>
+<div id="slide-bg"></div>
+
+
+
+
+
+<!-- s:content -->
+<section id="main">
+    <div id="content">
+
+
+<!-- visual -->
+
+
+<div class="visual">
+	<div class="roll">
+        
+
+		<div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024012610320217062327221428.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024012610320217062327221428.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2024041115220417128165244126_mo.jpg" /></a>
+
+			<div class="main_txt">
+				<strong> IT 하드웨어 및 소프트웨어 전문 컨설팅 기업 </strong>
+				<h3>주식회사 씨앤비즈</h3>
+			</div>
+		</div>
+
+		<!--
+        개발 필요.
+        관리페이지 : 피씨, 모바일 이미지 별도 업로드 반영.
+
+        <div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024012610320217062327221428.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024012610320217062327221428.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2024041115220417128165244126_mo.jpg" /></a>
+		</div>
+        -->
+
+
+        
+
+		<div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2025022013010417400240641723.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2025022013010417400240641723.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814323517407207555629_mo.png" /></a>
+
+			<div class="main_txt">
+				<strong> 스마트 오피스 솔루션 구축 전문 </strong>
+				<h3>주식회사 씨앤비즈</h3>
+			</div>
+		</div>
+
+		<!--
+        개발 필요.
+        관리페이지 : 피씨, 모바일 이미지 별도 업로드 반영.
+
+        <div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2025022013010417400240641723.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2025022013010417400240641723.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814323517407207555629_mo.png" /></a>
+		</div>
+        -->
+
+
+        
+
+		<div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024080515132017228384002507.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024080515132017228384002507.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814363717407209977587_mo.png" /></a>
+
+			<div class="main_txt">
+				<strong> 사무기기 렌탈 전문기업 </strong>
+				<h3>주식회사 씨앤비즈</h3>
+			</div>
+		</div>
+
+		<!--
+        개발 필요.
+        관리페이지 : 피씨, 모바일 이미지 별도 업로드 반영.
+
+        <div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024080515132017228384002507.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024080515132017228384002507.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814363717407209977587_mo.png" /></a>
+		</div>
+        -->
+
+
+        
+
+		<div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024051715493817159285789513.jpg" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024051715493817159285789513.jpg" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814383617407211162956_mo.png" /></a>
+
+			<div class="main_txt">
+				<strong> 효율적인 회의와 프레젠테이션을 위한 All-in-one 전자칠판 </strong>
+				<h3>주식회사 씨앤비즈</h3>
+			</div>
+		</div>
+
+		<!--
+        개발 필요.
+        관리페이지 : 피씨, 모바일 이미지 별도 업로드 반영.
+
+        <div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024051715493817159285789513.jpg" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024051715493817159285789513.jpg" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814383617407211162956_mo.png" /></a>
+		</div>
+        -->
+
+
+        
+
+		<div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024080515211317228388736494.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024080515211317228388736494.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814464917407216094084_mo.png" /></a>
+
+			<div class="main_txt">
+				<strong> 대형 LED-Wall 디스플레이 </strong>
+				<h3>주식회사 씨앤비즈</h3>
+			</div>
+		</div>
+
+		<!--
+        개발 필요.
+        관리페이지 : 피씨, 모바일 이미지 별도 업로드 반영.
+
+        <div class="item">
+			<a href=""  class="__pc"><img src="https://cnbiznet.co.kr/data/banner/2024080515211317228388736494.png" /></a>
+			<a href=""  class="__ta"><img src="https://cnbiznet.co.kr/data/banner/2024080515211317228388736494.png" /></a>
+			<a href=""  class="__mo"><img src="https://cnbiznet.co.kr/data/banner/2025022814464917407216094084_mo.png" /></a>
+		</div>
+        -->
+
+
+        	</div>
+
+	<div class="dots">
+		<div class='visual-btn'>
+			<div class='play off'>Play</div>
+			<div class='pause on'>Pause</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+visual_roll.init();
+</script>
+
+
+
+
+
+
+<div class="section_1 action">
+	<div class="sec1_tit">
+		<h3>Our Products</h3>
+		<div class="arrow">
+			<a href="https://cnbiznet.co.kr/content/rental/content" class="more"></a>
+		</div>
+	</div>
+
+	<div class="slide_body">
+		
+
+<ul class="slide_1">
+	</ul>
+	</div>
+
+</div>
+
+
+<div class="section_2">
+	<div class="body">
+		<div class="cont_1 action">
+			<div class="sec2_tit">
+				<span>Our Business</span>
+				<h3>
+					<b>씨앤비즈</b>는 변화하는 고객 Business 환경에 맞춰 </br>
+					최적의 IT 인프라 환경과 운영 Service를 제공해 드립니다.
+				</h3>
+			</div>
+
+			<ul>
+				<li>
+					<div class="imgbox">
+						<div class="img1"></div>
+					</div>
+					<div class="txt">
+						<span>Hardware</span>
+						<h4>하드웨어</h4>
+						<p>고객의 다양한 IT 인프라 환경 요구에 </br> 신속한 대응과 납품 서비스를 제공 </p>
+						<a href="https://cnbiznet.co.kr/content/hardware/content1">Detail More</a>
+					</div>
+				</li>
+				<li>
+					<div class="imgbox">
+						<div class="img2"></div>
+					</div>
+					<div class="txt">
+						<span>Software</span>
+						<h4>소프트웨어</h4>
+						<p>고객의 환경에 맞는 최적의 </br>소프트웨어 제안과 라이선스 관리컨설팅</p>
+						<a href="https://cnbiznet.co.kr/content/hardware/content1">Detail More</a>
+					</div>
+				</li>
+				<li>
+					<div class="imgbox">
+						<div class="img3"></div>
+					</div>
+					<div class="txt">
+						<span>Rental Service</span>
+						<h4>렌탈서비스</h4>
+						<p>비즈니스 환경에 적합한 </br>OA기기의 효율적인 자산 운용  </p>
+						<a href="https://cnbiznet.co.kr/content/rental/content">Detail More</a>
+					</div>
+				</li>
+				<li>
+					<div class="imgbox">
+						<div class="img4"></div>
+					</div>
+					<div class="txt">
+						<span>Support Service</span>
+						<h4>지원서비스</h4>
+						<p>고객사의 요구사항에 맞춰 전략수립, </br> 프로젝트관리, 운영아웃소싱 컨설팅 </p>
+						<a href="https://cnbiznet.co.kr/content/rental/content">Detail More</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="cont_2 action">
+			<div class="left">
+				<a href="https://cnbiznet.co.kr/content/company/aboutus">
+					<img src="/theme/default/images/main/section_2_img_5.png" alt="">
+					<div class="imgtxt">
+						<h4>회사소개</h4>
+						<p>씨앤비즈는 IT 토탈솔루션 전문기업입니다.</p>
+					</div>
+				</a>
+			</div>
+			<div class="right">
+				<div class="media_tit">
+					<h4>미디어센터</h4>
+					<a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice"></a>
+				</div>
+
+				<ul>
+                    <li class="first">
+					                        <a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice&wr_id=18">
+                            <div class="imgbox">
+                                <div class="img"><img src="https://cnbiznet.co.kr/data/file/notice/7e9cc42d0c4511084376760d6f07d5dd_N1XVdUt3_a8f889bc47e846280abdc42420a17b243baf1b5d.png" alt=""></div>
+                            </div>
+                            <div class="txt">
+                                <em>공지사항</em>
+                                <h5>2024년 대한적십자혈장분획센터  납품</h5>
+                                <span>2024-08-12</span>
+                            </div>
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice&wr_id=17"><p>2024년 식품의약품안전처 DB 전산화 4차 수주</p></a>
+                        <b>2024-06-26</b>
+                    </li>
+                                        <li>
+                        <a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice&wr_id=8"><p>대한적십자 혈장분획센터 전산장비 납품</p></a>
+                        <b>2023-07-26</b>
+                    </li>
+                                        <li>
+                        <a href="https://cnbiznet.co.kr/bbs/board.php?bo_table=notice&wr_id=7"><p>판교I사 사이니지 디스플레이 공사</p></a>
+                        <b>2023-10-02</b>
+                    </li>
+                    				</ul>
+
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+
+<div class="section_3 action">
+	<div class="body">
+		<div class="inq">
+			<h3>Contact us</h3>
+
+			<div class="cont">
+				<form name="writeform" action="/online_update.php" method="post" enctype="MULTIPART/FORM-DATA" autocomplete="off" onsubmit="return formcheck(this)">
+				<input type="hidden" name="wm_kind" value="간단문의" />
+				<input type="hidden" name="selfpage" value=""/>
+
+						<div class="box1">
+							<input type="text" class="" id="wm_name" name="wm_name" placeholder="업체명 혹은 성함을 입력해 주세요.">
+						</div>
+						<div class="box2">
+							<input type="text" class="" id="wm_tel" name="wm_tel" placeholder="연락처를 입력해 주세요. ">
+						</div>
+						<div class="box3">
+							<input type="text" class="" id="wm_email" name="wm_email" placeholder="이메일을 입력해 주세요.">
+						</div>
+
+
+						<div class="box4">
+							<textarea type="text" name="wm_content" placeholder="문의내용을 입력해 주세요. "></textarea>
+						</div>
+
+						<div class="inq_pol">
+							<label>
+								<input type="checkbox" name="agree1" id="agree1" value="Y">
+								<em>개인정보취급방침에 동의합니다. <a href="#" data-ajaxpop="https://cnbiznet.co.kr/content/popup/policy">[자세히]</a></em>
+							</label>
+
+							<button type="submit" id="submitBtn">문의하기</button>
+						</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<div class="img"><img src="/theme/default/images/main/section_3_img_1.png" alt=""></div>
+</div>
+<script type="text/javascript">
+
+var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+function formcheck(f) {
+
+	if (!$('input:checkbox[name=agree1]').is(':checked')) {
+		alert("개인정보취급방침에 동의해주세요.");
+		return false;
+	}
+
+	if (f.wm_name.value == "") {
+		alert("업체명 혹은 성함을 입력해 주세요.");
+		f.wm_name.focus();
+		return false;
+	}
+
+	if (f.wm_tel.value == "") {
+		alert("연락처를 입력해 주세요.");
+		f.wm_tel.focus();
+		return false;
+	}
+	if (checkEngNumValue(f.wm_tel.value, "연락처는 숫자로만 입력해주세요.", 2) == "N")
+	{
+		f.wm_tel.focus();
+		return false;
+	}
+
+	if (!regExp.test($("#wm_email").val() )) {
+		alert("이메일 형식에 맞게 입력해 주세요.");
+		$("#wm_email").focus();
+		return false;
+	}
+	/*
+	if (f.wm_content.value == "") {
+		alert("문의내용을 입력해 주세요.");
+		f.wm_content.focus();
+		return false;
+	}
+	*/
+
+	$("#submitBtn").prop("disabled", true);
+
+	return true;
+}
+
+</script>
+
+
+
+        </div>
+    </section>
+	<!-- e:content -->
+
+
+
+    <footer id="footer">
+		<div class="f_body">
+			<div class="fnbWrap">
+				<div class="inner">
+
+					<!-- fnb -->
+					<ul id="fnb">
+						<li><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=privacy">개인정보처리방침</a></li>
+						<li><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=entiemail">이메일무단수집거부</a></li>
+						<li><a href="https://cnbiznet.co.kr/bbs/content.php?co_id=provision">이용약관</a></li>
+						<li><a href="https://cnbiznet.co.kr/content/company/location">오시는길</a></li>
+						<li><a href="https://cnbiznet.co.kr/content/customer/inquiry">견적문의</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="ftWrap">
+
+				<!-- address -->
+				<address>
+					<strong>업체명명</strong> : (주)씨앤비즈<b></b>
+					<strong>대표자</strong> : 차호진<b></b>
+					<strong>주소</strong> : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호					<br />
+					<strong>대표전화</strong> : 031-706-6641<b></b>
+					<strong>팩스</strong> : 031-704-6648<b></b>
+				    <strong>통신판매업신고번호</strong> : 2023-성남중원-0805<b></b> 
+					<br />
+					<strong>사업자등록번호</strong> :  597-87-01300<b></b>
+					<strong>메일</strong> : sales@cnbiznet.co.kr 
+					<span class="copyright">Copyright ⓒ 2023 <span>(주)씨앤비즈</span>. All rights reseved.</span>
+				</address>
+
+				
+			</div>
+
+		
+			<!-- body top button -->
+			<a href="#" id="gotop">Go Top</a>
+		</div>
+	</footer>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script src="https://cnbiznet.co.kr/js/sns.js"></script>
+<!-- e:Footer -->
+
+
+
+
+</body>
+</html>
