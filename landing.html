@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>주식회사 씨앤비즈</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <style>
-    /*
-      기본 body 스타일 및 배경 설정
-      배경은 고정, 전체 화면 크기 커버
-      폰트 및 기본 색상 지정
-    */
+    /* 기본 body 스타일과 배경 */
     body {
       margin: 0;
       padding: 0;
@@ -17,38 +13,27 @@
       background: url('bg-image.png') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
-      overflow-x: hidden; /* 가로 스크롤 제거 */
+      overflow-x: hidden; /* 가로 스크롤 방지 */
       transition: background 0.3s, color 0.3s;
     }
 
-    /*
-      팝업창 컨테이너 역할
-      - 어두운 반투명 배경
-      - 가로 900px 고정, 세로도 충분히 확보 (550px)
-      - 중앙 정렬, 테두리 둥글게, 그림자 효과
-      - flex로 좌우 나누기
-      - 스크롤 제거 (overflow: hidden)
-    */
+    /* 팝업 컨테이너: 고정 크기, 그림자, 반투명 배경 */
     .popup-wrapper {
       background-color: rgba(0, 0, 0, 0.85);
       color: #fff;
-      width: 900px;      /* 고정 너비 */
-      height: 550px;     /* 고정 높이 */
+      width: 980px;      /* PC에서 가로 크기 약간 확대 */
+      height: 570px;     /* 세로 크기 약간 증가 */
       margin: 40px auto;
-      padding: 30px 30px 30px 30px;
+      padding: 30px;
       border-radius: 12px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
       display: flex;
       gap: 30px;
-      overflow: hidden;  /* 가로 세로 스크롤 없음 */
+      overflow: hidden;  /* PC에서는 스크롤 없이 */
       box-sizing: border-box;
     }
 
-    /*
-      타이틀 영역
-      팝업 최상단에 위치시키고 싶으면 따로 분리 가능하지만 여기서는 팝업 내 상단 중앙 배치 없이 내부 콘텐츠로 둠
-      타이틀 텍스트 스타일링
-    */
+    /* 팝업 타이틀: 중앙 정렬, 강조 색상 */
     h1 {
       color: #3399ff;
       font-size: 2rem;
@@ -57,13 +42,9 @@
       flex-basis: 100%;
     }
 
-    /*
-      좌측 이미지 컨테이너
-      고정 너비 400px, 이미지 가로 최대 100%로 맞춤
-      이미지 크기 제한으로 팝업 내 공간에 딱 맞게 배치
-    */
+    /* 좌측 이미지 컨테이너: 고정 너비 및 중앙 배치 */
     .landing-image-container {
-      flex: 0 0 400px;
+      flex: 0 0 430px; /* 이미지 컨테이너 너비 확대 */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -76,35 +57,23 @@
       object-fit: contain;
     }
 
-    /*
-      우측 문의 폼 컨테이너
-      flex-grow로 남은 공간 꽉 채움
-      세로 방향 플렉스 (column)
-      내부 폼 요소들 간격과 너비 100% 적용
-    */
+    /* 우측 폼 컨테이너: 세로 정렬, flex-grow로 공간 최대 활용 */
     .form-container {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       color: #ddd;
+      overflow-y: auto; /* 폼 내용 길어지면 세로 스크롤 허용 */
     }
-    
-    /*
-      폼 라벨
-      가독성 높게 적당한 마진
-    */
+
+    /* 라벨 스타일 */
     label {
       margin-bottom: 6px;
       font-weight: 600;
     }
 
-    /*
-      입력란 & 텍스트영역 스타일
-      넓이 100%로 부모에 꽉 채우고
-      어두운 배경, 연한 글씨
-      폼 요소 간격 확보
-    */
+    /* 입력 및 텍스트박스 스타일 */
     input, textarea {
       width: 100%;
       padding: 10px 12px;
@@ -123,24 +92,16 @@
       outline: none;
     }
 
-    /*
-      문의 내용 텍스트박스 높이 추가 설정
-    */
     textarea {
-      min-height: 120px;
+      min-height: 140px;
     }
 
-    /*
-      제출 버튼 스타일
-      파란색 배경에 흰 글씨
-      마우스 오버시 조금 더 진한 파란색으로 변함
-      버튼은 너비 100%로 폼 너비에 맞춤
-    */
+    /* 문의 보내기 버튼 스타일 */
     button#submitBtn {
       background-color: #3399ff;
       border: none;
       color: white;
-      padding: 12px 0;
+      padding: 14px 0;
       font-size: 1.1rem;
       border-radius: 8px;
       cursor: pointer;
@@ -151,32 +112,24 @@
       background-color: #007bff;
     }
 
-    /*
-      팝업 닫기 버튼
-      우측 상단 고정 위치
-      마우스 올리면 색상 변화
-    */
+    /* 닫기 버튼: 우측 상단 고정 + 진한 색상 */
     .close-btn {
       position: fixed;
       top: 15px;
       right: 20px;
-      font-size: 18px;
+      font-size: 20px;
       background: none;
       border: none;
       cursor: pointer;
-      color: #aaa;
+      color: #eee;  /* 기존보다 훨씬 진한 색상 */
       z-index: 1000;
       transition: color 0.2s;
     }
     .close-btn:hover {
-      color: #fff;
+      color: #3399ff;
     }
 
-    /*
-      메인 사이트 이동 버튼 스타일 (팝업 내 상단 중앙 배치)
-      파란 버튼, 라벨링
-      간격 확보
-    */
+    /* 메인 사이트 이동 버튼과 체크박스 컨테이너 */
     .actions {
       width: 100%;
       margin-bottom: 20px;
@@ -186,7 +139,7 @@
       background-color: #3399ff;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 24px;
       font-size: 1rem;
       border-radius: 6px;
       cursor: pointer;
@@ -198,10 +151,7 @@
       background-color: #007bff;
     }
 
-    /*
-      체크박스 문구 스타일
-      색상 연하게
-    */
+    /* 체크박스 라벨 */
     .checkbox-wrap {
       margin-top: 10px;
       color: #ccc;
@@ -213,9 +163,7 @@
       vertical-align: middle;
     }
 
-    /*
-      상태 메시지 스타일 (전송 성공/실패 알림)
-    */
+    /* 상태 메시지 (전송 성공/실패) */
     #statusMessage {
       margin-top: 10px;
       font-weight: 600;
@@ -223,32 +171,33 @@
       min-height: 24px;
     }
 
-    /*
-      반응형: 600px 이하일 때
-      팝업 전체 너비 95%로 줄이고 높이는 auto
-      내부 flex 방향을 세로(column)로 변경하여 이미지와 폼 세로 정렬
-      이미지와 폼 너비 90vw로 맞춤
-    */
-    @media (max-width: 600px) {
+    /* 반응형 모바일 대응 */
+    @media (max-width: 900px) {
+      body {
+        overflow-y: auto; /* 모바일에서는 세로 스크롤 허용 */
+      }
       .popup-wrapper {
-        width: 95vw;
-        height: auto;
-        flex-direction: column;
+        width: 95vw; /* 모바일에서는 전체 너비 거의 다 사용 */
+        height: auto; /* 높이는 내용에 따라 자동 */
+        flex-direction: column; /* 이미지와 폼 세로 배치 */
         padding: 20px 20px 30px 20px;
         gap: 20px;
+        overflow: visible;
       }
       .landing-image-container {
         flex: none;
         width: 90vw;
-        max-width: 400px;
+        max-width: 430px;
         margin: 0 auto;
       }
       .form-container {
         width: 90vw;
-        max-width: 400px;
+        max-width: 430px;
+        max-height: none;
+        overflow: visible; /* 모바일에서는 스크롤 없이 자연스러운 스크롤 */
       }
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         margin-bottom: 15px;
         text-align: center;
       }
@@ -262,23 +211,28 @@
       .checkbox-wrap {
         font-size: 1rem;
       }
+      .close-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- 팝업 닫기 버튼 -->
-  <button class="close-btn" onclick="handleClose()" id="closeBtn">✕ 닫기</button>
+  <!-- 팝업 닫기 버튼 (PC, 모바일 모두 고정 우측 상단) -->
+  <button class="close-btn" onclick="handleClose()" id="closeBtn" aria-label="팝업 닫기">✕ 닫기</button>
 
-  <!-- 팝업창 본체 -->
-  <div class="popup-wrapper">
+  <!-- 팝업 메인 컨테이너 -->
+  <div class="popup-wrapper" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
 
-    <!-- 타이틀 영역 -->
-    <h1>🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
+    <!-- 팝업 타이틀 -->
+    <h1 id="popupTitle">🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
 
-    <!-- 메인 사이트 이동 버튼 + 체크박스 -->
+    <!-- 메인 사이트 이동 버튼 + 체크박스 영역 -->
     <div class="actions">
-      <a href="https://cnbiznet.co.kr" class="btn-main" id="mainBtn">메인 사이트로 이동</a>
+      <a href="https://cnbiznet.co.kr" class="btn-main" id="mainBtn" role="button">메인 사이트로 이동</a>
       <div class="checkbox-wrap">
         <label>
           <input type="checkbox" id="todayCheck" />
@@ -287,24 +241,25 @@
       </div>
     </div>
 
-    <!-- 콘텐츠: 좌측 이미지 + 우측 문의 폼 -->
+    <!-- 좌측 랜딩 이미지 -->
     <div class="landing-image-container">
       <img src="E16_Gen2.png" alt="ThinkPad E16 Gen 2 특가판매" class="landing-image" />
     </div>
 
+    <!-- 우측 문의 폼 -->
     <div class="form-container">
-      <form id="contact-form">
+      <form id="contact-form" novalidate>
         <label for="user_name">이름</label>
-        <input type="text" id="user_name" name="user_name" required />
+        <input type="text" id="user_name" name="user_name" required autocomplete="name" />
 
         <label for="user_email">이메일</label>
-        <input type="email" id="user_email" name="user_email" required />
+        <input type="email" id="user_email" name="user_email" required autocomplete="email" />
 
         <label for="message">문의 내용</label>
         <textarea id="message" name="message" required></textarea>
 
         <button type="submit" id="submitBtn">문의 보내기</button>
-        <div id="statusMessage"></div>
+        <div id="statusMessage" role="alert" aria-live="polite"></div>
       </form>
     </div>
 
@@ -312,26 +267,14 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    /*
-      컨텍스트 메뉴 방지 (마우스 우클릭 막기)
-    */
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    /*
-      EmailJS 초기화
-    */
+    // EmailJS 초기화
     emailjs.init("INC6ZLU2QLdLBsFsX");
 
-    /*
-      문의 폼 제출 이벤트
-      EmailJS로 전송, 전송 상태 메시지 업데이트
-    */
     const form = document.getElementById('contact-form');
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
+    // 폼 제출 이벤트 핸들러
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       submitBtn.disabled = true;
@@ -343,7 +286,8 @@
           statusMessage.style.color = "lightgreen";
           statusMessage.textContent = "문의가 성공적으로 전송되었습니다!";
           form.reset();
-        }, (err) => {
+        })
+        .catch((err) => {
           statusMessage.style.color = "salmon";
           statusMessage.textContent = `전송 실패: ${err.text || err}`;
         })
@@ -352,28 +296,18 @@
         });
     });
 
-    /*
-      오늘 날짜 key 반환 (YYYY-M-D)
-      팝업 재노출 제어용
-    */
+    // 오늘 날짜 키 반환
     function getTodayKey() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     }
 
-    /*
-      모바일 판단용 정규식
-    */
+    // 모바일 판단 함수
     function isMobile() {
-      return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
-    /*
-      팝업 닫기 함수
-      체크박스가 선택되었으면 localStorage에 오늘 날짜 저장하여 재노출 방지
-      모바일이면 뒤로가기 or 메인 사이트 이동
-      PC면 팝업 숨김 처리
-    */
+    // 팝업 닫기 함수
     function handleClose() {
       const checkbox = document.getElementById('todayCheck');
       if (checkbox.checked) {
@@ -392,9 +326,7 @@
       }
     }
 
-    /*
-      페이지 로드 시 오늘 팝업 숨김 여부 체크
-    */
+    // 페이지 로드 시 팝업 노출 여부 체크
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('hideLandingToday') === getTodayKey()) {
         document.querySelector('.popup-wrapper').style.display = 'none';
