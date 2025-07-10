@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>주식회사 씨앤비즈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #007bff;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .checkbox-wrap {
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
+  <p>지금 바로 브랜드를 시작해보세요.</p>
+
+  <a href="https://neowa.co.kr" class="btn">메인 사이트로 이동</a>
+
+  <div class="checkbox-wrap">
+    <label>
+      <input type="checkbox" id="todayCheck" />
+      오늘 하루 이 창 다시 열지 않기
+    </label>
+  </div>
+
+  <script>
+    // 오늘 날짜 키 저장
+    function getTodayKey() {
+      const today = new Date();
+      return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    }
+
+    // 팝업 창 닫을 때 localStorage 저장
+    window.onbeforeunload = function () {
+      const checkbox = document.getElementById('todayCheck');
+      if (checkbox.checked) {
+        localStorage.setItem('hideLandingToday', getTodayKey());
+      }
+    };
+  </script>
+</body>
+</html>
