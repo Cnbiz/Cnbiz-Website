@@ -722,6 +722,14 @@ function formcheck(f) {
     border-radius: 6px;
     font-size: 1rem;
   ">메인 사이트로 이동</a>
+
+  <div style="margin-top: 20px;">
+    <label style="font-size: 0.95rem;">
+      <input type="checkbox" id="todayCheck" style="margin-right: 6px;" />
+      오늘 하루 보지 않기
+    </label>
+  </div>
+
   <button onclick="closeLanding()" style="
     margin-top: 15px;
     background: none;
@@ -730,25 +738,36 @@ function formcheck(f) {
     text-decoration: underline;
     font-size: 0.9rem;
     cursor: pointer;
-  ">다음부터 보지 않기</button>
+  ">닫기</button>
 </div>
 
 <script>
+  // 날짜 비교를 위한 함수
+  function getTodayKey() {
+    const today = new Date();
+    return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+  }
+
   // 팝업 닫기 함수
   function closeLanding() {
+    const checkbox = document.getElementById('todayCheck');
+    if (checkbox.checked) {
+      localStorage.setItem('hideLandingToday', getTodayKey());
+    }
     document.getElementById('landingOverlay').style.display = 'none';
-    // 다음 방문 시 보지 않도록 localStorage에 저장
-    localStorage.setItem('hideLanding', 'true');
   }
 
-  // 페이지 접속 시 팝업 표시 여부 체크
+  // 페이지 로딩 시 실행
   window.onload = function() {
-    if (localStorage.getItem('hideLanding') === 'true') {
+    const savedDate = localStorage.getItem('hideLandingToday');
+    const today = getTodayKey();
+
+    if (savedDate === today) {
       document.getElementById('landingOverlay').style.display = 'none';
     }
-  }
+  };
 </script>
-
+<!-- 전체화면 팝업 랜딩페이지 -->
 
     <footer id="footer">
 		<div class="f_body">
