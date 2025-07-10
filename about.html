@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>나의 랜딩페이지 with 팝업</title>
+  <title>주식회사 씨앤비즈</title>
   <style>
     body {
       margin: 0;
@@ -91,7 +91,6 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -136,8 +135,8 @@
   <header class="hero">
     <div class="hero-content">
       <h1>나만의 브랜드를 시작해보세요</h1>
-      <p>간단하게 소개하고 고객을 끌어오는 랜딩페이지</p>
-      <button class="cta-button" onclick="openModal()">팝업 열기</button>
+      <p>접속하면 자동으로 뜨는 팝업 예시입니다.</p>
+      <a href="#contact" class="cta-button">지금 시작하기</a>
     </div>
   </header>
 
@@ -180,28 +179,29 @@
   <div class="modal" id="popupModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h2>환영합니다!</h2>
-      <p>이 팝업은 버튼을 눌렀을 때 나타납니다.</p>
-      <p>여기에는 특별한 이벤트, 알림, 쿠폰 등을 넣을 수 있어요.</p>
+      <h2>🎉 환영합니다!</h2>
+      <p>이 사이트에 처음 방문하셨군요?</p>
+      <p>지금 가입하면 첫 방문자에게만 드리는 특별 혜택이 있습니다!</p>
     </div>
   </div>
 
   <script>
-    function openModal() {
-      document.getElementById('popupModal').style.display = 'block';
-    }
-
     function closeModal() {
       document.getElementById('popupModal').style.display = 'none';
     }
 
-    // 팝업 외부 클릭 시 닫기
-    window.onclick = function(event) {
+    // 페이지 로드 시 자동 팝업 열기
+    window.onload = function () {
+      document.getElementById('popupModal').style.display = 'block';
+    };
+
+    // 팝업 바깥 클릭 시 닫기
+    window.onclick = function (event) {
       const modal = document.getElementById('popupModal');
       if (event.target === modal) {
         modal.style.display = 'none';
       }
-    }
+    };
   </script>
 
 </body>
