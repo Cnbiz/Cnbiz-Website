@@ -5,6 +5,7 @@
   <title>주식회사 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+    /* CSS 변수: 색상, 버튼 등 스타일용 */
     :root {
       --bg-light: rgba(255, 255, 255, 0.92);
       --bg-dark: rgba(20, 20, 20, 0.92);
@@ -14,6 +15,7 @@
       --btn-bg-dark: #3399ff;
     }
 
+    /* 기본 바디 스타일 */
     body {
       margin: 0;
       padding: 0;
@@ -25,59 +27,68 @@
       transition: background 0.3s, color 0.3s;
     }
 
+    /* 팝업 래퍼 박스 스타일 */
     .popup-wrapper {
       background-color: var(--bg-light);
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 1.5rem;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       text-align: center;
       transition: background 0.3s;
     }
 
+    /* 제목 */
     h1 {
-      font-size: 1.6rem;
+      font-size: 2rem;
       color: #007bff;
       margin-bottom: 1rem;
     }
 
+    /* 버튼 및 체크박스 영역 */
     .actions {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 15px;
+      margin-bottom: 30px;
     }
 
+    /* 버튼 기본 스타일 */
     .btn {
-      padding: 8px 18px;
+      padding: 10px 20px;
       background-color: var(--btn-bg-light);
       color: white;
       text-decoration: none;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       transition: background 0.3s;
     }
     .btn:hover {
       background-color: #0056b3;
     }
 
+    /* 체크박스 텍스트 스타일 */
     .checkbox-wrap {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
+    /* 이미지와 폼을 가로 배치하는 컨테이너 */
     .content-wrapper {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       gap: 15px;
       margin-top: 15px;
       flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
+    /* 이미지 스타일 */
     .landing-image {
-      max-width: 35%;
+      width: 240px;
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -85,36 +96,36 @@
       flex-shrink: 0;
     }
 
+    /* 이메일 문의 폼 스타일 */
     form {
       text-align: left;
-      max-width: 260px;
-      width: 100%;
+      width: 260px;
+      flex-shrink: 0;
       margin: 0;
     }
     form label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       font-weight: 600;
-      font-size: 0.9rem;
     }
     form input, form textarea {
       width: 100%;
-      padding: 7px 10px;
-      margin-bottom: 10px;
+      padding: 8px 10px;
+      margin-bottom: 12px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       box-sizing: border-box;
     }
     form textarea {
       resize: vertical;
-      min-height: 70px;
+      min-height: 80px;
     }
     #submitBtn {
       background-color: var(--btn-bg-light);
       color: white;
       border: none;
-      padding: 9px 18px;
+      padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
@@ -125,16 +136,17 @@
       background-color: #0056b3;
     }
     #statusMessage {
-      margin-top: 8px;
+      margin-top: 10px;
       font-weight: 600;
       text-align: center;
     }
 
+    /* 닫기 버튼 */
     .close-btn {
       position: fixed;
-      top: 12px;
-      right: 16px;
-      font-size: 16px;
+      top: 15px;
+      right: 20px;
+      font-size: 18px;
       background: none;
       border: none;
       cursor: pointer;
@@ -144,19 +156,21 @@
       color: #000;
     }
 
+    /* 테마 토글 버튼 */
     .theme-toggle {
       position: fixed;
-      bottom: 16px;
-      right: 16px;
+      bottom: 20px;
+      right: 20px;
       background: #eee;
-      padding: 6px 10px;
-      border-radius: 18px;
-      font-size: 0.8rem;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
       cursor: pointer;
       border: none;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
+    /* 다크모드 스타일 */
     .dark-mode {
       background-color: var(--bg-dark);
       color: var(--text-color-dark);
@@ -174,32 +188,34 @@
       color: #fff;
     }
 
+    /* 페이드 인 애니메이션 */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* 반응형: 900px 이하 */
     @media (max-width: 900px) {
+      /* PC용에서 기본 가로 배치 유지 */
       .content-wrapper {
-        flex-direction: column;
-        align-items: center;
+        /* flex-direction 유지, 가로 스크롤 가능 */
       }
       .landing-image {
-        max-width: 90%;
-        margin-bottom: 15px;
+        width: 240px;
       }
       form {
-        max-width: 90%;
+        width: 260px;
       }
     }
 
+    /* 반응형: 600px 이하 (모바일) */
     @media (max-width: 600px) {
       .popup-wrapper {
         margin: 15px;
         padding: 1rem;
       }
       h1 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
       .btn {
         width: 100%;
@@ -212,17 +228,29 @@
         font-size: 0.75rem;
         padding: 5px 9px;
       }
+      .content-wrapper {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .landing-image,
+      form {
+        width: 240px;
+        flex-shrink: 0;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- 닫기 버튼 -->
   <button class="close-btn" onclick="handleClose()" id="closeBtn">✕ 닫기</button>
 
   <div class="popup-wrapper">
     <h1 id="titleText">🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
 
     <div class="actions">
+      <!-- 메인 사이트 이동 버튼 -->
       <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트로 이동</a>
       <div class="checkbox-wrap">
         <label>
@@ -232,9 +260,11 @@
       </div>
     </div>
 
+    <!-- 이미지와 폼을 가로 배치 -->
     <div class="content-wrapper">
       <img src="E16_Gen2.png" alt="Lenovo 노트북 특가 프로모션" class="landing-image" />
 
+      <!-- 이메일 문의 폼 -->
       <form id="contact-form">
         <label for="user_name">이름</label>
         <input type="text" id="user_name" name="user_name" required />
@@ -251,26 +281,34 @@
     </div>
   </div>
 
+  <!-- 테마 토글 버튼 -->
   <button class="theme-toggle" onclick="toggleTheme()" id="themeToggleBtn">🌙 다크모드</button>
 
+  <!-- EmailJS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
   <script>
+    // 마우스 우클릭 방지 - contextmenu 이벤트를 막아 우클릭 메뉴가 뜨지 않도록 함
     document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
     });
 
+    // EmailJS 초기화 (자신의 퍼블릭 키로 교체)
     emailjs.init("INC6ZLU2QLdLBsFsX");
 
+    // 문의 폼, 상태 메시지, 전송 버튼 참조
     const form = document.getElementById('contact-form');
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
+    // 문의 폼 제출 이벤트 핸들러
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      submitBtn.disabled = true;
+      e.preventDefault(); // 기본 제출 막기
+      submitBtn.disabled = true; // 중복 제출 방지 위해 버튼 비활성화
       statusMessage.style.color = "black";
       statusMessage.textContent = "전송 중입니다...";
 
+      // EmailJS 서비스에 폼 데이터 전송
       emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
         .then(() => {
           statusMessage.style.color = "green";
@@ -281,25 +319,30 @@
           statusMessage.textContent = `전송 실패: ${err.text || err}`;
         })
         .finally(() => {
-          submitBtn.disabled = false;
+          submitBtn.disabled = false; // 다시 버튼 활성화
         });
     });
 
+    // 오늘 날짜 키 생성 함수 (YYYY-M-D)
     function getTodayKey() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     }
 
+    // 모바일 여부 판단 (간단한 UA 검사)
     function isMobile() {
       return /Mobi|Android|iPhone/i.test(navigator.userAgent);
     }
 
+    // 닫기 버튼 클릭 시 처리 함수
     function handleClose() {
       const checkbox = document.getElementById('todayCheck');
+      // 체크박스가 체크되어 있으면 오늘 날짜를 localStorage에 저장
       if (checkbox.checked) {
         localStorage.setItem('hideLandingToday', getTodayKey());
       }
 
+      // 모바일일 경우 뒤로 가기 or 메인 페이지 이동
       if (isMobile()) {
         if (document.referrer && document.referrer !== location.href) {
           history.back();
@@ -307,10 +350,12 @@
           location.href = "https://cnbiznet.co.kr";
         }
       } else {
+        // PC일 경우 현재 창 닫기 시도
         window.close();
       }
     }
 
+    // 언어별 텍스트 설정 (한국어 / 영어)
     function setLanguageTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
@@ -329,34 +374,50 @@
           : (isKorean ? '🌙 다크모드' : '🌙 Dark Mode');
     }
 
+    // 테마 토글 함수 (다크모드 on/off)
     function toggleTheme() {
       const isDark = document.body.classList.toggle('dark-mode');
       localStorage.setItem('preferredTheme', isDark ? 'dark' : 'light');
       setLanguageTexts();
     }
 
+    // 현재 다크모드 여부 반환
     function isDarkMode() {
       return document.body.classList.contains('dark-mode');
     }
 
+    // 저장된 테마 또는 시스템 테마 적용
     function applyPreferredTheme() {
       const storedTheme = localStorage.getItem('preferredTheme');
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
       if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
         document.body.classList.add('dark-mode');
       }
     }
 
+    // 페이지 로드 시 초기화
     window.onload = function () {
       applyPreferredTheme();
       setLanguageTexts();
 
       const savedDate = localStorage.getItem('hideLandingToday');
       const today = getTodayKey();
+
+      // 오늘 날짜에 팝업 닫기 기록이 있으면 닫기
       if (savedDate === today) {
         handleClose();
         return;
       }
+
+      // 자동 닫기 기능(주석 처리됨)
+      /*
+      if (!isMobile()) {
+        setTimeout(() => {
+          handleClose();
+        }, 700000);
+      }
+      */
     };
   </script>
 </body>
