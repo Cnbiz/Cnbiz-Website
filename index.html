@@ -694,80 +694,34 @@ function formcheck(f) {
     </section>
 	<!-- e:content -->
 
-<!-- 전체화면 팝업 랜딩페이지 -->
-<div id="landingOverlay" style="
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
-  font-family: 'Noto Sans KR', sans-serif;
-">
-  <h1 style="font-size: 2.5rem;">🎉 지금 바로 시작하세요!</h1>
-  <p style="font-size: 1.2rem; max-width: 500px;">NEOWA에 오신 걸 환영합니다! 지금 바로 브랜드를 시작해보세요.</p>
-  <a href="https://neowa.co.kr/main" style="
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1rem;
-  ">메인 사이트로 이동</a>
-
-  <div style="margin-top: 20px;">
-    <label style="font-size: 0.95rem;">
-      <input type="checkbox" id="todayCheck" style="margin-right: 6px;" />
-      오늘 하루 보지 않기
-    </label>
-  </div>
-
-  <button onclick="closeLanding()" style="
-    margin-top: 15px;
-    background: none;
-    border: none;
-    color: #666;
-    text-decoration: underline;
-    font-size: 0.9rem;
-    cursor: pointer;
-  ">닫기</button>
-</div>
-
+<!-- 팝업창 랜딩페이지 -->
 <script>
-  // 날짜 비교를 위한 함수
+  // 오늘 날짜 가져오기 (YYYY-MM-DD 형식)
   function getTodayKey() {
     const today = new Date();
     return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   }
 
-  // 팝업 닫기 함수
-  function closeLanding() {
-    const checkbox = document.getElementById('todayCheck');
-    if (checkbox.checked) {
-      localStorage.setItem('hideLandingToday', getTodayKey());
-    }
-    document.getElementById('landingOverlay').style.display = 'none';
+  // 자동 팝업 띄우기 함수
+  function openLandingPopup() {
+    const popup = window.open(
+      '/landing.html',  // 또는 절대경로 예: 'https://neowa.co.kr/landing.html'
+      'landingPopup',
+      'width=700,height=800,resizable=yes,scrollbars=yes'
+    );
   }
 
-  // 페이지 로딩 시 실행
-  window.onload = function() {
+  // onload 시 체크
+  window.onload = function () {
     const savedDate = localStorage.getItem('hideLandingToday');
     const today = getTodayKey();
 
-    if (savedDate === today) {
-      document.getElementById('landingOverlay').style.display = 'none';
+    if (savedDate !== today) {
+      openLandingPopup(); // 오늘 처음이라면 팝업 열기
     }
   };
 </script>
-<!-- 전체화면 팝업 랜딩페이지 -->
+<!-- 팝업창 랜딩페이지 -->
 
     <footer id="footer">
 		<div class="f_body">
