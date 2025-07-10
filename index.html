@@ -694,6 +694,60 @@ function formcheck(f) {
     </section>
 	<!-- e:content -->
 
+<!-- 전체화면 팝업 랜딩페이지 -->
+<div id="landingOverlay" style="
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Noto Sans KR', sans-serif;
+">
+  <h1 style="font-size: 2.5rem;">🎉 지금 바로 시작하세요!</h1>
+  <p style="font-size: 1.2rem; max-width: 500px;">NEOWA에 오신 걸 환영합니다! 지금 바로 브랜드를 시작해보세요.</p>
+  <a href="https://neowa.co.kr/main" style="
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1rem;
+  ">메인 사이트로 이동</a>
+  <button onclick="closeLanding()" style="
+    margin-top: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    cursor: pointer;
+  ">다음부터 보지 않기</button>
+</div>
+
+<script>
+  // 팝업 닫기 함수
+  function closeLanding() {
+    document.getElementById('landingOverlay').style.display = 'none';
+    // 다음 방문 시 보지 않도록 localStorage에 저장
+    localStorage.setItem('hideLanding', 'true');
+  }
+
+  // 페이지 접속 시 팝업 표시 여부 체크
+  window.onload = function() {
+    if (localStorage.getItem('hideLanding') === 'true') {
+      document.getElementById('landingOverlay').style.display = 'none';
+    }
+  }
+</script>
 
 
     <footer id="footer">
