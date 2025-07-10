@@ -702,12 +702,12 @@ function formcheck(f) {
     return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
   }
 
-  // 자동 팝업 띄우기 함수
+// 상단 URL주소 숨김
   function openLandingPopup() {
-    const popup = window.open(
-      '/landing.html',  // 또는 절대경로 예: 'https://neowa.co.kr/landing.html'
+    window.open(
+      '/landing.html',  // 팝업으로 띄울 랜딩페이지 주소
       'landingPopup',
-      'width=700,height=800,resizable=yes,scrollbars=yes'
+      'width=700,height=800,top=100,left=100,resizable=no,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'
     );
   }
 
