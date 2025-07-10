@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>씨앤비즈 랜딩페이지 테스트</title>
+  <title>나의 랜딩페이지 with 팝업</title>
   <style>
     body {
       margin: 0;
@@ -40,6 +40,7 @@
       text-decoration: none;
       border-radius: 4px;
       transition: background-color 0.3s;
+      cursor: pointer;
     }
 
     .cta-button:hover {
@@ -81,6 +82,43 @@
       font-size: 0.9rem;
     }
 
+    /* 팝업(모달) 스타일 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
     @media (max-width: 768px) {
       .hero-content h1 {
         font-size: 2rem;
@@ -99,7 +137,7 @@
     <div class="hero-content">
       <h1>나만의 브랜드를 시작해보세요</h1>
       <p>간단하게 소개하고 고객을 끌어오는 랜딩페이지</p>
-      <a href="#contact" class="cta-button">지금 시작하기</a>
+      <button class="cta-button" onclick="openModal()">팝업 열기</button>
     </div>
   </header>
 
@@ -137,6 +175,34 @@
   <footer class="footer">
     <p>© 2025 나의 랜딩페이지. All rights reserved.</p>
   </footer>
+
+  <!-- 팝업 모달 -->
+  <div class="modal" id="popupModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>환영합니다!</h2>
+      <p>이 팝업은 버튼을 눌렀을 때 나타납니다.</p>
+      <p>여기에는 특별한 이벤트, 알림, 쿠폰 등을 넣을 수 있어요.</p>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('popupModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('popupModal').style.display = 'none';
+    }
+
+    // 팝업 외부 클릭 시 닫기
+    window.onclick = function(event) {
+      const modal = document.getElementById('popupModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
 
 </body>
 </html>
