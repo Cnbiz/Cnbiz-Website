@@ -96,11 +96,16 @@
     }
 
     .logo-wrapper {
-      margin-top: 8px;
+      margin-top: 12px;
       text-align: center;
       flex-shrink: 0;
     }
-
+   @media (max-width: 600px) {
+    .logo-wrapper {
+      margin-top: 4px; /* 모바일일 때는 더 위로 올리기 */
+    }
+  }
+    
     .logo-wrapper img {
       max-width: 150px;
       height: auto;
