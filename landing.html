@@ -20,6 +20,7 @@
       background-size: cover;
       animation: fadeIn 1s ease;
       color: #fff; /* 텍스트 흰색 */
+      overflow-x: hidden; /* 가로 스크롤 방지 */
       transition: background 0.3s, color 0.3s;
     }
 
@@ -31,14 +32,14 @@
       width: 90vw;      /* 화면 너비 90% */
       min-height: 480px; /* 최소 높이 확보 */
       margin: 40px auto;
-      padding: 2rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
       border-radius: 12px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      overflow: visible; /* 내부 짤림 방지 */
+      overflow: hidden; /* 하단 스크롤 방지 */
     }
 
     /* === 제목 스타일 === */
@@ -80,14 +81,14 @@
       color: #eee;
     }
 
-    /* === 이미지와 폼을 가로 배치하는 컨테이너 (PC 기준 세로형 팝업내에서 좌우 정렬) === */
+    /* === 이미지와 폼을 가로 배치하는 컨테이너 (PC 기준) === */
     .content-wrapper {
       display: flex;
       gap: 25px;
       justify-content: flex-start;
       align-items: flex-start;
       flex-wrap: nowrap;
-      overflow: visible; /* 짤림 방지 */
+      overflow: visible;
       max-width: 100%;
     }
 
@@ -191,6 +192,8 @@
         width: 95vw;
         max-width: 700px;
         min-height: 450px;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
       .landing-image {
         width: 280px;
