@@ -5,17 +5,13 @@
   <title>주식회사 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    /* CSS 변수: 색상, 버튼 등 스타일용 */
+    /* === CSS 변수: 색상, 버튼 등 스타일용 === */
     :root {
-      --bg-light: rgba(255, 255, 255, 0.92);
-      --bg-dark: rgba(20, 20, 20, 0.92);
-      --text-color-light: #000;
-      --text-color-dark: #fff;
       --btn-bg-light: #007bff;
       --btn-bg-dark: #3399ff;
     }
 
-    /* 기본 바디 스타일 */
+    /* === 기본 바디 스타일 === */
     body {
       margin: 0;
       padding: 0;
@@ -23,30 +19,36 @@
       background: url('bg-image.png') no-repeat center center fixed;
       background-size: cover;
       animation: fadeIn 1s ease;
-      color: var(--text-color-light);
+      color: #fff; /* 텍스트 흰색 */
       transition: background 0.3s, color 0.3s;
     }
 
-    /* 팝업 래퍼 박스 스타일 */
+    /* === 팝업 래퍼 박스 스타일 === */
     .popup-wrapper {
-      background-color: var(--bg-light);
-      max-width: 700px;
+      background-color: rgba(0, 0, 0, 0.85); /* 어두운 반투명 배경 */
+      color: #fff;
+      max-width: 900px; /* 최대 너비 넉넉하게 */
+      width: 90vw;      /* 화면 너비 90% */
+      min-height: 480px; /* 최소 높이 확보 */
       margin: 40px auto;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
       text-align: center;
-      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: visible; /* 내부 짤림 방지 */
     }
 
-    /* 제목 */
+    /* === 제목 스타일 === */
     h1 {
       font-size: 2rem;
-      color: #007bff;
+      color: #3399ff;
       margin-bottom: 1rem;
     }
 
-    /* 버튼 및 체크박스 영역 */
+    /* === 버튼 및 체크박스 영역 === */
     .actions {
       display: flex;
       flex-direction: column;
@@ -55,7 +57,7 @@
       margin-bottom: 30px;
     }
 
-    /* 버튼 기본 스타일 */
+    /* === 버튼 기본 스타일 === */
     .btn {
       padding: 10px 20px;
       background-color: var(--btn-bg-light);
@@ -64,58 +66,63 @@
       border-radius: 6px;
       font-size: 0.95rem;
       transition: background 0.3s;
+      cursor: pointer;
+      border: none;
+      display: inline-block;
     }
     .btn:hover {
       background-color: #0056b3;
     }
 
-    /* 체크박스 텍스트 스타일 */
+    /* === 체크박스 텍스트 스타일 === */
     .checkbox-wrap {
       font-size: 0.95rem;
+      color: #eee;
     }
 
-    /* 이미지와 폼을 가로 배치하는 컨테이너 */
+    /* === 이미지와 폼을 가로 배치하는 컨테이너 (PC 기준 세로형 팝업내에서 좌우 정렬) === */
     .content-wrapper {
       display: flex;
+      gap: 25px;
       justify-content: flex-start;
       align-items: flex-start;
-      gap: 15px;
-      margin-top: 15px;
       flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: visible; /* 짤림 방지 */
+      max-width: 100%;
     }
 
-    /* 이미지 스타일 */
+    /* === 랜딩 이미지 스타일 === */
     .landing-image {
-      width: 240px;
+      width: 320px;
       height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 1.5s ease;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
       flex-shrink: 0;
     }
 
-    /* 이메일 문의 폼 스타일 */
+    /* === 이메일 문의 폼 스타일 === */
     form {
-      text-align: left;
-      width: 260px;
+      width: 320px;
       flex-shrink: 0;
+      text-align: left;
       margin: 0;
     }
     form label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
+      color: #ddd;
     }
     form input, form textarea {
       width: 100%;
       padding: 8px 10px;
       margin-bottom: 12px;
-      border: 1px solid #ccc;
+      border: 1px solid #555;
       border-radius: 4px;
       font-size: 1rem;
       box-sizing: border-box;
+      background-color: #222;
+      color: #eee;
     }
     form textarea {
       resize: vertical;
@@ -141,7 +148,7 @@
       text-align: center;
     }
 
-    /* 닫기 버튼 */
+    /* === 닫기 버튼 스타일 === */
     .close-btn {
       position: fixed;
       top: 15px;
@@ -151,12 +158,13 @@
       border: none;
       cursor: pointer;
       color: #aaa;
+      z-index: 1000;
     }
     .close-btn:hover {
-      color: #000;
+      color: #fff;
     }
 
-    /* 테마 토글 버튼 */
+    /* === 테마 토글 버튼 스타일 === */
     .theme-toggle {
       position: fixed;
       bottom: 20px;
@@ -168,75 +176,77 @@
       cursor: pointer;
       border: none;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
 
-    /* 다크모드 스타일 */
-    .dark-mode {
-      background-color: var(--bg-dark);
-      color: var(--text-color-dark);
-    }
-    .dark-mode .popup-wrapper {
-      background-color: var(--bg-dark);
-    }
-    .dark-mode .btn {
-      background-color: var(--btn-bg-dark);
-    }
-    .dark-mode .close-btn {
-      color: #ccc;
-    }
-    .dark-mode .close-btn:hover {
-      color: #fff;
-    }
-
-    /* 페이드 인 애니메이션 */
+    /* === 페이드 인 애니메이션 === */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 반응형: 900px 이하 */
+    /* === 반응형: 900px 이하 === */
     @media (max-width: 900px) {
-      /* PC용에서 기본 가로 배치 유지 */
-      .content-wrapper {
-        /* flex-direction 유지, 가로 스크롤 가능 */
+      .popup-wrapper {
+        width: 95vw;
+        max-width: 700px;
+        min-height: 450px;
       }
       .landing-image {
-        width: 240px;
+        width: 280px;
       }
       form {
-        width: 260px;
+        width: 280px;
       }
     }
 
-    /* 반응형: 600px 이하 (모바일) */
+    /* === 반응형: 600px 이하 (모바일) ===
+         - 가로형으로 고정 (이미지 + 문의 폼 나란히)
+         - 스크롤 없이 전체 보이도록
+    === */
     @media (max-width: 600px) {
       .popup-wrapper {
-        margin: 15px;
+        width: 95vw;
+        max-width: 100%;
+        min-height: auto;
         padding: 1rem;
+        display: flex;
+        flex-direction: row; /* 모바일은 가로형 */
+        align-items: flex-start;
+        overflow: hidden;
+      }
+      .content-wrapper {
+        flex-direction: row; /* 가로 정렬 유지 */
+        gap: 15px;
+        overflow: hidden;
+      }
+      .landing-image,
+      form {
+        width: 45vw; /* 모바일에서는 너비를 vw 기준으로 조절 */
+        max-width: 180px;
+        flex-shrink: 0;
+      }
+      form {
+        margin: 0;
       }
       h1 {
         font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: #3399ff;
+        flex-basis: 100%;
+        text-align: center;
       }
+      .actions {
+        margin-bottom: 15px;
+      }
+      /* 버튼 모바일 너비 맞춤 */
       .btn {
         width: 100%;
         font-size: 1rem;
       }
       .checkbox-wrap {
         font-size: 1rem;
-      }
-      .theme-toggle {
-        font-size: 0.75rem;
-        padding: 5px 9px;
-      }
-      .content-wrapper {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .landing-image,
-      form {
-        width: 240px;
-        flex-shrink: 0;
+        color: #eee;
       }
     }
   </style>
@@ -288,7 +298,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
   <script>
-    // 마우스 우클릭 방지 - contextmenu 이벤트를 막아 우클릭 메뉴가 뜨지 않도록 함
+    // === 마우스 우클릭 방지 ===
     document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
     });
@@ -311,11 +321,11 @@
       // EmailJS 서비스에 폼 데이터 전송
       emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
         .then(() => {
-          statusMessage.style.color = "green";
+          statusMessage.style.color = "lightgreen";
           statusMessage.textContent = "문의가 성공적으로 전송되었습니다!";
           form.reset();
         }, (err) => {
-          statusMessage.style.color = "red";
+          statusMessage.style.color = "salmon";
           statusMessage.textContent = `전송 실패: ${err.text || err}`;
         })
         .finally(() => {
@@ -347,78 +357,46 @@
         if (document.referrer && document.referrer !== location.href) {
           history.back();
         } else {
-          location.href = "https://cnbiznet.co.kr";
+          location.href = 'https://cnbiznet.co.kr';
         }
       } else {
-        // PC일 경우 현재 창 닫기 시도
-        window.close();
+        // PC에서는 팝업 닫기 (화면에서 숨기기)
+        const popup = document.querySelector('.popup-wrapper');
+        popup.style.display = 'none';
+        // 닫기 버튼 숨기기
+        document.getElementById('closeBtn').style.display = 'none';
+        document.getElementById('themeToggleBtn').style.display = 'none';
       }
     }
 
-    // 언어별 텍스트 설정 (한국어 / 영어)
-    function setLanguageTexts() {
-      const lang = document.documentElement.lang || navigator.language || 'ko';
-      const isKorean = lang.startsWith('ko');
+    // 페이지 로드 시 오늘 날짜 기록 확인하여 팝업 숨김 처리
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('hideLandingToday') === getTodayKey()) {
+        document.querySelector('.popup-wrapper').style.display = 'none';
+        document.getElementById('closeBtn').style.display = 'none';
+        document.getElementById('themeToggleBtn').style.display = 'none';
+      }
+    });
 
-      document.getElementById('titleText').textContent =
-        isKorean ? '🎉 씨앤비즈에 오신 걸 환영합니다!' : '🎉 Welcome to CNBIZ!';
-      document.getElementById('mainBtn').textContent =
-        isKorean ? '메인 사이트로 이동' : 'Go to Main Site';
-      document.getElementById('checkboxText').textContent =
-        isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
-      document.getElementById('closeBtn').textContent =
-        isKorean ? '✕ 닫기' : '✕ Close';
-      document.getElementById('themeToggleBtn').textContent =
-        isDarkMode()
-          ? (isKorean ? '🌞 라이트모드' : '🌞 Light Mode')
-          : (isKorean ? '🌙 다크모드' : '🌙 Dark Mode');
-    }
-
-    // 테마 토글 함수 (다크모드 on/off)
+    // 테마 토글 (다크/라이트)
     function toggleTheme() {
-      const isDark = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('preferredTheme', isDark ? 'dark' : 'light');
-      setLanguageTexts();
-    }
-
-    // 현재 다크모드 여부 반환
-    function isDarkMode() {
-      return document.body.classList.contains('dark-mode');
-    }
-
-    // 저장된 테마 또는 시스템 테마 적용
-    function applyPreferredTheme() {
-      const storedTheme = localStorage.getItem('preferredTheme');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-        document.body.classList.add('dark-mode');
+      const body = document.body;
+      const btn = document.getElementById('themeToggleBtn');
+      if (body.style.backgroundColor === 'white') {
+        // 다크모드로 변경
+        body.style.backgroundColor = '';
+        body.style.color = '#fff';
+        btn.textContent = '🌙 다크모드';
+        document.querySelector('.popup-wrapper').style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+      } else {
+        // 라이트모드로 변경
+        body.style.backgroundColor = 'white';
+        body.style.color = '#222';
+        btn.textContent = '☀️ 라이트모드';
+        document.querySelector('.popup-wrapper').style.backgroundColor = '#f5f5f5';
       }
     }
-
-    // 페이지 로드 시 초기화
-    window.onload = function () {
-      applyPreferredTheme();
-      setLanguageTexts();
-
-      const savedDate = localStorage.getItem('hideLandingToday');
-      const today = getTodayKey();
-
-      // 오늘 날짜에 팝업 닫기 기록이 있으면 닫기
-      if (savedDate === today) {
-        handleClose();
-        return;
-      }
-
-      // 자동 닫기 기능(주석 처리됨)
-      /*
-      if (!isMobile()) {
-        setTimeout(() => {
-          handleClose();
-        }, 700000);
-      }
-      */
-    };
   </script>
+
 </body>
 </html>
