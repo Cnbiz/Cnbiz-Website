@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>주식회사 씨앤비즈</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* 기본 body 스타일과 배경 */
+    /* 기본 body 스타일 및 배경 */
     body {
       margin: 0;
       padding: 0;
@@ -13,71 +13,108 @@
       background: url('bg-image.png') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
-      overflow-x: hidden; /* 가로 스크롤 방지 */
+      overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
 
-    /* 팝업 컨테이너: 고정 크기, 그림자, 반투명 배경 */
+    /* 팝업 컨테이너 - 세로 정렬 (flex-direction: column) */
     .popup-wrapper {
       background-color: rgba(0, 0, 0, 0.85);
       color: #fff;
-      width: 980px;      /* PC에서 가로 크기 약간 확대 */
-      height: 570px;     /* 세로 크기 약간 증가 */
+      width: 450px;           /* PC 기준 적당한 너비 */
+      max-width: 95vw;        /* 모바일 대응 */
       margin: 40px auto;
-      padding: 30px;
+      padding: 30px 25px;
       border-radius: 12px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
       display: flex;
-      gap: 30px;
-      overflow: hidden;  /* PC에서는 스크롤 없이 */
+      flex-direction: column; /* 세로 정렬 */
+      gap: 25px;
       box-sizing: border-box;
+      overflow: hidden;       /* PC에서는 스크롤 없이 */
+      max-height: 90vh;       /* 너무 길지 않게 */
     }
 
-    /* 팝업 타이틀: 중앙 정렬, 강조 색상 */
-    h1 {
-      color: #3399ff;
-      font-size: 2rem;
-      margin: 0 0 20px 0;
-      text-align: center;
-      flex-basis: 100%;
-    }
-
-    /* 좌측 이미지 컨테이너: 고정 너비 및 중앙 배치 */
-    .landing-image-container {
-      flex: 0 0 430px; /* 이미지 컨테이너 너비 확대 */
+    /* 팝업 타이틀 + 메인 사이트 이동 + 체크박스 포함 컨테이너 */
+    .header-container {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
-    .landing-image {
-      max-width: 100%;
-      max-height: 100%;
+    .header-title {
+      font-size: 1.8rem;
+      color: #3399ff;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: pre-line; /* 줄바꿈 유지 */
+    }
+    .btn-main {
+      background-color: #3399ff;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    .btn-main:hover {
+      background-color: #007bff;
+    }
+    .checkbox-wrap {
+      color: #ccc;
+      font-size: 0.9rem;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .checkbox-wrap input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ThinkPad 이미지 컨테이너 */
+    .landing-image-container {
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
       border-radius: 10px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+    .landing-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
       object-fit: contain;
     }
 
-    /* 우측 폼 컨테이너: 세로 정렬, flex-grow로 공간 최대 활용 */
+    /* 문의 폼 컨테이너 */
     .form-container {
-      flex-grow: 1;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 12px;
       color: #ddd;
-      overflow-y: auto; /* 폼 내용 길어지면 세로 스크롤 허용 */
+      overflow-y: auto;
+      max-height: 250px; /* 너무 커지지 않도록 제한 */
     }
 
-    /* 라벨 스타일 */
+    /* 폼 필드 스타일 */
     label {
-      margin-bottom: 6px;
       font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
     }
-
-    /* 입력 및 텍스트박스 스타일 */
     input, textarea {
       width: 100%;
       padding: 10px 12px;
-      margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #555;
       background-color: #222;
@@ -91,12 +128,12 @@
       border-color: #3399ff;
       outline: none;
     }
-
     textarea {
-      min-height: 140px;
+      min-height: 100px;
+      max-height: 180px;
     }
 
-    /* 문의 보내기 버튼 스타일 */
+    /* 문의 보내기 버튼 */
     button#submitBtn {
       background-color: #3399ff;
       border: none;
@@ -112,7 +149,7 @@
       background-color: #007bff;
     }
 
-    /* 닫기 버튼: 우측 상단 고정 + 진한 색상 */
+    /* 닫기 버튼: 우측 상단 고정, 진한 색상 */
     .close-btn {
       position: fixed;
       top: 15px;
@@ -121,7 +158,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      color: #eee;  /* 기존보다 훨씬 진한 색상 */
+      color: #eee;
       z-index: 1000;
       transition: color 0.2s;
     }
@@ -129,119 +166,56 @@
       color: #3399ff;
     }
 
-    /* 메인 사이트 이동 버튼과 체크박스 컨테이너 */
-    .actions {
-      width: 100%;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .btn-main {
-      background-color: #3399ff;
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s;
-    }
-    .btn-main:hover {
-      background-color: #007bff;
-    }
-
-    /* 체크박스 라벨 */
-    .checkbox-wrap {
-      margin-top: 10px;
-      color: #ccc;
-      font-size: 0.9rem;
-      user-select: none;
-    }
-    .checkbox-wrap input[type="checkbox"] {
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    /* 상태 메시지 (전송 성공/실패) */
+    /* 상태 메시지 */
     #statusMessage {
-      margin-top: 10px;
       font-weight: 600;
       text-align: center;
       min-height: 24px;
+      margin-top: 5px;
+      color: lightgreen;
     }
 
-    /* 반응형 모바일 대응 */
-    @media (max-width: 900px) {
-      body {
-        overflow-y: auto; /* 모바일에서는 세로 스크롤 허용 */
-      }
+    /* 모바일 대응 */
+    @media (max-width: 600px) {
       .popup-wrapper {
-        width: 95vw; /* 모바일에서는 전체 너비 거의 다 사용 */
-        height: auto; /* 높이는 내용에 따라 자동 */
-        flex-direction: column; /* 이미지와 폼 세로 배치 */
-        padding: 20px 20px 30px 20px;
-        gap: 20px;
-        overflow: visible;
+        width: 95vw;
+        max-height: 95vh;
+        padding: 20px 15px;
       }
-      .landing-image-container {
-        flex: none;
-        width: 90vw;
-        max-width: 430px;
-        margin: 0 auto;
-      }
-      .form-container {
-        width: 90vw;
-        max-width: 430px;
-        max-height: none;
-        overflow: visible; /* 모바일에서는 스크롤 없이 자연스러운 스크롤 */
-      }
-      h1 {
-        font-size: 1.6rem;
-        margin-bottom: 15px;
-        text-align: center;
-      }
-      .actions {
-        margin-bottom: 15px;
+      .header-title {
+        font-size: 1.5rem;
       }
       .btn-main {
-        width: 100%;
-        font-size: 1.1rem;
-      }
-      .checkbox-wrap {
+        padding: 10px 16px;
         font-size: 1rem;
       }
-      .close-btn {
-        top: 10px;
-        right: 10px;
-        font-size: 22px;
+      .form-container {
+        max-height: 300px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 팝업 닫기 버튼 (PC, 모바일 모두 고정 우측 상단) -->
-  <button class="close-btn" onclick="handleClose()" id="closeBtn" aria-label="팝업 닫기">✕ 닫기</button>
+  <!-- 닫기 버튼 -->
+  <button class="close-btn" onclick="handleClose()" aria-label="팝업 닫기">✕ 닫기</button>
 
-  <!-- 팝업 메인 컨테이너 -->
+  <!-- 팝업 컨테이너 -->
   <div class="popup-wrapper" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
 
-    <!-- 팝업 타이틀 -->
-    <h1 id="popupTitle">🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
-
-    <!-- 메인 사이트 이동 버튼 + 체크박스 영역 -->
-    <div class="actions">
-      <a href="https://cnbiznet.co.kr" class="btn-main" id="mainBtn" role="button">메인 사이트로 이동</a>
-      <div class="checkbox-wrap">
-        <label>
-          <input type="checkbox" id="todayCheck" />
-          오늘 하루 이 창 다시 열지 않기
-        </label>
+    <!-- 좌측 상단 타이틀 및 버튼 영역 -->
+    <div class="header-container">
+      <div id="popupTitle" class="header-title">
+        🎉 씨앤비즈에 오신<br />신 걸 환영합니다!
       </div>
+      <a href="https://cnbiznet.co.kr" class="btn-main" role="button" id="mainBtn">메인 사이트로 이동</a>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="todayCheck" />
+        오늘 하루 이 창 다시 열지 않기
+      </label>
     </div>
 
-    <!-- 좌측 랜딩 이미지 -->
+    <!-- 가운데 랜딩 이미지 -->
     <div class="landing-image-container">
       <img src="E16_Gen2.png" alt="ThinkPad E16 Gen 2 특가판매" class="landing-image" />
     </div>
@@ -274,7 +248,6 @@
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
-    // 폼 제출 이벤트 핸들러
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       submitBtn.disabled = true;
@@ -296,18 +269,15 @@
         });
     });
 
-    // 오늘 날짜 키 반환
     function getTodayKey() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     }
 
-    // 모바일 판단 함수
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
-    // 팝업 닫기 함수
     function handleClose() {
       const checkbox = document.getElementById('todayCheck');
       if (checkbox.checked) {
@@ -322,15 +292,14 @@
         }
       } else {
         document.querySelector('.popup-wrapper').style.display = 'none';
-        document.getElementById('closeBtn').style.display = 'none';
+        document.querySelector('.close-btn').style.display = 'none';
       }
     }
 
-    // 페이지 로드 시 팝업 노출 여부 체크
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('hideLandingToday') === getTodayKey()) {
         document.querySelector('.popup-wrapper').style.display = 'none';
-        document.getElementById('closeBtn').style.display = 'none';
+        document.querySelector('.close-btn').style.display = 'none';
       }
     });
   </script>
