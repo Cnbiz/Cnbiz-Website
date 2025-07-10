@@ -10,55 +10,179 @@
       padding: 2rem;
       font-family: 'Noto Sans KR', sans-serif;
       text-align: center;
+      background: #fff;
+      animation: fadeIn 1s ease;
     }
+
     h1 {
       font-size: 2rem;
       color: #007bff;
+      margin-bottom: 1rem;
     }
-    p {
-      font-size: 1.1rem;
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
     }
+
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
+      padding: 10px 20px;
       background-color: #007bff;
       color: white;
       text-decoration: none;
       border-radius: 6px;
+      font-size: 0.95rem;
+      transition: background 0.3s;
     }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
     .checkbox-wrap {
-      margin-top: 25px;
+      font-size: 0.95rem;
+    }
+
+    .landing-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .landing-image {
+      max-width: 90%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* 닫기 버튼 */
+    .close-btn {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      font-size: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    /* 애니메이션 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .btn {
+        width: 90%;
+        font-size: 1rem;
+      }
+
+      .checkbox-wrap {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- 닫기 버튼 -->
+  <button class="close-btn" onclick="handleClose()">✕ 닫기</button>
+
+  <!-- 제목 -->
   <h1>🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
-  <p>지금 바로 브랜드를 시작해보세요.</p>
 
-  <a href="https://neowa.co.kr" class="btn">메인 사이트로 이동</a>
+  <!-- 버튼과 체크박스 -->
+  <div class="actions">
+    <a href="https://neowa.co.kr" class="btn">메인 사이트로 이동</a>
 
-  <div class="checkbox-wrap">
-    <label>
-      <input type="checkbox" id="todayCheck" />
-      오늘 하루 이 창 다시 열지 않기
-    </label>
+    <div class="checkbox-wrap">
+      <label>
+        <input type="checkbox" id="todayCheck" />
+        오늘 하루 이 창 다시 열지 않기
+      </label>
+    </div>
   </div>
 
+  <!-- 랜딩 이미지 삽입 -->
+  <img src="E16_Gen2.png" alt="지금 바로 브랜드를 시작해보세요" class="landing-image" />
+
+  <!-- 이미지 슬라이드 예시 (주석처리) -->
+  <!-- 
+  <div class="slider">
+    <div class="slides" id="slideWrapper">
+      <img src="slide1.jpg" alt="슬라이드 1" />
+      <img src="slide2.jpg" alt="슬라이드 2" />
+      <img src="slide3.jpg" alt="슬라이드 3" />
+    </div>
+  </div>
+  -->
+
+  <!-- 유튜브 영상 삽입 예시 (주석처리) -->
+  <!-- 
+  <div class="landing-content">
+    <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+      title="YouTube video" frameborder="0" allowfullscreen></iframe>
+  </div>
+  -->
+
   <script>
-    // 오늘 날짜 키 저장
     function getTodayKey() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     }
 
-    // 팝업 창 닫을 때 localStorage 저장
-    window.onbeforeunload = function () {
+    function handleClose() {
       const checkbox = document.getElementById('todayCheck');
       if (checkbox.checked) {
         localStorage.setItem('hideLandingToday', getTodayKey());
       }
+      window.close();
+    }
+
+    function isMobile() {
+      return /Mobi|Android/i.test(navigator.userAgent);
+    }
+
+    window.onload = function () {
+      const savedDate = localStorage.getItem('hideLandingToday');
+      const today = getTodayKey();
+
+      if (savedDate === today) {
+        window.close();
+        return;
+      }
+
+      // PC일 때만 자동 닫기
+      if (!isMobile()) {
+        setTimeout(() => {
+          handleClose();
+        }, 5000);
+      }
+
+      // 슬라이드 자동 넘김 (주석처리 시 동작 안 함)
+      /*
+      let currentIndex = 0;
+      const slideWrapper = document.getElementById("slideWrapper");
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % 3;
+        slideWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }, 3000);
+      */
     };
   </script>
 </body>
