@@ -250,10 +250,10 @@
 
   <!-- 팝업 전체 래퍼 -->
   <div class="popup-wrapper" role="dialog" aria-modal="true" aria-labelledby="titleText">
+    
     <!-- 팝업 제목 -->
-  <!--  <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1> -->
-    <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1>
-
+  <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1>
+    
     <!-- 메인 사이트 이동 버튼 + 오늘 다시 안보기 체크박스 -->
     <div class="actions">
       <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트로 이동</a>
@@ -365,7 +365,7 @@
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
 
-      document.getElementById('titleText').textContent = isKorean ? '🎉 씨앤비즈에 오신 걸 환영합니다!' : '🎉 Welcome to CNBIZ!';
+      document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
       document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트로 이동' : 'Go to Main Site';
       document.getElementById('checkboxText').textContent = isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
       document.getElementById('closeBtn').textContent = isKorean ? '✕ 닫기' : '✕ Close';
