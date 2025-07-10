@@ -5,136 +5,192 @@
   <title>문의하기 | 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* === 기본 바디 스타일 === */
     body {
       margin: 0;
-      padding: 0;
+      padding: 20px;
       font-family: 'Noto Sans KR', sans-serif;
-      background: url('bg-image.png') no-repeat center center fixed; /* 원하는 배경 이미지 경로 */
+      background: url('bg-image.png') no-repeat center center fixed; /* 배경 이미지 설정 */
       background-size: cover;
       color: #333;
+      min-height: 100vh; /* 최소 화면 높이 설정 */
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center; /* 화면 중앙 가로 정렬 */
+      align-items: center;     /* 화면 중앙 세로 정렬 */
     }
 
+    /* === 문의 폼 컨테이너 스타일 === */
     .form-container {
-      max-width: 500px;
-      margin: 60px auto;
-      padding: 2rem;
-      background-color: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      text-align: center;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.95); /* 반투명 흰색 배경 */
+      border-radius: 12px; /* 둥근 모서리 */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 그림자 효과 */
+      color: #333;
+      width: 600px;       /* 고정 가로 크기 */
+      height: 700px;      /* 고정 세로 크기 */
+      max-width: 95vw;    /* 화면 너비 95%를 최대 너비로 */
+      max-height: 95vh;   /* 화면 높이 95%를 최대 높이로 */
+      box-sizing: border-box; /* 패딩 포함 크기 계산 */
+      overflow-y: auto;   /* 내용 넘칠 경우 세로 스크롤 */
+      display: flex;
+      flex-direction: column; /* 세로 정렬 */
     }
 
+    /* === 제목 스타일 === */
     h1 {
-      font-size: 1.4rem;
-      color: #007bff;
+      font-size: 1.6rem;
+      color: #007bff; /* 파란색 텍스트 */
       margin-bottom: 1.5rem;
+      text-align: center;
+      flex-shrink: 0; /* 축소 방지 */
     }
 
+    /* === 라벨 스타일 === */
     label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
       text-align: left;
+      font-size: 1rem;
     }
 
-    input,
+    /* === 입력 필드 스타일 === */
+    input[type="text"],
+    input[type="email"],
     textarea {
-      width: 100%;
-      padding: 10px;
+      width: 100%; /* 가로 100% */
+      padding: 12px;
       margin-bottom: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #ccc; /* 연한 회색 테두리 */
       border-radius: 6px;
       font-size: 1rem;
       box-sizing: border-box;
+      font-family: inherit;
     }
 
+    /* === 텍스트 영역(문의 내용) === */
     textarea {
-      resize: vertical;
-      min-height: 100px;
+      resize: vertical; /* 세로 방향으로만 크기 조절 가능 */
+      min-height: 120px; /* 최소 높이 */
     }
 
-    button {
-      background-color: #007bff;
-      color: #fff;
+    /* === 제출 버튼 스타일 === */
+    button[type="submit"] {
+      background-color: #007bff; /* 파란 배경 */
+      color: #fff; /* 흰색 글씨 */
       border: none;
-      padding: 12px;
+      padding: 14px;
       border-radius: 6px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
-      width: 100%;
+      width: 100%; /* 가로 100% */
+      box-sizing: border-box;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
     }
 
-    button:hover {
+    /* 제출 버튼 호버 효과 */
+    button[type="submit"]:hover {
       background-color: #0056b3;
     }
 
+    /* === 전송 상태 메시지 스타일 === */
     #statusMessage {
       margin-top: 12px;
       font-weight: 600;
       text-align: center;
+      min-height: 1.5em;
+      flex-shrink: 0;
     }
 
+    /* === 회사 로고 영역 === */
     .logo-wrapper {
       margin-top: 24px;
+      text-align: center;
+      flex-shrink: 0;
     }
 
+    /* 로고 이미지 최대 크기 제한 */
     .logo-wrapper img {
       max-width: 150px;
       height: auto;
+      max-height: 60px;
+    }
+
+    /* === 반응형: 작은 화면에서 폼 너비와 높이 자동 조절 === */
+    @media (max-width: 640px) {
+      .form-container {
+        width: 95vw;      /* 화면 가로 95% */
+        height: auto;     /* 높이 자동 */
+        max-height: 90vh; /* 최대 높이 90% */
+      }
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
+
+  <!-- 문의 폼 컨테이너: 화면 중앙에 배치, ARIA 접근성 role/label 적용 -->
+  <div class="form-container" id="formContainer" role="main" aria-label="문의하기 폼">
     <h1>문의하기</h1>
+
+    <!-- 문의 폼: novalidate로 기본 HTML5 검증 끔 -->
     <form id="contact-form" novalidate>
+      <!-- 이름 입력 -->
       <label for="user_name">이름</label>
       <input type="text" id="user_name" name="user_name" required autocomplete="name" />
 
+      <!-- 이메일 입력 -->
       <label for="user_email">이메일</label>
       <input type="email" id="user_email" name="user_email" required autocomplete="email" />
 
+      <!-- 문의 내용 입력 -->
       <label for="message">문의 내용</label>
       <textarea id="message" name="message" required></textarea>
 
+      <!-- 제출 버튼 -->
       <button type="submit" id="submitBtn">문의 보내기</button>
 
+      <!-- 전송 상태 메시지: aria-live로 변경사항 안내 -->
       <div id="statusMessage" role="alert" aria-live="polite"></div>
     </form>
 
-    <!-- 🔻 회사 로고 삽입 위치 -->
-    <div class="logo-wrapper">
+    <!-- 회사 로고 영역 -->
+    <div class="logo-wrapper" aria-label="회사 로고">
       <img src="CnbizLogo_A.png" alt="회사 로고" />
     </div>
   </div>
 
-  <!-- EmailJS SDK -->
+  <!-- EmailJS SDK: 이메일 전송 서비스 스크립트 -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    emailjs.init("INC6ZLU2QLdLBsFsX"); // EmailJS 사용자 키로 대체하세요
+    // EmailJS 초기화: 사용자 고유 키로 변경 필요
+    emailjs.init("INC6ZLU2QLdLBsFsX");
 
     const form = document.getElementById('contact-form');
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
+    // 폼 제출 이벤트 처리
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      submitBtn.disabled = true;
+      e.preventDefault();            // 기본 제출 막기 (페이지 리로드 방지)
+      submitBtn.disabled = true;     // 버튼 중복 클릭 방지
       statusMessage.style.color = "black";
       statusMessage.textContent = "전송 중입니다...";
 
+      // EmailJS를 통해 폼 데이터 전송(service, template ID 사용)
       emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
         .then(() => {
           statusMessage.style.color = "green";
           statusMessage.textContent = "문의가 성공적으로 전송되었습니다!";
-          form.reset();
+          form.reset();             // 전송 성공 후 폼 초기화
         })
         .catch((err) => {
           statusMessage.style.color = "red";
           statusMessage.textContent = `전송 실패: ${err.text || err}`;
         })
         .finally(() => {
-          submitBtn.disabled = false;
+          submitBtn.disabled = false; // 버튼 다시 활성화
         });
     });
   </script>
