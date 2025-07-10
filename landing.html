@@ -5,7 +5,7 @@
   <title>주식회사 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* 기본 색상 변수 */
+    /* === 기본 색상 변수 선언 === */
     :root {
       --bg-light: rgba(255,255,255,0.92);
       --bg-dark: rgba(20,20,20,0.92);
@@ -15,7 +15,7 @@
       --btn-bg-dark: #3399ff;
     }
 
-    /* body 기본 스타일 및 배경 */
+    /* === body 기본 스타일 및 배경 이미지 설정 === */
     body {
       margin: 0;
       padding: 0;
@@ -27,7 +27,7 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    /* 팝업 창 래퍼 */
+    /* === 팝업 전체 래퍼 스타일 === */
     .popup-wrapper {
       background-color: var(--bg-light);
       max-width: 700px;
@@ -39,14 +39,14 @@
       transition: background 0.3s;
     }
 
-    /* 타이틀 */
+    /* === 팝업 타이틀 스타일 === */
     h1 {
       font-size: 1.5rem;
       color: #007bff;
       margin-bottom: 1rem;
     }
 
-    /* 버튼과 체크박스 영역 */
+    /* === 버튼 및 체크박스 영역 스타일 === */
     .actions {
       display: flex;
       flex-direction: column;
@@ -55,7 +55,7 @@
       margin-bottom: 30px;
     }
 
-    /* 버튼 스타일 */
+    /* === 버튼 스타일 === */
     .btn {
       padding: 10px 20px;
       background-color: var(--btn-bg-light);
@@ -70,12 +70,12 @@
       background-color: #0056b3;
     }
 
-    /* 체크박스 텍스트 */
+    /* === 체크박스 텍스트 스타일 === */
     .checkbox-wrap {
       font-size: 0.95rem;
     }
 
-    /* 콘텐츠 내부 레이아웃: 이미지 + 폼 */
+    /* === 이미지와 문의 폼을 나란히 배치하는 컨테이너 === */
     .content-wrapper {
       display: flex;
       justify-content: center;
@@ -85,7 +85,7 @@
       flex-wrap: nowrap;
     }
 
-    /* 랜딩 이미지 스타일 */
+    /* === 랜딩 이미지 스타일 === */
     .landing-image {
       max-width: 50%;
       height: auto;
@@ -95,7 +95,7 @@
       flex-shrink: 0;
     }
 
-    /* 문의 폼 스타일 */
+    /* === 문의 폼 스타일 === */
     form {
       text-align: left;
       max-width: 350px;
@@ -103,12 +103,14 @@
       margin: 0;
     }
 
+    /* === 라벨 스타일 === */
     form label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
     }
 
+    /* === 입력 및 텍스트영역 스타일 === */
     form input,
     form textarea {
       width: 100%;
@@ -120,12 +122,13 @@
       box-sizing: border-box;
     }
 
+    /* === 문의 내용 텍스트영역 세로 리사이즈 가능 === */
     form textarea {
       resize: vertical;
       min-height: 80px;
     }
 
-    /* 제출 버튼 */
+    /* === 문의 제출 버튼 스타일 === */
     #submitBtn {
       background-color: var(--btn-bg-light);
       color: #fff;
@@ -141,14 +144,28 @@
       background-color: #0056b3;
     }
 
-    /* 상태 메시지 */
+    /* === 상태 메시지 스타일 === */
     #statusMessage {
       margin-top: 10px;
       font-weight: 600;
       text-align: center;
     }
 
-    /* 닫기 버튼 */
+    /* === 회사로고 영역 스타일 === */
+    .company-logo {
+      display: block;
+      margin: 20px auto 0 auto;
+      max-width: 160px;  /* 적절한 최대 너비 */
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .company-logo:hover {
+      transform: scale(1.05); /* 호버시 약간 확대 효과 */
+    }
+
+    /* === 팝업 닫기 버튼 스타일 (상단 우측 고정) === */
     .close-btn {
       position: fixed;
       top: 15px;
@@ -157,14 +174,14 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-weight: bold; /* 진하게 */
+      font-weight: bold;
       color: #aaa;
     }
     .close-btn:hover {
       color: #000;
     }
 
-    /* 다크 모드 토글 버튼 */
+    /* === 다크 모드 토글 버튼 스타일 (하단 우측 고정) === */
     .theme-toggle {
       position: fixed;
       bottom: 20px;
@@ -178,7 +195,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
-    /* 다크 모드 스타일 */
+    /* === 다크 모드 적용 시 스타일 === */
     .dark-mode {
       background-color: var(--bg-dark);
       color: var(--text-color-dark);
@@ -196,7 +213,7 @@
       color: #fff;
     }
 
-    /* 애니메이션 */
+    /* === 페이드 인 애니메이션 정의 === */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -208,7 +225,7 @@
       }
     }
 
-    /* 반응형 */
+    /* === 반응형 스타일 (900px 이하) === */
     @media(max-width: 900px) {
       .content-wrapper {
         flex-direction: column;
@@ -221,7 +238,12 @@
       form {
         max-width: 90%;
       }
+      .company-logo {
+        max-width: 130px;
+      }
     }
+
+    /* === 반응형 스타일 (600px 이하) === */
     @media(max-width: 600px) {
       .popup-wrapper {
         margin: 20px;
@@ -241,20 +263,24 @@
         font-size: 0.8rem;
         padding: 6px 10px;
       }
+      .company-logo {
+        max-width: 100px;
+        margin-top: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 팝업 닫기 버튼 -->
+  <!-- === 팝업 닫기 버튼 (상단 우측) === -->
   <button class="close-btn" onclick="closePopup()" id="closeBtn" aria-label="팝업 닫기">✕ 닫기</button>
 
-  <!-- 팝업 전체 래퍼 -->
+  <!-- === 팝업 래퍼, 접근성 속성 포함 === -->
   <div class="popup-wrapper" role="dialog" aria-modal="true" aria-labelledby="titleText">
     
-    <!-- 팝업 제목 -->
-  <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1>
+    <!-- === 팝업 타이틀 === -->
+    <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1>
     
-    <!-- 메인 사이트 이동 버튼 + 오늘 다시 안보기 체크박스 -->
+    <!-- === 메인 사이트 이동 버튼 및 오늘 다시 안보기 체크박스 영역 === -->
     <div class="actions">
       <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트로 이동</a>
       <div class="checkbox-wrap">
@@ -265,9 +291,9 @@
       </div>
     </div>
 
-    <!-- 이미지와 문의 폼을 나란히 배치 -->
+    <!-- === 이미지와 문의 폼을 나란히 배치하는 컨테이너 === -->
     <div class="content-wrapper">
-      <!-- 랜딩 이미지 -->
+      <!-- === 랜딩 이미지 === -->
       <img
         src="E16_Gen2.png"
         alt="Lenovo 노트북 특가 프로모션"
@@ -276,7 +302,7 @@
         aria-label="Lenovo 노트북 특가 프로모션 이미지"
       />
 
-      <!-- 문의 폼 -->
+      <!-- === 문의 폼 === -->
       <form id="contact-form" novalidate>
         <label for="user_name">이름</label>
         <input type="text" id="user_name" name="user_name" required autocomplete="name" />
@@ -289,26 +315,29 @@
 
         <button type="submit" id="submitBtn">문의 보내기</button>
 
-        <!-- 상태 메시지 영역 -->
+        <!-- === 상태 메시지 영역 (ARIA 속성 포함) === -->
         <div id="statusMessage" role="alert" aria-live="polite"></div>
+
+        <!-- === 회사 로고 추가 (문의하기 버튼 아래) === -->
+        <img src="CnbizLogo_A.png" alt="주식회사 씨앤비즈 로고" class="company-logo" />
       </form>
     </div>
   </div>
 
-  <!-- 다크 모드 토글 버튼 -->
+  <!-- === 다크 모드 토글 버튼 (하단 우측) === -->
   <button class="theme-toggle" onclick="toggleTheme()" id="themeToggleBtn" aria-label="다크 모드 토글">🌙 다크모드</button>
 
-  <!-- 이메일JS SDK -->
+  <!-- === 이메일JS SDK 로드 === -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    // 이메일JS 초기화
+    // === 이메일JS 초기화 (사용자 ID 입력) ===
     emailjs.init("INC6ZLU2QLdLBsFsX");
 
     const form = document.getElementById('contact-form');
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
-    // 문의 폼 제출 이벤트 핸들러
+    // === 문의 폼 제출 이벤트 핸들러 ===
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       submitBtn.disabled = true;
@@ -330,25 +359,25 @@
         });
     });
 
-    // 오늘 날짜 키 생성 함수
+    // === 오늘 날짜 키 생성 함수 (YYYY-M-D 형식) ===
     function getTodayKey() {
       const t = new Date();
       return `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
     }
 
-    // 모바일 여부 확인 함수
+    // === 모바일 여부 확인 함수 ===
     function isMobile() {
       return /Mobi|Android|iPhone/i.test(navigator.userAgent);
     }
 
-    // 팝업 닫기 함수
+    // === 팝업 닫기 함수 ===
     function closePopup() {
       const checkbox = document.getElementById('todayCheck');
       if (checkbox.checked) {
         localStorage.setItem('hideLandingToday', getTodayKey());
       }
       if (isMobile()) {
-        // 모바일에서는 뒤로가기 혹은 메인 사이트 이동
+        // 모바일에서는 뒤로가기 혹은 메인 사이트 이동 처리
         if (document.referrer && document.referrer !== location.href) {
           history.back();
         } else {
@@ -360,7 +389,7 @@
       }
     }
 
-    // 다국어 텍스트 변경 함수 (한국어/영어)
+    // === 다국어 텍스트 변경 함수 (한국어/영어) ===
     function updateTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
@@ -374,19 +403,19 @@
         : (isKorean ? '🌙 다크모드' : '🌙 Dark Mode');
     }
 
-    // 다크 모드 토글 함수
+    // === 다크 모드 토글 함수 ===
     function toggleTheme() {
       const isDarkMode = document.body.classList.toggle('dark-mode');
       localStorage.setItem('preferredTheme', isDarkMode ? 'dark' : 'light');
       updateTexts();
     }
 
-    // 다크 모드 상태 확인 함수
+    // === 다크 모드 상태 확인 함수 ===
     function isDark() {
       return document.body.classList.contains('dark-mode');
     }
 
-    // 페이지 로드 시 실행 함수
+    // === 페이지 로드 시 실행 함수 ===
     window.onload = function () {
       // 이전에 저장한 테마 가져오기 및 적용
       const preferredTheme = localStorage.getItem('preferredTheme');
@@ -399,7 +428,7 @@
       // 텍스트 다국어 업데이트
       updateTexts();
 
-      // 오늘 하루 닫기 체크 여부 확인 후 닫기 실행
+      // 오늘 하루 닫기 체크 여부 확인 후 팝업 닫기 실행
       const hideLandingToday = localStorage.getItem('hideLandingToday');
       const todayKey = getTodayKey();
       if (hideLandingToday === todayKey) {
@@ -407,13 +436,14 @@
         return;
       }
 
-      // (주석 처리된 자동 닫기 기능)
-      // if (!isMobile()) {
-      //   setTimeout(() => { closePopup(); }, 700000);
-      // }
+      /* === (주석 처리된 자동 닫기 기능) ===
+      if (!isMobile()) {
+        setTimeout(() => { closePopup(); }, 700000);
+      }
+      */
     };
 
-    // 우클릭 방지 (컨텍스트 메뉴 방지)
+    // === 우클릭 방지 (컨텍스트 메뉴 방지) ===
     document.addEventListener('contextmenu', (e) => e.preventDefault());
   </script>
 </body>
