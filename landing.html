@@ -46,11 +46,6 @@
       font-size: 0.95rem;
     }
 
-    .landing-content {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
     .landing-image {
       max-width: 90%;
       height: auto;
@@ -69,31 +64,53 @@
       border: none;
       cursor: pointer;
       color: #aaa;
+      z-index: 1000;
     }
 
     .close-btn:hover {
       color: #000;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .back-btn {
       display: none;
-      margin-top: 30px;
-      background-color: #6c757d;
-      color: white;
+      margin-top: 20px;
+      background: none;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 0.9rem;
+      color: #007bff;
+      font-size: 0.95rem;
+      text-decoration: underline;
       cursor: pointer;
     }
 
     .back-btn:hover {
-      background-color: #5a6268;
+      color: #0056b3;
+    }
+
+    .lang-switcher {
+      position: fixed;
+      top: 15px;
+      left: 20px;
+      font-size: 14px;
+      z-index: 1001;
+    }
+
+    .lang-switcher button {
+      margin-right: 6px;
+      background: none;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .lang-switcher button.active {
+      border-color: #007bff;
+      color: #007bff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 600px) {
@@ -116,54 +133,60 @@
     }
   </style>
 </head>
-<body>
+<body id="landingPage">
+
+  <!-- 언어 선택 -->
+  <div class="lang-switcher">
+    <button onclick="setLanguage('ko')" id="btn-ko">한국어</button>
+    <button onclick="setLanguage('en')" id="btn-en">English</button>
+  </div>
 
   <!-- 닫기 버튼 -->
   <button class="close-btn" onclick="handleClose()">✕ 닫기</button>
 
   <!-- 제목 -->
-  <h1>🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
+  <h1 id="title-text">🎉 씨앤비즈에 오신 걸 환영합니다!</h1>
 
   <!-- 버튼과 체크박스 -->
   <div class="actions">
-    <a href="https://neowa.co.kr" class="btn">메인 사이트로 이동</a>
+    <a href="https://neowa.co.kr" class="btn" id="main-btn">메인 사이트로 이동</a>
     <div class="checkbox-wrap">
       <label>
         <input type="checkbox" id="todayCheck" />
-        오늘 하루 이 창 다시 열지 않기
+        <span id="checkbox-label">오늘 하루 이 창 다시 열지 않기</span>
       </label>
     </div>
   </div>
 
-  <!-- 랜딩 이미지 삽입 -->
+  <!-- 랜딩 이미지 -->
   <img src="E16_Gen2.png" alt="지금 바로 브랜드를 시작해보세요" class="landing-image" />
 
-  <!-- 이미지 슬라이드 예시 (주석처리) -->
-  <!-- 
-  <div class="slider">
-    <div class="slides" id="slideWrapper">
-      <img src="slide1.jpg" alt="슬라이드 1" />
-      <img src="slide2.jpg" alt="슬라이드 2" />
-      <img src="slide3.jpg" alt="슬라이드 3" />
-    </div>
-  </div>
-  -->
-
-  <!-- 유튜브 영상 삽입 예시 (주석처리) -->
-  <!-- 
-  <div class="landing-content">
-    <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-      title="YouTube video" frameborder="0" allowfullscreen></iframe>
-  </div>
-  -->
-
-  <!-- 이전 화면으로 돌아가기 버튼 (모바일 전용) -->
-  <button class="back-btn" onclick="history.back()">← 이전 화면으로 돌아가기</button>
+  <!-- 이전 화면으로 돌아가기 (모바일 전용) -->
+  <button class="back-btn" onclick="history.back()" id="back-btn">← 이전 화면으로 돌아가기</button>
 
   <script>
+    const LANG_DATA = {
+      ko: {
+        title: '🎉 씨앤비즈에 오신 걸 환영합니다!',
+        main: '메인 사이트로 이동',
+        checkbox: '오늘 하루 이 창 다시 열지 않기',
+        back: '← 이전 화면으로 돌아가기'
+      },
+      en: {
+        title: '🎉 Welcome to CNBIZ!',
+        main: 'Go to Main Website',
+        checkbox: 'Do not open this window again today',
+        back: '← Go Back to Previous Page'
+      }
+    };
+
     function getTodayKey() {
       const today = new Date();
       return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    }
+
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
     }
 
     function handleClose() {
@@ -171,11 +194,23 @@
       if (checkbox.checked) {
         localStorage.setItem('hideLandingToday', getTodayKey());
       }
-      window.close();
+      if (isMobile()) {
+        document.getElementById('landingPage').style.display = 'none';
+      } else {
+        window.close();
+      }
     }
 
-    function isMobile() {
-      return /Mobi|Android/i.test(navigator.userAgent);
+    function setLanguage(lang) {
+      localStorage.setItem('landingLang', lang);
+
+      document.getElementById('title-text').textContent = LANG_DATA[lang].title;
+      document.getElementById('main-btn').textContent = LANG_DATA[lang].main;
+      document.getElementById('checkbox-label').textContent = LANG_DATA[lang].checkbox;
+      document.getElementById('back-btn').textContent = LANG_DATA[lang].back;
+
+      document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     }
 
     window.onload = function () {
@@ -183,10 +218,16 @@
       const today = getTodayKey();
 
       if (savedDate === today) {
-        window.close();
+        handleClose();
         return;
       }
 
+      // 언어 초기 설정
+      const browserLang = navigator.language.startsWith('en') ? 'en' : 'ko';
+      const savedLang = localStorage.getItem('landingLang') || browserLang;
+      setLanguage(savedLang);
+
+      // PC 자동 닫기
       if (!isMobile()) {
         setTimeout(() => {
           handleClose();
