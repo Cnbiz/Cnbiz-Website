@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  
+  <!-- 
+    반응형 뷰포트 설정: 
+    모든 기기(모바일, 태블릿, PC)에서 화면 너비에 맞게 자동 조절됨.
+    이걸 안 넣으면 모바일에서 화면이 축소되어 보일 수 있음.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Redirect</title>
+
+  <!-- 
+    [JS 리디렉션 - 최우선 위치] 
+    페이지 렌더링 전 즉시 실행됨. 
+    location.replace()는 현재 페이지를 히스토리에서 대체하므로 뒤로가기 시 리디렉션 페이지로 돌아오지 않음.
+    이렇게 하면 브라우저가 가능한 한 가장 빨리 /LED/index.html 로 이동함.
+  -->
+  <script>
+    location.replace("/LED/index.html");
+  </script>
+</head>
+
+<body>
+  <!-- 
+    [JavaScript 미지원 브라우저용 안전장치] 
+    JS가 꺼져있거나 지원하지 않는 환경에서는 <noscript> 내 코드 실행됨.
+    여기서는 메타 태그 리프레시를 사용해 0초 후 /LED/index.html 로 이동.
+  -->
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/LED/index.html" />
+    
+    <!-- 
+      혹시 자동 이동이 안 될 경우를 대비해 사용자가 직접 클릭할 수 있는 링크 제공.
+      사용자 경험을 위한 최소한의 배려.
+    -->
+    <p>자동 이동이 안 되면 <a href="/LED/index.html">여기를 클릭하세요</a>.</p>
+  </noscript>
+</body>
+</html>
