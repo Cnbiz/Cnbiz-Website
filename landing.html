@@ -63,6 +63,7 @@
       text-decoration: none;
       border-radius: 6px;
       font-size: 0.95rem;
+      font-weight: bold;
       transition: background 0.3s;
       display: inline-block;
     }
@@ -103,29 +104,61 @@
       margin: 0;
     }
 
-    /* === 라벨 스타일 === */
-    form label {
+    /* === 이름 입력 필드 스타일 === */
+    #nameGroup {
+      margin-bottom: 12px;
+    }
+    #nameGroup label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
     }
-
-    /* === 입력 및 텍스트영역 스타일 === */
-    form input,
-    form textarea {
+    #user_name {
       width: 100%;
       padding: 8px 10px;
-      margin-bottom: 12px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 1rem;
       box-sizing: border-box;
     }
 
-    /* === 문의 내용 텍스트영역 세로 리사이즈 가능 === */
+    /* === 연락처와 이메일 영역을 가로 배치하는 컨테이너 === */
+    .contact-email-wrapper {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    /* 좌측 연락처, 우측 이메일 각 50% 너비 */
+    #phoneGroup, #emailGroup {
+      flex: 1;
+    }
+    #phoneGroup label,
+    #emailGroup label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    #user_phone,
+    #user_email {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    /* === 문의 내용 텍스트영역 스타일 === */
     form textarea {
-      resize: vertical;
-      min-height: 80px;
+      width: 100%;           /* 가로 크기 고정 */
+      resize: vertical;      /* 높이만 조절 가능 */
+      min-height: 200px;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      margin-bottom: 12px;
     }
 
     /* === 문의 제출 버튼 스타일 === */
@@ -137,6 +170,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
+      font-weight: bold;
       transition: background 0.3s;
       width: 100%;
     }
@@ -144,13 +178,30 @@
       background-color: #0056b3;
     }
 
-    /* === 상태 메시지 스타일 === */
-    #statusMessage {
-      margin-top: 10px;
-      font-weight: 600;
-      text-align: center;
-    }
+   /* 상태 메시지 스타일 */
+#statusMessage {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold; /* ← 여기서 굵기 설정 */
+  font-weight: normal;
+  text-align: center;
+  transition: color 0.3s, font-weight 0.3s;
+   }
 
+    /* === 상태 메시지 별 색상 구분 클래스 === */
+    .status-error {
+      color: red;
+      font-weight: bold;
+    }
+    .status-success {
+      color: green;
+      font-weight: bold;
+    }
+    .status-info {
+      color: yellow;
+      font-weight: bold;
+    }
+    
     /* === 회사로고 영역 스타일 === */
     .company-logo {
       display: block;
@@ -241,6 +292,10 @@
       .company-logo {
         max-width: 130px;
       }
+      /* 모바일에서는 연락처, 이메일 세로 배치 */
+      .contact-email-wrapper {
+        flex-direction: column;
+      }
     }
 
     /* === 반응형 스타일 (600px 이하) === */
@@ -282,7 +337,7 @@
     
     <!-- === 메인 사이트 이동 버튼 및 오늘 다시 안보기 체크박스 영역 === -->
     <div class="actions">
-      <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트로 이동</a>
+      <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트 이동</a>
       <div class="checkbox-wrap">
         <label>
           <input type="checkbox" id="todayCheck" />
@@ -303,22 +358,36 @@
       />
 
       <!-- === 문의 폼 === -->
+    <div class="content-wrapper">
       <form id="contact-form" novalidate>
-        <label for="user_name">이름</label>
-        <input type="text" id="user_name" name="user_name" required autocomplete="name" />
+        <!-- 이름 입력 -->
+        <div id="nameGroup">
+          <label for="user_name">이름</label>
+          <input type="text" id="user_name" name="user_name" required autocomplete="name" />
+        </div>
 
-        <label for="user_email">이메일</label>
-        <input type="email" id="user_email" name="user_email" required autocomplete="email" />
+        <!-- 연락처, 이메일를 좌우 배치하는 컨테이너 -->
+        <div class="contact-email-wrapper">
+          <div id="phoneGroup">
+            <label for="user_phone">연락처</label>
+            <input type="tel" id="user_phone" name="user_phone" autocomplete="tel" />
+          </div>
+          <div id="emailGroup">
+            <label for="user_email">이메일</label>
+            <input type="email" id="user_email" name="user_email" autocomplete="email" />
+          </div>
+        </div>
 
+        <!-- 문의 내용 -->
         <label for="message">문의 내용</label>
         <textarea id="message" name="message" required></textarea>
 
         <button type="submit" id="submitBtn">문의 보내기</button>
 
-        <!-- === 상태 메시지 영역 (ARIA 속성 포함) === -->
+        <!-- 상태 메시지 영역 -->
         <div id="statusMessage" role="alert" aria-live="polite"></div>
 
-        <!-- === 회사 로고 추가 (문의하기 버튼 아래) === -->
+        <!-- 회사 로고 추가 -->
         <img src="CnbizLogo_A.png" alt="주식회사 씨앤비즈 로고" class="company-logo" />
       </form>
     </div>
@@ -337,22 +406,106 @@
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
 
+    /**
+     * 폼 입력값 유효성 검사 함수
+     * 이름과 문의내용은 필수 입력
+     * 연락처와 이메일 중 적어도 하나는 입력되어야 함
+     * @returns {boolean} true: 유효성 통과, false: 실패
+     */
+    // === 이메일 형식 검사 함수 ===
+    function isValidEmail(email) {
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailPattern.test(email); // 유효한 이메일이면 true
+    }
+
+    // === 상태 메시지 설정 함수 ===
+    function setStatusMessage(message, type) {
+      statusMessage.textContent = message;
+
+      // 메시지 타입에 맞는 스타일 적용
+      statusMessage.className = '';  // 기존 클래스 제거
+      if (type === 'error') {
+        statusMessage.classList.add('status-error');  // 에러 스타일
+      } else if (type === 'success') {
+        statusMessage.classList.add('status-success');  // 성공 스타일
+      } else {
+        statusMessage.classList.add('status-info');  // 정보 메시지 스타일
+      }
+    }
+       // === 폼 유효성 검사 함수 ===
+    function validateForm() {
+      const name = form.user_name.value.trim();
+      const phone = form.user_phone.value.trim();
+      const email = form.user_email.value.trim();
+      const message = form.message.value.trim();
+
+      // 에러 메시지 초기화
+      statusMessage.textContent = '';
+      statusMessage.style.color = 'red';
+
+      // 이름 필수 체크
+      if (!name) {
+        statusMessage.style.color = 'red';  // 빨간색
+        statusMessage.style.fontWeight = 'bold';  // 굵게
+        statusMessage.textContent = '이름을 입력해 주세요.';
+        form.user_name.focus();
+        return false;
+      }
+
+      // 연락처와 이메일 중 적어도 하나 입력 체크
+      if (!phone && !email) {
+        statusMessage.style.color = 'red';  // 빨간색
+        statusMessage.style.fontWeight = 'bold';  // 굵게
+        statusMessage.innerHTML = '연락처 또는 이메일 중<br>하나는 반드시 입력해야 합니다.';
+        form.user_phone.focus();  // 연락처 필드에 포커스 이동
+        return false;
+      }
+
+      // 이메일 형식 검사
+      if (email && !isValidEmail(email)) {
+        statusMessage.style.color = 'red';  // 빨간색
+        statusMessage.style.fontWeight = 'bold';  // 굵게
+        statusMessage.textContent = '유효한 이메일 주소를 입력해 주세요.';
+        form.user_email.focus();
+        return false;
+      }
+
+      // 문의 내용 필수 체크
+      if (!message) {
+        statusMessage.style.color = 'red';  // 빨간색
+        statusMessage.style.fontWeight = 'bold';  // 굵게
+        statusMessage.textContent = '문의 내용을 입력해 주세요.';
+        form.user_email.focus();
+        return false;
+      }
+
+      // 모두 통과
+      setStatusMessage('', 'info');
+      return true;
+    }
+
     // === 문의 폼 제출 이벤트 핸들러 ===
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      // 입력 유효성 검사
+      if (!validateForm()) {
+        // 실패 시 전송 중 버튼 비활성화 풀기
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // 유효성 통과 시 전송 처리
       submitBtn.disabled = true;
-      statusMessage.style.color = "black";
-      statusMessage.textContent = "전송 중입니다...";
+      setStatusMessage("전송 중입니다...", 'info');
 
       emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
         .then(() => {
-          statusMessage.style.color = "green";
-          statusMessage.textContent = "문의가 성공적으로 전송되었습니다!";
+          setStatusMessage("문의가 성공적으로 전송되었습니다!", 'success');
           form.reset();
         })
         .catch((err) => {
-          statusMessage.style.color = "red";
-          statusMessage.textContent = `전송 실패: ${err.text || err}`;
+          setStatusMessage(`전송 실패: ${err.text || err}`, 'error');
         })
         .finally(() => {
           submitBtn.disabled = false;
@@ -395,7 +548,7 @@
       const isKorean = lang.startsWith('ko');
 
       document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
-      document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트로 이동' : 'Go to Main Site';
+      document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
       document.getElementById('checkboxText').textContent = isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
       document.getElementById('closeBtn').textContent = isKorean ? '✕ 닫기' : '✕ Close';
       document.getElementById('themeToggleBtn').textContent = isDark()
