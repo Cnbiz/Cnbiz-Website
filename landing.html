@@ -54,7 +54,7 @@
       gap: 15px;
       margin-bottom: 30px;
     }
-
+	
     /* === 버튼 스타일 === */
     .btn {
       padding: 10px 20px;
@@ -65,7 +65,7 @@
       font-size: 0.95rem;
       font-weight: bold;
       transition: background 0.3s;
-      display: inline-block;
+      display: inline-block; 
     }
     .btn:hover {
       background-color: #0056b3;
@@ -114,11 +114,11 @@
       font-weight: 600;
     }
     #user_name {
-      width: 100%;
+	  width: 100%;
       padding: 8px 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 1rem;
+      font-size: 1rem;  
       box-sizing: border-box;
     }
 
@@ -177,16 +177,16 @@
     #submitBtn:hover {
       background-color: #0056b3;
     }
-
+	
    /* 상태 메시지 스타일 */
 #statusMessage {
   margin-top: 10px;
   font-size: 1rem;
-  font-weight: bold; /* ← 여기서 굵기 설정 */
-  font-weight: normal;
+  font-weight: 600;      /* 기본 굵기 지정 */
   text-align: center;
-  transition: color 0.3s, font-weight 0.3s;
-   }
+  transition: color 0.3s, font-weight 0.5s;
+  white-space: pre-line;
+}
 
     /* === 상태 메시지 별 색상 구분 클래스 === */
     .status-error {
@@ -198,7 +198,7 @@
       font-weight: bold;
     }
     .status-info {
-      color: yellow;
+      color: gray;
       font-weight: bold;
     }
     
@@ -327,7 +327,7 @@
 </head>
 <body>
   <!-- === 팝업 닫기 버튼 (상단 우측) === -->
-  <button class="close-btn" onclick="closePopup()" id="closeBtn" aria-label="팝업 닫기">✕ 닫기</button>
+  <button class="close-btn" onclick="closePopup()" id="closeBtn" aria-label="팝업 닫기">✕ 닫기</button>		 
 
   <!-- === 팝업 래퍼, 접근성 속성 포함 === -->
   <div class="popup-wrapper" role="dialog" aria-modal="true" aria-labelledby="titleText">
@@ -384,10 +384,10 @@
 
         <button type="submit" id="submitBtn">문의 보내기</button>
 
-        <!-- 상태 메시지 영역 -->
+        <!-- 상태 메시지 영역 -->									
         <div id="statusMessage" role="alert" aria-live="polite"></div>
-
-        <!-- 회사 로고 추가 -->
+		
+        <!-- 회사 로고 추가 -->													   
         <img src="CnbizLogo_A.png" alt="주식회사 씨앤비즈 로고" class="company-logo" />
       </form>
     </div>
@@ -401,7 +401,7 @@
   <script>
     // === 이메일JS 초기화 (사용자 ID 입력) ===
     emailjs.init("INC6ZLU2QLdLBsFsX");
-
+	
     const form = document.getElementById('contact-form');
     const statusMessage = document.getElementById('statusMessage');
     const submitBtn = document.getElementById('submitBtn');
@@ -417,68 +417,61 @@
       const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return emailPattern.test(email); // 유효한 이메일이면 true
     }
+																					
+    // === 상태 메시지 설정 함수 === 
+    function setStatusMessage(message, type = "info") {
+      const statusEl = document.getElementById("statusMessage");
+      if (!statusEl) return;
 
-    // === 상태 메시지 설정 함수 ===
-    function setStatusMessage(message, type) {
-      statusMessage.textContent = message;
+  // 기존 상태 클래스 모두 제거
+     statusEl.classList.remove("status-error", "status-success", "status-info");
 
-      // 메시지 타입에 맞는 스타일 적용
-      statusMessage.className = '';  // 기존 클래스 제거
-      if (type === 'error') {
-        statusMessage.classList.add('status-error');  // 에러 스타일
-      } else if (type === 'success') {
-        statusMessage.classList.add('status-success');  // 성공 스타일
-      } else {
-        statusMessage.classList.add('status-info');  // 정보 메시지 스타일
-      }
-    }
+  // 메시지 내용 업데이트
+     statusEl.textContent = message;
+
+  // 상태 타입에 맞는 클래스 추가
+  if (type === "error") {
+    statusEl.classList.add("status-error");
+  } else if (type === "success") {
+    statusEl.classList.add("status-success");
+  } else {
+    statusEl.classList.add("status-info");
+  }
+}      
        // === 폼 유효성 검사 함수 ===
     function validateForm() {
       const name = form.user_name.value.trim();
       const phone = form.user_phone.value.trim();
       const email = form.user_email.value.trim();
       const message = form.message.value.trim();
-
+			
       // 에러 메시지 초기화
       statusMessage.textContent = '';
-      statusMessage.style.color = 'red';
-
-      // 이름 필수 체크
-      if (!name) {
-        statusMessage.style.color = 'red';  // 빨간색
-        statusMessage.style.fontWeight = 'bold';  // 굵게
-        statusMessage.textContent = '이름을 입력해 주세요.';
-        form.user_name.focus();
-        return false;
-      }
-
-      // 연락처와 이메일 중 적어도 하나 입력 체크
-      if (!phone && !email) {
-        statusMessage.style.color = 'red';  // 빨간색
-        statusMessage.style.fontWeight = 'bold';  // 굵게
-        statusMessage.innerHTML = '연락처 또는 이메일 중<br>하나는 반드시 입력해야 합니다.';
-        form.user_phone.focus();  // 연락처 필드에 포커스 이동
-        return false;
-      }
-
+			
+		//이름 필수 체크
+		if (!name) {
+  setStatusMessage("이름을 입력해 주세요.", "error");
+  form.user_name.focus();
+  return false;
+}  
+       // 연락처와 이메일 중 적어도 하나 입력 체크
+if (!phone && !email) {
+  setStatusMessage("연락처 또는 이메일 중\n하나는 반드시 입력해야 합니다.", "error");
+  form.user_phone.focus();
+  return false;
+}
       // 이메일 형식 검사
-      if (email && !isValidEmail(email)) {
-        statusMessage.style.color = 'red';  // 빨간색
-        statusMessage.style.fontWeight = 'bold';  // 굵게
-        statusMessage.textContent = '유효한 이메일 주소를 입력해 주세요.';
-        form.user_email.focus();
-        return false;
-      }
-
+if (email && !isValidEmail(email)) {
+  setStatusMessage("유효한 이메일 주소를 입력해 주세요.", "error");
+  form.user_email.focus();
+  return false;
+}
       // 문의 내용 필수 체크
-      if (!message) {
-        statusMessage.style.color = 'red';  // 빨간색
-        statusMessage.style.fontWeight = 'bold';  // 굵게
-        statusMessage.textContent = '문의 내용을 입력해 주세요.';
-        form.user_email.focus();
-        return false;
-      }
-
+if (!message) {
+  setStatusMessage("문의 내용을 입력해 주세요.", "error");
+  form.message.focus();
+  return false;
+}
       // 모두 통과
       setStatusMessage('', 'info');
       return true;
@@ -486,7 +479,7 @@
 
     // === 문의 폼 제출 이벤트 핸들러 ===
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
+      e.preventDefault();						
 
       // 입력 유효성 검사
       if (!validateForm()) {
@@ -495,29 +488,32 @@
         return;
       }
 
-      // 유효성 통과 시 전송 처리
-      submitBtn.disabled = true;
-      setStatusMessage("전송 중입니다...", 'info');
+      // 모든 유효성 검사 통과 시 제출 버튼 비활성화 및 안내 메시지 출력																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													 
+        submitBtn.disabled = true;
+        setStatusMessage("전송 중입니다...", "info");
 
-      emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
-        .then(() => {
-          setStatusMessage("문의가 성공적으로 전송되었습니다!", 'success');
-          form.reset();
-        })
-        .catch((err) => {
-          setStatusMessage(`전송 실패: ${err.text || err}`, 'error');
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-        });
-    });
+      // EmailJS sendForm API를 사용해 폼 데이터 전송
+        emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this).then(() => {
+      // 성공 시 성공 메시지 출력 및 폼 초기화
+        setStatusMessage("문의가 성공적으로 전송되었으며,\n담당자가 빠른 확인 후 연락 드리겠습니다.","success");
+    form.reset();
+  })
+  .catch((err) => {
+    // 실패 시 에러 메시지 출력 (템플릿 리터럴 사용!)
+    setStatusMessage(`전송 실패: ${err.text || err}`, "error");
+  })
+  .finally(() => {
+    // 완료 후 제출 버튼 다시 활성화
+    submitBtn.disabled = false;
+  });
+});
 
     // === 오늘 날짜 키 생성 함수 (YYYY-M-D 형식) ===
     function getTodayKey() {
       const t = new Date();
       return `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
     }
-
+	
     // === 모바일 여부 확인 함수 ===
     function isMobile() {
       return /Mobi|Android|iPhone/i.test(navigator.userAgent);
@@ -546,9 +542,9 @@
     function updateTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
-
-      document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
-      document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
+      
+	  document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
+	  document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
       document.getElementById('checkboxText').textContent = isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
       document.getElementById('closeBtn').textContent = isKorean ? '✕ 닫기' : '✕ Close';
       document.getElementById('themeToggleBtn').textContent = isDark()
@@ -573,7 +569,6 @@
       // 이전에 저장한 테마 가져오기 및 적용
       const preferredTheme = localStorage.getItem('preferredTheme');
       const prefersDarkScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
       if (preferredTheme === 'dark' || (!preferredTheme && prefersDarkScheme)) {
         document.body.classList.add('dark-mode');
       }
