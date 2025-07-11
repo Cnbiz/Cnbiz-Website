@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주식회사 씨앤비즈 | LED 디스플레이</title>
+  <link rel="icon" href="Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
+  <link rel="icon" href="Cnbiz_link_icon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="Cnbiz_link_icon-48.png" sizes="48x48" type="image/png" />
+  <style>
+    /* === CSS 변수 === */
+    :root {
+      --bg-light: rgba(255,255,255,0.92);
+      --text-color: #222;
+      --primary-color: #007bff;
+      --primary-dark: #0056b3;
+    }
+
+    /* === 기본 박스 모델 === */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* === 우측 상단 로고 고정 === */
+    .site-header {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 20;
+    }
+    .logo {
+      max-width: 120px;
+      filter: brightness(1.2);
+    }
+
+    /* === Hero 영역: 배경 이미지 + 그라데이션 + 텍스트 정렬 === */
+    .hero {
+      position: relative;
+      height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* 위쪽 정렬 */
+      align-items: center;
+      text-align: center;
+      padding-top: 100px;
+      color: white;
+
+      background-image:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url('Main.png'); /* 배경 이미지 URL 변경 가능 */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+    }
+
+    /* === 이미지 슬라이드 컨테이너 === */
+    .infinite-slider {
+      overflow: hidden;
+      height: 360px;
+      width: 100%;
+      max-width: 960px;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    /* === 슬라이드 트랙: 가로 배치 + 무한 스크롤 애니메이션 === */
+    .slide-track {
+      display: flex;
+      width: calc(640px * 6); /* 이미지 너비 640px * 6 (두 세트) */
+      animation: scrollLeft 30s linear infinite;
+    }
+
+    /* === 슬라이드 이미지 스타일 === */
+    .slide-track img {
+      width: 640px;
+      height: 360px;
+      object-fit: cover;
+      flex-shrink: 0;
+      user-select: none;
+      border-radius: 10px;
+    }
+
+    /* === 슬라이드 무한 스크롤 애니메이션 === */
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1920px); } /* 이미지 3개 * 640px */
+    }
+
+    /* === 제품 특징 설명 영역 === */
+    .features {
+      padding: 30px 20px;
+      background: white;
+      max-width: 640px;
+      margin: 0 auto 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .features h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .features ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .features li {
+      padding: 10px 0;
+      font-size: 1.1rem;
+    }
+
+    /* === 제품 페이지 이동 링크 === */
+    .product-nav {
+      text-align: center;
+      padding: 20px;
+      max-width: 640px;
+      margin: 0 auto 40px auto;
+    }
+    .nav-link {
+      margin: 0 10px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
+    /* === CTA 버튼 영역 === */
+    .cta {
+      text-align: center;
+      padding: 40px 20px;
+      background: #3399ff;
+      color: white;
+      max-width: 640px;
+      margin: 0 auto 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .btn-cta {
+      display: inline-block;
+      background: white;
+      color: var(--primary-color);
+      padding: 12px 20px;
+      margin-top: 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn-cta:hover {
+      background-color: #ddd;
+    }
+
+    /* === 하단 회사 정보 === */
+    .site-footer {
+      text-align: center;
+      font-size: 0.9rem;
+      background: #eee;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* === 반응형 미디어 쿼리 === */
+    @media (max-width: 960px) {
+      /* 슬라이드 이미지 크기 및 애니메이션 너비 축소 */
+      .infinite-slider {
+        height: 280px;
+      }
+      .slide-track {
+        width: calc(480px * 6);
+        animation: scrollLeftMedium 25s linear infinite;
+      }
+      .slide-track img {
+        width: 480px;
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      /* 모바일용 더 작은 슬라이드, 폰트 축소, 패딩 감소 */
+      .hero {
+        height: auto;
+        padding-top: 80px;
+        padding-bottom: 60px;
+      }
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        padding: 0 10px;
+      }
+      .logo {
+        max-width: 90px;
+      }
+      .infinite-slider {
+        height: 200px;
+      }
+      .slide-track {
+        width: calc(320px * 6);
+        animation: scrollLeftSmall 20s linear infinite;
+      }
+      .slide-track img {
+        width: 320px;
+        height: 200px;
+      }
+      .features,
+      .cta,
+      .product-nav {
+        max-width: 90%;
+        padding: 20px 10px;
+      }
+      .features li {
+        font-size: 1rem;
+      }
+      .btn-cta {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+      }
+    }
+
+    /* === 슬라이드 애니메이션 크기에 따른 변환 === */
+    @keyframes scrollLeftMedium {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1440px); } /* 3개 * 480px */
+    }
+    @keyframes scrollLeftSmall {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-960px); } /* 3개 * 320px */
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 우측 상단 로고 -->
+  <header class="site-header">
+    <a href="index.html">
+      <img src="CnbizLogo.png" alt="씨앤비즈 로고" class="logo" />
+    </a>
+  </header>
+
+  <!-- Hero 영역 -->
+  <section class="hero">
+    <h1>실내·실외 맞춤형 LED 디스플레이</h1>
+    <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
+  </section>
+
+  <!-- 무한 슬라이드 -->
+  <div class="infinite-slider" aria-label="LED 디스플레이 이미지 슬라이드">
+    <div class="slide-track">
+      <img src="Main_A.png" alt="LED 디스플레이 1" />
+      <img src="Main_B.png" alt="LED 디스플레이 2" />
+      <img src="Main_C.png" alt="LED 디스플레이 3" />
+      <!-- 반복 -->
+      <img src="Main_A.png" alt="LED 디스플레이 1" />
+      <img src="Main_B.png" alt="LED 디스플레이 2" />
+      <img src="Main_C.png" alt="LED 디스플레이 3" />
+    </div>
+  </div>
+
+  <!-- 제품 특징 -->
+  <section class="features" aria-labelledby="features-title">
+    <h2 id="features-title">제품 주요 특징</h2>
+    <ul>
+      <li>🔆 고휘도, 고해상도 Full-Color LED</li>
+      <li>⚙️ 실내/실외 모두 설치 가능, 다양한 사이즈 대응</li>
+      <li>🔌 USB/HDMI/LAN 등 다양한 입력 지원</li>
+    </ul>
+  </section>
+
+  <!-- 이전/다음 제품 페이지 링크 -->
+  <section class="product-nav" aria-label="제품 페이지 내비게이션">
+    <a href="prev-product.html" class="nav-link">← 이전 제품</a>
+    <a href="next-product.html" class="nav-link">다음 제품 →</a>
+  </section>
+
+  <!-- CTA 영역 -->
+  <section class="cta" aria-label="문의하기">
+    <h3>맞춤형 LED 디스플레이가 필요하신가요?</h3>
+    <a href="#contact" class="btn-cta">지금 문의하기</a>
+  </section>
+
+  <!-- 하단 회사 정보 -->
+  <footer class="site-footer" aria-label="회사 정보">
+    <p>© 2025 주식회사 씨앤비즈</p>
+    <p>대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
+    <p>문의: contact@cnbiz.co.kr</p>
+  </footer>
+
+  <!-- 슬라이드 스크립트(현재 애니메이션 CSS만 사용 중, JS는 불필요) -->
+</body>
+</html>
