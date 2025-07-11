@@ -215,6 +215,13 @@
     .company-logo:hover {
       transform: scale(1.05); /* 호버시 약간 확대 효과 */
     }
+    /*   봇 차단용 히든 필드를 화면에서 완전히 숨김 처리
+      - display:none으로 사용자 화면에 노출되지 않음
+      - 스크린리더에게도 숨겨져 시각 및 접근 모두 차단됨
+      - label은 접근성을 위해 남기지만, 시각적으로는 숨겨짐*/
+    .honeypot {
+      display: none;
+    }
 
     /* === 팝업 닫기 버튼 스타일 (상단 우측 고정) === */
     .close-btn {
@@ -380,7 +387,18 @@
 
         <!-- 문의 내용 -->
         <label for="message">문의 내용</label>
-        <textarea id="message" name="message" required></textarea>
+        <textarea id="message" name="message" required></textarea>	
+<!-- 
+  봇 차단용 히든 필드 (honeypot 기법)
+  - 실제 사용자에게는 보이지 않도록 숨김 처리함
+  - 봇이 자동으로 모든 필드를 채우는 경우가 많아, 
+    이 필드에 값이 들어가면 봇으로 판단하여 제출을 차단함
+  - 스크린리더 사용자를 위해 label은 남겨두어 접근성 유지
+-->
+<div class="honeypot">
+  <label for="honeypot">Leave empty</label> <!-- 사용자에게는 보이지 않음 -->
+  <input type="text" id="honeypot" name="honeypot" autocomplete="off" />
+</div>		
 
         <button type="submit" id="submitBtn">문의 보내기</button>
 
@@ -422,12 +440,11 @@
     function setStatusMessage(message, type = "info") {
       const statusEl = document.getElementById("statusMessage");
       if (!statusEl) return;
-
+	  
   // 기존 상태 클래스 모두 제거
      statusEl.classList.remove("status-error", "status-success", "status-info");
-
   // 메시지 내용 업데이트
-     statusEl.textContent = message;
+     statusEl.textContent = message;													 
 
   // 상태 타입에 맞는 클래스 추가
   if (type === "error") {
@@ -444,9 +461,16 @@
       const phone = form.user_phone.value.trim();
       const email = form.user_email.value.trim();
       const message = form.message.value.trim();
+	  const honeypot = form.honeypot.value.trim();
 			
       // 에러 메시지 초기화
       statusMessage.textContent = '';
+	  
+	  // 봇 차단용 히든 필드가 비어있지 않으면 스팸으로 간주하여 차단
+      if (honeypot !== "") {
+        setStatusMessage("스팸으로 판단되어 전송이 차단되었습니다.", 'error');
+        return;
+      }
 			
 		//이름 필수 체크
 		if (!name) {
@@ -478,8 +502,8 @@ if (!message) {
     }
 
     // === 문의 폼 제출 이벤트 핸들러 ===
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();						
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // 기본 폼 제출 이벤트 중단						
 
       // 입력 유효성 검사
       if (!validateForm()) {
