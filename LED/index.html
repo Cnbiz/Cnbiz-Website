@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>주식회사 씨앤비즈 | LED 디스플레이</title>
-
-  <!-- 파비콘 설정 -->
+  
+/* === 2025.07.12 12:57 수정완료 === */
+  <!-- 파비콘 -->
   <link rel="icon" href="Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
   <link rel="icon" href="Cnbiz_link_icon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="Cnbiz_link_icon-48.png" sizes="48x48" type="image/png" />
 
   <style>
-    /* === 글로벌 색상 및 타이포 변수 설정 === */
     :root {
       --bg-light: rgba(255,255,255,0.92);
       --text-color: #222;
@@ -29,7 +29,12 @@
       line-height: 1.6;
     }
 
-    /* 상단 로고 영역 */
+    /* 팝업이 열릴 때 스크롤 비활성화 */
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    /* 상단 로고 */
     .site-header {
       position: absolute;
       top: 20px;
@@ -42,7 +47,7 @@
       filter: brightness(1.2);
     }
 
-    /* Hero 섹션 - 배경 + 소개 텍스트 */
+    /* Hero 영역 */
     .hero {
       position: relative;
       height: 360px;
@@ -64,7 +69,7 @@
     .hero h1 { font-size: 2rem; margin-bottom: 10px; }
     .hero p { font-size: 1.1rem; max-width: 600px; }
 
-    /* 무한 슬라이드 이미지 영역 */
+    /* 무한 슬라이드 */
     .infinite-slider {
       overflow: hidden;
       height: 360px;
@@ -94,7 +99,7 @@
       100% { transform: translateX(-1920px); }
     }
 
-    /* 제품 특징 섹션 */
+    /* 제품 특징 */
     .features {
       padding: 30px 20px;
       background: white;
@@ -121,7 +126,7 @@
       font-size: 1.1rem;
     }
 
-    /* 제품 이동 링크 */
+    /* 제품 링크 */
     .product-nav {
       text-align: center;
       padding: 20px;
@@ -138,7 +143,7 @@
 
     .nav-link:hover { text-decoration: underline; }
 
-    /* CTA */
+    /* CTA 영역 */
     .cta {
       text-align: center;
       padding: 40px 20px;
@@ -164,7 +169,7 @@
 
     .btn-cta:hover { background-color: #ddd; }
 
-    /* 하단 정보 */
+    /* 푸터 */
     .site-footer {
       text-align: center;
       font-size: 0.9rem;
@@ -173,7 +178,7 @@
       margin-top: 40px;
     }
 
-    /* === 팝업 오버레이 전용 스타일 === */
+    /* 팝업 오버레이 영역 */
     .overlay {
       display: none;
       position: fixed;
@@ -181,23 +186,27 @@
       background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
+      overflow: hidden; /* 중요: iframe이 넘칠 때 스크롤 방지 */
       z-index: 9999;
-      padding: 10px;
+      padding: 0; /* 패딩 제거하여 정확한 사이즈 보장 */
     }
 
+    /* iframe 크기 제한 */
     .overlay iframe {
-      width: 900vw;
+      width: 100vw;
       max-width: 1000px;
-      height: 95vh;
+      height: 100vh;
+      max-height: 200vh;
       border: none;
-      border-radius: 12px;
+      border-radius: 50px;
       background: white;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
 
-  <!-- 우측 상단 로고 -->
+  <!-- 상단 로고 -->
   <header class="site-header">
     <a href="index.html">
       <img src="CnbizLogo.png" alt="씨앤비즈 로고" class="logo" />
@@ -210,7 +219,7 @@
     <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
   </section>
 
-  <!-- 무한 슬라이드 이미지 영역 -->
+  <!-- 이미지 슬라이더 -->
   <div class="infinite-slider" aria-label="LED 디스플레이 이미지 슬라이드">
     <div class="slide-track">
       <img src="Main_A.png" alt="LED 디스플레이 1" />
@@ -222,7 +231,7 @@
     </div>
   </div>
 
-  <!-- 제품 특징 설명 -->
+  <!-- 제품 특징 -->
   <section class="features" aria-labelledby="features-title">
     <h2 id="features-title">제품 주요 특징</h2>
     <ul>
@@ -232,63 +241,59 @@
     </ul>
   </section>
 
-  <!-- 이전/다음 제품 링크 -->
+  <!-- 제품 이동 링크 -->
   <section class="product-nav" aria-label="제품 페이지 내비게이션">
     <a href="prev-product.html" class="nav-link">← 이전 제품</a>
     <a href="next-product.html" class="nav-link">다음 제품 →</a>
   </section>
 
-  <!-- CTA 영역 -->
+  <!-- CTA -->
   <section class="cta" aria-label="문의하기">
     <h3>맞춤형 LED 디스플레이가 필요하신가요?</h3>
     <a href="#contact" class="btn-cta">지금 문의하기</a>
   </section>
 
-  <!-- 하단 푸터 -->
+  <!-- 하단 회사 정보 -->
   <footer class="site-footer" aria-label="회사 정보">
     <p>© 2025 주식회사 씨앤비즈</p>
     <p>대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
     <p>문의: contact@cnbiz.co.kr</p>
   </footer>
 
-  <!-- === 팝업 오버레이 iframe === -->
+  <!-- 팝업 오버레이 -->
   <div class="overlay" id="popupOverlay" role="dialog" aria-modal="true">
     <iframe src="landing.html" title="프로모션 팝업"></iframe>
   </div>
 
-  <!-- === 팝업 오버레이 스크립트 === -->
+  <!-- 팝업 로직 -->
   <script>
-    // 오늘 날짜 저장
     const today = new Date().toDateString();
 
     window.onload = function () {
-      // localStorage에 저장된 오늘 날짜와 비교하여 팝업 표시 여부 결정
       const dismissed = localStorage.getItem('popupDismissedToday');
       if (dismissed !== today) {
         document.getElementById('popupOverlay').style.display = 'flex';
+        document.body.classList.add('no-scroll'); // 스크롤 제거
       }
     };
 
-    // iframe(landing.html)에서 보낸 postMessage 수신 처리
     window.addEventListener('message', e => {
       if (!e.data || !e.data.action) return;
 
-      // 팝업 닫기 요청
       if (e.data.action === 'closePopup') {
         if (e.data.todayCheck) {
-          // 오늘 하루 보지 않기 체크되었으면 로컬 스토리지에 저장
           localStorage.setItem('popupDismissedToday', today);
         }
         document.getElementById('popupOverlay').style.display = 'none';
+        document.body.classList.remove('no-scroll');
       }
 
-      // 메인 페이지 이동 요청
       if (e.data.action === 'goToMain') {
         document.getElementById('popupOverlay').style.display = 'none';
-        window.location.href = 'https://cnbiznet.co.kr';  // 메인 페이지로 이동
+        document.body.classList.remove('no-scroll');
+        window.location.href = 'https://cnbiznet.co.kr';
       }
     });
   </script>
-
 </body>
 </html>
