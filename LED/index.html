@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>주식회사 씨앤비즈 | LED 디스플레이</title>
+
   <!-- 파비콘 설정 -->
   <link rel="icon" href="Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
   <link rel="icon" href="Cnbiz_link_icon-32.png" sizes="32x32" type="image/png" />
@@ -63,7 +64,7 @@
     .hero h1 { font-size: 2rem; margin-bottom: 10px; }
     .hero p { font-size: 1.1rem; max-width: 600px; }
 
-    /* 무한 슬라이더 */
+    /* 무한 슬라이드 이미지 영역 */
     .infinite-slider {
       overflow: hidden;
       height: 360px;
@@ -170,63 +171,6 @@
       background: #eee;
       padding: 20px;
       margin-top: 40px;
-    }
-
-    /* 반응형 미디어 쿼리 */
-    @media (max-width: 960px) {
-      .infinite-slider { height: 280px; }
-      .slide-track {
-        width: calc(480px * 6);
-        animation: scrollLeftMedium 25s linear infinite;
-      }
-      .slide-track img {
-        width: 480px;
-        height: 280px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero {
-        height: auto;
-        padding-top: 80px;
-        padding-bottom: 60px;
-      }
-      .hero h1 { font-size: 1.5rem; }
-      .hero p {
-        font-size: 1rem;
-        padding: 0 10px;
-      }
-      .logo { max-width: 90px; }
-      .infinite-slider { height: 200px; }
-      .slide-track {
-        width: calc(320px * 6);
-        animation: scrollLeftSmall 20s linear infinite;
-      }
-      .slide-track img {
-        width: 320px;
-        height: 200px;
-      }
-      .features,
-      .cta,
-      .product-nav {
-        max-width: 90%;
-        padding: 20px 10px;
-      }
-      .features li { font-size: 1rem; }
-      .btn-cta {
-        padding: 10px 16px;
-        font-size: 0.95rem;
-      }
-    }
-
-    @keyframes scrollLeftMedium {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-1440px); }
-    }
-
-    @keyframes scrollLeftSmall {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-960px); }
     }
 
     /* === 팝업 오버레이 전용 스타일 === */
@@ -341,7 +285,7 @@
       // 메인 페이지 이동 요청
       if (e.data.action === 'goToMain') {
         document.getElementById('popupOverlay').style.display = 'none';
-        window.location.href = 'https://cnbiznet.co.kr';
+        window.location.href = 'https://cnbiznet.co.kr';  // 메인 페이지로 이동
       }
     });
   </script>
