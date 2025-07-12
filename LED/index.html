@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>주식회사 씨앤비즈 | LED 디스플레이</title>
+  <!-- 파비콘 설정 -->
   <link rel="icon" href="Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
   <link rel="icon" href="Cnbiz_link_icon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="Cnbiz_link_icon-48.png" sizes="48x48" type="image/png" />
+
   <style>
-    /* === CSS 변수 === */
+    /* === 글로벌 색상 및 타이포 변수 설정 === */
     :root {
       --bg-light: rgba(255,255,255,0.92);
       --text-color: #222;
@@ -16,10 +18,7 @@
       --primary-dark: #0056b3;
     }
 
-    /* === 기본 박스 모델 === */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: 'Noto Sans KR', sans-serif;
@@ -29,47 +28,42 @@
       line-height: 1.6;
     }
 
-    /* === 우측 상단 로고 고정 === */
+    /* 상단 로고 영역 */
     .site-header {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 20;
     }
+
     .logo {
       max-width: 120px;
       filter: brightness(1.2);
     }
 
-    /* === Hero 영역: 배경 이미지 + 그라데이션 + 텍스트 정렬 === */
+    /* Hero 섹션 - 배경 + 소개 텍스트 */
     .hero {
       position: relative;
       height: 360px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* 위쪽 정렬 */
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       padding-top: 100px;
       color: white;
-
       background-image:
         linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-        url('Main.png'); /* 배경 이미지 URL 변경 가능 */
+        url('Main.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
     }
-    .hero h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      max-width: 600px;
-    }
 
-    /* === 이미지 슬라이드 컨테이너 === */
+    .hero h1 { font-size: 2rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.1rem; max-width: 600px; }
+
+    /* 무한 슬라이더 */
     .infinite-slider {
       overflow: hidden;
       height: 360px;
@@ -79,14 +73,12 @@
       position: relative;
     }
 
-    /* === 슬라이드 트랙: 가로 배치 + 무한 스크롤 애니메이션 === */
     .slide-track {
       display: flex;
-      width: calc(640px * 6); /* 이미지 너비 640px * 6 (두 세트) */
+      width: calc(640px * 6);
       animation: scrollLeft 30s linear infinite;
     }
 
-    /* === 슬라이드 이미지 스타일 === */
     .slide-track img {
       width: 640px;
       height: 360px;
@@ -96,13 +88,12 @@
       border-radius: 10px;
     }
 
-    /* === 슬라이드 무한 스크롤 애니메이션 === */
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-1920px); } /* 이미지 3개 * 640px */
+      100% { transform: translateX(-1920px); }
     }
 
-    /* === 제품 특징 설명 영역 === */
+    /* 제품 특징 섹션 */
     .features {
       padding: 30px 20px;
       background: white;
@@ -111,39 +102,42 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     .features h2 {
       text-align: center;
       margin-bottom: 20px;
     }
+
     .features ul {
       list-style: none;
       padding: 0;
       max-width: 600px;
       margin: 0 auto;
     }
+
     .features li {
       padding: 10px 0;
       font-size: 1.1rem;
     }
 
-    /* === 제품 페이지 이동 링크 === */
+    /* 제품 이동 링크 */
     .product-nav {
       text-align: center;
       padding: 20px;
       max-width: 640px;
       margin: 0 auto 40px auto;
     }
+
     .nav-link {
       margin: 0 10px;
       color: var(--primary-color);
       text-decoration: none;
       font-weight: bold;
     }
-    .nav-link:hover {
-      text-decoration: underline;
-    }
 
-    /* === CTA 버튼 영역 === */
+    .nav-link:hover { text-decoration: underline; }
+
+    /* CTA */
     .cta {
       text-align: center;
       padding: 40px 20px;
@@ -154,6 +148,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+
     .btn-cta {
       display: inline-block;
       background: white;
@@ -165,11 +160,10 @@
       font-weight: bold;
       transition: background-color 0.3s;
     }
-    .btn-cta:hover {
-      background-color: #ddd;
-    }
 
-    /* === 하단 회사 정보 === */
+    .btn-cta:hover { background-color: #ddd; }
+
+    /* 하단 정보 */
     .site-footer {
       text-align: center;
       font-size: 0.9rem;
@@ -178,12 +172,9 @@
       margin-top: 40px;
     }
 
-    /* === 반응형 미디어 쿼리 === */
+    /* 반응형 미디어 쿼리 */
     @media (max-width: 960px) {
-      /* 슬라이드 이미지 크기 및 애니메이션 너비 축소 */
-      .infinite-slider {
-        height: 280px;
-      }
+      .infinite-slider { height: 280px; }
       .slide-track {
         width: calc(480px * 6);
         animation: scrollLeftMedium 25s linear infinite;
@@ -195,25 +186,18 @@
     }
 
     @media (max-width: 640px) {
-      /* 모바일용 더 작은 슬라이드, 폰트 축소, 패딩 감소 */
       .hero {
         height: auto;
         padding-top: 80px;
         padding-bottom: 60px;
       }
-      .hero h1 {
-        font-size: 1.5rem;
-      }
+      .hero h1 { font-size: 1.5rem; }
       .hero p {
         font-size: 1rem;
         padding: 0 10px;
       }
-      .logo {
-        max-width: 90px;
-      }
-      .infinite-slider {
-        height: 200px;
-      }
+      .logo { max-width: 90px; }
+      .infinite-slider { height: 200px; }
       .slide-track {
         width: calc(320px * 6);
         animation: scrollLeftSmall 20s linear infinite;
@@ -228,25 +212,43 @@
         max-width: 90%;
         padding: 20px 10px;
       }
-      .features li {
-        font-size: 1rem;
-      }
+      .features li { font-size: 1rem; }
       .btn-cta {
         padding: 10px 16px;
         font-size: 0.95rem;
       }
     }
 
-    /* === 슬라이드 애니메이션 크기에 따른 변환 === */
     @keyframes scrollLeftMedium {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-1440px); } /* 3개 * 480px */
-    }
-    @keyframes scrollLeftSmall {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-960px); } /* 3개 * 320px */
+      100% { transform: translateX(-1440px); }
     }
 
+    @keyframes scrollLeftSmall {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-960px); }
+    }
+
+    /* === 팝업 오버레이 전용 스타일 === */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 10px;
+    }
+
+    .overlay iframe {
+      width: 900vw;
+      max-width: 1000px;
+      height: 95vh;
+      border: none;
+      border-radius: 12px;
+      background: white;
+    }
   </style>
 </head>
 <body>
@@ -264,20 +266,19 @@
     <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
   </section>
 
-  <!-- 무한 슬라이드 -->
+  <!-- 무한 슬라이드 이미지 영역 -->
   <div class="infinite-slider" aria-label="LED 디스플레이 이미지 슬라이드">
     <div class="slide-track">
       <img src="Main_A.png" alt="LED 디스플레이 1" />
       <img src="Main_B.png" alt="LED 디스플레이 2" />
       <img src="Main_C.png" alt="LED 디스플레이 3" />
-      <!-- 반복 -->
       <img src="Main_A.png" alt="LED 디스플레이 1" />
       <img src="Main_B.png" alt="LED 디스플레이 2" />
       <img src="Main_C.png" alt="LED 디스플레이 3" />
     </div>
   </div>
 
-  <!-- 제품 특징 -->
+  <!-- 제품 특징 설명 -->
   <section class="features" aria-labelledby="features-title">
     <h2 id="features-title">제품 주요 특징</h2>
     <ul>
@@ -287,7 +288,7 @@
     </ul>
   </section>
 
-  <!-- 이전/다음 제품 페이지 링크 -->
+  <!-- 이전/다음 제품 링크 -->
   <section class="product-nav" aria-label="제품 페이지 내비게이션">
     <a href="prev-product.html" class="nav-link">← 이전 제품</a>
     <a href="next-product.html" class="nav-link">다음 제품 →</a>
@@ -299,13 +300,51 @@
     <a href="#contact" class="btn-cta">지금 문의하기</a>
   </section>
 
-  <!-- 하단 회사 정보 -->
+  <!-- 하단 푸터 -->
   <footer class="site-footer" aria-label="회사 정보">
     <p>© 2025 주식회사 씨앤비즈</p>
     <p>대표: 홍길동 | 사업자등록번호: 123-45-67890</p>
     <p>문의: contact@cnbiz.co.kr</p>
   </footer>
 
-  <!-- 슬라이드 스크립트(현재 애니메이션 CSS만 사용 중, JS는 불필요) -->
+  <!-- === 팝업 오버레이 iframe === -->
+  <div class="overlay" id="popupOverlay" role="dialog" aria-modal="true">
+    <iframe src="landing.html" title="프로모션 팝업"></iframe>
+  </div>
+
+  <!-- === 팝업 오버레이 스크립트 === -->
+  <script>
+    // 오늘 날짜 저장
+    const today = new Date().toDateString();
+
+    window.onload = function () {
+      // localStorage에 저장된 오늘 날짜와 비교하여 팝업 표시 여부 결정
+      const dismissed = localStorage.getItem('popupDismissedToday');
+      if (dismissed !== today) {
+        document.getElementById('popupOverlay').style.display = 'flex';
+      }
+    };
+
+    // iframe(landing.html)에서 보낸 postMessage 수신 처리
+    window.addEventListener('message', e => {
+      if (!e.data || !e.data.action) return;
+
+      // 팝업 닫기 요청
+      if (e.data.action === 'closePopup') {
+        if (e.data.todayCheck) {
+          // 오늘 하루 보지 않기 체크되었으면 로컬 스토리지에 저장
+          localStorage.setItem('popupDismissedToday', today);
+        }
+        document.getElementById('popupOverlay').style.display = 'none';
+      }
+
+      // 메인 페이지 이동 요청
+      if (e.data.action === 'goToMain') {
+        document.getElementById('popupOverlay').style.display = 'none';
+        window.location.href = 'https://cnbiznet.co.kr';
+      }
+    });
+  </script>
+
 </body>
 </html>
