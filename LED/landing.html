@@ -5,7 +5,7 @@
   <title>주식회사 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* === 2025.23:57 수정완료 === */
+    /* === 2025.07.12 12:58 수정완료 === */
     /* === 기본 색상 변수 선언 === */
     :root {
       --bg-light: rgba(255,255,255,0.92);
@@ -31,13 +31,15 @@
     /* === 팝업 전체 래퍼 스타일 === */
     .popup-wrapper {
       background-color: var(--bg-light);
-      max-width: 700px;
-      margin: 40px auto;
+      max-width: 100vh;
+      max-height: 200vh;
+      margin: 30px auto;
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 5px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       text-align: center;
       transition: background 0.3s;
+	  overflow: hidden;   /* 넘치면 숨김 */
     }
 /*.popup-wrapper {
   background-color: var(--bg-light);
@@ -238,13 +240,19 @@
     .honeypot {
       display: none;
     }
-
+  <!-- 🔽 여기! 팝업 내부 스크롤 방지용 스타일 -->
+    html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 내부 스크롤 제거 */
+    height: 100%;     /* 화면 꽉 채우기 */
+  }
     /* === 팝업 닫기 버튼 스타일 (상단 우측 고정) === */
     .close-btn {
       position: fixed;
-      top: 15px;
-      right: 20px;
-      font-size: 18px;
+      top: 50px;
+      right: 50px;
+      font-size: 20px;
       background: none;
       border: none;
       cursor: pointer;
@@ -258,8 +266,8 @@
     /* === 다크 모드 토글 버튼 스타일 (하단 우측 고정) === */
     .theme-toggle {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 40px;
+      right: 30px;
       background: #eee;
       padding: 8px 12px;
       border-radius: 20px;
