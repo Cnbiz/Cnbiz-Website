@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>주식회사 씨앤비즈 | 회사소개</title>
-    <!-- 🔗 파비콘 아이콘 설정 -->
+  <!-- 파비콘 -->
   <link href="/LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
   <link href="/LED/Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
   <link href="/LED/Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
@@ -12,6 +12,10 @@
     /* 기본 스타일 */
     body, html {
       margin: 0; padding: 0; font-family: Arial, sans-serif;
+      background: #000;
+      height: 100%;
+      /* --vh 변수 사용으로 모바일 높이 대응 */
+      height: calc(var(--vh, 1vh) * 100);
     }
     header {
       display: flex;
@@ -23,6 +27,8 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1001;
+      height: 60px;
+      box-sizing: border-box;
     }
     .logo-container img {
       height: 40px;
@@ -48,32 +54,41 @@
       border-radius: 4px;
     }
 
-    /* 영상 반축소 */
+    /* 영상 영역 - 가로 50%, 높이는 뷰포트 높이 50%로 */
     #heroSection {
       position: fixed;
-      top: 60px; /* 헤더 높이만큼 띄움 */
+      top: 60px; /* 헤더 높이만큼 아래로 */
       left: 50%;
       transform: translateX(-50%);
       width: 50vw;
+      max-width: 600px; /* 최대 크기 제한, 필요 시 조정 */
       height: 50vh;
-      z-index: 1000;
-      overflow: hidden;
+      max-height: 350px; /* 최대 높이 제한 */
+      background: black;
       border: 2px solid #333;
       border-radius: 8px;
-      background: black;
+      overflow: hidden;
+      z-index: 1000;
+      box-sizing: border-box;
     }
+
     #heroVideo {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* 영상 비율 유지하며 전체 영역에 맞춤 */
       display: block;
+      background: black;
     }
 
     /* 콘텐츠 영역 */
     main {
-      padding: 130px 20px 40px; /* 영상 + 헤더 공간 고려 */
+      padding: 130px 20px 40px; /* 영상+헤더 공간 고려 */
       max-width: 900px;
       margin: 0 auto;
+      color: #222;
+      background: #fff;
+      border-radius: 8px;
+      box-sizing: border-box;
     }
     h1 {
       margin-top: 0;
@@ -85,7 +100,7 @@
     <div class="logo-container">
       <a href="https://landing.cnbiznet.co.kr"><img src="/LED/CnbizLogo.png" alt="회사 로고"></a>
     </div>
-    <nav class="top-nav">
+    <nav class="top-nav" aria-label="주요 메뉴 네비게이션">
       <ul>
         <li><a href="/LED/Content/Company/aboutus/" class="active">회사소개</a></li>
         <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
@@ -95,7 +110,7 @@
   </header>
 
   <section id="heroSection">
-    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline></video>
+    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline preload="auto"></video>
   </section>
 
   <main>
@@ -104,10 +119,21 @@
   </main>
 
   <script>
-    // 비디오 준비 시 처리 (필요시)
+    // 모바일 뷰포트 높이 문제 해결: --vh CSS 변수 설정
+    function setVh() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', setVh);
+    window.addEventListener('load', setVh);
+    window.addEventListener('DOMContentLoaded', setVh);
+
+    // 비디오가 준비되면 재생 보장 (iOS 등 대응)
     const video = document.getElementById('heroVideo');
     video.addEventListener('canplay', () => {
-      video.play();
+      video.play().catch(() => {
+        // 자동 재생 차단 시 예외 처리 (필요시)
+      });
     });
   </script>
 </body>
