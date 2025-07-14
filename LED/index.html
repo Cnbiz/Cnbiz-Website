@@ -541,10 +541,11 @@
   box-sizing: border-box;
 
   /* 여기에 넣어야 함! */
-  position: absolute; /* 버튼 바로 아래 뜨도록 */
-  top: 40px;          /* 버튼 높이 + 약간 여유 */
-  left: 0;            /* 왼쪽 정렬 */
-  width: 200px;       /* 메뉴 너비 조절 */
+  position: absolute; /* 부모 기준 절대 위치 */
+  top: 50px;          /* 버튼 높이에 맞게 조금 더 내려서 조정 */
+  left: 0;
+  width: 200px;       /* 너비 조절 */
+  z-index: 9999;      /* 메뉴가 다른 요소 위로 뜨도록 */
 }
 
   
