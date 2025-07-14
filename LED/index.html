@@ -64,7 +64,7 @@ html, body {
     ========================================================= */
     .hero {
   --vh-mobile: calc(var(--vh, 1vh) * 100);
-  height: var(--vh-mobile);
+  height: calc(var(--vh, 1vh) * 100);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -870,15 +870,13 @@ html, body {
   });
 </script>
 <script>
-  function setHeroHeight() {
+  function setViewportHeight() {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
-  console.log('vh set to', vh);
 }
-
-window.addEventListener('resize', setHeroHeight);
-window.addEventListener('load', setHeroHeight);
-document.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
+window.addEventListener('resize', setViewportHeight);
+window.addEventListener('load', setViewportHeight);
+document.addEventListener('DOMContentLoaded', setViewportHeight); // ✅ 추가!
 </script>
 </body>
 </html>
