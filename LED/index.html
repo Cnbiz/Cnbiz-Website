@@ -209,19 +209,27 @@
     }
 
     /* ✅ 반응형 미디어쿼리 */
-    @media (max-width: 768px) {
-      .right-fixed-menu { display: none; }
-      .logo { max-width: 80px; }
-      .top-nav { gap: 20px; }
-    }
-    @media (max-width: 480px) {
-      .btn-cta {
-        width: 100%;
-        display: block;
-        font-size: 1rem;
-        padding: 10px 16px;
-      }
-    }
+@media (max-width: 768px) {
+  .top-nav > ul {
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .top-nav > ul > li > a {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-nav > ul > li > a {
+    font-size: 16px;
+  }
+  .right-fixed-menu {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
