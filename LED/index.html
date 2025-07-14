@@ -422,17 +422,17 @@ html, body {
 
     /* ───── Hero 영역 ───── */
     .hero {
-      position: relative;
-      height: 100vh;
-      max-height: 600px;
-      background: url('Main.png') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 중앙 → 위쪽 정렬 */
+  align-items: center;
+  padding-top: 150px; /* 위쪽 여백 조절 */
+  height: 100vh;
+  max-height: 600px;
+  background: url('Main.png') center/cover no-repeat;
+  color: white;
+  text-align: center;
+}
 
     .hero.video-loaded {
       background: none; /* 비디오가 로드되면 이미지 배경 제거 */
