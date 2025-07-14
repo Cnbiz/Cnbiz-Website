@@ -2,39 +2,105 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>오시는 길 - 씨앤비즈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주식회사 씨앤비즈 | 오시는 길</title>
   <style>
-    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; }
-    nav {
-      background: #0056b3; padding: 16px;
-      display: flex; justify-content: center; gap: 20px;
+    body, html {
+      margin: 0; padding: 0; font-family: Arial, sans-serif;
     }
-    nav a {
-      color: white; text-decoration: none;
-      font-weight: bold; padding: 10px 20px;
-      border-radius: 6px; background: #0056b3;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #333;
+      color: white;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1001;
     }
-    nav a.active {
-      background: #002d6e;
+    .logo-container img {
+      height: 40px;
+      cursor: pointer;
     }
+    .top-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+    }
+    .top-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px 10px;
+      display: block;
+    }
+    .top-nav ul li a:hover,
+    .top-nav ul li a.active {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    #heroSection {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50vw;
+      height: 50vh;
+      z-index: 1000;
+      overflow: hidden;
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: black;
+    }
+    #heroVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     main {
-      max-width: 900px; margin: 40px auto; padding: 20px;
-      background: #f9f9f9; border-radius: 8px;
+      padding: 130px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo-container">
+      <a href="https://landing.cnbiznet.co.kr"><img src="/LED/CnbizLogo.png" alt="회사 로고"></a>
+    </div>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="company.html">회사소개</a></li>
+        <li><a href="history.html">회사연혁</a></li>
+        <li><a href="location.html" class="active">오시는 길</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<nav>
-  <a href="../aboutus/">회사소개</a>
-  <a href="../history/">회사연혁</a>
-  <a href="../location/" class="active">오시는 길</a>
-</nav>
+  <section id="heroSection">
+    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline></video>
+  </section>
 
-<main>
-  <h1>오시는 길</h1>
-  <p>경기 성남시 중원구 갈마치로 302</p>
-</main>
+  <main>
+    <h1>오시는 길</h1>
+    <p>여기에 오시는 길 내용을 작성하세요.</p>
+  </main>
 
+  <script>
+    const video = document.getElementById('heroVideo');
+    video.addEventListener('canplay', () => {
+      video.play();
+    });
+  </script>
 </body>
 </html>
