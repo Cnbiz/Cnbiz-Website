@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -32,11 +32,15 @@
     body.no-scroll {
       overflow: hidden;
     }
+
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   overflow-x: hidden;
+  background: black;
 }
+
     /* ===============================
        🔝 상단 로고
        - 고정 위치에 로고 노출
@@ -59,44 +63,35 @@ html, body {
        - 비디오는 전체 hero 영역에 배치 (absolute + z-index)
        - 텍스트는 비디오 위에 렌더링되도록 relative + z-index 조정
     ========================================================= */
-    .hero {
-      position: relative;
-      height: 600px;
-      overflow: hidden; /* 비디오가 영역 밖으로 나가지 않도록 제한 */
-	  height: calc(var(--vh, 1vh) * 100); /* ✅ 이거 하나만 */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      padding-top: 100px;
-      text-align: center;
-      color: var(--hero-text-color);
-
-      /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
-      background-image:
-      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
     
-	  /* ▶ 영상이 로드되면 이 클래스를 추가해 배경 이미지를 없애는 용도 */
-	}
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 	.hero.video-loaded {
      background-image: none; /* 배경 이미지를 완전히 제거해서 영상이 보이도록 */
 	}
 
     /* 🎥 비디오 설정: 영역을 덮고 텍스트 뒤에 위치 */
     
+
 .hero video.hero-bg-video {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw; /* 모바일 화면 너비 고정 */
-  height: 100vh; /* 모바일 화면 높이 고정 */
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
-  background: black; /* 여백 깜빡임 방지용 */
+  background: black;
 }
+
 
 
     /* 🌑 텍스트 가독성을 높이는 반투명 검정 오버레이 */
@@ -421,34 +416,35 @@ html, body {
     }
 
     /* ───── Hero 영역 ───── */
-    .hero {
-      position: relative;
-      height: 100vh;
-      max-height: 600px;
-      background: url('Main.png') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-    }
+    
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
     .hero.video-loaded {
       background: none; /* 비디오가 로드되면 이미지 배경 제거 */
     }
 
     
+
 .hero video.hero-bg-video {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw; /* 모바일 화면 너비 고정 */
-  height: 100vh; /* 모바일 화면 높이 고정 */
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
-  background: black; /* 여백 깜빡임 방지용 */
+  background: black;
 }
+
 
 
     .hero h1, .hero p {
@@ -824,7 +820,26 @@ html, body {
         window.location.href = 'https://cnbiznet.co.kr';
       }
     });
-  </script>
+  
+function fixHeroSize() {
+  const h = window.innerHeight;
+  const w = window.innerWidth;
+
+  const hero = document.getElementById('heroSection');
+  const video = document.getElementById('heroVideo');
+
+  if (hero) hero.style.height = `${h}px`;
+  if (video) {
+    video.style.height = `${h}px`;
+    video.style.width = `${w}px`;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', fixHeroSize);
+window.addEventListener('resize', fixHeroSize);
+window.addEventListener('orientationchange', fixHeroSize);
+
+</script>
 <script>
   const video = document.getElementById('heroVideo');
   const hero = document.getElementById('heroSection');
