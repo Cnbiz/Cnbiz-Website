@@ -877,6 +877,11 @@ html, body {
   function setHeroHeight() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    const hero = document.getElementById('heroSection');
+    if (hero) {
+      hero.style.height = `${window.innerHeight}px`;
+    }
   }
 
   window.addEventListener('resize', setHeroHeight);
