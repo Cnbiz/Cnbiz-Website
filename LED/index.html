@@ -59,6 +59,7 @@ html, body {
        - 비디오는 전체 hero 영역에 배치 (absolute + z-index)
        - 텍스트는 비디오 위에 렌더링되도록 relative + z-index 조정
     ========================================================= */
+	
     .hero {
       position: relative;
       height: 600px;
@@ -530,10 +531,10 @@ html, body {
 
     /* ───── 반응형 대응: 고정 메뉴 + 상단 메뉴 통합 ───── */
 @media (max-width: 768px) {
-  /* 좌우 고정 메뉴 공통 설정 */
-  .left-fixed-menu,
+  /* 우측 고정 메뉴 위치 */
   .right-fixed-menu {
     top: 100px;
+    right: 10px;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -541,42 +542,42 @@ html, body {
     z-index: 999;
   }
 
-  .left-fixed-menu {
-    left: 10px;
-  }
-
-  .right-fixed-menu {
-    right: 10px;
-  }
-
-  /* 버튼 스타일 공통 */
-  .left-fixed-menu .fixed-btn,
+  /* 버튼 기본 스타일 (PC 스타일과 동일하게) */
   .right-fixed-menu .fixed-btn {
     display: flex;
     align-items: center;
-    padding: 6px 10px;
-    font-size: 12px;
-    border-radius: 16px;
-    gap: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    background: #fff;
-    color: #000;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 9999px; /* 완전 둥글게 */
+    gap: 10px;
+    color: #fff;
     text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
   }
 
-  /* 텍스트 span 기본 숨김 */
-  .left-fixed-menu .fixed-btn span,
+  /* 각 버튼별 색상 */
+  .right-fixed-menu .phone {
+    background-color: #4CAF50; /* 초록 */
+  }
+  .right-fixed-menu .kakao {
+    background-color: #FFD600; /* 노랑 */
+    color: #333; /* 카카오 노랑엔 글자 진하게 */
+  }
+  .right-fixed-menu .visit {
+    background-color: #2196F3; /* 파랑 */
+  }
+  .right-fixed-menu .contact {
+    background-color: #2E2E2E; /* 진한 회색 */
+  }
+  .right-fixed-menu .company {
+    background-color: #2E2E2E; /* 진한 회색 */
+  }
+
+  /* 텍스트 항상 보이도록 */
   .right-fixed-menu .fixed-btn span {
-    display: flex;
-  }
-
-  /* hover/focus 시 텍스트 보이기 */
-  .left-fixed-menu .fixed-btn:hover span,
-  .left-fixed-menu .fixed-btn:focus-within span,
-  .right-fixed-menu .fixed-btn:hover span,
-  .right-fixed-menu .fixed-btn:focus-within span {
     display: inline;
-    margin-left: 6px;
   }
 
   /* 햄버거 메뉴 버튼 보이기 */
