@@ -58,6 +58,7 @@
       white-space: nowrap;
     }
 
+    /* ✅ 서브 메뉴 (드롭다운) */
     .submenu {
       position: absolute;
       top: 100%;
@@ -143,11 +144,11 @@
       z-index: 1;
     }
     .hero h1 {
-      font-size: clamp(1.8rem, 5vw, 3.5rem); /* ✅ 반응형 폰트 */
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
       margin-bottom: 20px;
     }
     .hero p {
-      font-size: clamp(1rem, 3vw, 1.8rem); /* ✅ 반응형 폰트 */
+      font-size: clamp(1rem, 3vw, 1.8rem);
       margin-top: 0;
     }
 
@@ -191,7 +192,7 @@
     .slide-track {
       display: flex;
       animation: scrollLeft 30s linear infinite;
-      width: calc(100% * 6); /* ✅ 반응형 */
+      width: calc(100% * 6);
     }
     .slide-track img {
       width: 100%;
@@ -230,7 +231,6 @@
     <ul>
       <li>
         <a href="#">회사소개</a>
-        <!-- 서브메뉴 -->
         <div class="submenu" aria-label="회사소개 하위 메뉴">
           <ul>
             <li><a href="#">회사소개</a></li>
@@ -241,7 +241,6 @@
       </li>
       <li>
         <a href="#">LED Display</a>
-        <!-- 서브메뉴 -->
         <div class="submenu" aria-label="LED Display 하위 메뉴">
           <ul>
             <li><a href="#">투명OLED</a></li>
@@ -255,7 +254,6 @@
       </li>
       <li>
         <a href="#">Smart Office</a>
-        <!-- 서브메뉴 -->
         <div class="submenu" aria-label="Smart Office 하위 메뉴">
           <ul>
             <li><a href="#">투명OLED</a></li>
@@ -267,7 +265,6 @@
       </li>
       <li>
         <a href="#">시공사례</a>
-        <!-- 서브메뉴 -->
         <div class="submenu" aria-label="시공사례 하위 메뉴">
           <ul>
             <li><a href="#">함체제작사례</a></li>
@@ -277,7 +274,6 @@
       </li>
       <li>
         <a href="#">고객센터</a>
-        <!-- 서브메뉴 -->
         <div class="submenu" aria-label="고객센터 하위 메뉴">
           <ul>
             <li><a href="#">공지사항</a></li>
