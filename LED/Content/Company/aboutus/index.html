@@ -9,12 +9,24 @@
   <link href="/LED/Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
   <link href="/LED/Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
   <style>
-    /* 기본 스타일 */
-    body, html {
-      margin: 0; padding: 0; font-family: Arial, sans-serif;
-      background: #fff;
-      overflow-x: hidden; /* 가로 스크롤 방지 */
+    /* 전역 박스 사이징 */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
     }
+
+    /* 기본 스타일 및 초기화 */
+    html, body {
+      margin: 0; 
+      padding: 0;
+      width: 100vw;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      --vh: 1vh; /* iOS vh 문제 대응 CSS 변수 */
+    }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -27,10 +39,14 @@
       z-index: 1001;
       height: 60px;
     }
+
     .logo-container img {
       height: 40px;
       cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
     }
+
     .top-nav ul {
       list-style: none;
       margin: 0;
@@ -38,59 +54,79 @@
       display: flex;
       gap: 15px;
     }
+
     .top-nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: bold;
       padding: 6px 10px;
       display: block;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      -webkit-user-select: none;
     }
+
     .top-nav ul li a:hover,
     .top-nav ul li a.active {
       background: #555;
-      border-radius: 4px;
     }
 
-    /* 영상 영역 - 좌우 꽉 채움, fixed */
+    /* 영상 영역 - fixed, 헤더 아래 시작, 높이 반응형 */
     #heroSection {
       position: fixed;
-      top: 60px; /* 헤더 아래 고정 */
+      top: 60px; /* 헤더 높이 */
       left: 0;
-      width: 100vw;
-      height: 50vh;
+      width: 100vw; /* 뷰포트 전체 너비 */
+      height: calc(var(--vh, 1vh) * 50); /* 50vh 대신 커스텀 변수 사용 */
       background: black;
       overflow: hidden;
       z-index: 1000;
       border-bottom: 2px solid #333;
     }
+
     #heroVideo {
-      width: 100%;
+      width: 100vw; /* vw 단위로 강제 전체 너비 */
       height: 100%;
-      object-fit: cover; /* 영상 가득 채우기, 잘림 가능 */
+      object-fit: cover;
       display: block;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
     }
 
-    /* 메인 콘텐츠 - 영상+헤더 공간만큼 padding-top 확보 */
+    /* 메인 콘텐츠 - 헤더+영상 공간 만큼 패딩탑 확보 */
     main {
       max-width: 900px;
       margin: 0 auto;
-      padding: calc(60px + 50vh + 20px) 20px 40px;
+      padding: calc(60px + (var(--vh, 1vh) * 50) + 20px) 20px 40px;
       box-sizing: border-box;
-    }
-    h1 {
-      margin-top: 0;
+      color: #222;
+      font-size: 16px;
+      line-height: 1.5;
+      user-select: text;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* 반응형 모바일 최적화 */
+    h1 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 2rem;
+      color: #111;
+    }
+
+    /* 반응형 - 모바일 최적화 */
     @media (max-width: 768px) {
       #heroSection {
-        height: 40vh; /* 모바일에서 영상 높이 살짝 줄임 */
+        height: calc(var(--vh, 1vh) * 40);
         border-bottom-width: 1px;
       }
       main {
-        padding-top: calc(60px + 40vh + 20px);
+        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
         padding-left: 15px;
         padding-right: 15px;
+        font-size: 14px;
       }
       header {
         padding: 10px 15px;
@@ -102,9 +138,12 @@
         padding: 5px 8px;
         font-size: 14px;
       }
+      h1 {
+        font-size: 1.6rem;
+      }
     }
 
-    /* iOS 최적화 관련 */
+    /* iOS 비디오 컨트롤 숨김 */
     video::-webkit-media-controls {
       display:none !important;
     }
@@ -113,19 +152,32 @@
 <body>
   <header>
     <div class="logo-container">
-      <a href="https://landing.cnbiznet.co.kr"><img src="/LED/CnbizLogo.png" alt="회사 로고"></a>
+      <a href="https://landing.cnbiznet.co.kr" tabindex="0">
+        <img src="/LED/CnbizLogo.png" alt="회사 로고" />
+      </a>
     </div>
-    <nav class="top-nav">
+    <nav class="top-nav" role="navigation" aria-label="주요 메뉴">
       <ul>
-        <li><a href="/LED/Content/Company/aboutus/" class="active">회사소개</a></li>
-        <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
-        <li><a href="/LED/Content/Company/location/">오시는 길</a></li>
+        <li><a href="/LED/Content/Company/aboutus/" class="active" tabindex="0">회사소개</a></li>
+        <li><a href="/LED/Content/Company/history/" tabindex="0">회사연혁</a></li>
+        <li><a href="/LED/Content/Company/location/" tabindex="0">오시는 길</a></li>
       </ul>
     </nav>
   </header>
 
-  <section id="heroSection">
-    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline></video>
+  <section id="heroSection" aria-label="배경 영상">
+    <video
+      id="heroVideo"
+      src="/LED/Main_A.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      webkit-playsinline
+      preload="auto"
+      aria-hidden="true"
+      tabindex="-1"
+    ></video>
   </section>
 
   <main>
@@ -134,15 +186,7 @@
   </main>
 
   <script>
-    // 비디오 준비 시 자동 재생 및 화면 노출 보장
-    const video = document.getElementById('heroVideo');
-    video.addEventListener('canplay', () => {
-      video.play().catch(e => {
-        console.log('비디오 자동재생 실패:', e);
-      });
-    });
-
-    // 뷰포트 높이 1vh 문제 대응 (iOS, 모바일)
+    // iOS 등 vh 문제 대응: --vh CSS 변수 설정 (뷰포트 높이 1% 값)
     function setVhProperty() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -150,6 +194,14 @@
     window.addEventListener('resize', setVhProperty);
     window.addEventListener('load', setVhProperty);
     window.addEventListener('DOMContentLoaded', setVhProperty);
+
+    // 비디오 준비 시 자동 재생 보장
+    const video = document.getElementById('heroVideo');
+    video.addEventListener('canplay', () => {
+      video.play().catch(e => {
+        console.warn('비디오 자동재생 실패:', e);
+      });
+    });
   </script>
 </body>
 </html>
