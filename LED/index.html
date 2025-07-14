@@ -32,7 +32,11 @@
     body.no-scroll {
       overflow: hidden;
     }
-
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
     /* ===============================
        🔝 상단 로고
        - 고정 위치에 로고 노출
@@ -546,9 +550,7 @@
   left: 0;
   width: 200px;       /* 너비 조절 */
   z-index: 9999;      /* 메뉴가 다른 요소 위로 뜨도록 */
-}
-
-  
+}  
   .top-nav.active > ul {
     display: flex;
   }
