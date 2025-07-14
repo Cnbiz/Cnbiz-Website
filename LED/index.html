@@ -26,7 +26,7 @@
       background: #f4f4f4;
     }
 
-    /* ✅ 상단 네비게이션 바 전체 스타일 */
+    /* ✅ 상단 텍스트 메뉴 네비게이션 */
     .top-nav {
       position: absolute;
       top: 20px;
@@ -35,21 +35,18 @@
       display: flex;
       align-items: center;
       gap: 40px;
-      /* 기본 텍스트 메뉴는 서브메뉴 없을 때도 유지 */
     }
-
-    /* ✅ 상단 네비게이션 메뉴 아이템 스타일 */
     .top-nav > ul {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
       gap: 40px;
+      flex-wrap: wrap; /* ✅ 반응형 줄바꿈 */
     }
     .top-nav > ul > li {
-      position: relative; /* 서브메뉴 위치 기준 */
+      position: relative;
     }
-
     .top-nav > ul > li > a {
       text-decoration: none;
       color: white;
@@ -61,25 +58,22 @@
       white-space: nowrap;
     }
 
-    /* ✅ 서브 메뉴 (드롭다운) 기본 숨김 */
     .submenu {
       position: absolute;
-      top: 100%; /* 부모 메뉴 바로 아래 */
+      top: 100%;
       left: 0;
-      background: rgba(255 255 255 / 0.5); /* 반투명 흰색 배경 */
-      backdrop-filter: blur(8px); /* 배경 흐림 효과 */
-      -webkit-backdrop-filter: blur(8px); /* 사파리용 */
+      background: rgba(255 255 255 / 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       border-radius: 10px;
       padding: 20px 30px;
       width: 300px;
-      opacity: 0;           /* 숨기기 */
-      pointer-events: none; /* 숨길 때는 클릭 안 되도록 */
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.3s ease;
       z-index: 100;
-      
-      /* 배경 이미지 넣기 */
-      background-image: url('submenu-bg.png'); /* 실제 사용할 배경 이미지 경로로 변경 */
+      background-image: url('submenu-bg.png');
       background-repeat: no-repeat;
       background-position: right bottom;
       background-size: contain;
@@ -87,8 +81,6 @@
       font-weight: 500;
       font-size: 14px;
     }
-
-    /* ✅ 서브 메뉴 항목들 스타일 */
     .submenu ul {
       list-style: none;
       margin: 0;
@@ -108,39 +100,27 @@
     .submenu ul li a:hover {
       color: var(--primary-color);
     }
-
-    /* ✅ 마우스 오버 시 서브 메뉴 표시 */
     .top-nav > ul > li:hover > .submenu {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* ✅ 나머지 기존 스타일 유지 */
-    /* 상단 텍스트 메뉴 네비게이션 */
-    /* 기존에 a태그로만 되어있던 걸 ul > li > a 구조로 바꿈 */
-
-    /* 기존 .top-nav a 스타일도 중복 방지 차원에서 위에 작성 완료 */
-
-    /* =======================
-       기존 주어진 스타일은 그대로 아래 유지
-    ======================= */
-
-    /* 로고 */
+    /* ✅ 로고 */
     .site-header {
       position: absolute;
       top: 20px;
       right: 20px;
       z-index: 20;
     }
-
     .logo {
       max-width: 120px;
     }
 
-    /* Hero 섹션 */
+    /* ✅ Hero 섹션 */
     .hero {
       position: relative;
-      height: 600px;
+      height: 100vh;
+      max-height: 600px;
       background: url('Main.png') center/cover no-repeat;
       display: flex;
       flex-direction: column;
@@ -149,11 +129,7 @@
       color: white;
       text-align: center;
     }
-
-    .hero.video-loaded {
-      background: none;
-    }
-
+    .hero.video-loaded { background: none; }
     .hero video.hero-bg-video {
       position: absolute;
       top: 0; left: 0;
@@ -162,23 +138,20 @@
       object-fit: cover;
       z-index: -1;
     }
-
     .hero h1, .hero p {
       text-shadow: 4px 4px 10px rgba(0,0,0,0.8);
       z-index: 1;
     }
-
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: clamp(1.8rem, 5vw, 3.5rem); /* ✅ 반응형 폰트 */
       margin-bottom: 20px;
     }
-
     .hero p {
-      font-size: 1.8rem;
+      font-size: clamp(1rem, 3vw, 1.8rem); /* ✅ 반응형 폰트 */
       margin-top: 0;
     }
 
-    /* 우측 고정 버튼 메뉴 */
+    /* ✅ 우측 고정 버튼 */
     .right-fixed-menu {
       position: fixed;
       top: 160px;
@@ -188,7 +161,6 @@
       gap: 12px;
       z-index: 50;
     }
-
     .fixed-btn {
       display: flex;
       align-items: center;
@@ -202,43 +174,52 @@
       font-weight: bold;
       transition: background 0.2s;
     }
-
-    .fixed-btn:hover {
-      background: #eee;
-    }
-
+    .fixed-btn:hover { background: #eee; }
     .fixed-btn.phone { background-color: #4CAF50; color: white; }
     .fixed-btn.kakao { background-color: #ffeb00; color: #3c1e1e; }
     .fixed-btn.visit { background-color: #007bff; color: white; }
     .fixed-btn.contact { background-color: #343a40; color: white; }
     .fixed-btn.company { background-color: #222; color: white; }
 
-    /* 하단 슬라이더 */
+    /* ✅ 슬라이더 */
     .infinite-slider {
       overflow: hidden;
       width: 100%;
       max-width: 960px;
       margin: 40px auto;
     }
-
     .slide-track {
       display: flex;
       animation: scrollLeft 30s linear infinite;
-      width: calc(640px * 6);
+      width: calc(100% * 6); /* ✅ 반응형 */
     }
-
     .slide-track img {
-      width: 640px;
-      height: 360px;
+      width: 100%;
+      max-width: 640px;
+      height: auto;
       object-fit: cover;
       flex-shrink: 0;
       user-select: none;
       border-radius: 10px;
     }
-
     @keyframes scrollLeft {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-1920px); }
+    }
+
+    /* ✅ 반응형 미디어쿼리 */
+    @media (max-width: 768px) {
+      .right-fixed-menu { display: none; }
+      .logo { max-width: 80px; }
+      .top-nav { gap: 20px; }
+    }
+    @media (max-width: 480px) {
+      .btn-cta {
+        width: 100%;
+        display: block;
+        font-size: 1rem;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
