@@ -529,6 +529,23 @@ html, body {
     }
 
     /* ───── 반응형 대응 ───── */
+	@media (max-width: 768px) {
+  /* 🟡 우측 고정 버튼 메뉴의 전체 크기 조절 */
+  .right-fixed-menu {
+    top: 100px; /* 모바일 화면에 맞게 조금 더 위로 */
+    gap: 8px;    /* 버튼 간격 축소 */
+    right: 10px; /* 여백도 조금 좁힘 */
+  }
+
+  /* 🟡 버튼 자체의 크기 축소 및 글꼴 조정 */
+  .fixed-btn {
+    padding: 8px 12px;         /* 내부 여백 축소 */
+    font-size: 13px;           /* 글자 크기 축소 */
+    border-radius: 20px;       /* 둥근 정도도 작게 */
+    gap: 6px;                  /* 아이콘과 텍스트 간격 축소 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자도 가볍게 */
+  }
+}
     /* ───── 반응형 대응 ───── */
     @media (max-width: 768px) {
   .menu-toggle {
