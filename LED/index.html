@@ -871,13 +871,14 @@ html, body {
 </script>
 <script>
   function setHeroHeight() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  console.log('vh set to', vh);
+}
 
-  window.addEventListener('resize', setHeroHeight);
-  window.addEventListener('load', setHeroHeight);
-  window.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
+window.addEventListener('resize', setHeroHeight);
+window.addEventListener('load', setHeroHeight);
+document.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
 </script>
 </body>
 </html>
