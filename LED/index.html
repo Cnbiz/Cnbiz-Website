@@ -531,7 +531,6 @@ html, body {
 
     /* ───── 반응형 대응: 고정 메뉴 + 상단 메뉴 통합 ───── */
 @media (max-width: 768px) {
-  /* 우측 고정 메뉴 위치 */
   .right-fixed-menu {
     top: 100px;
     right: 10px;
@@ -542,40 +541,49 @@ html, body {
     z-index: 999;
   }
 
-  /* 버튼 기본 스타일 (크기 축소) */
+  /* 버튼 공통 스타일 */
   .right-fixed-menu .fixed-btn {
     display: flex;
     align-items: center;
-    padding: 6px 12px;       /* 기존 10px 20px → 축소 */
-    font-size: 12px;         /* 기존 14px → 축소 */
+    padding: 8px 20px;            /* 버튼 안쪽 여백 */
     font-weight: 700;
-    border-radius: 9999px;
-    gap: 6px;                /* 아이콘과 텍스트 간격도 축소 */
+    border-radius: 30px;          /* 완전 둥근 모서리 */
+    gap: 10px;                    /* 아이콘과 텍스트 간격 */
     color: #fff;
     text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);  /* 짙고 넓은 그림자 */
+    font-family: 'Malgun Gothic', dotum, sans-serif; /* 한글용 폰트 */
+    cursor: pointer;
+    user-select: none;
     transition: background-color 0.3s ease;
+    justify-content: center;      /* 아이콘+텍스트 중앙 정렬 */
+    min-width: 150px;             /* 버튼 너비 통일 */
   }
 
-  /* 각 버튼별 색상 */
+  /* 각 버튼별 색상 및 텍스트 색 */
   .right-fixed-menu .phone {
-    background-color: #4CAF50;
+    background-color: #39a84a;    /* 이미지와 거의 같은 녹색 */
   }
   .right-fixed-menu .kakao {
-    background-color: #FFD600;
-    color: #333;
+    background-color: #ffea00;    /* 이미지처럼 진한 노랑 */
+    color: #333;                  /* 글자 진하게 */
   }
   .right-fixed-menu .visit {
-    background-color: #2196F3;
+    background-color: #0d86ff;    /* 밝은 파랑 */
   }
-  .right-fixed-menu .contact {
-    background-color: #2E2E2E;
-  }
+  .right-fixed-menu .contact,
   .right-fixed-menu .company {
-    background-color: #2E2E2E;
+    background-color: #222;       /* 거의 검정에 가까운 진한 회색 */
   }
 
-  /* 텍스트 항상 보이도록 */
+  /* 아이콘 크기 맞춤 (필요시) */
+  .right-fixed-menu .fixed-btn svg,
+  .right-fixed-menu .fixed-btn img {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* 텍스트 항상 표시 */
   .right-fixed-menu .fixed-btn span {
     display: inline;
   }
