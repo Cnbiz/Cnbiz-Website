@@ -531,19 +531,21 @@ html, body {
     /* ───── 반응형 대응 ───── */
 	@media (max-width: 768px) {
   /* 🟡 우측 고정 버튼 메뉴의 전체 크기 조절 */
-  .right-fixed-menu {
-    top: 100px; /* 모바일 화면에 맞게 조금 더 위로 */
-    gap: 8px;    /* 버튼 간격 축소 */
-    right: 10px; /* 여백도 조금 좁힘 */
+   .left-fixed-menu {
+    top: 100px;    /* 우측 메뉴와 비슷한 위치 조정 */
+    gap: 8px;      /* 버튼 간격 축소 */
+    left: 10px;    /* 좌측 여백 조절 */
+    position: fixed;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* 🟡 버튼 자체의 크기 축소 및 글꼴 조정 */
-  .fixed-btn {
-    padding: 8px 12px;         /* 내부 여백 축소 */
-    font-size: 13px;           /* 글자 크기 축소 */
-    border-radius: 20px;       /* 둥근 정도도 작게 */
-    gap: 6px;                  /* 아이콘과 텍스트 간격 축소 */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자도 가볍게 */
+  .left-fixed-menu .fixed-btn {
+    padding: 6px 10px;       /* 더 작은 내부 여백 */
+    font-size: 12px;         /* 더 작은 글자 크기 */
+    border-radius: 16px;     /* 더 작은 둥근 모서리 */
+    gap: 4px;                /* 아이콘과 텍스트 간격 축소 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 가벼운 그림자 */
   }
 }
     /* ───── 반응형 대응 ───── */
