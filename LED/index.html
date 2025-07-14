@@ -35,9 +35,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
   overflow-x: hidden;
 }
     /* ===============================
@@ -63,29 +60,24 @@ html, body {
        - 텍스트는 비디오 위에 렌더링되도록 relative + z-index 조정
     ========================================================= */
     .hero {
-  --vh-mobile: calc(var(--vh, 1vh) * 100);
-  height: calc(var(--vh, 1vh) * 100);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: env(safe-area-inset-top, 100px);
-  text-align: center;
-  color: var(--hero-text-color);
-  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
+      position: relative;
+      height: 600px;
+      overflow: hidden; /* 비디오가 영역 밖으로 나가지 않도록 제한 */
+	  height: calc(var(--vh, 1vh) * 100); /* ✅ 이거 하나만 */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 100px;
+      text-align: center;
+      color: var(--hero-text-color);
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
-      <!-- background-image: -->
-      <!-- linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main.png'); -->
-      <!-- background-repeat: no-repeat; -->
-      <!-- background-position: center; -->
-      <!-- background-size: cover; -->
+      background-image:
+      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     
 	  /* ▶ 영상이 로드되면 이 클래스를 추가해 배경 이미지를 없애는 용도 */
 	}
@@ -100,8 +92,6 @@ html, body {
       width: 100%;
       height: 100%;
       object-fit: cover;
-	  display: block;
-	  background: black; /* 영상 로드 전 배경 깜빡임 방지 */
       z-index: -1; /* 텍스트와 오버레이보다 뒤 */
       pointer-events: none;
     }
@@ -426,20 +416,34 @@ html, body {
     .logo {
       max-width: 120px;
     }
-	
-    .hero.video-loaded {
-     background-image: none; /* 비디오가 로드되면 이미지 배경 제거 */
+
+    /* ───── Hero 영역 ───── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      max-height: 600px;
+      background: url('Main.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
     }
 
-    <!-- .hero video.hero-bg-video { -->
-      <!-- position: absolute; -->
-      <!-- top: 0; -->
-      <!-- left: 0; -->
-      <!-- width: 100%; -->
-      <!-- height: 100%; -->
-      <!-- object-fit: cover; -->
-      <!-- z-index: -1; -->
-    <!-- } -->
+    .hero.video-loaded {
+      background: none; /* 비디오가 로드되면 이미지 배경 제거 */
+    }
+
+    .hero video.hero-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
 
     .hero h1, .hero p {
       text-shadow: 4px 4px 10px rgba(0,0,0,0.8);
@@ -870,13 +874,14 @@ html, body {
   });
 </script>
 <script>
-  function setViewportHeight() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-window.addEventListener('resize', setViewportHeight);
-window.addEventListener('load', setViewportHeight);
-document.addEventListener('DOMContentLoaded', setViewportHeight); // ✅ 추가!
+  function setHeroHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+  window.addEventListener('resize', setHeroHeight);
+  window.addEventListener('load', setHeroHeight);
+  window.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
 </script>
 </body>
 </html>
