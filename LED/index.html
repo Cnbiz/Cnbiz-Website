@@ -527,18 +527,27 @@
     display: block;
     margin-right: 10px;
   }
-
-  .top-nav > ul {
-    display: none;
-    flex-direction: column;
-    gap: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    border-radius: 10px;
-    max-width: 100vw;
-    box-sizing: border-box;
+.top-nav {
+    position: relative; /* 기준 위치 */
   }
+  .top-nav > ul {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 100vw;
+  box-sizing: border-box;
 
+  /* 여기에 넣어야 함! */
+  position: absolute; /* 버튼 바로 아래 뜨도록 */
+  top: 40px;          /* 버튼 높이 + 약간 여유 */
+  left: 0;            /* 왼쪽 정렬 */
+  width: 200px;       /* 메뉴 너비 조절 */
+}
+
+  
   .top-nav.active > ul {
     display: flex;
   }
