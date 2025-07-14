@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>주식회사 씨앤비즈 | 회사소개</title>
-  <!-- 🔗 파비콘 아이콘 설정 -->
+  <!-- 파비콘 -->
   <link href="/LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
   <link href="/LED/Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
   <link href="/LED/Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
@@ -12,6 +12,8 @@
     /* 기본 스타일 */
     body, html {
       margin: 0; padding: 0; font-family: Arial, sans-serif;
+      background: #fff;
+      overflow-x: hidden; /* 가로 스크롤 방지 */
     }
     header {
       display: flex;
@@ -23,6 +25,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1001;
+      height: 60px;
     }
     .logo-container img {
       height: 40px;
@@ -48,46 +51,62 @@
       border-radius: 4px;
     }
 
-    /* 영상 영역: 좌우 꽉차게, 세로는 비율 유지 */
+    /* 영상 영역 - 좌우 꽉 채움, fixed */
     #heroSection {
       position: fixed;
-      top: 60px; /* 헤더 높이 만큼 띄움 */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50vw;
-      max-width: 600px;
+      top: 60px; /* 헤더 아래 고정 */
+      left: 0;
+      width: 100vw;
       height: 50vh;
-      max-height: 350px;
       background: black;
-      border: 2px solid #333;
-      border-radius: 8px;
       overflow: hidden;
       z-index: 1000;
-    }
-    #videoLoader {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-weight: bold;
-      z-index: 1001;
-      user-select: none;
+      border-bottom: 2px solid #333;
     }
     #heroVideo {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 좌우 꽉 차게, 비율 유지 */
-      display: none; /* 로딩 시 숨김 */
+      object-fit: cover; /* 영상 가득 채우기, 잘림 가능 */
+      display: block;
     }
 
-    /* 콘텐츠 영역 */
+    /* 메인 콘텐츠 - 영상+헤더 공간만큼 padding-top 확보 */
     main {
-      padding: 130px 20px 40px; /* 영상 + 헤더 공간 고려 */
       max-width: 900px;
       margin: 0 auto;
+      padding: calc(60px + 50vh + 20px) 20px 40px;
+      box-sizing: border-box;
     }
     h1 {
       margin-top: 0;
+    }
+
+    /* 반응형 모바일 최적화 */
+    @media (max-width: 768px) {
+      #heroSection {
+        height: 40vh; /* 모바일에서 영상 높이 살짝 줄임 */
+        border-bottom-width: 1px;
+      }
+      main {
+        padding-top: calc(60px + 40vh + 20px);
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      header {
+        padding: 10px 15px;
+      }
+      .top-nav ul {
+        gap: 10px;
+      }
+      .top-nav ul li a {
+        padding: 5px 8px;
+        font-size: 14px;
+      }
+    }
+
+    /* iOS 최적화 관련 */
+    video::-webkit-media-controls {
+      display:none !important;
     }
   </style>
 </head>
@@ -105,9 +124,8 @@
     </nav>
   </header>
 
-  <section id="heroSection" aria-label="회사소개 영상">
-    <div id="videoLoader">로딩중...</div>
-    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline preload="metadata"></video>
+  <section id="heroSection">
+    <video id="heroVideo" src="/LED/Main_A.mp4" autoplay muted loop playsinline></video>
   </section>
 
   <main>
@@ -116,20 +134,22 @@
   </main>
 
   <script>
+    // 비디오 준비 시 자동 재생 및 화면 노출 보장
     const video = document.getElementById('heroVideo');
-    const loader = document.getElementById('videoLoader');
-
     video.addEventListener('canplay', () => {
-      loader.style.display = 'none';
-      video.style.display = 'block';
-      video.play().catch(() => {
-        // 모바일 자동재생 실패시 예외 처리 (특별한 행동은 없음)
+      video.play().catch(e => {
+        console.log('비디오 자동재생 실패:', e);
       });
     });
 
-    video.addEventListener('error', () => {
-      loader.textContent = '영상 로드 실패';
-    });
+    // 뷰포트 높이 1vh 문제 대응 (iOS, 모바일)
+    function setVhProperty() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', setVhProperty);
+    window.addEventListener('load', setVhProperty);
+    window.addEventListener('DOMContentLoaded', setVhProperty);
   </script>
 </body>
 </html>
