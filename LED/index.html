@@ -76,8 +76,8 @@ html, body {
       color: var(--hero-text-color);
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
-      background-color: #000; /* ✅ 초기 흰 화면 방지 */
-      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png');
+      background-color: #000; /* ✅ 초기 흰 화면 방지용 배경색 */
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png'); /* ✅ 비디오 로딩 전 fallback 이미지 */
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -887,26 +887,26 @@ html, body {
     });
   </script>
 
+<!-- ✅ 비디오 로딩 후 배경 제거 및 무한 로딩 방지 JS -->
 <script>
-  // ✅ 비디오가 준비되면 배경 제거, 이벤트 중복 방지 및 fallback 보완
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('heroVideo');
     const hero = document.getElementById('heroSection');
     let loaded = false;
 
+    // ✅ 비디오가 데이터 준비되었을 때 실행 (한 번만 실행되도록)
     function setLoaded() {
       if (!loaded) {
-        hero.classList.add('video-loaded');
+        hero.classList.add('video-loaded'); // 배경 제거
         loaded = true;
       }
     }
 
-    if (video.readyState >= 3) {
-      setLoaded();
-    } else {
-      video.addEventListener('loadeddata', setLoaded, { once: true });
-      setTimeout(setLoaded, 3000); // 3초 후 fallback 적용
-    }
+    // ✅ 일반적인 경우: 비디오가 load되면 실행
+    video.addEventListener('loadeddata', setLoaded, { once: true });
+
+    // ✅ 예외 처리: 비디오 load 실패 시 3초 후 강제 처리
+    setTimeout(setLoaded, 3000);
   });
 </script>
 
