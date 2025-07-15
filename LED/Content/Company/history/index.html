@@ -97,8 +97,9 @@
     =================================================== */
     #heroSection {
       width: 100vw; /* 전체 너비 */
-      height: calc(var(--vh,1vh) * 30); /* 뷰포트 높이 30% */
-      background: url('/LED/SINCE_2011.png') center/cover no-repeat; /* 배경 이미지 중앙 정렬 */
+      height: calc(var(--vh,1vh) * 40); /* 뷰포트 높이 40% */
+      background: url('/LED/SINCE_2011.png') center top no-repeat; /* 배경 이미지 위치: 중앙 가로, 위쪽 세로 */
+      background-size: cover; /* 이미지 비율을 유지하면서 가로, 세로를 채우기 */
       border-bottom: 2px solid #333;
       display: flex; /* Flexbox 사용 */
       justify-content: center; /* 가로 중앙 정렬 */
