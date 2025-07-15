@@ -479,7 +479,7 @@ body.dark-mode .features li {
     .right-fixed-menu {
       position: fixed;
       top: 100px;
-      right: -18px;
+      right: 8px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -500,8 +500,8 @@ body.dark-mode .features li {
 	  text-decoration: none;
 	  font-weight: bold;
       transition: background 0.2s;
-	  width: 120px;            /* ✅ 버튼 너비 고정 (줄어드는 것 방지용) */
-	  height: 36px;                /* ✅ 버튼 높이 고정 */
+	  width: 133px;            /* ✅ 버튼 너비 고정 (줄어드는 것 방지용) */
+	  height: 35px;                /* ✅ 버튼 높이 고정 */
 	}
 
     .fixed-btn:hover {
@@ -965,17 +965,21 @@ body.dark-mode footer {
 	
 	/* ✅ 명시적으로 라이트모드일 때도 스타일 고정 */
 	.theme-toggle {
-	 width: 150px;
-     height: 48px;
-     background: #444;
-     color: #fff;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     font-weight: bold;
-     border-radius: 30px;
-     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;      /* 텍스트 가운데 정렬 */
+	  gap: 4px;
+	  background: #444;
+	  color: #fff;
+	  border-radius: 30px;
+	  padding: 4px 10px;
+	  font-size: 1rem;
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	  text-decoration: none;
+	  font-weight: bold;
+	  transition: background 0.2s;
+	  width: 133px;       /* ✅ fixed-btn 과 동일하게 */
+	  height: 35px;       /* ✅ fixed-btn 과 동일하게 */
 	}
 
 	/* ✅ 다크모드 시 덮어쓰기 */
