@@ -8,7 +8,9 @@
 
 <!-- 2025.07.15 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
-<link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link rel="preload" as="image" href="Main_A.png">
+  <link rel="preload" as="video" href="Main_A.mp4" type="video/mp4">
+  <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 <style>
@@ -77,7 +79,7 @@ html, body {
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
       
-      background-color: #000 !important; /* ✅ 흰 화면 방지 */
+      background-color: #000 !important; /* ✅ 초기 흰 화면 방지 */
       background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png') !important;
       background-size: cover !important;
       background-position: center !important;
@@ -766,7 +768,14 @@ html, body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 살짝 그림자 효과로 입체감 부여 */
   background: white;        /* 흰색 배경으로 iframe 내용 돋보이게 */
 }
-  </style>
+  
+/* ✅ 반응형 대응 */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  header.site-header img { max-width: 100px; }
+}
+</style>
 </head>
 <body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
 <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
@@ -798,7 +807,7 @@ html, body {
 <!-- 🔝 상단 로고 -->
 <header class="site-header">
 <a href="index.html">
-<img alt="씨앤비즈 로고" class="logo" src="CnbizLogo.png"/>
+<img loading="lazy" alt="씨앤비즈 로고" class="logo" src="CnbizLogo.png"/>
 </a>
 </header>
 <!-- ================================================
@@ -815,12 +824,12 @@ html, body {
 <!-- 🎞 무한 슬라이더 -->
 <div aria-label="LED 디스플레이 이미지 슬라이드" class="infinite-slider">
 <div class="slide-track">
-<img alt="LED 디스플레이 1" src="Main_A.png"/>
-<img alt="LED 디스플레이 2" src="Main_B.png"/>
-<img alt="LED 디스플레이 3" src="Main_C.png"/>
-<img alt="LED 디스플레이 1" src="Main_A.png"/>
-<img alt="LED 디스플레이 2" src="Main_B.png"/>
-<img alt="LED 디스플레이 3" src="Main_C.png"/>
+<img loading="lazy" alt="LED 디스플레이 1" src="Main_A.png"/>
+<img loading="lazy" alt="LED 디스플레이 2" src="Main_B.png"/>
+<img loading="lazy" alt="LED 디스플레이 3" src="Main_C.png"/>
+<img loading="lazy" alt="LED 디스플레이 1" src="Main_A.png"/>
+<img loading="lazy" alt="LED 디스플레이 2" src="Main_B.png"/>
+<img loading="lazy" alt="LED 디스플레이 3" src="Main_C.png"/>
 </div>
 </div>
 <!-- ✅ 제품 특징 -->
@@ -891,8 +900,8 @@ html, body {
     });
   </script>
 
-<!-- ✅ 영상 로딩 및 SPA 구조 대응 스크립트 -->
-<script>
+<!-- ✅ 비디오 로딩 + SPA 복귀 + 수동 재생 + fallback 포함 -->
+<script defer>
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('heroVideo');
     const hero = document.getElementById('heroSection');
@@ -900,12 +909,17 @@ html, body {
 
     function setLoaded() {
       if (!loaded) {
-        hero.classList.add('video-loaded'); // ✅ 배경 제거
+        hero.classList.add('video-loaded');
+        // ✅ 수동 재생 시도 (브라우저 정책 대응)
+        try {
+          video.play();
+        } catch (err) {
+          console.warn('비디오 수동 재생 실패:', err);
+        }
         loaded = true;
       }
     }
 
-    // ✅ 최초 로딩 시
     if (video.readyState >= 3) {
       setLoaded();
     } else {
@@ -913,11 +927,11 @@ html, body {
       setTimeout(setLoaded, 3000); // 예외 fallback
     }
 
-    // ✅ 메뉴 이동 후 메인 복귀 시 (SPA 대응)
+    // ✅ 메뉴 복귀 시에도 다시 체크 (SPA 구조 대응)
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible' && !hero.classList.contains('video-loaded')) {
         if (video.readyState >= 3) {
-          hero.classList.add('video-loaded');
+          setLoaded();
         }
       }
     });
