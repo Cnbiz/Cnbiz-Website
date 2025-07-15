@@ -363,7 +363,7 @@ html, body {
       top: 100%;
       left: 0;
       background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       border-radius: 10px;
       padding: 20px 30px;
@@ -762,7 +762,19 @@ html, body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 살짝 그림자 효과로 입체감 부여 */
   background: white;        /* 흰색 배경으로 iframe 내용 돋보이게 */
 }
-  </style>
+  
+/* ✅ 반응형 대응 */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  header.site-header img { max-width: 100px; }
+}
+
+/* ✅ 고속 로딩 최적화 */
+img {
+  loading: lazy; /* ✅ 이미지 로딩 최적화 */
+}
+
 </head>
 <body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
 <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
