@@ -5,6 +5,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
+
+<!-- 2025.07.15 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
@@ -74,8 +76,8 @@ html, body {
       color: var(--hero-text-color);
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
-      background-image:
-      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main_A.mp4');
+      background-color: #000; /* ✅ 초기 흰 화면 방지용 */
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main_A.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -884,21 +886,28 @@ html, body {
       }
     });
   </script>
+
 <script>
-  const video = document.getElementById('heroVideo');
-  const hero = document.getElementById('heroSection');
+  document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('heroVideo');
+    const hero = document.getElementById('heroSection');
+    let videoInitialized = false;
 
-  // 비디오가 재생 준비가 되면 (버퍼링 등 끝났을 때)
-  video.addEventListener('canplay', () => {
-    // .hero에 클래스 추가 -> 배경 이미지 제거
-    hero.classList.add('video-loaded');
+    function handleVideoReady() {
+      if (!videoInitialized) {
+        hero.classList.add('video-loaded');
+        videoInitialized = true;
+      }
+    }
+
+    if (video.readyState >= 3) {
+      handleVideoReady();
+    } else {
+      video.addEventListener('canplay', handleVideoReady, { once: true });
+    }
   });
-
-  // 혹은 비디오가 재생이 시작됐을 때도 처리 가능
-  // video.addEventListener('play', () => {
-  //   hero.classList.add('video-loaded');
-  // });
 </script>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
   
