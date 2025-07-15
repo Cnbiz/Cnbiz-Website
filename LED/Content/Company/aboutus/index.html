@@ -5,53 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
   <title>주식회사 씨앤비즈 | 회사소개</title>
 
-  <!-- ✅ 브라우저 탭 아이콘 (파비콘) -->
+  <!-- 파비콘 설정 -->
   <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
   <style>
-    /* ------------------------------
-      ✅ 1. 공통 초기화 및 기본 설정
-    ------------------------------ */
+    /* ===================================================
+       1. 기본 스타일 및 초기화
+       - 박스 사이징: padding, border 포함 크기 계산
+       - html, body: 전체 화면 크기 및 폰트 설정
+    =================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
     }
-
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100%;
+      margin: 0; padding: 0;
+      width: 100vw; height: 100%;
       overflow-x: hidden;
       font-family: Arial, sans-serif;
       background: #fff;
-      --vh: 1vh; /* iOS 대응용 변수 */
+      --vh: 1vh; /* 모바일 vh 문제 대응용 변수 */
     }
 
-    /* ------------------------------
-      ✅ 2. 헤더 (로고 + 상단 메뉴)
-    ------------------------------ */
+    /* ===================================================
+       2. 헤더 영역 (로고 + 네비게이션)
+       - fixed 위치로 항상 상단 고정
+       - 배경색, 텍스트 색상 지정
+       - 스크롤 시 그림자 효과 토글
+    =================================================== */
     header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background-color: #333;
+      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
       padding: 10px 20px;
-      background-color: #333;
-      color: white;
       z-index: 1001;
       transition: box-shadow 0.3s ease;
     }
-
-    /* ✅ 스크롤 시 그림자 효과 */
     header.scrolled {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
-    /* ✅ 로고 이미지 스타일 + 애니메이션 */
+    /* ===================================================
+       3. 로고 스타일
+       - 높이 고정, 클릭 가능 커서
+       - 애니메이션: 왼쪽에서 슬라이드 인
+    =================================================== */
     .logo-container img {
       height: 40px;
       cursor: pointer;
@@ -59,15 +61,18 @@
       animation: slide-in-left 0.7s ease;
     }
 
-    /* ✅ 상단 메뉴 스타일 */
+    /* ===================================================
+       4. 상단 네비게이션 메뉴
+       - ul: 수평 정렬, 간격 조절
+       - a: 색상, 패딩, hover 효과
+       - 모바일 포함 모든 기기에서 항상 보임
+    =================================================== */
     .top-nav ul {
+      margin: 0; padding: 0;
       list-style: none;
       display: flex;
       gap: 15px;
-      margin: 0;
-      padding: 0;
     }
-
     .top-nav ul li a {
       color: white;
       text-decoration: none;
@@ -76,91 +81,123 @@
       border-radius: 4px;
       transition: background-color 0.3s ease;
       user-select: none;
+      display: block;
     }
-
     .top-nav ul li a:hover,
     .top-nav ul li a.active {
       background: #555;
     }
 
-    /* ------------------------------
-      ✅ 3. 히어로 섹션 (배경 이미지)
-    ------------------------------ */
+    /* ===================================================
+       5. 히어로 섹션 (배경 이미지)
+       - fixed 위치로 헤더 바로 아래 고정
+       - 반응형 높이 (vh 변수 활용)
+       - 이미지 크기 및 위치 설정
+    =================================================== */
     #heroSection {
       position: fixed;
-      top: 60px;
-      left: 0;
+      top: 60px; left: 0;
       width: 100vw;
       height: calc(var(--vh, 1vh) * 50);
-      background: url('/LED/Main.png') center/cover no-repeat;
+      background-image: url('/LED/Main.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       z-index: 1000;
       border-bottom: 2px solid #333;
     }
 
-    /* ------------------------------
-      ✅ 4. 본문 콘텐츠
-    ------------------------------ */
+    /* ===================================================
+       6. 본문 콘텐츠 영역
+       - 최대 너비 제한 및 중앙 정렬
+       - 헤더 + 히어로 섹션 높이만큼 패딩 탑 조정
+       - 가독성 좋은 글자 크기 및 줄 간격
+       - 페이드 인 애니메이션 적용
+    =================================================== */
     main {
       max-width: 900px;
       margin: 0 auto;
       padding: calc(60px + (var(--vh, 1vh) * 50) + 20px) 20px 40px;
+      color: #222;
       font-size: 16px;
       line-height: 1.6;
-      color: #222;
       animation: fade-in 1s ease;
     }
-
     h1 {
       margin-top: 0;
       font-size: 2rem;
-      font-weight: bold;
+      font-weight: 700;
       color: #111;
     }
+    main a {
+      color: #0066cc;
+      text-decoration: underline;
+    }
 
-    /* ------------------------------
-      ✅ 5. 반응형 모바일 스타일
-    ------------------------------ */
+    /* ===================================================
+       7. 반응형 스타일
+       - 화면 너비 768px 이하일 때
+       - 히어로 섹션 높이 축소, 패딩 조정
+       - 폰트 크기 및 메뉴 간격 축소
+       - 로고 크기 축소
+    =================================================== */
     @media (max-width: 768px) {
       .logo-container img {
         height: 30px;
       }
-
-      main {
-        font-size: 14px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
-      }
-
       #heroSection {
         height: calc(var(--vh, 1vh) * 40);
       }
-
+      main {
+        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+      }
+      .top-nav ul {
+        gap: 10px;
+      }
+      .top-nav ul li a {
+        padding: 5px 8px;
+        font-size: 14px;
+      }
       h1 {
         font-size: 1.6rem;
       }
     }
 
-    /* ------------------------------
-      ✅ 6. 애니메이션 정의
-    ------------------------------ */
+    /* ===================================================
+       8. 애니메이션 키프레임 정의
+       - 페이드인 (main)
+       - 로고 슬라이드 인 (왼쪽에서)
+    =================================================== */
     @keyframes fade-in {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
     @keyframes slide-in-left {
-      from { transform: translateX(-30px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+      from {
+        transform: translateX(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ 상단 헤더 영역 -->
+  <!--
+    ===========================
+    상단 헤더 (로고 + 메뉴)
+    - 고정 위치
+    - 로고 클릭 시 JS로 직접 이동하여 백색화면 문제 방지
+  ===========================
+  -->
   <header id="header">
     <div class="logo-container">
-      <!-- ✅ 로고 클릭 시 JS로 메인 홈 이동 (백화면 방지) -->
       <img src="/LED/CnbizLogo.png" alt="회사 로고" id="logoClick" />
     </div>
     <nav class="top-nav" role="navigation" aria-label="주요 메뉴">
@@ -172,10 +209,10 @@
     </nav>
   </header>
 
-  <!-- ✅ 히어로 이미지 섹션 -->
+  <!-- 히어로 섹션: 고정 배경 이미지 -->
   <section id="heroSection" aria-label="배경 이미지 영역"></section>
 
-  <!-- ✅ 본문 콘텐츠 영역 -->
+  <!-- 본문 콘텐츠 -->
   <main>
     <h1>회사소개</h1>
     <p>고객의 요구에 맞춰</p>
@@ -188,27 +225,27 @@
     회사명: (주)씨앤비즈&nbsp;&nbsp;&nbsp;대표: 차호진<br>
     주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
     설립일: 2016.3 (2019.3 ㈜씨앤비즈 법인설립)<br>
-    전화/팩스: T. 031-706-6641 / F. 031-704-6648<br>
-    홈페이지: <a href="http://www.cnbiznet.co.kr" target="_blank">www.cnbiznet.co.kr</a>
+    전화/팩스: T. 031‑706‑6641 / F. 031‑704‑6648<br>
+    홈페이지: <a href="http://www.cnbiznet.co.kr" target="_blank" rel="noopener noreferrer">www.cnbiznet.co.kr</a>
   </main>
 
-  <!-- ✅ JavaScript -->
   <script>
-    /**
-     * ✅ iOS Safari 등의 브라우저에서 100vh 문제 해결
-     */
+    // ==================================================
+    // 1. 모바일 iOS 브라우저 vh 문제 대응
+    // 화면 실제 높이의 1% 값을 CSS 변수 --vh에 저장해 사용
+    // ==================================================
     function setVhProperty() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
-
     window.addEventListener('resize', setVhProperty);
     window.addEventListener('load', setVhProperty);
     window.addEventListener('DOMContentLoaded', setVhProperty);
 
-    /**
-     * ✅ 스크롤 시 헤더에 그림자 효과 부여
-     */
+    // ==================================================
+    // 2. 스크롤 시 헤더에 그림자 효과 추가/제거
+    // window.scrollY가 10 이상일 때 그림자 추가
+    // ==================================================
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 10) {
@@ -218,10 +255,11 @@
       }
     });
 
-    /**
-     * ✅ 로고 클릭 시 백화면 방지 및 홈 이동 처리
-     */
-    document.getElementById('logoClick').addEventListener('click', function () {
+    // ==================================================
+    // 3. 로고 클릭 시 백색화면 문제 방지 및 홈 이동
+    // 일반 a 태그 대신 JS로 location.href 변경 처리
+    // ==================================================
+    document.getElementById('logoClick').addEventListener('click', () => {
       window.location.href = 'https://landing.cnbiznet.co.kr';
     });
   </script>
