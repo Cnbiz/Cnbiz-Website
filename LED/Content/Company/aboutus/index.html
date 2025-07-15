@@ -2,16 +2,16 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
   <title>주식회사 씨앤비즈 | 회사소개</title>
 
-  <!-- 파비콘 설정 -->
+  <!-- ✅ 브라우저 탭 아이콘 (파비콘) -->
   <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
   <style>
-    /* ==============================
-       ✅ 1. 초기화 및 공통 스타일
-    ============================== */
+    /* ------------------------------
+      ✅ 1. 공통 초기화 및 기본 설정
+    ------------------------------ */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -23,52 +23,43 @@
       height: 100%;
       overflow-x: hidden;
       font-family: Arial, sans-serif;
-      --vh: 1vh;
       background: #fff;
+      --vh: 1vh; /* iOS 대응용 변수 */
     }
 
-    /* ==============================
-       ✅ 2. 상단 고정 헤더
-    ============================== */
+    /* ------------------------------
+      ✅ 2. 헤더 (로고 + 상단 메뉴)
+    ------------------------------ */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      background: #333;
-      color: white;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       height: 60px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
       z-index: 1001;
       transition: box-shadow 0.3s ease;
     }
 
-    /* 스크롤 시 그림자 추가 */
+    /* ✅ 스크롤 시 그림자 효과 */
     header.scrolled {
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-    /* ==============================
-       ✅ 3. 로고 애니메이션
-    ============================== */
+    /* ✅ 로고 이미지 스타일 + 애니메이션 */
     .logo-container img {
       height: 40px;
       cursor: pointer;
       user-select: none;
-      animation: slide-in-left 0.8s ease-out;
+      animation: slide-in-left 0.7s ease;
     }
 
-    /* ==============================
-       ✅ 4. 데스크탑 메뉴
-    ============================== */
-    .top-nav {
-      display: flex;
-      align-items: center;
-    }
-
+    /* ✅ 상단 메뉴 스타일 */
     .top-nav ul {
       list-style: none;
       display: flex;
@@ -92,26 +83,9 @@
       background: #555;
     }
 
-    /* ==============================
-       ✅ 5. 햄버거 버튼 (모바일 전용)
-    ============================== */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      border-radius: 2px;
-    }
-
-    /* ==============================
-       ✅ 6. 히어로 섹션 (배경 이미지)
-    ============================== */
+    /* ------------------------------
+      ✅ 3. 히어로 섹션 (배경 이미지)
+    ------------------------------ */
     #heroSection {
       position: fixed;
       top: 60px;
@@ -123,9 +97,9 @@
       border-bottom: 2px solid #333;
     }
 
-    /* ==============================
-       ✅ 7. 본문 콘텐츠
-    ============================== */
+    /* ------------------------------
+      ✅ 4. 본문 콘텐츠
+    ------------------------------ */
     main {
       max-width: 900px;
       margin: 0 auto;
@@ -133,52 +107,22 @@
       font-size: 16px;
       line-height: 1.6;
       color: #222;
-      animation: fade-in 1s ease-in;
+      animation: fade-in 1s ease;
     }
 
     h1 {
-      font-size: 2rem;
       margin-top: 0;
+      font-size: 2rem;
       font-weight: bold;
       color: #111;
     }
 
-    /* ==============================
-       ✅ 8. 반응형 - 모바일 대응
-    ============================== */
+    /* ------------------------------
+      ✅ 5. 반응형 모바일 스타일
+    ------------------------------ */
     @media (max-width: 768px) {
       .logo-container img {
         height: 30px;
-      }
-
-      .top-nav ul {
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        background: #333;
-        padding: 0;
-        margin: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, opacity 0.4s ease;
-        opacity: 0;
-      }
-
-      .top-nav ul.active {
-        max-height: 300px;
-        opacity: 1;
-      }
-
-      .top-nav ul li a {
-        padding: 12px;
-        font-size: 14px;
-        text-align: center;
-      }
-
-      .hamburger {
-        display: flex;
       }
 
       main {
@@ -197,9 +141,9 @@
       }
     }
 
-    /* ==============================
-       ✅ 9. 애니메이션 정의
-    ============================== */
+    /* ------------------------------
+      ✅ 6. 애니메이션 정의
+    ------------------------------ */
     @keyframes fade-in {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -213,22 +157,14 @@
 </head>
 <body>
 
-  <!-- ✅ 상단 헤더 -->
+  <!-- ✅ 상단 헤더 영역 -->
   <header id="header">
     <div class="logo-container">
-      <a href="https://landing.cnbiznet.co.kr">
-        <img src="/LED/CnbizLogo.png" alt="회사 로고" />
-      </a>
+      <!-- ✅ 로고 클릭 시 JS로 메인 홈 이동 (백화면 방지) -->
+      <img src="/LED/CnbizLogo.png" alt="회사 로고" id="logoClick" />
     </div>
-
-    <!-- ✅ 햄버거 버튼 -->
-    <div class="hamburger" id="hamburger" aria-label="메뉴 열기" role="button" tabindex="0">
-      <span></span><span></span><span></span>
-    </div>
-
-    <!-- ✅ 네비게이션 메뉴 -->
     <nav class="top-nav" role="navigation" aria-label="주요 메뉴">
-      <ul id="navMenu">
+      <ul>
         <li><a href="/LED/Content/Company/aboutus/" class="active">회사소개</a></li>
         <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
         <li><a href="/LED/Content/Company/location/">오시는 길</a></li>
@@ -239,7 +175,7 @@
   <!-- ✅ 히어로 이미지 섹션 -->
   <section id="heroSection" aria-label="배경 이미지 영역"></section>
 
-  <!-- ✅ 본문 콘텐츠 -->
+  <!-- ✅ 본문 콘텐츠 영역 -->
   <main>
     <h1>회사소개</h1>
     <p>고객의 요구에 맞춰</p>
@@ -256,9 +192,11 @@
     홈페이지: <a href="http://www.cnbiznet.co.kr" target="_blank">www.cnbiznet.co.kr</a>
   </main>
 
-  <!-- ✅ 스크립트: iOS vh 대응, 메뉴 토글, 헤더 그림자 -->
+  <!-- ✅ JavaScript -->
   <script>
-    // 🔹 iOS 모바일에서 100vh 문제 해결
+    /**
+     * ✅ iOS Safari 등의 브라우저에서 100vh 문제 해결
+     */
     function setVhProperty() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -268,15 +206,9 @@
     window.addEventListener('load', setVhProperty);
     window.addEventListener('DOMContentLoaded', setVhProperty);
 
-    // 🔹 햄버거 메뉴 토글
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-
-    // 🔹 스크롤 시 헤더 그림자 처리
+    /**
+     * ✅ 스크롤 시 헤더에 그림자 효과 부여
+     */
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 10) {
@@ -284,6 +216,13 @@
       } else {
         header.classList.remove('scrolled');
       }
+    });
+
+    /**
+     * ✅ 로고 클릭 시 백화면 방지 및 홈 이동 처리
+     */
+    document.getElementById('logoClick').addEventListener('click', function () {
+      window.location.href = 'https://landing.cnbiznet.co.kr';
     });
   </script>
 </body>
