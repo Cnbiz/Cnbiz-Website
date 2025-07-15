@@ -77,8 +77,8 @@ html, body {
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
       
-      background-color: #000 !important; /* ✅ 초기 흰 화면 방지 */
-      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png') !important; /* ✅ fallback 이미지 */
+      background-color: #000 !important; /* ✅ 흰 화면 방지 */
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png') !important;
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
@@ -891,26 +891,36 @@ html, body {
     });
   </script>
 
-<!-- ✅ 비디오 로딩 안정화 스크립트 -->
+<!-- ✅ 영상 로딩 및 SPA 구조 대응 스크립트 -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('heroVideo');
     const hero = document.getElementById('heroSection');
     let loaded = false;
 
-    // ✅ 영상이 로딩되면 배경 제거
-    function markLoaded() {
+    function setLoaded() {
       if (!loaded) {
-        hero.classList.add('video-loaded'); // 🎯 배경 제거
+        hero.classList.add('video-loaded'); // ✅ 배경 제거
         loaded = true;
       }
     }
 
-    // ✅ 영상이 정상적으로 로딩된 경우
-    video.addEventListener('loadeddata', markLoaded, { once: true });
+    // ✅ 최초 로딩 시
+    if (video.readyState >= 3) {
+      setLoaded();
+    } else {
+      video.addEventListener('loadeddata', setLoaded, { once: true });
+      setTimeout(setLoaded, 3000); // 예외 fallback
+    }
 
-    // ✅ 로딩 실패 또는 지연될 경우를 대비한 예외 처리
-    setTimeout(markLoaded, 3000); // 3초 후 강제 배경 제거
+    // ✅ 메뉴 이동 후 메인 복귀 시 (SPA 대응)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && !hero.classList.contains('video-loaded')) {
+        if (video.readyState >= 3) {
+          hero.classList.add('video-loaded');
+        }
+      }
+    });
   });
 </script>
 
