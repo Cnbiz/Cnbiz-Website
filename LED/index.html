@@ -76,8 +76,8 @@ html, body {
       color: var(--hero-text-color);
 
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
-      background-color: #000; /* ✅ 초기 흰 화면 방지용 */
-      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main_A.png');
+      background-color: #000; /* ✅ 초기 흰 화면 방지 */
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Main_A.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -888,22 +888,24 @@ html, body {
   </script>
 
 <script>
+  // ✅ 비디오가 준비되면 배경 제거, 이벤트 중복 방지 및 fallback 보완
   document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('heroVideo');
     const hero = document.getElementById('heroSection');
-    let videoInitialized = false;
+    let loaded = false;
 
-    function handleVideoReady() {
-      if (!videoInitialized) {
+    function setLoaded() {
+      if (!loaded) {
         hero.classList.add('video-loaded');
-        videoInitialized = true;
+        loaded = true;
       }
     }
 
     if (video.readyState >= 3) {
-      handleVideoReady();
+      setLoaded();
     } else {
-      video.addEventListener('canplay', handleVideoReady, { once: true });
+      video.addEventListener('loadeddata', setLoaded, { once: true });
+      setTimeout(setLoaded, 3000); // 3초 후 fallback 적용
     }
   });
 </script>
