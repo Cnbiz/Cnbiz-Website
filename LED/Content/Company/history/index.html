@@ -96,13 +96,14 @@
        - heroSection 높이와 main의 패딩을 동일하게 맞춤
     =================================================== */
     #heroSection {
-      width: 100vw;
-      height: calc(var(--vh,1vh) * 40); /* 뷰포트 높이 40% */
-      background: url('/LED/SINCE_2011.png') center/cover no-repeat;
+      width: 100vw; /* 전체 너비 */
+      height: calc(var(--vh,1vh) * 30); /* 뷰포트 높이 30% */
+      background: url('/LED/SINCE_2011.png') center/cover no-repeat; /* 배경 이미지 중앙 정렬 */
       border-bottom: 2px solid #333;
-      /* fixed 제거하여 스크롤 대상에 포함 */
+      display: flex; /* Flexbox 사용 */
+      justify-content: center; /* 가로 중앙 정렬 */
+      align-items: center; /* 세로 중앙 정렬 */
     }
-
     main {
       max-width: 900px;
       margin: 0 auto;
