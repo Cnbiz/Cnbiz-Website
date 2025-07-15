@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
-<!-- 2025.07.15 수정본 -->
+<!-- 2025.07.16 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
@@ -478,27 +478,31 @@ body.dark-mode .features li {
     /* ───── 우측 고정 메뉴 버튼 ───── */
     .right-fixed-menu {
       position: fixed;
-      top: 160px;
-      right: 20px;
+      top: 100px;
+      right: -18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       z-index: 50;
     }
 
     .fixed-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      color: #000;
-      border-radius: 30px;
-      padding: 12px 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      text-decoration: none;
-      font-weight: bold;
+	  display: flex;
+  	  align-items: center;
+	  justify-content: center;     /* 중앙 정렬 보완 */
+	  gap: 4px;                    /* 아이콘과 텍스트 간격 */
+	  background: #fff;
+	  color: #000;
+	  border-radius: 30px;         /* 살짝 더 작게 */
+	  padding: 4px 10px;           /* ✅ 높이와 너비 축소 핵심 */
+	  font-size: 1rem;           /* ✅ 글자 크기 축소 */
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* ✅ 그림자도 부드럽게 축소 */
+	  text-decoration: none;
+	  font-weight: bold;
       transition: background 0.2s;
-    }
+	  width: 120px;            /* ✅ 버튼 너비 고정 (줄어드는 것 방지용) */
+	  height: 36px;                /* ✅ 버튼 높이 고정 */
+	}
 
     .fixed-btn:hover {
       background: #eee;
@@ -958,19 +962,27 @@ body.dark-mode footer {
       color: var(--text-color);
       transition: background-color var(--transition-speed), color var(--transition-speed);
     }
-    .theme-toggle {
-      position: fixed;
-      top: 29rem;
-      right: center;
-      background: var(--text-color);
-      color: var(--bg-color);
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all var(--transition-speed);
-      z-index: 2000;
-    }
+	
+	/* ✅ 명시적으로 라이트모드일 때도 스타일 고정 */
+	.theme-toggle {
+	 width: 150px;
+     height: 48px;
+     background: #444;
+     color: #fff;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     font-weight: bold;
+     border-radius: 30px;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+	}
+
+	/* ✅ 다크모드 시 덮어쓰기 */
+	body.dark-mode .theme-toggle {
+	background: white;
+	color: black;
+	}
   
 footer {
   background-color: var(--footer-bg); /* Chat GPT: 푸터 영역 배경색 */
@@ -1094,11 +1106,11 @@ body.dark-mode footer {
 </section>
 <!-- 🧾 Footer 회사 정보 -->
 <div class="right-fixed-menu">
-<a class="fixed-btn phone" href="tel:031-620-5881">📞 <span>전화상담</span> </a>
+<a class="fixed-btn phone" href="tel:031-706-6641">📞 <span>전화상담</span> </a>
 <a class="fixed-btn kakao" href="https://pf.kakao.com/_xexgVGb/chat">💬 <span>카톡 상담</span> </a>
 <a class="fixed-btn visit" href="visit.html">🏢 <span>방문예약</span> </a>
-<a class="fixed-btn contact" href="contact.html">📩 <span>상담문의</span> </a>
-<a class="fixed-btn company" href="company.html">📄 <span>회사소개서</span> </a>
+<a class="fixed-btn contact" href="/contact.html">📩 <span>상담문의</span> </a>
+<a class="fixed-btn company" href="./Content/Company/aboutus/">📄 <span>회사소개</span> </a>
 <!-- ✅ ChatGPT: 다크모드 전환 버튼 추가 (회사소개서 바로 밑에) -->
 <a class="fixed-btn theme-toggle" id="themeToggle">🌙 다크모드</a>
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 -->
@@ -1212,21 +1224,30 @@ menuItems.forEach(item => {
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
 
 
-<!-- ✅ ChatGPT: 다크/라이트 모드 토글 기능 -->
+<!-- ✅ ChatGPT: 다크/라이트 모드 토글 기능 (스타일까지 포함해서 수정) -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById("themeToggle");
   if (themeToggle) {
     const savedTheme = localStorage.getItem("theme") || "light";
     applyTheme(savedTheme);
+
     themeToggle.addEventListener("click", () => {
       const isDark = document.body.classList.toggle("dark-mode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      themeToggle.textContent = isDark ? "☀️ 라이트모드" : "🌙 다크모드";
+      const newTheme = isDark ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      applyTheme(newTheme);
     });
     function applyTheme(mode) {
-      document.body.classList.toggle("dark-mode", mode === "dark");
-      themeToggle.textContent = mode === "dark" ? "☀️ 라이트모드" : "🌙 다크모드";
+      const isDark = mode === "dark";
+      document.body.classList.toggle("dark-mode", isDark);
+      
+      // ✅ 텍스트 변경
+      themeToggle.textContent = isDark ? "☀️ 라이트모드" : "🌙 다크모드";
+	  
+      // ✅ 배경/글자 색상 직접 지정
+      /*themeToggle.style.backgroundColor = isDark ? "#ffffff" : "#333";
+      themeToggle.style.color = isDark ? "#000000" : "#ffffff";*/
     }
   }
 });
