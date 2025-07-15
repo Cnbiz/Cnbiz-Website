@@ -208,15 +208,24 @@
     =================================================== */
     @media (max-width: 768px) {
       .logo-container img { height: 30px; }
-      #heroSection { height: calc(var(--vh,1vh) * 25); }
+      #heroSection {
+        height: calc(var(--vh, 1vh) * 40);
+      }
       main {
-        padding: 15px;
+        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
+        padding-left: 15px;
+        padding-right: 15px;
         font-size: 14px;
       }
-      h1 { font-size: 1.6rem; }
+      h1 {
+        font-size: 1.6rem; 
+      }
+      .top-nav ul {
+        gap: 10px;
+      }
       .top-nav ul li a {
+        padding: 5px 8px;
         font-size: 14px;
-        padding: 6px 10px;
       }
       footer {
         font-size: 12px;
