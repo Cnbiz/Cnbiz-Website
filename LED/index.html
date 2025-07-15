@@ -5,7 +5,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
-
 <!-- 2025.07.15 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -446,7 +445,7 @@ html, body {
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 50%;
       object-fit: cover;
       z-index: -1;
     }
@@ -762,20 +761,249 @@ html, body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 살짝 그림자 효과로 입체감 부여 */
   background: white;        /* 흰색 배경으로 iframe 내용 돋보이게 */
 }
-  </style>
+  
+footer {
+  background-color: var(--footer-bg); /* Chat GPT: 푸터 영역 배경색 */
+  color: var(--footer-text);          /* Chat GPT: 푸터 글자 색상 */
+}
+body.dark-mode footer {
+  --footer-bg: #111;                  /* Chat GPT: 다크모드 푸터 배경색 */
+  --footer-text: #fff;                /* Chat GPT: 다크모드 푸터 텍스트 색상 */
+}
+
+
+.hero {
+  min-height: 100vh; /* Chat GPT: Hero 아래가 사라지지 않도록 최소 높이 설정 */
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 스타일 */
+.right-fixed-menu .theme-toggle {
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+}
+.right-fixed-menu .theme-toggle:hover {
+  background-color: #333;
+}
+
+
+/* ✅ ChatGPT 추가: 다크모드 스타일 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85);
+  color: #f0f0f0;
+}
+body.dark-mode footer {
+  background-color: #111;
+  color: #fff;
+}
+
+
+/* ✅ ChatGPT 추가: 다크모드 색상 반전 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85) !important;
+  color: #f0f0f0 !important;
+}
+body.dark-mode .section,
+body.dark-mode .content,
+body.dark-mode .hero,
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: rgba(0,0,0,0.6) !important;
+  color: #f0f0f0 !important;
+}
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a,
+body.dark-mode li,
+body.dark-mode div,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: rgba(240,240,240,0.95) !important;
+}
+
+/* ✅ ChatGPT: 다크모드 전역 색상 덮어쓰기 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85) !important;
+  color: #f0f0f0 !important;
+}
+body.dark-mode *,
+body.dark-mode *:before,
+body.dark-mode *:after {
+  color: rgba(240,240,240,0.95) !important;
+}
+body.dark-mode .section,
+body.dark-mode .content,
+body.dark-mode .hero,
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: rgba(0,0,0,0.6) !important;
+}
+
+/* ✅ ChatGPT: 추가된 다크모드 버튼 무조건 아래 */
+.right-fixed-menu .theme-toggle {
+  order:99;
+}
+
+/* ✅ ChatGPT 추가: 다크모드 색상 덮어쓰기 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85) !important;
+  color: #f0f0f0 !important;
+}
+body.dark-mode *,
+body.dark-mode *:before,
+body.dark-mode *:after {
+  color: rgba(240,240,240,0.95) !important;
+}
+body.dark-mode .section,
+body.dark-mode .content,
+body.dark-mode .hero,
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: rgba(0,0,0,0.6) !important;
+}
+
+/* ✅ theme-toggle 버튼 무조건 아래 */
+.right-fixed-menu .theme-toggle {
+  order:99;
+}
+
+/* ✅ ChatGPT 추가: 다크모드 전역 색상 덮어쓰기 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85) !important;
+  color: #f0f0f0 !important;
+}
+body.dark-mode *,
+body.dark-mode *:before,
+body.dark-mode *:after {
+  color: rgba(240,240,240,0.95) !important;
+}
+body.dark-mode .section,
+body.dark-mode .content,
+body.dark-mode .hero,
+body.dark-mode header,
+body.dark-mode footer {
+  background-color: rgba(0,0,0,0.6) !important;
+}
+/* ✅ theme-toggle 버튼 무조건 회사소개서 밑 */
+.right-fixed-menu .theme-toggle {
+  order:99;
+}
+</style>
+<!-- ✅ ChatGPT: 전체 테마 변수 및 전환용 다크/라이트 모드 -->
+<script>
+    const htmlRoot = document.getElementById('htmlRoot') || document.documentElement;
+    const userLang = navigator.language || navigator.userLanguage;
+    if (!localStorage.getItem("lang")) {
+      if (userLang.startsWith('en')) htmlRoot.lang = "en";
+      else if (userLang.startsWith('ja')) htmlRoot.lang = "ja";
+      else htmlRoot.lang = "ko";
+    }
+
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') document.body?.classList?.add('dark-mode');
+  </script>
+<style>
+    :root {
+      --transition-speed: 0.4s;
+      --bg-color: #ffffff;
+      --text-color: #222;
+      --hero-overlay: rgba(255, 255, 255, 0.2);
+    }
+    body.dark-mode {
+      --bg-color: rgba(0, 0, 0, 0.85); /* Chat GPT: 다크모드 반투명 검정 배경으로 수정 */
+      --text-color: #f0f0f0;
+      --hero-overlay: rgba(0, 0, 0, 0.5);
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--text-color);
+      color: var(--bg-color);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all var(--transition-speed);
+      z-index: 2000;
+    }
+  
+footer {
+  background-color: var(--footer-bg); /* Chat GPT: 푸터 영역 배경색 */
+  color: var(--footer-text);          /* Chat GPT: 푸터 글자 색상 */
+}
+body.dark-mode footer {
+  --footer-bg: #111;                  /* Chat GPT: 다크모드 푸터 배경색 */
+  --footer-text: #fff;                /* Chat GPT: 다크모드 푸터 텍스트 색상 */
+}
+
+
+.hero {
+  min-height: 100vh; /* Chat GPT: Hero 아래가 사라지지 않도록 최소 높이 설정 */
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 스타일 */
+.right-fixed-menu .theme-toggle {
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+}
+.right-fixed-menu .theme-toggle:hover {
+  background-color: #333;
+}
+
+
+/* ✅ ChatGPT 추가: 다크모드 스타일 */
+body.dark-mode {
+  background-color: rgba(0,0,0,0.85);
+  color: #f0f0f0;
+}
+body.dark-mode footer {
+  background-color: #111;
+  color: #fff;
+}
+
+</style>
 </head>
 <body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
 <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
 <ul>
 <!-- 각 메뉴 항목과 서브메뉴 -->
 <li><a href="./Content/Company/aboutus/">회사소개</a>
-  <div class="submenu">
-    <ul>
-      <li><a href="./Content/Company/aboutus/">회사소개</a></li>
-      <li><a href="./Content/Company/history/">회사연혁</a></li>
-      <li><a href="./Content/Company/location/">오시는 길</a></li>
-    </ul>
-  </div>
+<div class="submenu">
+<ul>
+<li><a href="./Content/Company/aboutus/">회사소개</a></li>
+<li><a href="./Content/Company/history/">회사연혁</a></li>
+<li><a href="./Content/Company/location/">오시는 길</a></li>
+</ul>
+</div>
 </li>
 <li><a href="#">LED Display</a>
 <div class="submenu"><ul><li><a href="#">투명OLED</a></li><li><a href="#">투명LCD</a></li><li><a href="#">LED전광판</a></li><li><a href="#">모니터</a></li><li><a href="#">터치패널</a></li><li><a href="#">영상통합제어시스템</a></li></ul></div>
@@ -793,14 +1021,14 @@ html, body {
 </nav>
 <!-- 🔝 상단 로고 -->
 <header class="site-header">
-<a href="index.html">
+<a href="https://landing.cnbiznet.co.kr">
 <img alt="씨앤비즈 로고" class="logo" src="CnbizLogo.png"/>
 </a>
 </header>
 <!-- ================================================
        🎬 Hero 영역: 비디오 + fallback 이미지 + 텍스트
   ================================================= -->
-<section class="hero" id="heroSection">
+<section class="hero" id="heroSection" style="margin-top: -50px;">
 <video autoplay="" class="hero-bg-video" id="heroVideo" loop="" muted="" playsinline="" preload="auto">
 <source src="Main_A.mp4" type="video/mp4"/>
 <!-- 비디오를 지원하지 않는 브라우저에서는 fallback 이미지 표시 -->
@@ -844,7 +1072,8 @@ html, body {
 <a class="fixed-btn kakao" href="https://pf.kakao.com/_xexgVGb/chat">💬 <span>카톡 상담</span> </a>
 <a class="fixed-btn visit" href="visit.html">🏢 <span>방문예약</span> </a>
 <a class="fixed-btn contact" href="contact.html">📩 <span>상담문의</span> </a>
-<a class="fixed-btn company" href="company.html">📄 <span>회사소개서</span> </a>
+<a class="fixed-btn company" href="company.html">📄 <span>회사소개서</span> </a><a class="fixed-btn theme-toggle" id="themeToggle">🌙 다크모드</a>
+<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 -->
 </div><footer aria-label="회사 정보" class="site-footer">
 <p> 업체명 : (주)씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호 </p>
 <p> 대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 메일 : sales@cnbiznet.co.kr </p>
@@ -947,6 +1176,31 @@ menuItems.forEach(item => {
   window.addEventListener('resize', setHeroHeight);
   window.addEventListener('load', setHeroHeight);
   window.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
+</script>
+<!-- ✅ ChatGPT: 다크/라이트 모드 토글 버튼 -->
+<!-- ✅ ChatGPT 추가: 다크/라이트 모드 전환 스크립트 -->
+<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
+<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
+
+
+<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      themeToggle.textContent = isDark ? "☀️ 라이트모드" : "🌙 다크모드";
+    });
+    function applyTheme(mode) {
+      document.body.classList.toggle("dark-mode", mode === "dark");
+      themeToggle.textContent = mode === "dark" ? "☀️ 라이트모드" : "🌙 다크모드";
+    }
+  }
+});
 </script>
 </body>
 </html>
