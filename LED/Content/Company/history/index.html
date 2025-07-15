@@ -10,166 +10,227 @@
 
   <style>
     /* ===================================================
-       1. 기본 스타일 및 초기화
-       - 박스 사이징: padding, border 포함 크기 계산
-       - html, body: 전체 화면 크기 및 폰트 설정
+       1. 기본 초기화 및 전역 설정
+       - 모든 요소에 box-sizing: border-box 적용하여
+         padding, border 포함 너비 계산 간편화
+       - html, body 기본 margin/padding 제거
+       - 모바일 100vh 문제 해결용 CSS 변수 --vh 선언
+       - 기본 글꼴 및 배경색, 텍스트 색상 지정
+       - 좌우 스크롤 방지 위해 overflow-x: hidden
     =================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
     }
     html, body {
       margin: 0; padding: 0;
-      width: 100vw; height: 100%;
-      overflow-x: hidden;
-      font-family: Arial, sans-serif;
+      width: 100vw; /* 뷰포트 너비 고정 */
+      height: 100%;
+      font-family: Arial, sans-serif; /* 기본 산세리프체 */
       background: #fff;
-      --vh: 1vh; /* 모바일 vh 문제 대응용 변수 */
+      overflow-x: hidden; /* 좌우 스크롤 방지 */
+      --vh: 1vh; /* 모바일 100vh 문제 대응용 변수 */
+      color: #222;
     }
 
     /* ===================================================
-       2. 헤더 영역 (로고 + 네비게이션)
-       - fixed 위치로 항상 상단 고정
-       - 배경색, 텍스트 색상 지정
-       - 스크롤 시 그림자 효과 토글
+       2. HEADER (상단 고정 네비게이션 바)
+       - 화면 상단에 고정하여 항상 보이도록 설정
+       - 높이 60px, 배경 어두운 회색(#333), 텍스트 흰색
+       - 좌우 여백 20px, flexbox로 좌측 로고와 우측 메뉴 배치
+       - z-index 1001로 다른 요소 위에 표시
+       - 스크롤시 그림자 효과를 부드럽게 토글
     =================================================== */
     header {
-      position: fixed;
+      position: fixed; /* 화면 상단에 고정 */
       top: 0; left: 0; right: 0;
-      height: 60px;
+      height: 60px; /* 고정 높이 */
       background-color: #333;
-      color: white;
+      color: #fff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      z-index: 1001;
-      transition: box-shadow 0.3s ease;
+      padding: 0 20px;
+      z-index: 1001; /* 다른 요소 위에 표시 */
+      transition: box-shadow 0.3s ease; /* 스크롤시 그림자 전환 애니메이션 */
     }
     header.scrolled {
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3); /* 스크롤 발생시 그림자 추가 */
     }
-
-    /* ===================================================
-       3. 로고 스타일
-       - 높이 고정, 클릭 가능 커서
-       - 애니메이션: 왼쪽에서 슬라이드 인
-    =================================================== */
+    /* 로고 이미지 스타일 */
     .logo-container img {
       height: 40px;
       cursor: pointer;
-      user-select: none;
-      animation: slide-in-left 0.7s ease;
+      user-select: none; /* 텍스트 선택 방지 */
+      animation: slide-in-left 0.7s ease-out;
     }
 
-    /* ===================================================
-       4. 상단 네비게이션 메뉴
-       - ul: 수평 정렬, 간격 조절
-       - a: 색상, 패딩, hover 효과
-       - 모바일 포함 모든 기기에서 항상 보임
-    =================================================== */
+    /* 네비게이션 메뉴 스타일 */
     .top-nav ul {
-      margin: 0; padding: 0;
-      list-style: none;
       display: flex;
       gap: 15px;
+      margin: 0; padding: 0;
+      list-style: none;
     }
     .top-nav ul li a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       font-weight: bold;
-      padding: 6px 10px;
+      padding: 8px 12px;
       border-radius: 4px;
       transition: background-color 0.3s ease;
       user-select: none;
-      display: block;
     }
     .top-nav ul li a:hover,
     .top-nav ul li a.active {
-      background: #555;
+      background-color: #555;
     }
 
     /* ===================================================
-       5. 히어로 섹션 (배경 이미지)
-       - fixed 위치로 헤더 바로 아래 고정
-       - 반응형 높이 (vh 변수 활용)
-       - 이미지 크기 및 위치 설정
+       3. 히어로 + 메인 통합 스크롤 영역 설정
+       - 이제 heroSection은 고정 높이의 빈 공간 역할
+         (스크롤 대상에 포함시키기 위해)
+       - heroSection 내부 배경 이미지는 고정 위치가 아닌
+         그냥 백그라운드로 세팅
+       - main 콘텐츠 영역은 heroSection 아래서 시작하되
+         스크롤 가능
+       - heroSection 높이와 main의 패딩을 동일하게 맞춤
     =================================================== */
     #heroSection {
-      position: fixed;
-      top: 60px; left: 0;
       width: 100vw;
-      height: calc(var(--vh, 1vh) * 50);
-      background-image: url('/LED/SINCE_2011.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: 1000;
+      height: calc(var(--vh,1vh) * 30); /* 뷰포트 높이 30% */
+      background: url('/LED/SINCE_2011.png') center/cover no-repeat;
       border-bottom: 2px solid #333;
+      /* fixed 제거하여 스크롤 대상에 포함 */
     }
 
-    /* ===================================================
-       6. 본문 콘텐츠 영역
-       - 최대 너비 제한 및 중앙 정렬
-       - 헤더 + 히어로 섹션 높이만큼 패딩 탑 조정
-       - 가독성 좋은 글자 크기 및 줄 간격
-       - 페이드 인 애니메이션 적용
-    =================================================== */
     main {
       max-width: 900px;
       margin: 0 auto;
-      padding: calc(60px + (var(--vh, 1vh) * 50) + 20px) 20px 40px;
-      color: #222;
+      padding: 20px; /* main 안쪽 여백 */
       font-size: 16px;
       line-height: 1.6;
-      animation: fade-in 1s ease;
+      color: #222;
+      animation: fade-in 1s ease-in;
     }
     h1 {
       margin-top: 0;
       font-size: 2rem;
       font-weight: 700;
       color: #111;
+      margin-bottom: 1rem;
     }
     main a {
       color: #0066cc;
       text-decoration: underline;
     }
 
+    /* 회사 연혁 이미지 스타일 */
+    .history-image {
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: block;
+      margin: 20px 0 40px 0;
+    }
+
     /* ===================================================
-       7. 반응형 스타일
-       - 화면 너비 768px 이하일 때
-       - 히어로 섹션 높이 축소, 패딩 조정
-       - 폰트 크기 및 메뉴 간격 축소
-       - 로고 크기 축소
+       4. FOOTER (페이지 하단 정보 영역)
+       - 전체 화면 너비 고정 (100vw)
+       - 배경 어두운 색(#111), 텍스트 밝은 회색(#ccc)
+       - 내부 콘텐츠 최대 너비 900px, 가운데 정렬
+       - flexbox로 항목 가로 정렬, 줄바꿈 가능
+       - '|' 구분자 스타일 및 클릭 방지 설정
+       - 텍스트 선택 가능
+       - 반응형 폰트 크기 및 패딩 조절
+    =================================================== */
+    footer {
+      width: 100vw;
+      background-color: #111;
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 20px 10px;
+      box-sizing: border-box;
+      user-select: text;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 400;
+    }
+    footer > div {
+      max-width: 900px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    footer span,
+    footer a {
+      white-space: nowrap;
+      color: #ccc;
+    }
+    footer strong {
+      color: #fff;
+      font-weight: 700;
+    }
+    footer a {
+      text-decoration: none;
+      font-weight: 700;
+      color: #fff;
+    }
+    footer a:hover,
+    footer a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    .separator {
+      user-select: none;
+      color: #666;
+      padding: 0 6px;
+      font-weight: 400;
+      pointer-events: none;
+    }
+
+    /* ===================================================
+       5. 반응형 스타일: 화면 폭 768px 이하 시 적용
+       - 로고 이미지 크기 축소 (40px → 30px)
+       - 히어로 섹션 높이 25vh로 줄임
+       - main 패딩, 폰트 크기 축소
+       - 네비게이션 메뉴 글자 크기 및 패딩 축소
+       - 푸터 폰트 크기, 간격 조정
     =================================================== */
     @media (max-width: 768px) {
-      .logo-container img {
-        height: 30px;
-      }
-      #heroSection {
-        height: calc(var(--vh, 1vh) * 40);
-      }
+      .logo-container img { height: 30px; }
+      #heroSection { height: calc(var(--vh,1vh) * 25); }
       main {
-        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 15px;
         font-size: 14px;
       }
-      .top-nav ul {
-        gap: 10px;
-      }
+      h1 { font-size: 1.6rem; }
       .top-nav ul li a {
-        padding: 5px 8px;
         font-size: 14px;
+        padding: 6px 10px;
       }
-      h1 {
-        font-size: 1.6rem;
+      footer {
+        font-size: 12px;
+        padding: 15px 10px;
+        justify-content: center;
+      }
+      footer > div {
+        max-width: 100%;
+        gap: 8px;
       }
     }
 
     /* ===================================================
-       8. 애니메이션 키프레임 정의
-       - 페이드인 (main)
-       - 로고 슬라이드 인 (왼쪽에서)
+       6. 애니메이션 정의
+       - fade-in: 점차 투명도 0 → 1로 부드럽게 나타남
+       - slide-in-left: 좌측 -30px에서 원위치로 슬라이드하며 나타남
     =================================================== */
     @keyframes fade-in {
       from { opacity: 0; }
@@ -187,76 +248,94 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!--
-    ===========================
-    상단 헤더 (로고 + 메뉴)
-    - 고정 위치
-    - 로고 클릭 시 JS로 직접 이동하여 백색화면 문제 방지
-  ===========================
-  -->
+  <!-- ===================================================
+       1. HEADER 섹션: 상단 고정 네비게이션 바
+       - 로고 클릭 시 홈페이지 이동 기능 포함
+       - fixed 위치로 항상 상단에 고정되어 있음
+  =================================================== -->
   <header id="header">
     <div class="logo-container">
       <img src="/LED/CnbizLogo.png" alt="회사 로고" id="logoClick" />
     </div>
-    <nav class="top-nav" role="navigation" aria-label="주요 메뉴">
+    <nav class="top-nav" aria-label="주요 메뉴">
       <ul>
         <li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
-		<li><a href="/LED/Content/Company/history/" class="active">회사연혁</a></li>
-		<li><a href="/LED/Content/Company/location/">오시는 길</a></li>
+        <li><a href="/LED/Content/Company/history/" class="active">회사연혁</a></li>
+        <li><a href="/LED/Content/Company/location/">오시는 길</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- 히어로 섹션: 고정 배경 이미지 -->
-  <section id="heroSection" aria-label="배경 이미지 영역"></section>
+  <!-- ===================================================
+       2. HERO 섹션
+       - fixed 제거, 이제 heroSection은 단순히 이미지 보여주는
+         블록 요소로 스크롤 영역에 포함됨
+       - main 콘텐츠가 이 아래 자연스럽게 이어짐
+  =================================================== -->
+  <section id="heroSection" aria-hidden="true"></section>
 
-  <!-- 본문 콘텐츠 -->
+  <!-- ===================================================
+       3. MAIN 콘텐츠 영역
+       - heroSection 아래 자연스러운 흐름으로 위치
+       - 회사연혁 텍스트 및 이미지 포함
+       - 스크롤 시 heroSection과 main이 같이 스크롤 됨
+  =================================================== -->
   <main>
     <h1>회사연혁</h1>
-    <p>이미지로 수정 예정</p>
-    
-    <br><strong>회사 정보</strong><br>
-    회사명: (주)씨앤비즈&nbsp;&nbsp;&nbsp;대표: 차호진<br>
-    주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
-    설립일: 2016.3 (2019.3 ㈜씨앤비즈 법인설립)<br>
-    전화/팩스: T. 031‑706‑6641 / F. 031‑704‑6648<br>
-    홈페이지: <a href="http://www.cnbiznet.co.kr" target="_blank" rel="noopener noreferrer">www.cnbiznet.co.kr</a>
+    <p>아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.</p>
+
+    <!-- 회사 연혁 이미지: main 안에 포함하여 자연스럽게 스크롤 -->
+    <img src="history.png" alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" />
   </main>
 
-  <script>
-    // ==================================================
-    // 1. 모바일 iOS 브라우저 vh 문제 대응
-    // 화면 실제 높이의 1% 값을 CSS 변수 --vh에 저장해 사용
-    // ==================================================
-    function setVhProperty() {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    window.addEventListener('resize', setVhProperty);
-    window.addEventListener('load', setVhProperty);
-    window.addEventListener('DOMContentLoaded', setVhProperty);
+  <!-- ===================================================
+       4. FOOTER 섹션: 회사 정보 및 저작권 안내
+       - 항상 콘텐츠 마지막에 위치
+  =================================================== -->
+  <footer role="contentinfo" aria-label="회사 정보 및 저작권">
+    <div>
+      <span>업체명 : 주식회사 씨앤비즈</span>
+      <span class="separator">|</span>
+      <span>대표자 : 차호진</span>
+      <span class="separator">|</span>
+      <span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
+      <span class="separator">|</span>
+      <span>대표전화 : 031-706-6641</span>
+      <span class="separator">|</span>
+      <span> 팩스 : 031-704-6648</span>
+      <span class="separator">|</span>
+      <span>문의메일 : <a href="sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
+      <span class="separator">|</span>
+      <span>기술지원 : <a href="cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
+      <span class="separator">|</span>
+      <span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
+    </div>
+  </footer>
 
-    // ==================================================
-    // 2. 스크롤 시 헤더에 그림자 효과 추가/제거
-    // window.scrollY가 10 이상일 때 그림자 추가
-    // ==================================================
+  <!-- ===================================================
+       5. JavaScript: 헤더 스크롤 효과 및 로고 클릭 이벤트
+       - 스크롤 위치 50px 넘으면 header에 그림자 추가
+       - 로고 클릭 시 홈페이지 루트 경로로 이동
+  =================================================== -->
+  <script>
+    // 헤더 엘리먼트 선택
     const header = document.getElementById('header');
+
+    // 윈도우 스크롤 이벤트: 50px 이상 스크롤시 header에 그림자 추가
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
     });
 
-    // ==================================================
-    // 3. 로고 클릭 시 백색화면 문제 방지 및 홈 이동
-    // 일반 a 태그 대신 JS로 location.href 변경 처리
-    // ==================================================
+    // 로고 클릭 시 홈페이지 이동 (루트 경로)
     document.getElementById('logoClick').addEventListener('click', () => {
-      window.location.href = 'https://landing.cnbiznet.co.kr';
+      window.location.href = '/';
     });
   </script>
 </body>
