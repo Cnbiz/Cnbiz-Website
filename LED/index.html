@@ -189,6 +189,16 @@ html, body {
       padding: 10px 0;
       font-size: 1.1rem;
     }
+	/* ✅ ChatGPT 추가: 다크모드 대응용 .features 스타일 오버라이드 */
+body.dark-mode .features {
+  background: rgba(255, 255, 255, 0.05);  /* 반투명 다크 배경 */
+  color: #f0f0f0;                         /* 텍스트 밝게 */
+  box-shadow: none;
+}
+body.dark-mode .features h2,
+body.dark-mode .features li {
+  color: #f0f0f0;
+}
 
     /* ===============================
        🔗 제품 간 이동 링크
@@ -779,7 +789,7 @@ body.dark-mode footer {
 }
 
 
-/* ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 스타일 */
+/* ✅ ChatGPT 정리: 다크/라이트 모드 토글 버튼 (우측 고정 메뉴 내) */
 .right-fixed-menu .theme-toggle {
   background-color: #555;
   color: white;
@@ -790,10 +800,12 @@ body.dark-mode footer {
   padding: 12px 16px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
+  font-size: 14px;
 }
 .right-fixed-menu .theme-toggle:hover {
   background-color: #333;
 }
+
 
 
 /* ✅ ChatGPT 추가: 다크모드 스타일 */
@@ -880,7 +892,7 @@ body.dark-mode footer {
   order:99;
 }
 
-/* ✅ ChatGPT 추가: 다크모드 전역 색상 덮어쓰기 */
+/* ✅ ChatGPT: 다크모드 색상 및 애니메이션 추가 */
 body.dark-mode {
   background-color: rgba(0,0,0,0.85) !important;
   color: #f0f0f0 !important;
@@ -897,9 +909,23 @@ body.dark-mode header,
 body.dark-mode footer {
   background-color: rgba(0,0,0,0.6) !important;
 }
-/* ✅ theme-toggle 버튼 무조건 회사소개서 밑 */
+/* 버튼 hover 애니메이션 */
+.fixed-btn:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+/* 페이지 로드시 fade-in */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+/* theme-toggle 버튼 순서 */
 .right-fixed-menu .theme-toggle {
-  order:99;
+  order:99 !important;
 }
 </style>
 <!-- ✅ ChatGPT: 전체 테마 변수 및 전환용 다크/라이트 모드 -->
@@ -934,8 +960,8 @@ body.dark-mode footer {
     }
     .theme-toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
+      top: 29rem;
+      right: center;
       background: var(--text-color);
       color: var(--bg-color);
       padding: 0.5rem 1rem;
@@ -1072,9 +1098,12 @@ body.dark-mode footer {
 <a class="fixed-btn kakao" href="https://pf.kakao.com/_xexgVGb/chat">💬 <span>카톡 상담</span> </a>
 <a class="fixed-btn visit" href="visit.html">🏢 <span>방문예약</span> </a>
 <a class="fixed-btn contact" href="contact.html">📩 <span>상담문의</span> </a>
-<a class="fixed-btn company" href="company.html">📄 <span>회사소개서</span> </a><a class="fixed-btn theme-toggle" id="themeToggle">🌙 다크모드</a>
+<a class="fixed-btn company" href="company.html">📄 <span>회사소개서</span> </a>
+<!-- ✅ ChatGPT: 다크모드 전환 버튼 추가 (회사소개서 바로 밑에) -->
+<a class="fixed-btn theme-toggle" id="themeToggle">🌙 다크모드</a>
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 -->
-</div><footer aria-label="회사 정보" class="site-footer">
+</div>
+<footer aria-label="회사 정보" class="site-footer">
 <p> 업체명 : (주)씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호 </p>
 <p> 대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 메일 : sales@cnbiznet.co.kr </p>
 <p> 통신판매업신고번호 : 2023-성남중원-0805 </p>
@@ -1183,7 +1212,7 @@ menuItems.forEach(item => {
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
 
 
-<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
+<!-- ✅ ChatGPT: 다크/라이트 모드 토글 기능 -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById("themeToggle");
