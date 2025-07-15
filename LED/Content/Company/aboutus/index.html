@@ -11,57 +11,57 @@
   <link href="/LED/Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 
   <style>
-    /* 박스 사이징 초기화: 모든 요소가 border-box로 크기 계산되게 설정 */
+    /* 모든 요소에 border-box 적용: 패딩과 보더 포함한 크기 계산 */
     *, *::before, *::after {
       box-sizing: border-box;
     }
 
-    /* 전체 페이지 기본 스타일 설정 */
+    /* 기본 레이아웃 초기화 및 뷰포트 대응 */
     html, body {
       margin: 0;
       padding: 0;
-      width: 100vw;            /* 뷰포트 너비 100% */
-      height: 100%;            /* 뷰포트 높이 100% */
-      overflow-x: hidden;      /* 가로 스크롤 방지 */
+      width: 100vw;
+      height: 100%;
+      overflow-x: hidden;
       font-family: Arial, sans-serif;
-      --vh: 1vh;               /* iOS 높이 문제 대응용 CSS 변수 */
+      --vh: 1vh;  /* iOS 대응용 vh 단위 변수 */
     }
 
-    /* 상단 고정 헤더 영역 */
+    /* 🔹 고정 상단 헤더 */
     header {
-      display: flex;                      /* 로고와 네비게이션을 가로로 배치 */
-      justify-content: space-between;    /* 좌우 정렬 */
-      align-items: center;               /* 수직 중앙 정렬 */
-      padding: 10px 20px;                /* 내부 여백 */
-      background: #333;                  /* 어두운 배경색 */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #333;
       color: white;
-      position: fixed;                   /* 페이지 상단에 고정 */
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1001;                     /* 배경보다 항상 위에 보이도록 설정 */
-      height: 60px;                      /* 고정 높이 */
+      z-index: 1001;
+      height: 60px;
     }
 
-    /* 로고 이미지 설정 */
+    /* 🔹 로고 컨테이너 내부 이미지 스타일 */
     .logo-container img {
-      height: 40px;
+      height: 40px;               /* 기본 로고 크기 */
       cursor: pointer;
-      user-select: none;                 /* 사용자 선택 방지 */
+      user-select: none;
     }
 
-    /* 상단 네비게이션 메뉴 스타일 */
+    /* 🔹 네비게이션 메뉴 스타일 */
     .top-nav ul {
-      list-style: none;                  /* 리스트 마커 제거 */
+      list-style: none;
       margin: 0;
       padding: 0;
-      display: flex;                     /* 수평 정렬 */
-      gap: 15px;                         /* 메뉴 간격 */
+      display: flex;
+      gap: 15px;
     }
 
     .top-nav ul li a {
       color: white;
-      text-decoration: none;             /* 밑줄 제거 */
+      text-decoration: none;
       font-weight: bold;
       padding: 6px 10px;
       display: block;
@@ -72,37 +72,35 @@
 
     .top-nav ul li a:hover,
     .top-nav ul li a.active {
-      background: #555;                  /* hover 또는 활성 메뉴 배경색 */
+      background: #555;
     }
 
-    /* 히어로 영역 (상단 배경 이미지 부분) */
+    /* 🔹 히어로 섹션 (배경 이미지 고정) */
     #heroSection {
-      position: fixed;                   /* 스크롤과 상관없이 화면 고정 */
-      top: 60px;                         /* 헤더 아래 위치 */
+      position: fixed;
+      top: 60px;
       left: 0;
-      width: 100vw;                      /* 전체 너비 */
-      height: calc(var(--vh, 1vh) * 50); /* 반응형 높이 (50vh) */
-      background-image: url('/LED/Main.png');  /* ✅ 배경 이미지 지정 */
-      background-size: cover;            /* 이미지가 영역을 가득 채우도록 */
-      background-position: center;       /* 가운데 정렬 */
+      width: 100vw;
+      height: calc(var(--vh, 1vh) * 50);
+      background-image: url('/LED/Main.png');
+      background-size: cover;
+      background-position: center;
       background-repeat: no-repeat;
-      z-index: 1000;                     /* 헤더보다 낮고 콘텐츠보다 위 */
-      border-bottom: 2px solid #333;     /* 아래쪽 테두리 */
+      z-index: 1000;
+      border-bottom: 2px solid #333;
     }
 
-    /* 메인 콘텐츠 영역 */
+    /* 🔹 본문 콘텐츠 영역 */
     main {
-      max-width: 900px;                                        /* 본문 최대 폭 제한 */
-      margin: 0 auto;                                          /* 가운데 정렬 */
+      max-width: 900px;
+      margin: 0 auto;
       padding: calc(60px + (var(--vh, 1vh) * 50) + 20px) 20px 40px;
-      /* 패딩: 헤더 높이 + 이미지 높이 + 여백 */
-      box-sizing: border-box;
       color: #222;
       font-size: 16px;
       line-height: 1.5;
     }
 
-    /* 제목 스타일 */
+    /* 🔹 제목 스타일 */
     h1 {
       margin-top: 0;
       font-weight: 700;
@@ -110,10 +108,10 @@
       color: #111;
     }
 
-    /* 반응형 모바일 대응 */
+    /* 🔹 반응형 모바일 대응 */
     @media (max-width: 768px) {
       #heroSection {
-        height: calc(var(--vh, 1vh) * 40);           /* 모바일에서 이미지 높이 축소 */
+        height: calc(var(--vh, 1vh) * 40); /* 모바일: 배경 이미지 높이 축소 */
         border-bottom-width: 1px;
       }
 
@@ -140,11 +138,16 @@
       h1 {
         font-size: 1.6rem;
       }
+
+      /* ✅ 추가: 모바일에서 로고 이미지 크기 축소 */
+      .logo-container img {
+        height: 30px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 상단 고정 헤더: 로고 + 메뉴 -->
+  <!-- ✅ 고정 상단 헤더: 로고 + 네비게이션 -->
   <header>
     <div class="logo-container">
       <a href="https://landing.cnbiznet.co.kr">
@@ -160,40 +163,37 @@
     </nav>
   </header>
 
-  <!-- 히어로 섹션: 영상 대신 이미지 배경으로 표현 -->
-  <section id="heroSection" aria-label="배경 이미지 영역">
-    <!-- 이미지 배경만 사용하므로 내부 내용 없음 -->
-  </section>
+  <!-- ✅ 히어로 이미지 영역 (스크롤 고정 배경) -->
+  <section id="heroSection" aria-label="배경 이미지 영역"></section>
 
-  <!-- 본문 콘텐츠 영역 -->
+  <!-- ✅ 본문 콘텐츠 -->
   <main>
     <h1>회사소개</h1>
     <p>고객의 요구에 맞춰</p>
-	<p>최적의 System을 제공해드립니다.
-	<p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
-	<p>고객이 최신IT Solution Trend를 제공받으실 수 있는 System기반으로 운영합니다.</p>
-	<p>또한 각종 기업 경영관리 및 보안등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을</p>
-	<p>통해 제공해드립니다</p>
+    <p>최적의 System을 제공해드립니다.</p>
+    <p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
+    <p>고객이 최신 IT Solution Trend를 제공받으실 수 있는 System 기반으로 운영합니다.</p>
+    <p>또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.</p>
 
-회사명	(주)씨앤비즈	대표	차호진
-주소	경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호
-설립일	2016.3(2019.3 ㈜씨앤비즈 법인설립)
-전화/팩스	T. 031-706-6641F. 031-704-6648	홈페이지	www.cnbiznet.co.kr
+    <br><strong>회사 정보</strong><br>
+    회사명: (주)씨앤비즈&nbsp;&nbsp;&nbsp;대표: 차호진<br>
+    주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
+    설립일: 2016.3 (2019.3 ㈜씨앤비즈 법인설립)<br>
+    전화/팩스: T. 031-706-6641 / F. 031-704-6648<br>
+    홈페이지: <a href="http://www.cnbiznet.co.kr" target="_blank">www.cnbiznet.co.kr</a>
   </main>
 
-  <!-- JavaScript: iOS 모바일 브라우저에서 vh 문제 해결용 -->
+  <!-- ✅ 모바일 브라우저의 vh 문제 해결용 스크립트 -->
   <script>
     /**
-     * 모바일(특히 iOS)에서는 브라우저 UI로 인해 vh 단위가 정확하지 않음.
-     * 실제 화면 높이를 계산해서 --vh CSS 변수에 저장.
-     * 이 값을 height 계산에 사용하면 안정적인 높이 유지 가능.
+     * 모바일 환경(iOS 포함)에서 브라우저 UI(주소창 등)로 인해
+     * 100vh가 실제 화면보다 더 크게 계산되는 문제를 해결.
      */
     function setVhProperty() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
-    // 이벤트 등록: 페이지 로딩, 리사이즈, DOMContentLoaded 시 적용
     window.addEventListener('resize', setVhProperty);
     window.addEventListener('load', setVhProperty);
     window.addEventListener('DOMContentLoaded', setVhProperty);
