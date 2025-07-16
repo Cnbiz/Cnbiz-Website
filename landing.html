@@ -31,15 +31,32 @@
     /* === 팝업 전체 래퍼 스타일 === */
     .popup-wrapper {
       background-color: var(--bg-light);
-      max-width: 700px;
-      margin: 40px auto;
+      max-width: 100vh;
+      max-height: 200vh;
+      margin: 30px auto;
       padding: 2rem;
-      border-radius: 12px;
+      border-radius: 5px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       text-align: center;
       transition: background 0.3s;
+	  overflow: hidden;   /* 넘치면 숨김 */
     }
-
+/*.popup-wrapper {
+  background-color: var(--bg-light);
+  max-width: 100%;
+  width: 100%;
+  max-height: 90vh; /* 화면 높이 90%까지 제한 */
+  margin: 40px auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: background 0.3s;
+  box-sizing: border-box;
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  display: flex;
+  flex-direction: column;
+}*/
     /* === 팝업 타이틀 스타일 === */
     h1 {
       font-size: 1.5rem;
@@ -89,7 +106,7 @@
 
     /* === 랜딩 이미지 스타일 === */
     .landing-image {
-      max-width: 50%;
+      max-width: 45%;
       height: auto;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -223,13 +240,19 @@
     .honeypot {
       display: none;
     }
-
+  <!-- 🔽 여기! 팝업 내부 스크롤 방지용 스타일 -->
+    html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 내부 스크롤 제거 */
+    height: 100%;     /* 화면 꽉 채우기 */
+  }
     /* === 팝업 닫기 버튼 스타일 (상단 우측 고정) === */
     .close-btn {
       position: fixed;
-      top: 15px;
-      right: 20px;
-      font-size: 18px;
+      top: 50px;
+      right: 50px;
+      font-size: 20px;
       background: none;
       border: none;
       cursor: pointer;
@@ -243,8 +266,8 @@
     /* === 다크 모드 토글 버튼 스타일 (하단 우측 고정) === */
     .theme-toggle {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 40px;
+      right: 30px;
       background: #eee;
       padding: 8px 12px;
       border-radius: 20px;
@@ -286,17 +309,18 @@
 
     /* === 반응형 스타일 (900px 이하) === */
     @media(max-width: 900px) {
-      .content-wrapper {
-        flex-direction: column;
-        align-items: center;
-      }
-      .landing-image {
-        max-width: 90%;
-        margin-bottom: 20px;
-      }
-      form {
-        max-width: 90%;
-      }
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .landing-image {
+    max-width: 90%;
+    margin-bottom: 20px;
+  }
+  form {
+    max-width: 100%;  /* 90% → 100% 변경 */
+  }
+}
       .company-logo {
         max-width: 130px;
       }
@@ -343,16 +367,31 @@
     <!-- === 팝업 타이틀 === -->
     <h1 id="titleText">🎉씨앤비즈에 오신 걸 환영합니다!🎉</h1>
     
-    <!-- === 메인 사이트 이동 버튼 및 오늘 다시 안보기 체크박스 영역 === -->
-    <div class="actions">
-      <a href="https://cnbiznet.co.kr" class="btn" id="mainBtn">메인 사이트 이동</a>
-      <div class="checkbox-wrap">
-        <label>
-          <input type="checkbox" id="todayCheck" />
-          <span id="checkboxText">오늘 하루 이 창 다시 열지 않기</span>
-        </label>
-      </div>
-    </div>
+   <!-- === 메인 사이트 이동 버튼 및 오늘 다시 안보기 체크박스 영역 === -->
+<div class="actions">
+  <!-- a 대신 button으로 변경하고 클릭 시 메시지 전송 -->
+  <button type="button" class="btn" id="mainBtn">메인 사이트 이동</button>
+  
+  <div class="checkbox-wrap">
+    <label>
+      <input type="checkbox" id="todayCheck" />
+      <span id="checkboxText">오늘 하루 이 창 다시 열지 않기</span>
+    </label>
+  </div>
+</div>
+
+<script>
+  // 메인 사이트 이동 버튼 클릭 시 부모창에 메시지 전송
+document.getElementById('mainBtn').addEventListener('click', () => {
+  window.parent.postMessage({ action: 'goToMain' }, '*');
+});
+
+document.getElementById('closeBtn').addEventListener('click', () => {
+  const isChecked = document.getElementById('todayCheck').checked;
+  window.parent.postMessage({ action: 'closePopup', todayCheck: isChecked }, '*');
+});
+</script>
+
 
     <!-- === 이미지와 문의 폼을 나란히 배치하는 컨테이너 === -->
     <div class="content-wrapper">
@@ -543,26 +582,50 @@ if (!message) {
     function isMobile() {
       return /Mobi|Android|iPhone/i.test(navigator.userAgent);
     }
+	
+    // === 팝업 닫기 신규 소스 ===
+	
+// 변경 후 closePopup 함수: 부모창에 메시지를 보내 팝업 닫기를 위임하는 함수
+function closePopup() {
+  // '오늘 하루 이 창 다시 열지 않기' 체크박스 상태 확인
+  const checkbox = document.getElementById('todayCheck');
+  if (checkbox.checked) {
+    // 체크되어 있으면 오늘 날짜를 키로 로컬스토리지에 저장하여 다시 열리지 않도록 처리
+    localStorage.setItem('hideLandingToday', getTodayKey());
+  }
+  // 부모 창(window.parent)에게 'closePopup' 메시지 전송
+  // 이 메시지를 받은 부모 창에서 팝업(iframe) 창 닫기 작업을 수행하도록 함
+  window.parent.postMessage('closePopup', '*');
+}
 
-    // === 팝업 닫기 함수 ===
-    function closePopup() {
-      const checkbox = document.getElementById('todayCheck');
-      if (checkbox.checked) {
-        localStorage.setItem('hideLandingToday', getTodayKey());
-      }
-      if (isMobile()) {
-        // 모바일에서는 뒤로가기 혹은 메인 사이트 이동 처리
-        if (document.referrer && document.referrer !== location.href) {
-          history.back();
-        } else {
-          location.href = "https://cnbiznet.co.kr";
-        }
-      } else {
-        // PC에서는 창 닫기 시도 (일부 브라우저는 제한됨)
-        window.close();
-      }
+   // === 팝업 닫기 함수 ===
+/*
+// 기존 closePopup 함수: 모바일과 PC에서 각각 다르게 처리하는 함수
+
+function closePopup() {
+  // '오늘 하루 이 창 다시 열지 않기' 체크박스 상태 확인
+  const checkbox = document.getElementById('todayCheck');
+  if (checkbox.checked) {
+    // 체크되어 있으면 오늘 날짜를 키로 로컬스토리지에 저장하여 다시 열리지 않도록 처리
+    localStorage.setItem('hideLandingToday', getTodayKey());
+  }
+
+  if (isMobile()) {
+    // 모바일 기기일 경우 처리
+    if (document.referrer && document.referrer !== location.href) {
+      // 이전 페이지가 있으면 history.back() 으로 뒤로 이동
+      history.back();
+    } else {
+      // 이전 페이지가 없으면 메인 사이트로 이동
+      location.href = "https://cnbiznet.co.kr";
+		 
     }
-
+  } else {
+    // PC인 경우 현재 창을 닫기 시도
+    window.close();
+  }
+}
+*/
     // === 다국어 텍스트 변경 함수 (한국어/영어) ===
     function updateTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
