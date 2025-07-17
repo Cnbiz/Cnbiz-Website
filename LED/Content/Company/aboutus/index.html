@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+
+<html dir="ltr" lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-  <title>주식회사 씨앤비즈 | 회사소개</title>
-
-  <!-- 파비콘 설정 -->
-  <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport"/>
+<title>주식회사 씨앤비즈 | 회사소개</title>
+<!-- 파비콘 설정 -->
+<link href="/LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<style>
     /* ===================================================
        1. 기본 스타일 및 초기화
        - 박스 사이징: padding, border 포함 크기 계산
@@ -247,68 +246,205 @@
       font-weight: 400;
       pointer-events: none;
     }
-  </style>
-</head>
-<body>
+  
+/* ===================================================
+   🌗 다크/라이트 모드 스타일 정의
+   - body.dark-mode 적용 시 배경과 텍스트 색상 변경
+=================================================== */
+body.dark-mode {
+  background-color: #111 !important;
+  color: #eee !important;
+}
+body.dark-mode header {
+  background-color: #222 !important;
+}
+body.dark-mode .top-nav ul li a {
+  color: #ccc !important;
+}
+body.dark-mode .top-nav ul li a:hover,
+body.dark-mode .top-nav ul li a.active {
+  background-color: #444 !important;
+}
+body.dark-mode footer {
+  background-color: #000 !important;
+  color: #aaa !important;
+}
 
-  <!-- ===================================================
+
+/* ===================================================
+   📱 반응형 스타일: 모바일, 태블릿, 데스크탑 대응
+=================================================== */
+
+/* 공통 컨테이너 폭 제한 및 자동 가운데 정렬 */
+.container, .wrapper, .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* 반응형 텍스트 */
+body {
+  font-size: 16px;
+}
+@media (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  header, nav, footer {
+    padding: 10px 16px;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  .top-nav ul {
+    flex-direction: column;
+  }
+  .top-nav ul li {
+    margin-bottom: 10px;
+  }
+  footer {
+    text-align: center;
+  }
+}
+
+
+/* 반응형 이미지 및 비디오 */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ===================================================
+   🔠 clamp() 사용한 반응형 폰트 스케일링
+=================================================== */
+body {
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+
+
+/* ===================================================
+   🍔 모바일 햄버거 메뉴 스타일
+=================================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 28px;
+  height: 22px;
+  justify-content: space-between;
+}
+.hamburger span {
+  background: #fff;
+  height: 3px;
+  border-radius: 2px;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  .top-nav ul {
+    display: none;
+    flex-direction: column;
+    background: #222;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .top-nav ul.show {
+    display: flex;
+  }
+}
+</style>
+<meta content="ko" http-equiv="Content-Language"/><meta content="씨앤비즈 회사소개 페이지" name="description"/><meta content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길" name="keywords"/><meta content="CNBIZ Co., Ltd" name="author"/><meta content="index, follow" name="robots"/></head>
+<body><script>
+/* ===================================================
+   🌗 시스템 다크모드 자동 감지 및 적용
+   - prefers-color-scheme 미디어쿼리 감지
+   - 로컬스토리지에 사용자가 수동으로 선택한 모드가 없을 경우만 자동 적용
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const userSetting = localStorage.getItem("color-mode");
+  if (!userSetting) {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.body.classList.add("dark-mode");
+    }
+  }
+});
+</script>
+<!-- ===================================================
        1. HEADER 섹션: 상단 고정 네비게이션 바
        - 로고 클릭 시 홈페이지 이동 기능 포함
   =================================================== -->
-  <header id="header">
-    <div class="logo-container">
-      <img src="/LED/CnbizLogo.png" alt="회사 로고" id="logoClick" />
-    </div>
-    <nav class="top-nav" role="navigation" aria-label="주요 메뉴">
-      <ul>
-        <li><a href="/LED/Content/Company/aboutus/" class="active">회사소개</a></li>
-        <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
-        <li><a href="/LED/Content/Company/location/">오시는 길</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- 히어로 섹션: 고정 배경 이미지 -->
-  <section id="heroSection" aria-hidden="true"></section>
-
-  <!-- 본문 콘텐츠 -->
-  <main>
-    <h1>회사소개</h1>
-    <p>고객의 요구에 맞춰</p>
-    <p>최적의 System을 제공해드립니다.</p>
-    <p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
-    <p>고객이 최신 IT Solution Trend를 제공받으실 수 있는 System 기반으로 운영합니다.</p>
-    <p>또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.</p>
-  </main>
-
-  <!-- ===================================================
+<header id="header">
+<div class="logo-container">
+<img alt="회사 로고" id="logoClick" src="/LED/CnbizLogo.png" srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
+</div>
+<div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
+<span></span>
+<span></span>
+<span></span>
+</div>
+<nav aria-label="주요 메뉴" class="top-nav" role="navigation">
+<ul>
+<li><a class="active" href="/LED/Content/Company/aboutus/">회사소개</a></li>
+<li><a href="/LED/Content/Company/history/">회사연혁</a></li>
+<li><a href="/LED/Content/Company/location/">오시는 길</a></li>
+</ul>
+</nav>
+</header>
+<!-- 히어로 섹션: 고정 배경 이미지 -->
+<section aria-hidden="true" id="heroSection"></section>
+<!-- 본문 콘텐츠 -->
+<main>
+<h1>회사소개</h1>
+<p>고객의 요구에 맞춰</p>
+<p>최적의 System을 제공해드립니다.</p>
+<p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
+<p>고객이 최신 IT Solution Trend를 제공받으실 수 있는 System 기반으로 운영합니다.</p>
+<p>또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.</p>
+</main>
+<!-- ===================================================
        10. FOOTER 섹션: 페이지 하단 중앙에 회사 정보 표시
        - 페이지 하단 정중앙에 위치하도록 조정
   =================================================== -->
-  <footer role="contentinfo" aria-label="회사 정보 및 저작권">
-    <div>
-      <span>업체명 : 주식회사 씨앤비즈</span>
-      <span class="separator">|</span>
-      <span>대표자 : 차호진</span>
-      <span class="separator">|</span>
-      <span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
-      <span class="separator">|</span>
-      <span>대표전화 : 031-706-6641</span>
-      <span class="separator">|</span>
-      <span>팩스 : 031-704-6648</span>
-      <span class="separator">|</span>
-      <span>문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
-      <span class="separator">|</span>
-      <span>기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
-      <span class="separator">|</span>
-      <span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
-    </div>
-  </footer>
-
-  <!-- ===================================================
+<footer aria-label="회사 정보 및 저작권" role="contentinfo">
+<div>
+<span>업체명 : 주식회사 씨앤비즈</span>
+<span class="separator">|</span>
+<span>대표자 : 차호진</span>
+<span class="separator">|</span>
+<span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
+<span class="separator">|</span>
+<span>대표전화 : 031-706-6641</span>
+<span class="separator">|</span>
+<span>팩스 : 031-704-6648</span>
+<span class="separator">|</span>
+<span>문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
+<span class="separator">|</span>
+<span>기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
+<span class="separator">|</span>
+<span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
+</div>
+</footer>
+<!-- ===================================================
        11. JavaScript: 헤더 스크롤 효과 및 로고 클릭 이벤트
   =================================================== -->
-  <script>
+<script>
     // 헤더 엘리먼트 선택
     const header = document.getElementById('header');
 
@@ -326,5 +462,52 @@
       window.location.href = 'https://landing.cnbiznet.co.kr';
     });
   </script>
-</body>
+<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 14px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; z-index: 9999;">🌗 모드 전환</button><script>
+/* ===================================================
+   🌙 다크모드 토글 스크립트
+   - 로컬 스토리지에 상태 저장
+   - 새로고침 시에도 유지됨
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("themeToggleBtn");
+  const saved = localStorage.getItem("color-mode");
+  if (saved === "dark") document.body.classList.add("dark-mode");
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    localStorage.setItem("color-mode", mode);
+  });
+});
+</script><script>
+/* ===================================================
+   🍔 햄버거 메뉴 toggle 스크립트
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("hamburgerBtn");
+  const navList = document.querySelector(".top-nav ul");
+  if (btn && navList) {
+    btn.addEventListener("click", () => {
+      navList.classList.toggle("show");
+    });
+  }
+});
+</script><script>
+/* ===================================================
+   🌐 브라우저 언어 자동 감지 및 콘텐츠 전환
+   - 기본: 한국어 (ko), 영어(en)만 예제로 구성
+   - 실제 서비스 시 서버 혹은 다국어 라이브러리 연동 필요
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = navigator.language || navigator.userLanguage;
+  const html = document.documentElement;
+  if (lang.startsWith("en")) {
+    html.lang = "en";
+    // 필요한 경우, 여기에 실제 번역된 콘텐츠 교체 로직 삽입
+    const heading = document.querySelector("h1");
+    if (heading) heading.textContent = "Welcome to CNBIZ";
+    const desc = document.querySelector("p");
+    if (desc) desc.textContent = "We specialize in LED technology and innovation.";
+  }
+});
+</script></body>
 </html>
