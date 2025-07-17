@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+
+<html dir="ltr" lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-  <title>주식회사 씨앤비즈 | 회사연혁</title>
-
-  <!-- 파비콘 설정 -->
-  <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport"/>
+<title>주식회사 씨앤비즈 | 회사연혁</title>
+<!-- 파비콘 설정 -->
+<link href="/LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<style>
     /* ===================================================
        1. 기본 초기화 및 전역 설정
        - 모든 요소에 box-sizing: border-box 적용하여
@@ -96,15 +95,13 @@
        - heroSection 높이와 main의 패딩을 동일하게 맞춤
     =================================================== */
     #heroSection {
-      width: 100vw; /* 전체 너비 */
-      height: calc(var(--vh,1vh) * 40); /* 뷰포트 높이 40% */
-      background: url('/LED/SINCE_2011.png') center top no-repeat; /* 배경 이미지 위치: 중앙 가로, 위쪽 세로 */
-      background-size: cover; /* 이미지 비율을 유지하면서 가로, 세로를 채우기 */
+      width: 100vw;
+      height: calc(var(--vh,1vh) * 30); /* 뷰포트 높이 30% */
+      background: url('/LED/SINCE_2011.png') center/cover no-repeat;
       border-bottom: 2px solid #333;
-      display: flex; /* Flexbox 사용 */
-      justify-content: center; /* 가로 중앙 정렬 */
-      align-items: center; /* 세로 중앙 정렬 */
+      /* fixed 제거하여 스크롤 대상에 포함 */
     }
+
     main {
       max-width: 900px;
       margin: 0 auto;
@@ -208,24 +205,15 @@
     =================================================== */
     @media (max-width: 768px) {
       .logo-container img { height: 30px; }
-      #heroSection {
-        height: calc(var(--vh, 1vh) * 40);
-      }
+      #heroSection { height: calc(var(--vh,1vh) * 25); }
       main {
-        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 15px;
         font-size: 14px;
       }
-      h1 {
-        font-size: 1.6rem; 
-      }
-      .top-nav ul {
-        gap: 10px;
-      }
+      h1 { font-size: 1.6rem; }
       .top-nav ul li a {
-        padding: 5px 8px;
         font-size: 14px;
+        padding: 6px 10px;
       }
       footer {
         font-size: 12px;
@@ -257,81 +245,98 @@
         opacity: 1;
       }
     }
-  </style>
-</head>
-
+  
+/* ===================================================
+   🌗 다크/라이트 모드 대응 스타일
+   - body.dark-mode 클래스가 추가되면 색상 전환
+   - 기본 라이트 → 다크 배경/글자/네비/푸터 스타일 정의
+=================================================== */
+body.dark-mode {
+  background-color: #111 !important;
+  color: #eee !important;
+}
+body.dark-mode header {
+  background-color: #222 !important;
+}
+body.dark-mode .top-nav ul li a {
+  color: #ccc !important;
+}
+body.dark-mode .top-nav ul li a:hover,
+body.dark-mode .top-nav ul li a.active {
+  background-color: #444 !important;
+}
+body.dark-mode footer {
+  background-color: #000 !important;
+  color: #aaa !important;
+}
+</style>
+<meta content="ko" http-equiv="Content-Language"/><meta content="씨앤비즈 회사연혁 페이지 - 회사 소개, 연혁, 오시는 길" name="description"/><meta content="씨앤비즈, CNBIZ, 연혁, 회사연혁, LED" name="keywords"/><meta content="CNBIZ Co., Ltd" name="author"/><meta content="index, follow" name="robots"/></head>
 <body>
-
-  <!-- ===================================================
+<!-- ===================================================
        1. HEADER 섹션: 상단 고정 네비게이션 바
        - 로고 클릭 시 홈페이지 이동 기능 포함
        - fixed 위치로 항상 상단에 고정되어 있음
   =================================================== -->
-  <header id="header">
-    <div class="logo-container">
-      <img src="/LED/CnbizLogo.png" alt="회사 로고" id="logoClick" />
-    </div>
-    <nav class="top-nav" aria-label="주요 메뉴">
-      <ul>
-        <li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
-        <li><a href="/LED/Content/Company/history/" class="active">회사연혁</a></li>
-        <li><a href="/LED/Content/Company/location/">오시는 길</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- ===================================================
+<header id="header">
+<div class="logo-container">
+<img alt="회사 로고" id="logoClick" src="/LED/CnbizLogo.png"/>
+</div>
+<nav aria-label="주요 메뉴" class="top-nav">
+<ul>
+<li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
+<li><a class="active" href="/LED/Content/Company/history/">회사연혁</a></li>
+<li><a href="/LED/Content/Company/location/">오시는 길</a></li>
+</ul>
+</nav>
+</header>
+<!-- ===================================================
        2. HERO 섹션
        - fixed 제거, 이제 heroSection은 단순히 이미지 보여주는
          블록 요소로 스크롤 영역에 포함됨
        - main 콘텐츠가 이 아래 자연스럽게 이어짐
   =================================================== -->
-  <section id="heroSection" aria-hidden="true"></section>
-
-  <!-- ===================================================
+<section aria-hidden="true" id="heroSection"></section>
+<!-- ===================================================
        3. MAIN 콘텐츠 영역
        - heroSection 아래 자연스러운 흐름으로 위치
        - 회사연혁 텍스트 및 이미지 포함
        - 스크롤 시 heroSection과 main이 같이 스크롤 됨
   =================================================== -->
-  <main>
-    <h1>회사연혁</h1>
-    <p>아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.</p>
-
-    <!-- 회사 연혁 이미지: main 안에 포함하여 자연스럽게 스크롤 -->
-    <img src="/LED/history.png" alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" />
-  </main>
-
-  <!-- ===================================================
+<main>
+<h1>회사연혁</h1>
+<p>아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.</p>
+<!-- 회사 연혁 이미지: main 안에 포함하여 자연스럽게 스크롤 -->
+<img alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" src="/LED/history.png"/>
+</main>
+<!-- ===================================================
        4. FOOTER 섹션: 회사 정보 및 저작권 안내
        - 항상 콘텐츠 마지막에 위치
   =================================================== -->
-  <footer role="contentinfo" aria-label="회사 정보 및 저작권">
-    <div>
-      <span>업체명 : 주식회사 씨앤비즈</span>
-      <span class="separator">|</span>
-      <span>대표자 : 차호진</span>
-      <span class="separator">|</span>
-      <span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
-      <span class="separator">|</span>
-      <span>대표전화 : 031-706-6641</span>
-      <span class="separator">|</span>
-      <span> 팩스 : 031-704-6648</span>
-      <span class="separator">|</span>
-      <span>문의메일 : <a href="sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
-      <span class="separator">|</span>
-      <span>기술지원 : <a href="cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
-      <span class="separator">|</span>
-      <span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
-    </div>
-  </footer>
-
-  <!-- ===================================================
+<footer aria-label="회사 정보 및 저작권" role="contentinfo">
+<div>
+<span>업체명 : 주식회사 씨앤비즈</span>
+<span class="separator">|</span>
+<span>대표자 : 차호진</span>
+<span class="separator">|</span>
+<span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
+<span class="separator">|</span>
+<span>대표전화 : 031-706-6641</span>
+<span class="separator">|</span>
+<span> 팩스 : 031-704-6648</span>
+<span class="separator">|</span>
+<span>문의메일 : <a href="sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
+<span class="separator">|</span>
+<span>기술지원 : <a href="cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
+<span class="separator">|</span>
+<span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
+</div>
+</footer>
+<!-- ===================================================
        5. JavaScript: 헤더 스크롤 효과 및 로고 클릭 이벤트
        - 스크롤 위치 50px 넘으면 header에 그림자 추가
        - 로고 클릭 시 홈페이지 루트 경로로 이동
   =================================================== -->
-  <script>
+<script>
     // 헤더 엘리먼트 선택
     const header = document.getElementById('header');
 
@@ -349,5 +354,21 @@
       window.location.href = '/';
     });
   </script>
-</body>
+<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 14px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; z-index: 9999;">🌗 모드 전환</button><script>
+/* ===================================================
+   🌙 다크모드 토글 기능
+   - 로컬 스토리지에 모드 저장하여 유지
+   - 페이지 로드 시 모드 적용
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("themeToggleBtn");
+  const saved = localStorage.getItem("color-mode");
+  if (saved === "dark") document.body.classList.add("dark-mode");
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    localStorage.setItem("color-mode", mode);
+  });
+});
+</script></body>
 </html>
