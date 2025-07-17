@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
+
 <!-- 2025.07.16 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -36,6 +37,8 @@
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
 }
     /* ===============================
@@ -63,9 +66,10 @@ html, body {
 	
     .hero {
       position: relative;
-      height: 600px;
+      height: 45vh;
+	  <!-- max-height: 1000px; -->
       overflow: hidden; /* 비디오가 영역 밖으로 나가지 않도록 제한 */
-	  height: calc(var(--vh, 1vh) * 100); /* ✅ 이거 하나만 */
+	  <!--height: calc(var(--vh, 1vh) * 10000); /* ✅ 이거 하나만 */--!>
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -73,7 +77,6 @@ html, body {
       padding-top: 100px;
       text-align: center;
       color: var(--hero-text-color);
-
       /* 💡 fallback 이미지 + 어두운 배경 그라데이션 */
       background-image:
       linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),url('Main_A.mp4');
@@ -122,73 +125,29 @@ html, body {
       font-size: 2.5rem;
       max-width: 1000px;
       margin: 5px;
-      position: relative;
+      position: center;
       z-index: 1;
 	  color: white;
 	  font-weight: bold; /* ⬅️ 진하게 (굵은 글씨) */
 	  text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.9); /* ⬅️ 글씨를 더 또렷하게 */
     }
 
-    /* ===============================
-       🎞 무한 슬라이더 이미지 영역
-    =============================== */
-    .infinite-slider {
-      overflow: hidden;
-      height: 360px;
-      width: 100%;
-      max-width: 960px;
-      margin: 40px auto;
-      position: relative;
-    }
+.custom-slider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;   /* center로 변경 */
+  width: 100%;
+  max-width: 1200px;         /* 너무 커지지 않게 제한 */
+  margin: 20px auto;         /* 상하 margin, 좌우 auto */
+  padding: 10px;
+  background: #000;
+}
+/* ✅ 다크 모드: 반투명하게 덮어쓰기 */
+body.dark-mode .custom-slider {
+  background: rgba(255, 255, 255, 0.05) !important;
+  transition: background-color 0.3s ease;
+}
 
-    .slide-track {
-      display: flex;
-      width: calc(640px * 6); /* 6장의 이미지 반복 */
-      animation: scrollLeft 30s linear infinite;
-    }
-
-    .slide-track img {
-      width: 640px;
-      height: 360px;
-      object-fit: cover;
-      flex-shrink: 0;
-      user-select: none;
-      border-radius: 10px;
-    }
-
-    @keyframes scrollLeft {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-1920px); }
-    }
-
-    /* ===============================
-       ✅ 제품 주요 특징
-    =============================== */
-    .features {
-      padding: 30px 20px;
-      background: white;
-      max-width: 640px;
-      margin: 0 auto 40px auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .features h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .features ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .features li {
-      padding: 10px 0;
-      font-size: 1.1rem;
-    }
 	/* ✅ ChatGPT 추가: 다크모드 대응용 .features 스타일 오버라이드 */
 body.dark-mode .features {
   background: rgba(255, 255, 255, 0.05);  /* 반투명 다크 배경 */
@@ -199,27 +158,6 @@ body.dark-mode .features h2,
 body.dark-mode .features li {
   color: #f0f0f0;
 }
-
-    /* ===============================
-       🔗 제품 간 이동 링크
-    =============================== */
-    .product-nav {
-      text-align: center;
-      padding: 20px;
-      max-width: 640px;
-      margin: 0 auto 40px auto;
-    }
-
-    .nav-link {
-      margin: 0 10px;
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .nav-link:hover {
-      text-decoration: underline;
-    }
 
     /* ===============================
        📢 CTA (Call to Action)
@@ -250,18 +188,6 @@ body.dark-mode .features li {
     .btn-cta:hover {
       background-color: #ddd;
     }
-
-    /* ===============================
-       🧾 회사 정보 Footer
-    =============================== */
-    .site-footer {
-      text-align: center;
-      font-size: 0.9rem;
-      background: #eee;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
     /* ===============================
        🪟 팝업 오버레이 설정
     =============================== */
@@ -285,8 +211,7 @@ body.dark-mode .features li {
       border-radius: 50px;
       background: white;
     }
-  
-
+	
 /* ▼ 추가 스타일 */
 
     /* 전역 변수 정의 (색상, 메뉴 폭 등) */
@@ -434,18 +359,17 @@ body.dark-mode .features li {
 
     /* ───── Hero 영역 ───── */
     .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* 중앙 → 위쪽 정렬 */
-  align-items: center;
-  padding-top: 150px; /* 위쪽 여백 조절 */
-  height: 100vh;
-  max-height: 600px;
-  background: url('Main_A.mp4') center/cover no-repeat;
-  color: white;
-  text-align: center;
-}
-
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start; /* 중앙 → 위쪽 정렬 */
+	align-items: center;
+	padding-top: 60px; /* 위쪽 여백 조절 */
+	height: 45vh;
+	<!-- max-height: 1000px; -->
+	background: url('Main_A.mp4') center/cover no-repeat;
+	color: white;
+	text-align: center;
+	}
     .hero.video-loaded {
       background: none; /* 비디오가 로드되면 이미지 배경 제거 */
     }
@@ -455,7 +379,7 @@ body.dark-mode .features li {
       top: 0;
       left: 0;
       width: 100%;
-      height: 50%;
+      height: 100%;
       object-fit: cover;
       z-index: -1;
     }
@@ -576,7 +500,7 @@ body.dark-mode .features li {
   .right-fixed-menu .phone {
     background-color: #39a84a;    /* 이미지와 거의 같은 녹색 */
   }
-  .right-fixed-menu .kakao {
+  .right-fixed-menu .kakao  {
     background-color: #ffea00;    /* 이미지처럼 진한 노랑 */
     color: #333;                  /* 글자 진하게 */
   }
@@ -737,18 +661,6 @@ body.dark-mode .features li {
     .btn-cta:hover {
       background-color: #ddd;
     }
-
-    /* ===============================
-       🧾 회사 정보 Footer
-    =============================== */
-    .site-footer {
-      text-align: center;
-      font-size: 0.9rem;
-      background: #eee;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
     /* ===============================
        🪟 팝업 오버레이 설정
     =============================== */
@@ -769,7 +681,7 @@ body.dark-mode .features li {
 /* 팝업 내 iframe 스타일 */
 .overlay iframe {
   width: 80vw;              /* 화면 가로의 80% 크기 */
-  height: 80vh;             /* 화면 세로의 80% 크기 */
+  height: 95vh;             /* 화면 세로의 80% 크기 */
   border: none;             /* 기본 테두리 제거 */
   border-radius: 10px;      /* 모서리 둥글게 처리 */
   box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 살짝 그림자 효과로 입체감 부여 */
@@ -777,21 +689,14 @@ body.dark-mode .features li {
 }
   
 footer {
-  background-color: var(--footer-bg); /* Chat GPT: 푸터 영역 배경색 */
-  color: var(--footer-text);          /* Chat GPT: 푸터 글자 색상 */
+  margin-bottom: 0;
+  padding: 20px; /* 고정 height 대신 */
 }
+
 body.dark-mode footer {
   --footer-bg: #111;                  /* Chat GPT: 다크모드 푸터 배경색 */
   --footer-text: #fff;                /* Chat GPT: 다크모드 푸터 텍스트 색상 */
 }
-
-
-.hero {
-  min-height: 100vh; /* Chat GPT: Hero 아래가 사라지지 않도록 최소 높이 설정 */
-  position: relative;
-  z-index: 1;
-}
-
 
 /* ✅ ChatGPT 정리: 다크/라이트 모드 토글 버튼 (우측 고정 메뉴 내) */
 .right-fixed-menu .theme-toggle {
@@ -810,8 +715,6 @@ body.dark-mode footer {
   background-color: #333;
 }
 
-
-
 /* ✅ ChatGPT 추가: 다크모드 스타일 */
 body.dark-mode {
   background-color: rgba(0,0,0,0.85);
@@ -821,8 +724,6 @@ body.dark-mode footer {
   background-color: #111;
   color: #fff;
 }
-
-
 /* ✅ ChatGPT 추가: 다크모드 색상 반전 */
 body.dark-mode {
   background-color: rgba(0,0,0,0.85) !important;
@@ -970,7 +871,7 @@ body.dark-mode footer {
 	  justify-content: center;      /* 텍스트 가운데 정렬 */
 	  gap: 4px;
 	  background: #444;
-	  color: #fff;
+	  color: #fff ;
 	  border-radius: 30px;
 	  padding: 4px 10px;
 	  font-size: 1rem;
@@ -989,21 +890,14 @@ body.dark-mode footer {
 	}
   
 footer {
-  background-color: var(--footer-bg); /* Chat GPT: 푸터 영역 배경색 */
-  color: var(--footer-text);          /* Chat GPT: 푸터 글자 색상 */
+  margin-bottom: 0;
+  padding: 20px; /* 고정 height 대신 */
 }
+
 body.dark-mode footer {
   --footer-bg: #111;                  /* Chat GPT: 다크모드 푸터 배경색 */
   --footer-text: #fff;                /* Chat GPT: 다크모드 푸터 텍스트 색상 */
 }
-
-
-.hero {
-  min-height: 100vh; /* Chat GPT: Hero 아래가 사라지지 않도록 최소 높이 설정 */
-  position: relative;
-  z-index: 1;
-}
-
 
 /* ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 스타일 */
 .right-fixed-menu .theme-toggle {
@@ -1031,9 +925,80 @@ body.dark-mode footer {
   background-color: #111;
   color: #fff;
 }
+/* ===============================
+   🧾 회사 정보 Footer 스타일
+   =============================== */
+.site-footer {
+  position: fixed;      /* 화면에 고정: 스크롤해도 항상 보임 */
+  bottom: 0;            /* 화면 맨 아래에 위치시킴 */
+  left: 0;              /* 화면 왼쪽 끝부터 시작 */
+  width: 100%;          /* 가로 전체를 꽉 채움 (좌우 꽉 찬 푸터) */ 
+  background: #fff;     /* 배경색은 흰색 - 라이트 모드 기본 */
+  color: #000;          /* 글자색은 검은색으로 지정 */
+  text-align: center;   /* 텍스트를 중앙 정렬 */
+  padding: 20px 0;      /* 상하 여백 20px, 좌우 여백 0 (세로 여백 넉넉히) */
+  margin: 0;            /* 외부 여백 없앰 (고정 위치라 필요 없음) */
+  box-sizing: border-box; /* 패딩, 테두리 포함해서 전체 width 계산 */
+  text-shadow: none;    /* 혹시 남아있는 글자 그림자 제거 */
+  z-index: 9999;        /* 매우 높은 레이어 순서 지정: 다른 요소보다 위에 표시 */
+}
+
+/* ===============================
+   🌙 다크모드에서 Footer 스타일 변경
+   =============================== */
+body.dark-mode .site-footer {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  /* 
+    배경을 거의 투명한 흰색으로 변경해 어두운 배경과 조화롭게 함
+    !important 붙여 우선순위 보장 (다른 스타일 덮어쓰지 못하도록)
+  */
+  
+  color: #f0f0f0 !important; 
+  /*
+    글자색을 밝은 회색으로 변경
+    !important 로 우선순위 확보
+  */
+}
+body.dark-mode .site-footer a {
+  color: #ffdd55 !important;
+  /*
+    다크모드 푸터 내 링크는 밝은 노란색으로 변경
+    눈에 잘 띄게 하여 가독성 향상
+  */
+}
+/* ===============================
+   🖥️ 본문 컨텐츠가 푸터에 가려지는 것을 방지하기 위한 패딩
+   =============================== */
+body {
+  padding-bottom: 70px; 
+  /*
+    페이지 본문에 아래쪽 여백을 푸터 높이만큼 추가
+    푸터가 고정되어 있어 본문 마지막 부분이 푸터 밑에 가려지는 문제 방지
+    푸터 높이에 따라 값 조절 가능 (현재는 70px 예시)
+  */
+}
 
 </style>
-</head>
+<style>
+.slide-card {
+  background: black;
+  color: #fff;
+  width: 200px;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.slide-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide-card:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+</style></head>
 <body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
 <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
 <ul>
@@ -1070,44 +1035,49 @@ body.dark-mode footer {
 <!-- ================================================
        🎬 Hero 영역: 비디오 + fallback 이미지 + 텍스트
   ================================================= -->
-<section class="hero" id="heroSection" style="margin-top: -50px;">
-<video autoplay="" class="hero-bg-video" id="heroVideo" loop="" muted="" playsinline="" preload="auto">
-<source src="Main_A.mp4" type="video/mp4"/>
-<!-- 비디오를 지원하지 않는 브라우저에서는 fallback 이미지 표시 -->
-</video>
+<!-- Hero -->
+<section class="hero" id="heroSection">
+  <video autoplay muted loop playsinline class="hero-bg-video">
+    <source src="Main_A.mp4" type="video/mp4" />
+  </video>
 <h1>실내·실외 맞춤형 LED 디스플레이</h1>
 <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
+
+<!-- Custom slider -->
+<section class="custom-slider" style="
+  width: 100%;
+  margin: 5px 0 20px 0;   /* 좌우 auto → 0 으로 */
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background: #fff">
+  <a class="slide-card" href="#link1">
+    <img src="https://via.placeholder.com/200x120?text=Image+1" />
+    <h3>카드 제목 1</h3>
+    <p>카드 설명 1번입니다.</p>
+    <span>자세히 보기 →</span>
+  </a>
+  <a class="slide-card" href="#link2">
+    <img src="https://via.placeholder.com/200x120?text=Image+2" />
+    <h3>카드 제목 2</h3>
+    <p>카드 설명 2번입니다.</p>
+    <span>자세히 보기 →</span>
+  </a>
+  <a class="slide-card" href="#link3">
+    <img src="https://via.placeholder.com/200x120?text=Image+3" />
+    <h3>카드 제목 3</h3>
+    <p>카드 설명 3번입니다.</p>
+    <span>자세히 보기 →</span>
+  </a>
+  <a class="slide-card" href="#link4">
+    <img src="https://via.placeholder.com/200x120?text=Image+4" />
+    <h3>카드 제목 4</h3>
+    <p>카드 설명 4번입니다.</p>
+    <span>자세히 보기 →</span>
+  </a>
 </section>
-<!-- 🎞 무한 슬라이더 -->
-<div aria-label="LED 디스플레이 이미지 슬라이드" class="infinite-slider">
-<div class="slide-track">
-<img alt="LED 디스플레이 1" src="Main_A.png"/>
-<img alt="LED 디스플레이 2" src="Main_B.png"/>
-<img alt="LED 디스플레이 3" src="Main_C.png"/>
-<img alt="LED 디스플레이 1" src="Main_A.png"/>
-<img alt="LED 디스플레이 2" src="Main_B.png"/>
-<img alt="LED 디스플레이 3" src="Main_C.png"/>
-</div>
-</div>
-<!-- ✅ 제품 특징 -->
-<section aria-labelledby="features-title" class="features">
-<h2 id="features-title">제품 주요 특징</h2>
-<ul>
-<li>🔆 고휘도, 고해상도 Full-Color LED</li>
-<li>⚙️ 실내/실외 모두 설치 가능, 다양한 사이즈 대응</li>
-<li>🔌 USB/HDMI/LAN 등 다양한 입력 지원</li>
-</ul>
-</section>
-<!-- 🔗 이전/다음 제품 이동 -->
-<section aria-label="제품 페이지 내비게이션" class="product-nav">
-<a class="nav-link" href="prev-product.html">← 이전 제품</a>
-<a class="nav-link" href="next-product.html">다음 제품 →</a>
-</section>
-<!-- 📢 CTA -->
-<section aria-label="문의하기" class="cta">
-<h3>맞춤형 LED 디스플레이가 필요하신가요?</h3>
-<a class="btn-cta" href="#contact">지금 문의하기</a>
-</section>
+
 <!-- 🧾 Footer 회사 정보 -->
 <div class="right-fixed-menu">
 <a class="fixed-btn phone" href="tel:031-706-6641">📞 <span>전화상담</span> </a>
@@ -1119,12 +1089,24 @@ body.dark-mode footer {
 <a class="fixed-btn theme-toggle" id="themeToggle">🌙 다크모드</a>
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 버튼 -->
 </div>
-<footer aria-label="회사 정보" class="site-footer">
-<p> 업체명 : (주)씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호 </p>
-<p> 대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 메일 : sales@cnbiznet.co.kr </p>
-<p> 통신판매업신고번호 : 2023-성남중원-0805 </p>
-<p> Copyright ⓒ 2023 (주)씨앤비즈. All rights reserved. </p>
+
+<!-- Footer -->
+<!-- 
+<footer aria-label="회사 정보" class="site-footer" style="
+  width: 45%;
+  background: #fff;
+  color: #000;
+  text-align: center;
+  padding: 20px;
+  margin-top: 15px;">-->
+  
+<footer class="site-footer">
+  업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
+  대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805<br>
+  문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a> | 기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a><br>
+  Copyright © 2023 (주)씨앤비즈. All rights reserved.
 </footer>
+
 <!-- 🪟 팝업 (iframe 포함) -->
 <div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
 <iframe src="landing.html" title="프로모션 팝업"></iframe>
@@ -1226,8 +1208,6 @@ menuItems.forEach(item => {
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 전환 스크립트 -->
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
 <!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
-
-
 <!-- ✅ ChatGPT: 다크/라이트 모드 토글 기능 (스타일까지 포함해서 수정) -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -1256,5 +1236,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+
+<!--
+✅ 전체 역할 및 코드 상세 설명
+- 기존 infinite-slider 제거
+- '제품 주요 특징', '맞춤형 LED 디스플레이가 필요하신가요?', '이전 제품', '다음 제품' 포함 영역 제거
+- hero mp4 바로 아래 슬라이드 카드 4개 추가, hover 시 3D + 그림자, 클릭 시 링크 이동
+- body, hero, 슬라이드 기본 배경 검정(#000)
+- 다크/라이트 모드: JS로 로컬스토리지에 저장, 버튼으로 전환
+- 우측 고정 메뉴 6개 버튼 동일 크기·스타일
+- 모바일(iOS 포함)·데스크탑 반응형 최적화
+- 기존 DOM, 구조, 클래스 단 한 줄도 삭제 없이 추가 방식
+-->
 </body>
 </html>
