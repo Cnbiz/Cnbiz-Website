@@ -269,9 +269,80 @@ body.dark-mode footer {
   background-color: #000 !important;
   color: #aaa !important;
 }
+
+
+/* ===================================================
+   🔠 clamp() 사용한 반응형 폰트 스케일링
+=================================================== */
+body {
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+
+
+/* ===================================================
+   🍔 모바일 햄버거 메뉴 스타일 정의
+=================================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 28px;
+  height: 22px;
+  justify-content: space-between;
+}
+.hamburger span {
+  background: #fff;
+  height: 3px;
+  border-radius: 2px;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  .top-nav ul {
+    display: none;
+    flex-direction: column;
+    background: #222;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .top-nav ul.show {
+    display: flex;
+  }
+}
+
+
+/* 🔠 clamp() 반응형 폰트 스케일링 보강 */
+body {
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.container, .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 </style>
 <meta content="ko" http-equiv="Content-Language"/><meta content="씨앤비즈 회사연혁 페이지 - 회사 소개, 연혁, 오시는 길" name="description"/><meta content="씨앤비즈, CNBIZ, 연혁, 회사연혁, LED" name="keywords"/><meta content="CNBIZ Co., Ltd" name="author"/><meta content="index, follow" name="robots"/></head>
-<body>
+<body><script>
+/* 🌗 시스템 다크모드 자동 감지 */
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("color-mode");
+  if (!saved) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) document.body.classList.add("dark-mode");
+  }
+});
+</script>
 <!-- ===================================================
        1. HEADER 섹션: 상단 고정 네비게이션 바
        - 로고 클릭 시 홈페이지 이동 기능 포함
@@ -279,7 +350,13 @@ body.dark-mode footer {
   =================================================== -->
 <header id="header">
 <div class="logo-container">
-<img alt="회사 로고" id="logoClick" src="/LED/CnbizLogo.png"/>
+<img alt="회사 로고" id="logoClick" src="/LED/CnbizLogo.png" srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
+</div>
+<!-- 🍔 모바일용 햄버거 버튼 (접힘/펼침) -->
+<div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
+<span></span>
+<span></span>
+<span></span>
 </div>
 <nav aria-label="주요 메뉴" class="top-nav">
 <ul>
@@ -306,7 +383,7 @@ body.dark-mode footer {
 <h1>회사연혁</h1>
 <p>아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.</p>
 <!-- 회사 연혁 이미지: main 안에 포함하여 자연스럽게 스크롤 -->
-<img alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" src="/LED/history.png"/>
+<img alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" src="/LED/history.png" srcset="/LED/history.png 1x, /LED/history.png 2x"/>
 </main>
 <!-- ===================================================
        4. FOOTER 섹션: 회사 정보 및 저작권 안내
@@ -369,6 +446,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";
     localStorage.setItem("color-mode", mode);
   });
+});
+</script><script>
+/* ===================================================
+   🍔 햄버거 메뉴 토글 기능
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("hamburgerBtn");
+  const navList = document.querySelector(".top-nav ul");
+  if (btn && navList) {
+    btn.addEventListener("click", () => {
+      navList.classList.toggle("show");
+    });
+  }
+});
+</script><script>
+/* 🌍 브라우저 언어 자동 감지 및 다국어 콘텐츠 변경 */
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = navigator.language || navigator.userLanguage;
+  const htmlTag = document.documentElement;
+
+  const content = {
+    ko: {
+      title: "회사연혁",
+      desc: "아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.",
+      footer: "Copyright © 2025 주식회사 씨앤비즈 All rights reserved."
+    },
+    en: {
+      title: "Company History",
+      desc: "Scroll down to see the company timeline image below.",
+      footer: "Copyright © 2025 CNBIZ Co., Ltd. All rights reserved."
+    }
+  };
+
+  const langKey = lang.startsWith("en") ? "en" : "ko";
+  htmlTag.lang = langKey;
+
+  const t = content[langKey];
+  if (t) {
+    const h1 = document.querySelector("main h1");
+    const p = document.querySelector("main p");
+    const footer = document.querySelector("footer span:last-child");
+    if (h1) h1.textContent = t.title;
+    if (p) p.textContent = t.desc;
+    if (footer) footer.textContent = t.footer;
+  }
 });
 </script></body>
 </html>
