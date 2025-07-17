@@ -132,16 +132,96 @@ html, body {
 	  text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.9); /* ⬅️ 글씨를 더 또렷하게 */
     }
 
+/* ===========================================
+   🛹 [1] 시공사례 카드 전체 컨테이너 스타일
+   =========================================== */
 .custom-slider {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;   /* center로 변경 */
-  width: 100%;
-  max-width: 1200px;         /* 너무 커지지 않게 제한 */
-  margin: 20px auto;         /* 상하 margin, 좌우 auto */
-  padding: 10px;
-  background: #000;
+  display: flex;                /* 카드들을 가로 방향으로 나란히 정렬 */
+  flex-wrap: wrap;              /* 화면 너비를 초과하는 경우 줄 바꿈 허용 (반응형 대응) */
+  justify-content: center;      /* 카드들을 수평 중앙 정렬 */
+  gap: 40px;                    /* 카드 간격을 가로 세로 모두 40px로 균등하게 설정 */
+  width: 100%;                  /* 전체 가로폭을 부모(또는 화면) 기준 100%로 설정 */
+  max-width: 1200px;            /* 너무 커지지 않도록 최대 너비 제한 */  
+  margin: 40px auto 80px auto;  /* 히어로 영역과 간격 확보 (위 40px, 아래 80px), 좌우는 가운데 정렬 */
+  padding: 30px 20px;           /* 컨테이너 내부 여백: 위아래 30px, 좌우 20px */
+  background: white;             /* 어두운 배경색: 검정보다 살짝 밝은 톤 (#111) */
+  border-radius: 10px;          /* 외곽 테두리 둥글게 처리 */  
+  position: relative;           /* 자식 요소의 absolute 위치 기준이 되기 위해 설정 */
+  z-index: 2;                   /* hero 비디오 위에 나타나도록 z-index 설정 */
 }
+
+/* ===========================================
+   📦 [2] 개별 카드 스타일
+   =========================================== */
+.slide-card {
+  background: black;            /* 카드 자체는 완전한 검정색 */
+  color: #fff;                  /* 기본 글자색은 흰색으로 설정 (가독성 확보) */
+  width: 200px;                 /* 고정된 카드 너비: 반응형 배치에 적당한 사이즈 */
+  padding: 15px;                /* 카드 내부 여백: 내용물과 테두리 사이 간격 */  
+  border-radius: 10px;          /* 모서리를 부드럽게 둥글게 처리 */
+  text-align: center;           /* 카드 내 콘텐츠 중앙 정렬 */
+  text-decoration: none;        /* 링크 밑줄 제거 (카드 전체가 링크인 경우) */  
+  transition: all 0.3s ease;    /* hover 시 모든 변화 부드럽게 처리 (애니메이션) */
+}
+
+/* ===========================================
+   🎬 [3] 카드 애니메이션 완료 상태 클래스
+   =========================================== */
+.slide-card.visible {
+  opacity: 1;                   /* 완전히 보이는 상태 */
+  transform: translateY(0);     /* 원래 위치로 복귀 (애니메이션 시작 후) */
+}
+
+/* ===========================================
+   🖱️ [4] 카드 Hover 효과
+   =========================================== */
+.slide-card:hover {
+  transform: translateY(-10px) scale(1.05); 
+  /* 위로 살짝 이동 + 약간 확대되어 마우스 인터랙션 강조 */
+}
+
+/* ===========================================
+   📝 [5] 카드 제목 (h3) 스타일
+   =========================================== */
+.slide-card h3 {
+  font-size: 1rem;              /* 제목 텍스트 크기 설정 */
+  font-weight: 600;             /* 살짝 굵게 표시 */
+  margin-bottom: 10px;          /* 아래쪽 공간 확보로 설명문과 간격 */
+  color: #fff;                  /* 흰색 텍스트로 유지 */
+}
+
+/* ===========================================
+   📝 [6] 카드 설명문 (p) 스타일
+   =========================================== */
+.slide-card p {
+  font-size: 1.3rem;            /* 설명문 폰트 크기 키워서 강조 */
+  font-weight: bold;            /* 진하게 강조 */
+  line-height: 1.3;             /* 줄 간격 조절로 가독성 향상 */
+  margin: 10px 0;               /* 상하 여백 10px 설정 */
+  white-space: normal;          /* 줄바꿈 허용 */
+  word-break: keep-all;         /* 단어 중간 끊기 방지 */
+  color: #fff;                  /* 흰색 유지 */
+}
+
+/* ===========================================
+   🔗 [7] "자세히 보기 →" 링크 텍스트 스타일
+   =========================================== */
+.slide-card span {
+  display: inline-block;        /* 인라인 블록: 마진 및 크기 조절 가능하게 함 */
+  margin-top: 10px;             /* 위쪽 여백으로 설명문과 간격 확보 */
+  font-size: 0.9rem;            /* 기본보다 조금 작게 설정 */
+  color: #ccc;                  /* 회색 톤으로 강조하되 너무 눈에 띄지 않게 */
+  cursor: pointer;              /* 마우스 오버 시 손가락 모양 커서 표시 */
+  transition: color 0.3s ease;  /* 색상 변경 시 부드럽게 전환 */
+}
+
+/* ===========================================
+   🔗 [8] 마우스오버 스타일
+   =========================================== */
+.slide-card span:hover {
+  color: #fff;                  /* 마우스를 올리면 흰색으로 변경되어 강조됨 */}
+
+
 /* ✅ 다크 모드: 반투명하게 덮어쓰기 */
 body.dark-mode .custom-slider {
   background: rgba(255, 255, 255, 0.05) !important;
@@ -359,6 +439,7 @@ body.dark-mode .features li {
 
     /* ───── Hero 영역 ───── */
     .hero {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start; /* 중앙 → 위쪽 정렬 */
@@ -369,13 +450,14 @@ body.dark-mode .features li {
 	background: url('Main_A.mp4') center/cover no-repeat;
 	color: white;
 	text-align: center;
+	z-index: 1;
 	}
     .hero.video-loaded {
       background: none; /* 비디오가 로드되면 이미지 배경 제거 */
     }
 
     .hero video.hero-bg-video {
-      position: absolute;
+      position: relative;
       top: 0;
       left: 0;
       width: 100%;
@@ -383,7 +465,17 @@ body.dark-mode .features li {
       object-fit: cover;
       z-index: -1;
     }
-
+.hero-content {
+  position: absolute;        /* 비디오 위에 겹쳐서 올림 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* 중앙 정렬 */
+  text-align: center;
+  color: #fff;
+  z-index: 2;                /* 비디오보다 위 */
+  padding: 20px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); /* 글자 가독성 향상 */
+}
     .hero h1, .hero p {
       text-shadow: 4px 4px 10px rgba(0,0,0,0.8);
       z-index: 1;
@@ -535,13 +627,12 @@ body.dark-mode .features li {
     display: none;
     flex-direction: column;
     gap: 12px;
-    background: rgba(0, 0, 0, 0.7);
+    background: transparent;
     padding: 15px;
     border-radius: 10px;
     max-width: 100vw;
     box-sizing: border-box;
-
-    position: fixed;
+    position: relative;
     top: 60px;
     left: 0;
     width: 220px;
@@ -979,26 +1070,7 @@ body {
 }
 
 </style>
-<style>
-.slide-card {
-  background: black;
-  color: #fff;
-  width: 200px;
-  margin: 10px;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-.slide-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.slide-card:hover {
-  transform: translateY(-10px) scale(1.05);
-}
-</style></head>
+</head>
 <body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
 <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
 <ul>
@@ -1040,18 +1112,16 @@ body {
   <video autoplay muted loop playsinline class="hero-bg-video">
     <source src="Main_A.mp4" type="video/mp4" />
   </video>
-<h1>실내·실외 맞춤형 LED 디스플레이</h1>
-<p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
+ <!-- 👉 이 안에 넣어야 영상 위에 표시됩니다 -->
+  <div class="hero-content">
+    <h1>실내·실외 맞춤형 LED 디스플레이</h1>
+    <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
+  </div>
+</section><!-- <h1>실내·실외 맞춤형 LED 디스플레이</h1>
+<p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p> -->
 
 <!-- Custom slider -->
-<section class="custom-slider" style="
-  width: 100%;
-  margin: 5px 0 20px 0;   /* 좌우 auto → 0 으로 */
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background: #fff">
+<section class="custom-slider">
   <a class="slide-card" href="#link1">
     <img src="https://via.placeholder.com/200x120?text=Image+1" />
     <h3>카드 제목 1</h3>
