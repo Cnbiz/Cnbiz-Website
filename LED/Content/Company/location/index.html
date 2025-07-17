@@ -101,12 +101,50 @@ body.dark-mode footer {
   background-color: #000;
   color: #aaa;
 }
+
+
+/* 🔠 clamp() 반응형 폰트 스케일링 */
+body {
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+
+/* 📱 반응형 레이아웃 */
+.container, .wrapper, .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  body {
+    font-size: clamp(12px, 4vw, 16px);
+  }
+  header, nav, footer {
+    padding: 10px 16px;
+  }
+  .top-nav ul {
+    flex-direction: column;
+  }
+  .top-nav ul li {
+    margin-bottom: 10px;
+  }
+  footer {
+    text-align: center;
+  }
+}
+
+/* 🖼️ Retina 대응 이미지/비디오 */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 </style>
 <meta content="ko" http-equiv="Content-Language"/><meta content="주식회사 씨앤비즈 공식 웹사이트 - 회사 소개, 연혁, 오시는 길 등 정보 제공" name="description"/><meta content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길, LED" name="keywords"/><meta content="주식회사 씨앤비즈" name="author"/><meta content="index, follow" name="robots"/></head>
 <body>
 <header>
 <div class="logo-container">
-<a href="https://landing.cnbiznet.co.kr"><img alt="회사 로고" src="/LED/CnbizLogo.png"/></a>
+<a href="https://landing.cnbiznet.co.kr"><img alt="회사 로고" src="/LED/CnbizLogo.png" srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/></a>
 </div>
 <nav class="top-nav">
 <ul>
@@ -148,5 +186,68 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; padding: 10px 16px; font-size: 14px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">🌓 모드 전환</button></body>
+<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; padding: 10px 16px; font-size: 14px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">🌓 모드 전환</button><script>
+/* ===================================================
+   🌗 시스템 다크모드 자동 감지 및 적용
+   - 사용자가 선택하지 않은 경우에만 적용
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const userSetting = localStorage.getItem("color-mode");
+  if (!userSetting) {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      document.body.classList.add("dark-mode");
+    }
+  }
+});
+</script><script>
+/* ===================================================
+   🌐 자동 언어 감지 및 예시 콘텐츠 변경
+   - 기본 한국어, 영어 브라우저 언어일 경우 전환
+=================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = navigator.language || navigator.userLanguage;
+  const htmlTag = document.documentElement;
+  if (lang.startsWith("en")) {
+    htmlTag.lang = "en";
+    const heading = document.querySelector("h1");
+    if (heading) heading.textContent = "Location";
+    const desc = document.querySelector("p");
+    if (desc) desc.textContent = "Here is how to find us.";
+  }
+});
+</script><script>
+/* 🌍 다국어 콘텐츠 전환 (i18n 샘플 구현) */
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = navigator.language || navigator.userLanguage;
+  const htmlTag = document.documentElement;
+
+  const translations = {
+    en: {
+      title: "Location",
+      desc: "Here is how to find us.",
+      footer: "All rights reserved. CNBIZ Co., Ltd."
+    },
+    ko: {
+      title: "오시는 길",
+      desc: "회사 위치 및 방문 경로입니다.",
+      footer: "모든 권리 보유. 씨앤비즈 주식회사."
+    }
+  };
+
+  const selectedLang = lang.startsWith("en") ? "en" : "ko";
+  htmlTag.lang = selectedLang;
+
+  const content = translations[selectedLang];
+  if (content) {
+    const heading = document.querySelector("h1");
+    const paragraph = document.querySelector("p");
+    const footer = document.querySelector("footer");
+
+    if (heading) heading.textContent = content.title;
+    if (paragraph) paragraph.textContent = content.desc;
+    if (footer) footer.textContent = content.footer;
+  }
+});
+</script></body>
 </html>
