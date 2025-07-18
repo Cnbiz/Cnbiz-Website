@@ -93,18 +93,23 @@
        - 반응형 높이 (vh 변수 활용)
        - 이미지 크기 및 위치 설정
     =================================================== */
-    #heroSection {
+	#heroSection {
       position: fixed;
-      top: 60px; left: 0;
+      top: 60px;
+      left: 0;
       width: 100vw;
-      height: calc(var(--vh, 1vh) * 40);
-      background-image: url('/LED/Main.png');
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+      height: auto;
+      background: none;
       z-index: 1000;
+      text-align: center;
       border-bottom: 2px solid #333;
-    }
+	}
+
+	.hero-img {
+      width: 100%;
+      height: auto;  /* 비율 유지 */
+      max-width: 1600px; /* 원한다면 최대 너비 제한 */
+	}
 
     /* ===================================================
        6. 본문 콘텐츠 영역
@@ -434,7 +439,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </nav>
 </header>
 <!-- 히어로 섹션: 고정 배경 이미지 -->
-<section aria-hidden="true" id="heroSection"></section>
+<section id="heroSection">
+  <img src="/LED/Main.png" alt="LED 이미지" class="hero-img" />
+</section>
 <!-- 본문 콘텐츠 -->
 <main>
 <h1>회사소개</h1>
