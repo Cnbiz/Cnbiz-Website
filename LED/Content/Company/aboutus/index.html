@@ -103,6 +103,114 @@
    - 이미지 정중앙 배치 및 반응형
    - 라이트/다크모드 + iOS 대응 최적화
 ================================================ */
+/* 2025.07.18 회사소개 수정 */
+/* 기본 박스 공통 스타일 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 화면 기본 설정 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #fff; /* 라이트 기본 배경 */
+  color: #000;      /* 라이트 기본 글씨 */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* 메인 컨테이너 */
+.company-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background: #fff;           /* 라이트 기본 배경 */
+  color: #000;                /* 라이트 글씨 색 */
+  font-weight: 600;           /* 글씨 두껍게 */
+  border-radius: 6px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  .company-wrap {
+    background: rgba(0, 0, 0, 0.6); /* 다크 모드 반투명 배경 */
+    color: #fff;                    /* 글씨 흰색 */
+  }
+}
+
+/* 표 스타일 */
+.company-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* 표의 헤더 셀 */
+.company-table th {
+  background: #444;           /* 라이트 모드용 진한 배경 */
+  color: #fff;                /* 헤더는 항상 흰 글씨 */
+  padding: 8px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* 표의 데이터 셀 */
+.company-table td {
+  border: 1px solid #999;
+  padding: 8px;
+  color: #000;                /* 라이트 기본 글씨 */
+  font-weight: 600;
+}
+
+/* 다크 모드에서 표 데이터 색 변경 */
+@media (prefers-color-scheme: dark) {
+  .company-table td {
+    color: #fff;
+    border: 1px solid #ccc;
+  }
+}
+
+/* 텍스트 블록 */
+.company-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* 제목 */
+.company-text h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+/* 강조 부분 */
+.company-text .highlight {
+  color: #0066cc;            /* 파랑색 */
+  font-weight: 700;
+}
+
+/* 본문 */
+.company-text p {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+/* 다크 모드에서 강조 부분은 유지 */
+@media (prefers-color-scheme: dark) {
+  .company-text .highlight {
+    color: #3399ff;
+  }
+}
+
+/* 2025.07.18 회사소개 수정 */
 
 /* 🌄 HERO SECTION 전체 이미지 배경 구성 */
 #heroSection {
@@ -144,26 +252,26 @@ body.dark-mode #heroSection {
 #companyIntro {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 왼쪽 정렬 */
+  align-items: flex-start;
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 0.1rem;
-  margin: 2.7rem auto; /* 위아래 여백 */
-  max-width: 650px;
+  padding: clamp(0.5rem, 2vw, 1.5rem);  /* 반응형 padding */
+  margin: 2.7rem auto;
+  max-width: clamp(300px, 90%, 650px);
 }
 main {
   margin: 0 auto;
   padding: 20px;
 }
 .section-title {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);   /* 최소~가변~최대 */
   font-weight: bold;
   margin-bottom: 1.5rem;
 }
 
 .section-description {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);   /* 최소~가변~최대 */
   line-height: 1.8;
   color: #333;
 }
@@ -204,6 +312,17 @@ body.dark-mode main h1 {
        - 폰트 크기 및 메뉴 간격 축소
        - 로고 크기 축소
     =================================================== */
+	@media (max-width: 768px) {
+  #companyIntro {
+    padding: 1rem;
+  }
+  .section-title {
+    font-size: 1.6rem;
+  }
+  .section-description {
+    font-size: 1rem;
+  }
+}
     @media (max-width: 768px) {
       .logo-container img {
         height: 30px;
@@ -513,21 +632,38 @@ document.addEventListener("DOMContentLoaded", () => {
 		<section id="heroSection"></section>
 		<!-- 회사소개 섹션 -->
 <main role="main">
-<section id="companyIntro" class="intro">
-  <div class="container">
-    <h1 class="section-title">회사소개</h1>
-    <p class="section-description">
-      고객의 요구에 맞춰<br />
-      최적의 System을 제공합니다.<br /><br />
-
-      고객이 요구하는 <strong>Total IT Solution</strong>을 고객의 입장에서 제공하는 전문 기업이며,<br />
-      고객이 최신 <strong>IT Solution Trend</strong>를 체감할 수 있는 System 개발로 운영합니다.<br /><br />
-
-      또한 각종 기업 경영관리 및 보안 등<br />
-      요구사항에 따른 최적화 <strong>Solution</strong>을 맞춤 <strong>Consulting</strong>을 통해 제공합니다.
-    </p>
+  <div class="company-wrap">
+    <table class="company-table">
+      <tr>
+        <th>회사명</th>
+        <td>(주)씨앤비즈</td>
+        <th>대표</th>
+        <td>차호진</td>
+      </tr>
+      <tr>
+        <th>주소</th>
+        <td colspan="3">경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</td>
+      </tr>
+      <tr>
+        <th>설립일</th>
+        <td>2016.3 (2019.3 법인설립)</td>
+        <th>홈페이지</th>
+        <td>www.cnbiznet.co.kr</td>
+      </tr>
+      <tr>
+        <th>전화/팩스</th>
+        <td colspan="3">T.031-706-6641 / F.031-704-6648</td>
+      </tr>
+    </table>
+    <div class="company-text">
+      <h2>고객의 요구에 맞춘 <span class="highlight">최적의 System</span>을 제공합니다.</h2>
+      <p>
+        고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문 기업이며,<br>
+        최신 IT Trend를 체감할 수 있는 System을 개발·운영합니다.<br>
+        또한 경영관리, 보안 등 요구사항에 따른 최적화 Solution을 맞춤 Consulting을 통해 제공합니다.
+      </p>
+    </div>
   </div>
-</section>
 </main>
 
 		<!-- ===================================================
