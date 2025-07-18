@@ -13,415 +13,405 @@
 		      type="image/png"/>
 		<style>
     /* ===================================================
-    1. 기본 스타일 및 초기화
-    - 박스 사이징: padding, border 포함 크기 계산
-    - html, body: 전체 화면 크기 및 폰트 설정
+       1. 기본 스타일 및 초기화
+       - 박스 사이징: padding, border 포함 크기 계산
+       - html, body: 전체 화면 크기 및 폰트 설정
     =================================================== */
-     * , * ::before, * ::after {
-        box - sizing: border - box;
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
     html, body {
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100 % ;
-        overflow - x: hidden;
-        font - family: Arial,
-        sans - serif;
-        background: #fff;
-        --vh: 1vh; /* 모바일 vh 문제 대응용 변수 */
+      margin: 0; padding: 0;
+      width: 100vw; height: 100%;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      --vh: 1vh; /* 모바일 vh 문제 대응용 변수 */
     }
 
     /* ===================================================
-    2. 헤더 영역 (로고 + 네비게이션)
-    - fixed 위치로 항상 상단 고정
-    - 배경색, 텍스트 색상 지정
-    - 스크롤 시 그림자 효과 토글
+       2. 헤더 영역 (로고 + 네비게이션)
+       - fixed 위치로 항상 상단 고정
+       - 배경색, 텍스트 색상 지정
+       - 스크롤 시 그림자 효과 토글
     =================================================== */
     header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
-        background - color: #333;
-        color: white;
-        display: flex;
-        justify - content: space - between;
-        align - items: center;
-        padding: 10px 20px;
-        z - index: 1001;
-        transition: box - shadow 0.3s ease;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      z-index: 1001;
+      transition: box-shadow 0.3s ease;
     }
     header.scrolled {
-        box - shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     /* ===================================================
-    3. 로고 스타일
-    - 높이 고정, 클릭 가능 커서
-    - 애니메이션: 왼쪽에서 슬라이드 인
+       3. 로고 스타일
+       - 높이 고정, 클릭 가능 커서
+       - 애니메이션: 왼쪽에서 슬라이드 인
     =================================================== */
-    .logo - container img {
-        height: 40px;
-        cursor: pointer;
-        user - select: none;
-        animation: slide - in - left 0.7s ease - out;
+    .logo-container img {
+      height: 40px;
+      cursor: pointer;
+      user-select: none;
+      animation: slide-in-left 0.7s ease-out;
     }
 
     /* ===================================================
-    4. 상단 네비게이션 메뉴
-    - ul: 수평 정렬, 간격 조절
-    - a: 색상, 패딩, hover 효과
-    - 모바일 포함 모든 기기에서 항상 보임
+       4. 상단 네비게이션 메뉴
+       - ul: 수평 정렬, 간격 조절
+       - a: 색상, 패딩, hover 효과
+       - 모바일 포함 모든 기기에서 항상 보임
     =================================================== */
-    .top - nav ul {
-        margin: 0;
-        padding: 0;
-        list - style: none;
-        display: flex;
-        gap: 15px;
+    .top-nav ul {
+      margin: 0; padding: 0;
+      list-style: none;
+      display: flex;
+      gap: 15px;
     }
-    .top - nav ul li a {
-        color: white;
-        text - decoration: none;
-        font - weight: bold;
-        padding: 6px 10px;
-        border - radius: 4px;
-        transition: background - color 0.3s ease;
-        user - select: none;
-        display: block;
+    .top-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      display: block;
     }
-    .top - nav ul li a: hover,
-    .top - nav ul li a.active {
-        background: #555;
+    .top-nav ul li a:hover,
+    .top-nav ul li a.active {
+      background: #555;
     }
 
     /* ===================================================
-    5. 히어로 섹션 (배경 이미지)
-    - fixed 위치로 헤더 바로 아래 고정
-    - 반응형 높이 (vh 변수 활용)
-    - 이미지 크기 및 위치 설정
+       5. 히어로 섹션 (배경 이미지)
+       - fixed 위치로 헤더 바로 아래 고정
+       - 반응형 높이 (vh 변수 활용)
+       - 이미지 크기 및 위치 설정
     =================================================== */
-    /* ===============================================
-    🌄 Hero Section 스타일
-    - 웹페이지 상단에 위치한 이미지 강조 영역
-    - 정중앙 배치 및 반응형 이미지 표시
-    - 라이트/다크모드 대응 + 반응형 최적화 (PC/Mobile/iOS)
-    ================================================ */
+/* ===============================================
+   🌄 Hero Section 스타일
+   - 웹페이지 상단에 위치한 이미지 강조 영역
+   - 정중앙 배치 및 반응형 이미지 표시
+   - 라이트/다크모드 대응 + 반응형 최적화 (PC/Mobile/iOS)
+================================================ */
 
-    /* 기본 Hero 섹션 설정 */
-    #heroSection {
-        position: relative; /* 기준 위치 요소 */
-        top: 60px; /* 고정 헤더 아래 여백 */
-        width: 100vw; /* 전체 너비 사용 */
-        height: auto; /* 콘텐츠에 따라 높이 자동 */
-        display: flex; /* 중앙 배치용 Flexbox */
-        align - items: center; /* 수직 중앙 정렬 */
-        justify - content: center; /* 수평 중앙 정렬 */
-        padding: 2rem 0; /* 위아래 여백 */
-        background - color: #fff; /* 기본 흰 배경 */
-        z - index: 1000; /* 위에 쌓이도록 */
-        border - bottom: 2px solid #ccc;
-        -webkit - backface - visibility: hidden; /* iOS 렌더링 버그 방지 */
-        -webkit - transform: translateZ(0); /* iOS에서 뭉개짐 방지 */
-    }
+/* 기본 Hero 섹션 설정 */
+#heroSection {
+  position: relative;       /* 기준 위치 요소 */
+  top: 60px;                /* 고정 헤더 아래 여백 */
+  width: 100vw;             /* 전체 너비 사용 */
+  height: auto;             /* 콘텐츠에 따라 높이 자동 */
+  display: flex;            /* 중앙 배치용 Flexbox */
+  align-items: center;      /* 수직 중앙 정렬 */
+  justify-content: center;  /* 수평 중앙 정렬 */
+  padding: 2rem 0;          /* 위아래 여백 */
+  background-color: #fff;   /* 기본 흰 배경 */
+  z-index: 1000;            /* 위에 쌓이도록 */
+  border-bottom: 2px solid #ccc;
+  -webkit-backface-visibility: hidden; /* iOS 렌더링 버그 방지 */
+  -webkit-transform: translateZ(0);    /* iOS에서 뭉개짐 방지 */
+}
 
-    /* 다크모드 적용 시 배경 반투명 처리 */
-    body.dark - mode #heroSection {
-        background - color: rgba(0, 0, 0, 0.5);
-        border - bottom: 2px solid #444;
-    }
+/* 다크모드 적용 시 배경 반투명 처리 */
+body.dark-mode #heroSection {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #444;
+}
 
-    /* 내부 이미지 스타일 */
-    .hero - img {
-        width: 10 % ; /* 기본 너비 비율 */
-        max - width: 1200px; /* PC 최대 크기 제한 */
-        height: auto; /* 원본 비율 유지 */
-        object - fit: contain; /* 이미지 전체 보이기 */
-        display: block; /* 여백 제거 */
-        transition: width 0.3s ease;
-    }
+/* 내부 이미지 스타일 */
+.hero-img {
+  width: 80%;               /* 기본 너비 비율 */
+  max-width: 1200px;        /* PC 최대 크기 제한 */
+  height: auto;             /* 원본 비율 유지 */
+  object-fit: contain;      /* 이미지 전체 보이기 */
+  display: block;           /* 여백 제거 */
+  transition: width 0.3s ease;
+}
 
-    /* ========== 📱 모바일 반응형 대응 ========== */
+/* ========== 📱 모바일 반응형 대응 ========== */
 
-    /* 작은 태블릿 이하 (768px 이하) */
-     @ media(max - width: 768px) {
-        .hero - img {
-            width: 90 % ; /* 이미지 더 크게 표시 */
-            max - width: 100 % ; /* 제한 해제 */
-        }
+/* 작은 태블릿 이하 (768px 이하) */
+@media (max-width: 768px) {
+  .hero-img {
+    width: 90%;             /* 이미지 더 크게 표시 */
+    max-width: 100%;        /* 제한 해제 */
+  }
 
-        #heroSection {
-            padding: 1.5rem 0; /* 여백 축소 */
-        }
-    }
+  #heroSection {
+    padding: 1.5rem 0;      /* 여백 축소 */
+  }
+}
 
-    /* 소형 스마트폰 (480px 이하) */
-     @ media(max - width: 480px) {
-        .hero - img {
-            width: 95 % ; /* 거의 전체 화면 너비 사용 */
-        }
+/* 소형 스마트폰 (480px 이하) */
+@media (max-width: 480px) {
+  .hero-img {
+    width: 95%;             /* 거의 전체 화면 너비 사용 */
+  }
 
-        #heroSection {
-            padding: 1rem 0;
-        }
-    }
+  #heroSection {
+    padding: 1rem 0;
+  }
+}
 
     /* ===================================================
-    6. 본문 콘텐츠 영역
-    - 최대 너비 제한 및 중앙 정렬
-    - 헤더 + 히어로 섹션 높이만큼 패딩 탑 조정
-    - 가독성 좋은 글자 크기 및 줄 간격
-    - 페이드 인 애니메이션 적용
+       6. 본문 콘텐츠 영역
+       - 최대 너비 제한 및 중앙 정렬
+       - 헤더 + 히어로 섹션 높이만큼 패딩 탑 조정
+       - 가독성 좋은 글자 크기 및 줄 간격
+       - 페이드 인 애니메이션 적용
     =================================================== */
     main {
-        max - width: 900px;
-        margin: 0 auto;
-        padding: calc(20px + (var(--vh, 1vh) * 45) + 20px)20px 40px;
-        color: #222;
-        font - size: 18px;
-        line - height: 1.5;
-        animation: fade - in 1s ease;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: calc(20px + (var(--vh, 1vh) * 45) + 20px) 20px 40px;
+      color: #222;
+      font-size: 18px;
+      line-height: 1.5;
+      animation: fade-in 1s ease;
     }
     h1 {
-        margin - top: 0;
-        font - size: 2rem;
-        font - weight: 700;
-        color: #111;
+      margin-top: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
     }
-    /* 회사소개 섹션 기본 스타일 (라이트 모드용) */
-    main {
-        color: #000; /* 라이트 모드에서 검정색 글자 */
-    }
+	/* 회사소개 섹션 기본 스타일 (라이트 모드용) */
+main {
+  color: #000; /* 라이트 모드에서 검정색 글자 */
+}
 
-    /* 다크 모드일 때 회사소개 섹션 글자색 변경 */
-    body.dark - mode main {
-        color: #fff; /* 다크 모드에서 흰색 글자 */
-    }
+/* 다크 모드일 때 회사소개 섹션 글자색 변경 */
+body.dark-mode main {
+  color: #fff; /* 다크 모드에서 흰색 글자 */
+}
     main a {
-        color: #0066cc;
-        text - decoration: underline;
+      color: #0066cc;
+      text-decoration: underline;
     }
-    /* 다크모드일 때 h1도 흰색으로 표시되도록 명시 */
-    body.dark - mode main h1 {
-        color: #fff!important;
-    }
+/* 다크모드일 때 h1도 흰색으로 표시되도록 명시 */
+body.dark-mode main h1 {
+  color: #fff !important;
+}
     /* ===================================================
-    7. 반응형 스타일
-    - 화면 너비 768px 이하일 때
-    - 히어로 섹션 높이 축소, 패딩 조정
-    - 폰트 크기 및 메뉴 간격 축소
-    - 로고 크기 축소
+       7. 반응형 스타일
+       - 화면 너비 768px 이하일 때
+       - 히어로 섹션 높이 축소, 패딩 조정
+       - 폰트 크기 및 메뉴 간격 축소
+       - 로고 크기 축소
     =================================================== */
-     @ media(max - width: 768px) {
-        .logo - container img {
-            height: 30px;
-        }
-        #heroSection {
-            height: calc(var(--vh, 1vh) * 40);
-        }
-        main {
-            padding - top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
-            padding - left: 15px;
-            padding - right: 15px;
-            font - size: 14px;
-        }
-        .top - nav ul {
-            gap: 10px;
-        }
-        .top - nav ul li a {
-            padding: 5px 8px;
-            font - size: 14px;
-        }
-        h1 {
-            font - size: 1.6rem;
-        }
-    }
-
-    /* ===================================================
-    8. 애니메이션 키프레임 정의
-    - 페이드인 (main)
-    - 로고 슬라이드 인 (왼쪽에서)
-    =================================================== */
-     @ keyframes fade - in {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-     @ keyframes slide - in - left {
-        from {
-            transform: translateX(-30px);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+    @media (max-width: 768px) {
+      .logo-container img {
+        height: 30px;
+      }
+      #heroSection {
+        height: calc(var(--vh, 1vh) * 40);
+      }
+      main {
+        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+      }
+      .top-nav ul {
+        gap: 10px;
+      }
+      .top-nav ul li a {
+        padding: 5px 8px;
+        font-size: 14px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
     }
 
     /* ===================================================
-    4. FOOTER (페이지 하단 정보 영역)
-    - 전체 화면 너비 고정 (100vw)
-    - 배경 어두운 색(#111), 텍스트 밝은 회색(#ccc)
-    - 내부 콘텐츠 최대 너비 900px, 가운데 정렬
-    - flexbox로 항목 가로 정렬, 줄바꿈 가능
-    - '|' 구분자 스타일 및 클릭 방지 설정
-    - 텍스트 선택 가능
-    - 반응형 폰트 크기 및 패딩 조절
+       8. 애니메이션 키프레임 정의
+       - 페이드인 (main)
+       - 로고 슬라이드 인 (왼쪽에서)
     =================================================== */
-    /* ===============================
-    🧾 회사 정보 Footer 스타일
-    =============================== */
-    .site - footer {
-        position: fixed; /* 화면에 고정: 스크롤해도 항상 보임 */
-        bottom: 0; /* 화면 맨 아래에 위치시킴 */
-        left: 0; /* 화면 왼쪽 끝부터 시작 */
-        width: 100 % ; /* 가로 전체를 꽉 채움 (좌우 꽉 찬 푸터) */
-        background: #fff; /* 배경색은 흰색 - 라이트 모드 기본 */
-        color: #000; /* 글자색은 검은색으로 지정 */
-        text - align: center; /* 텍스트를 중앙 정렬 */
-        padding: 20px 0; /* 상하 여백 20px, 좌우 여백 0 (세로 여백 넉넉히) */
-        margin: 0; /* 외부 여백 없앰 (고정 위치라 필요 없음) */
-        box - sizing: border - box; /* 패딩, 테두리 포함해서 전체 width 계산 */
-        text - shadow: none; /* 혹시 남아있는 글자 그림자 제거 */
-        z - index: 9999; /* 매우 높은 레이어 순서 지정: 다른 요소보다 위에 표시 */
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-
-    /* ===============================
-    📐 반응형 디자인 - 작은 화면에 대한 대응
-    =============================== */
-     @ media(max - width: 768px) {
-        .site - footer {
-            padding: 15px 0; /* 화면이 작을 경우 푸터의 여백을 줄여서 공간을 효율적으로 사용 */
-            font - size: 0.9rem; /* 글자 크기를 살짝 줄여서 작은 화면에서 가독성 향상 */
-        }
-    }
-
-     @ media(max - width: 480px) {
-        .site - footer {
-            padding: 10px 0; /* 더 작은 화면에서는 여백을 더욱 줄임 */
-            font - size: 0.8rem; /* 모바일 화면에서는 글자 크기를 조금 더 줄임 */
-        }
-    }
-
-    /* ===============================
-    🌙 다크모드에서 Footer 스타일 변경
-    =============================== */
-    body.dark - mode.site - footer {
-        background - color: rgba(255, 255, 255, 0.05)!important;
-        /*
-        배경을 거의 투명한 흰색으로 변경해 어두운 배경과 조화롭게 함
-        !important 붙여 우선순위 보장 (다른 스타일 덮어쓰지 못하도록)
-         */
-
-        color: #f0f0f0!important;
-        /*
-        글자색을 밝은 회색으로 변경
-        !important 로 우선순위 확보
-         */
-    }
-
-    body.dark - mode.site - footer a {
-        color: #ffdd55!important;
-        /*
-        다크모드 푸터 내 링크는 밝은 노란색으로 변경
-        눈에 잘 띄게 하여 가독성 향상
-         */
-    }
-
-    /* ===============================
-    🖥️ 본문 컨텐츠가 푸터에 가려지는 것을 방지하기 위한 패딩
-    =============================== */
-    body {
-        padding - bottom: 70px;
-        /*
-        페이지 본문에 아래쪽 여백을 푸터 높이만큼 추가
-        푸터가 고정되어 있어 본문 마지막 부분이 푸터 밑에 가려지는 문제 방지
-        푸터 높이에 따라 값 조절 가능 (현재는 70px 예시)
-         */
-    }
-    /* ===================================================
-    🌗 다크/라이트 모드 스타일 정의
-    - body.dark-mode 적용 시 배경과 텍스트 색상 변경
-    =================================================== */
-    body.dark - mode {
-        background - color: #111!important;
-        color: #eee!important;
-    }
-    body.dark - mode header {
-        background - color: #222!important;
-    }
-    body.dark - mode.top - nav ul li a {
-        color: #ccc!important;
-    }
-    body.dark - mode.top - nav ul li a: hover,
-    body.dark - mode.top - nav ul li a.active {
-        background - color: #444!important;
+    @keyframes slide-in-left {
+      from {
+        transform: translateX(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     /* ===================================================
-    📱 반응형 스타일: 모바일, 태블릿, 데스크탑 대응
+       4. FOOTER (페이지 하단 정보 영역)
+       - 전체 화면 너비 고정 (100vw)
+       - 배경 어두운 색(#111), 텍스트 밝은 회색(#ccc)
+       - 내부 콘텐츠 최대 너비 900px, 가운데 정렬
+       - flexbox로 항목 가로 정렬, 줄바꿈 가능
+       - '|' 구분자 스타일 및 클릭 방지 설정
+       - 텍스트 선택 가능
+       - 반응형 폰트 크기 및 패딩 조절
     =================================================== */
+   /* ===============================
+   🧾 회사 정보 Footer 스타일
+   =============================== */
+.site-footer {
+  position: fixed;           /* 화면에 고정: 스크롤해도 항상 보임 */
+  bottom: 0;                 /* 화면 맨 아래에 위치시킴 */
+  left: 0;                   /* 화면 왼쪽 끝부터 시작 */
+  width: 100%;               /* 가로 전체를 꽉 채움 (좌우 꽉 찬 푸터) */
+  background: #fff;          /* 배경색은 흰색 - 라이트 모드 기본 */
+  color: #000;               /* 글자색은 검은색으로 지정 */
+  text-align: center;        /* 텍스트를 중앙 정렬 */
+  padding: 20px 0;           /* 상하 여백 20px, 좌우 여백 0 (세로 여백 넉넉히) */
+  margin: 0;                 /* 외부 여백 없앰 (고정 위치라 필요 없음) */
+  box-sizing: border-box;    /* 패딩, 테두리 포함해서 전체 width 계산 */
+  text-shadow: none;         /* 혹시 남아있는 글자 그림자 제거 */
+  z-index: 9999;             /* 매우 높은 레이어 순서 지정: 다른 요소보다 위에 표시 */
+}
 
-    /* 공통 컨테이너 폭 제한 및 자동 가운데 정렬 */
-    .container, .wrapper, .inner {
-        max - width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        box - sizing: border - box;
-    }
+/* =============================== 
+   📐 반응형 디자인 - 작은 화면에 대한 대응
+   =============================== */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 15px 0;           /* 화면이 작을 경우 푸터의 여백을 줄여서 공간을 효율적으로 사용 */
+    font-size: 0.9rem;         /* 글자 크기를 살짝 줄여서 작은 화면에서 가독성 향상 */
+  }
+}
 
-    /* 반응형 텍스트 */
-    body {
-        font - size: 16px;
-    }
-     @ media(max - width: 1024px) {
-        body {
-            font - size: 15px;
-        }
-    }
-     @ media(max - width: 768px) {
-        body {
-            font - size: 14px;
-        }
-        header,
-        nav,
-        footer {
-            padding: 10px 16px;
-        }
-    }
-     @ media(max - width: 480px) {
-        body {
-            font - size: 13px;
-        }
-        .top - nav ul {
-            flex - direction: column;
-        }
-        .top - nav ul li {
-            margin - bottom: 10px;
-        }
-        footer {
-            text - align: center;
-        }
-    }
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 10px 0;           /* 더 작은 화면에서는 여백을 더욱 줄임 */
+    font-size: 0.8rem;         /* 모바일 화면에서는 글자 크기를 조금 더 줄임 */
+  }
+}
 
-    /* 반응형 이미지 및 비디오 */
-    img, video {
-        max - width: 100 % ;
-        height: auto;
-        display: block;
-    }
+/* =============================== 
+   🌙 다크모드에서 Footer 스타일 변경
+   =============================== */
+body.dark-mode .site-footer {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  /*
+    배경을 거의 투명한 흰색으로 변경해 어두운 배경과 조화롭게 함
+    !important 붙여 우선순위 보장 (다른 스타일 덮어쓰지 못하도록)
+  */
+  
+  color: #f0f0f0 !important; 
+  /*
+    글자색을 밝은 회색으로 변경
+    !important 로 우선순위 확보
+  */
+}
 
-    /* ===================================================
-    🔠 clamp() 사용한 반응형 폰트 스케일링
-    =================================================== */
-    body {
-        font - size: clamp(13px, 1.6vw, 18px);
-    }
+body.dark-mode .site-footer a {
+  color: #ffdd55 !important;
+  /*
+    다크모드 푸터 내 링크는 밝은 노란색으로 변경
+    눈에 잘 띄게 하여 가독성 향상
+  */
+}
+
+/* =============================== 
+   🖥️ 본문 컨텐츠가 푸터에 가려지는 것을 방지하기 위한 패딩
+   =============================== */
+body {
+  padding-bottom: 70px; 
+  /*
+    페이지 본문에 아래쪽 여백을 푸터 높이만큼 추가
+    푸터가 고정되어 있어 본문 마지막 부분이 푸터 밑에 가려지는 문제 방지
+    푸터 높이에 따라 값 조절 가능 (현재는 70px 예시)
+  */
+}
+/* ===================================================
+   🌗 다크/라이트 모드 스타일 정의
+   - body.dark-mode 적용 시 배경과 텍스트 색상 변경
+=================================================== */
+body.dark-mode {
+  background-color: #111 !important;
+  color: #eee !important;
+}
+body.dark-mode header {
+  background-color: #222 !important;
+}
+body.dark-mode .top-nav ul li a {
+  color: #ccc !important;
+}
+body.dark-mode .top-nav ul li a:hover,
+body.dark-mode .top-nav ul li a.active {
+  background-color: #444 !important;
+}
+
+/* ===================================================
+   📱 반응형 스타일: 모바일, 태블릿, 데스크탑 대응
+=================================================== */
+
+/* 공통 컨테이너 폭 제한 및 자동 가운데 정렬 */
+.container, .wrapper, .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* 반응형 텍스트 */
+body {
+  font-size: 16px;
+}
+@media (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  header, nav, footer {
+    padding: 10px 16px;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  .top-nav ul {
+    flex-direction: column;
+  }
+  .top-nav ul li {
+    margin-bottom: 10px;
+  }
+  footer {
+    text-align: center;
+  }
+}
+
+
+/* 반응형 이미지 및 비디오 */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ===================================================
+   🔠 clamp() 사용한 반응형 폰트 스케일링
+=================================================== */
+body {
+  font-size: clamp(13px, 1.6vw, 18px);
+}
 
 
 <!-- /* ===================================================
@@ -460,20 +450,20 @@
     display: flex;
   }
 } -->
-</style>
-<meta content="ko"
-      http-equiv="Content-Language"/>
-<meta content="씨앤비즈 회사소개 페이지"
-      name="description"/>
-<meta content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길"
-      name="keywords"/>
-<meta content="CNBIZ Co., Ltd"
-      name="author"/>
-<meta content="index, follow"
-      name="robots"/>
-</head>
-<body>
-	<script>
+		</style>
+		<meta content="ko"
+		      http-equiv="Content-Language"/>
+		<meta content="씨앤비즈 회사소개 페이지"
+		      name="description"/>
+		<meta content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길"
+		      name="keywords"/>
+		<meta content="CNBIZ Co., Ltd"
+		      name="author"/>
+		<meta content="index, follow"
+		      name="robots"/>
+	</head>
+	<body>
+		<script>
 /* ===================================================
    🌗 시스템 다크모드 자동 감지 및 적용
    - prefers-color-scheme 미디어쿼리 감지
@@ -493,60 +483,60 @@ document.addEventListener("DOMContentLoaded", () => {
        1. HEADER 섹션: 상단 고정 네비게이션 바
        - 로고 클릭 시 홈페이지 이동 기능 포함
   =================================================== -->
-<header id="header">
-	<div class="logo-container">
-		<img alt="회사 로고"
-		     id="logoClick"
-		     src="/LED/CnbizLogo.png"
-		     srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
-	</div>
+		<header id="header">
+			<div class="logo-container">
+				<img alt="회사 로고"
+				     id="logoClick"
+				     src="/LED/CnbizLogo.png"
+				     srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
+			</div>
 			<!-- <div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
 <span></span>
 <span></span>
 <span></span>
 </div> -->
-<nav aria-label="주요 메뉴"
-     class="top-nav"
-     role="navigation">
-	<ul>
-		<li>
-			<a class="active"
-			   href="/LED/Content/Company/aboutus/">회사소개</a>
-		</li>
-		<li>
-			<a href="/LED/Content/Company/history/">회사연혁</a>
-		</li>
-		<li>
-			<a href="/LED/Content/Company/location/">오시는 길</a>
-		</li>
-	</ul>
-</nav>
-</header>
-<!-- 히어로 섹션: 고정 배경 이미지 -->
-<section id="heroSection">
-	<img src="/LED/Main.png"
-	     alt="LED 메인 이미지"
-	     class="hero-img"/>
-</section>
-<!-- 본문 콘텐츠 -->
-<main>
-	<h1>회사소개</h1>
-	<p>고객의 요구에 맞춰</p>
-	<p>최적의 System을 제공해드립니다.</p>
-	<p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
-	<p>고객이 최신 IT Solution Trend를 제공받으실 수 있는 System 기반으로 운영합니다.</p>
-	<p>또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.</p>
-</main>
+			<nav aria-label="주요 메뉴"
+			     class="top-nav"
+			     role="navigation">
+				<ul>
+					<li>
+						<a class="active"
+						   href="/LED/Content/Company/aboutus/">회사소개</a>
+					</li>
+					<li>
+						<a href="/LED/Content/Company/history/">회사연혁</a>
+					</li>
+					<li>
+						<a href="/LED/Content/Company/location/">오시는 길</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<!-- 히어로 섹션: 고정 배경 이미지 -->
+		<section id="heroSection">
+			<img src="/LED/Main.png"
+			     alt="LED 메인 이미지"
+			     class="hero-img"/>
+		</section>
+		<!-- 본문 콘텐츠 -->
+		<main>
+			<h1>회사소개</h1>
+			<p>고객의 요구에 맞춰</p>
+			<p>최적의 System을 제공해드립니다.</p>
+			<p>고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,</p>
+			<p>고객이 최신 IT Solution Trend를 제공받으실 수 있는 System 기반으로 운영합니다.</p>
+			<p>또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른 최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.</p>
+		</main>
 		<!-- ===================================================
        10. FOOTER 섹션: 페이지 하단 중앙에 회사 정보 표시
        - 페이지 하단 정중앙에 위치하도록 조정
   =================================================== -->
 		<!-- 🧾 Footer 회사 정보 -->
-<footer class="site-footer">
+		<footer class="site-footer">
   업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
   대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805<br>
   문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a> | 기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a>
-			<br>
+					<br>
   Copyright © 2023 (주)씨앤비즈. All rights reserved.
 </footer>
 					<!-- ===================================================
@@ -589,7 +579,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-					<!-- <script>
+<!-- <script>
 /* ===================================================
    🍔 햄버거 메뉴 toggle 스크립트
 =================================================== */
@@ -603,7 +593,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script> -->
-					<script>
+<script>
 /* ===================================================
    🌐 브라우저 언어 자동 감지 및 콘텐츠 전환
    - 기본: 한국어 (ko), 영어(en)만 예제로 구성
