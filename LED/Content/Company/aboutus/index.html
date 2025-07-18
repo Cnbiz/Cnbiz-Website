@@ -6,6 +6,7 @@
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
 		      name="viewport"/>
 		<title>주식회사 씨앤비즈 | 회사소개</title>
+		<!-- 2025.07.18 수정 -->
 		<!-- 파비콘 설정 -->
 		<link href="/LED/Cnbiz_link_icon-16.png"
 		      rel="icon"
@@ -132,15 +133,16 @@ html, body {
   color: #000;                /* 라이트 글씨 색 */
   font-weight: 600;           /* 글씨 두껍게 */
   border-radius: 6px;
-  padding: 20px;
-  margin: 20px auto;
+  padding: 30px 20px;
+  margin: 60px auto;          /* 히어로와 겹치지 않게 아래로 */
   max-width: 1200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 /* 다크 모드 대응 */
 @media (prefers-color-scheme: dark) {
   .company-wrap {
-    background: rgba(0, 0, 0, 0.6); /* 다크 모드 반투명 배경 */
+    background: rgba(0, 0, 0, 0.2); /* 다크 모드 불투명 배경 */
     color: #fff;                    /* 글씨 흰색 */
   }
 }
@@ -148,8 +150,11 @@ html, body {
 /* 표 스타일 */
 .company-table {
   border-collapse: collapse;
-  width: 100%;
   max-width: 600px;
+  width: 100%;
+  border-right: 2px solid #0066cc; /* 우측 테두리 파란색 */
+  order: 1; /* 왼쪽에 표시 */
+  animation: fadeInLeft 1s ease forwards;
 }
 
 /* 표의 헤더 셀 */
@@ -159,6 +164,8 @@ html, body {
   padding: 8px;
   text-align: left;
   font-weight: bold;
+  white-space: nowrap;
+  border: 1px solid #999;
 }
 
 /* 표의 데이터 셀 */
@@ -167,6 +174,7 @@ html, body {
   padding: 8px;
   color: #000;                /* 라이트 기본 글씨 */
   font-weight: 600;
+  word-break: keep-all;
 }
 
 /* 다크 모드에서 표 데이터 색 변경 */
@@ -181,11 +189,15 @@ html, body {
 .company-text {
   flex: 1;
   min-width: 300px;
+  margin-left: 20px;   /* 표 오른쪽에 공간 확보 */
+  margin-top: -35px;   /* 문장 위로 조금 올림 */
+  order: 2;            /* 오른쪽에 표시 */
+  animation: fadeInRight 1s ease forwards;
 }
 
 /* 제목 */
 .company-text h2 {
-  font-size: 1.5em;
+  font-size: 2em; /* 조금 크게 */
   font-weight: 700;
 }
 
@@ -198,9 +210,9 @@ html, body {
 /* 본문 */
 .company-text p {
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 500; /* 중간 굵기 */
   margin: 10px 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* 다크 모드에서 강조 부분은 유지 */
@@ -208,6 +220,40 @@ html, body {
   .company-text .highlight {
     color: #3399ff;
   }
+}
+body.dark-mode .company-wrap {
+  background: rgba(0, 0, 0, 0.2); /* 다크 모드 불투명 배경 */
+  color: #fff;                    /* 글씨 흰색 */
+}
+/* 다크모드 시 표 테두리와 글씨 색 변경 */
+body.dark-mode .company-table td {
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+body.dark-mode .company-table th {
+  background: #444;
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+body.dark-mode .company-text .highlight {
+  color: #3399ff;
+}
+
+body.dark-mode .company-wrap {
+  background: rgba(0, 0, 0, 0.2); /* 투명도 높여서 더 보이게 */
+  color: #fff;
+}
+/* 애니메이션 키프레임 */
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 /* 2025.07.18 회사소개 수정 */
@@ -632,39 +678,43 @@ document.addEventListener("DOMContentLoaded", () => {
 		<section id="heroSection"></section>
 		<!-- 회사소개 섹션 -->
 <main role="main">
-  <div class="company-wrap">
-    <table class="company-table">
-      <tr>
-        <th>회사명</th>
-        <td>(주)씨앤비즈</td>
-        <th>대표</th>
-        <td>차호진</td>
-      </tr>
-      <tr>
-        <th>주소</th>
-        <td colspan="3">경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</td>
-      </tr>
-      <tr>
-        <th>설립일</th>
-        <td>2016.3 (2019.3 법인설립)</td>
-        <th>홈페이지</th>
-        <td>www.cnbiznet.co.kr</td>
-      </tr>
-      <tr>
-        <th>전화/팩스</th>
-        <td colspan="3">T.031-706-6641 / F.031-704-6648</td>
-      </tr>
-    </table>
-    <div class="company-text">
-      <h2>고객의 요구에 맞춘 <span class="highlight">최적의 System</span>을 제공합니다.</h2>
-      <p>
-        고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문 기업이며,<br>
-        최신 IT Trend를 체감할 수 있는 System을 개발·운영합니다.<br>
-        또한 경영관리, 보안 등 요구사항에 따른 최적화 Solution을 맞춤 Consulting을 통해 제공합니다.
-      </p>
-    </div>
+<section class="company-wrap">
+  <table class="company-table">
+    <tr>
+      <th>회사명</th>
+      <td>주식회사 씨앤비즈</td>
+      <th>대표</th>
+      <td>차호진</td>
+    </tr>
+    <tr>
+      <th>주소</th>
+      <td colspan="3">경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</td>
+    </tr>
+    <tr>
+      <th>설립일</th>
+      <td>2019.3 ㈜씨앤비즈 법인설립</td>
+      <th>홈페이지</th>
+      <td>www.cnbiznet.co.kr</td>
+    </tr>
+    <tr>
+      <th>전화</th>
+      <td>Tel. 031-706-6641</td>
+      <th>팩스</th>
+      <td>Fax. 031-704-6648</td>
+    </tr>
+  </table>
+
+  <div class="company-text">
+    <h2>고객의 요구에 맞춰<br><span class="highlight">최적의 System</span>을 제공합니다.</h2>
+    <p>
+      고객이 요구하는 Total IT Solution을 고객의 입장에서<br>제공하는 전문기업이며,
+      고객이 최신 IT Solution Trend를<br>제공 받으실 수 있는 System 기반으로 운영합니다.<br>
+      또한 각종 기업 경영관리 및 보안 등의 요구사항에 따른<br>최적의 Solution을 맞춤 Consulting을 통해 제공해드립니다.
+    </p>
   </div>
+</section>
 </main>
+
 
 		<!-- ===================================================
        10. FOOTER 섹션: 페이지 하단 중앙에 회사 정보 표시
