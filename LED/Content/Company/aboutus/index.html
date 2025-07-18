@@ -98,12 +98,99 @@
        - 반응형 높이 (vh 변수 활용)
        - 이미지 크기 및 위치 설정
     =================================================== */
-/* ===============================================
-   🌄 Hero Section 스타일 (통합 완성본)
-   - 웹페이지 상단 이미지 영역
-   - 이미지 정중앙 배치 및 반응형
-   - 라이트/다크모드 + iOS 대응 최적화
-================================================ */
+.hero {
+  margin: 0 auto;               /* 가운데 정렬 */
+  margin-top: 4vw;
+  width: 34.4%;                   /* 가로 폭을 화면의 90%로 */
+  height: 350px;
+  background: url('aboutus.png') no-repeat center center;
+  background-size: contain;     /* 이미지 잘리지 않고 전체가 보이도록 */
+  border-radius: 30px;
+  overflow: hidden;             /* 둥근 모서리 바깥 부분 잘림 방지 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1s ease-out forwards;
+}
+
+/* 기존 fadeSlideUp */
+/* 1. Fade In (부드럽게 나타남) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hero.fade-in {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+/* 2. Fade + Slide Up (조금 더 생동감) */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero.fade-slide-up {
+  animation: fadeSlideUp 1.2s ease-out forwards;
+}
+
+/* 3. Zoom In (살짝 확대되며 등장) */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.hero.zoom-in {
+  animation: zoomIn 1.2s ease-out forwards;
+}
+
+/* 4. Blur to Clear (흐림 → 선명) */
+@keyframes blurToClear {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.hero.blur-to-clear {
+  animation: blurToClear 1.2s ease-out forwards;
+}
+
+/* 5. Rotate & Fade (살짝 회전하며 등장) */
+@keyframes rotateFadeIn {
+  from {
+    opacity: 0;
+    transform: rotate(-2deg) scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+.hero.rotate-fade-in {
+  animation: rotateFadeIn 1.2s ease-out forwards;
+}
+
+.hero img {
+  position: relative;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+}
+
 /* 2025.07.18 회사소개 수정 */
 /* 기본 박스 공통 스타일 */
 *,
@@ -258,69 +345,6 @@ body.dark-mode .company-wrap {
 
 /* 2025.07.18 회사소개 수정 */
 
-/* 🌄 HERO SECTION 전체 이미지 배경 구성 */
-#heroSection {
-  position: relative;
-  top: 60px;                     /* 헤더 아래 여백 */
-  width: 100vw;
-  height: 400px;                /* ✅ 고정 높이 (필요 시 조절) */
-  background-image: url('/LED/Main.png'); /* ✅ 이미지 경로 */
-  background-size: cover;       /* ✅ 가로 꽉차게 *
-  background-repeat: no-repeat; /* 반복 안함 */
-  background-position: center center; /* 정중앙 배치 */
-  background-color: #fff;       /* 기본 흰 배경 */
-  z-index: 1000;
-  border-bottom: 2px solid #ccc;
-
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
-}
-
-/* 다크모드 대응 */
-body.dark-mode #heroSection {
-  background-color: rgba(0, 0, 0, 0.5); /* 이미지 위 반투명 어둠 */
-  border-bottom: 2px solid #444;
-}
-
-/* 🔽 이미지 대신 텍스트나 요소가 들어갈 경우 내부 정렬 */
-#heroSection .hero-content {
-  display: none; /* 현재는 이미지만 표시할 경우 내부 콘텐츠는 숨김 */
-}
-
-/* 📱 모바일 대응 */
-@media (max-width: 768px) {
-  #heroSection {
-    height: 300px; /* 모바일에서 높이 줄임 */
-    background-size: contain;
-  }
-  }
-/* 기본 구조 */
-#companyIntro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: clamp(0.5rem, 2vw, 1.5rem);  /* 반응형 padding */
-  margin: 2.7rem auto;
-  max-width: clamp(300px, 90%, 650px);
-}
-main {
-  margin: 0 auto;
-  padding: 20px;
-}
-.section-title {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);   /* 최소~가변~최대 */
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-
-.section-description {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);   /* 최소~가변~최대 */
-  line-height: 1.8;
-  color: #333;
-}
     /* ===================================================
        6. 본문 콘텐츠 영역
        - 최대 너비 제한 및 중앙 정렬
@@ -423,23 +447,20 @@ body.dark-mode main h1 {
        - 텍스트 선택 가능
        - 반응형 폰트 크기 및 패딩 조절
     =================================================== */
-   /* ===============================
+      /* ===============================
    🧾 회사 정보 Footer 스타일
    =============================== */
 .site-footer {
-  position: fixed;           /* 화면에 고정: 스크롤해도 항상 보임 */
-  bottom: 0;                 /* 화면 맨 아래에 위치시킴 */
-  left: 0;                   /* 화면 왼쪽 끝부터 시작 */
-  width: 100%;               /* 가로 전체를 꽉 채움 (좌우 꽉 찬 푸터) */
-  background: #fff;          /* 배경색은 흰색 - 라이트 모드 기본 */
-  color: #000;               /* 글자색은 검은색으로 지정 */
-  text-align: center;        /* 텍스트를 중앙 정렬 */
-  padding: 20px 0;           /* 상하 여백 20px, 좌우 여백 0 (세로 여백 넉넉히) */
-  margin: 0;                 /* 외부 여백 없앰 (고정 위치라 필요 없음) */
-  box-sizing: border-box;    /* 패딩, 테두리 포함해서 전체 width 계산 */
-  text-shadow: none;         /* 혹시 남아있는 글자 그림자 제거 */
-  z-index: 9999;             /* 매우 높은 레이어 순서 지정: 다른 요소보다 위에 표시 */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);   /* 반투명 다크톤 (히어로/본문과 어울림) */
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
   font-size: clamp(12px, 1.2vw, 15px);
+  z-index: 9999;
 }
 
 /* =============================== 
@@ -462,18 +483,10 @@ body.dark-mode main h1 {
 /* =============================== 
    🌙 다크모드에서 Footer 스타일 변경
    =============================== */
+/* 다크모드 - 색을 조금 더 밝은 회색톤으로 */
 body.dark-mode .site-footer {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  /*
-    배경을 거의 투명한 흰색으로 변경해 어두운 배경과 조화롭게 함
-    !important 붙여 우선순위 보장 (다른 스타일 덮어쓰지 못하도록)
-  */
-  
-  color: #f0f0f0 !important; 
-  /*
-    글자색을 밝은 회색으로 변경
-    !important 로 우선순위 확보
-  */
+  background: rgba(255,255,255,0.08) !important;
+  color: #f0f0f0 !important;
 }
 
 body.dark-mode .site-footer a {
@@ -675,7 +688,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			</nav>
 		</header>
 		<!-- 히어로 섹션: 고정 배경 이미지 -->
-		<section id="heroSection"></section>
+<section class="hero"></section>
 		<!-- 회사소개 섹션 -->
 <main role="main">
 <section class="company-wrap">
@@ -802,6 +815,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (desc) desc.textContent = "We specialize in LED technology and innovation.";
   }
 });
+</script>
+<script>
+  const animations = [
+    'fade-in',
+    'fade-slide-up',
+    'zoom-in',
+    'blur-to-clear',
+    'rotate-fade-in'
+  ];
+  const hero = document.querySelector('.hero');
+  hero.classList.add(animations[Math.floor(Math.random() * animations.length)]);
 </script>
 </body>
 </html>
