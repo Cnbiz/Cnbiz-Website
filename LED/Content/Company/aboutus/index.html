@@ -139,13 +139,8 @@ body.dark-mode #heroSection {
     height: 300px; /* 모바일에서 높이 줄임 */
     background-size: contain;
   }
+  }
 /* 기본 구조 */
-#companyIntro {
-  padding: 3rem 1rem;
-  text-align: center;
-  background-color: #fff;
-}
-
 #companyIntro {
   display: flex;
   justify-content: center;
@@ -176,14 +171,14 @@ body.dark-mode #heroSection {
        - 페이드 인 애니메이션 적용
     =================================================== */
     main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: calc(20px + (var(--vh, 1vh) * 45) + 20px) 20px 40px;
-      color: #222;
-      font-size: 18px;
-      line-height: 1.5;
-      animation: fade-in 1s ease;
-    }
+  max-width: 900px;
+  margin: 460px auto 0; /* 헤더60 + heroSection400 = 460px */
+  padding: 0 20px 40px;
+  color: #222;
+  font-size: 18px;
+  line-height: 1.5;
+  animation: fade-in 1s ease;
+}
     h1 {
       margin-top: 0;
       font-size: 2rem;
@@ -219,14 +214,13 @@ body.dark-mode main h1 {
         height: 30px;
       }
       #heroSection {
-        height: calc(var(--vh, 1vh) * 40);
+        height: calc(var(--vh, 1vh) * 50);
       }
-      main {
-        padding-top: calc(60px + (var(--vh, 1vh) * 40) + 20px);
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 14px;
-      }
+        main {
+			padding-left: 15px;
+			padding-right: 15px;
+			font-size: 14px;
+	}
       .top-nav ul {
         gap: 10px;
       }
@@ -419,10 +413,10 @@ body {
   font-size: clamp(13px, 1.6vw, 18px);
 }
 
-
-<!-- /* ===================================================
+/* ===================================================
    🍔 모바일 햄버거 메뉴 스타일
-=================================================== */
+   =================================================== */
+/*
 .hamburger {
   display: none;
   flex-direction: column;
@@ -455,7 +449,8 @@ body {
   .top-nav ul.show {
     display: flex;
   }
-} -->
+}
+*/
 		</style>
 		<meta content="ko"
 		      http-equiv="Content-Language"/>
@@ -496,7 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				     src="/LED/CnbizLogo.png"
 				     srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
 			</div>
-			<!-- <div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
+<!-- <div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
 <span></span>
 <span></span>
 <span></span>
@@ -521,9 +516,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		<!-- 히어로 섹션: 고정 배경 이미지 -->
 		<section id="heroSection"></section>
 		<!-- 회사소개 섹션 -->
+<main role="main">
 <section id="companyIntro" class="intro">
   <div class="container">
-    <h2 class="section-title">회사소개</h2>
+    <h1 class="section-title">회사소개</h1>
     <p class="section-description">
       고객의 요구에 맞춰<br />
       최적의 System을 제공합니다.<br /><br />
@@ -536,6 +532,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </p>
   </div>
 </section>
+</main>
+
 		<!-- ===================================================
        10. FOOTER 섹션: 페이지 하단 중앙에 회사 정보 표시
        - 페이지 하단 정중앙에 위치하도록 조정
@@ -588,10 +586,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-<!-- <script>
-/* ===================================================
+
+<script>
+/*===================================================
    🍔 햄버거 메뉴 toggle 스크립트
-=================================================== */
+===================================================
+
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("hamburgerBtn");
   const navList = document.querySelector(".top-nav ul");
@@ -601,7 +601,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-</script> -->
+*/
+</script>
 <script>
 /* ===================================================
    🌐 브라우저 언어 자동 감지 및 콘텐츠 전환
@@ -611,12 +612,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const lang = navigator.language || navigator.userLanguage;
   const html = document.documentElement;
+  const heading = document.querySelector(".section-title");
   if (lang.startsWith("en")) {
     html.lang = "en";
-    // 필요한 경우, 여기에 실제 번역된 콘텐츠 교체 로직 삽입
-    const heading = document.querySelector("h1");
     if (heading) heading.textContent = "Welcome to CNBIZ";
-    const desc = document.querySelector("p");
+    const desc = document.querySelector("p.section-description");
     if (desc) desc.textContent = "We specialize in LED technology and innovation.";
   }
 });
