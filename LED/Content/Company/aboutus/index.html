@@ -111,7 +111,7 @@
   width: 100vw;
   height: 400px;                /* ✅ 고정 높이 (필요 시 조절) */
   background-image: url('/LED/Main.png'); /* ✅ 이미지 경로 */
-  background-size: contain;     /* ✅ 이미지 짤리지 않게 */
+  background-size: cover;       /* ✅ 가로 꽉차게 *
   background-repeat: no-repeat; /* 반복 안함 */
   background-position: center center; /* 정중앙 배치 */
   background-color: #fff;       /* 기본 흰 배경 */
@@ -146,11 +146,11 @@ body.dark-mode #heroSection {
   flex-direction: column;
   align-items: flex-start; /* 왼쪽 정렬 */
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
+  background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
   border-radius: 8px;
-  padding: 2rem;
-  margin: 2rem auto; /* 위아래 여백 */
-  max-width: 900px;
+  padding: 0.1rem;
+  margin: 2.7rem auto; /* 위아래 여백 */
+  max-width: 650px;
 }
 main {
   margin: 0 auto;
@@ -181,13 +181,13 @@ main {
       color: #111;
     }
 	/* 회사소개 섹션 기본 스타일 (라이트 모드용) */
-main {
+	main {
   color: #000; /* 라이트 모드에서 검정색 글자 */
-}
+	}
 
-/* 다크 모드일 때 회사소개 섹션 글자색 변경 */
-body.dark-mode main {
-  color: #fff; /* 다크 모드에서 흰색 글자 */
+/* 다크 모드일 때 회사소개 본문 텍스트도 흰색으로 */
+body.dark-mode .section-description {
+  color: #fff !important;
 }
     main a {
       color: #0066cc;
@@ -274,6 +274,7 @@ body.dark-mode main h1 {
   box-sizing: border-box;    /* 패딩, 테두리 포함해서 전체 width 계산 */
   text-shadow: none;         /* 혹시 남아있는 글자 그림자 제거 */
   z-index: 9999;             /* 매우 높은 레이어 순서 지정: 다른 요소보다 위에 표시 */
+  font-size: clamp(12px, 1.2vw, 15px);
 }
 
 /* =============================== 
