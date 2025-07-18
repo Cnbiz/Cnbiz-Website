@@ -94,19 +94,17 @@
        - 이미지 크기 및 위치 설정
     =================================================== */
     #heroSection {
-	position: fixed;
-	top: 60px;
-	left: 0;
-	width: 100vw;
-	height: auto;
-	aspect-ratio: 16 / 9; /* 또는 이미지 비율에 맞게 조정 */
-	background-image: url('/LED/Main.png');
-	background-size: contain; /* 이미지가 잘리지 않고 정사이즈로 보이게 */
-	background-position: center;
-	background-repeat: no-repeat;
-	z-index: 1000;
-	border-bottom: 2px solid #333;
-	}
+      position: fixed;
+      top: 60px; left: 0;
+      width: 100vw;
+      height: calc(var(--vh, 1vh) * 40);
+      background-image: url('/LED/Main.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1000;
+      border-bottom: 2px solid #333;
+    }
 
     /* ===================================================
        6. 본문 콘텐츠 영역
