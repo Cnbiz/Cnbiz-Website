@@ -93,27 +93,70 @@
        - 반응형 높이 (vh 변수 활용)
        - 이미지 크기 및 위치 설정
     =================================================== */
-	#heroSection {
-     position: relative; /* 고정 필요시 fixed 유지 */
-     top: 60px;
-     width: 100vw;
-     height: auto;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     padding: 2rem 0; /* 상하 여백 조절 */
-     background-color: #000; /* 배경 대비용 (선택) */
-     z-index: 1000;
-     border-bottom: 2px solid #333;
-	}
+/* ===============================================
+   🌄 Hero Section 스타일
+   - 웹페이지 상단에 위치한 이미지 강조 영역
+   - 정중앙 배치 및 반응형 이미지 표시
+   - 라이트/다크모드 대응 + 반응형 최적화 (PC/Mobile/iOS)
+================================================ */
 
-	/* 이미지 정중앙 + 크기 조절 가능 */
-	.hero-img {
-      width: 80%;         /* 너비: 원하는 비율로 조절 가능 (ex: 100%, 60% 등) */
-      max-width: 1200px;  /* 최대 너비 제한 */
-      height: auto;       /* 비율 유지 */
-      object-fit: contain;
-	}
+/* 기본 Hero 섹션 설정 */
+#heroSection {
+  position: relative;       /* 기준 위치 요소 */
+  top: 60px;                /* 고정 헤더 아래 여백 */
+  width: 100vw;             /* 전체 너비 사용 */
+  height: auto;             /* 콘텐츠에 따라 높이 자동 */
+  display: flex;            /* 중앙 배치용 Flexbox */
+  align-items: center;      /* 수직 중앙 정렬 */
+  justify-content: center;  /* 수평 중앙 정렬 */
+  padding: 2rem 0;          /* 위아래 여백 */
+  background-color: #fff;   /* 기본 흰 배경 */
+  z-index: 1000;            /* 위에 쌓이도록 */
+  border-bottom: 2px solid #ccc;
+  -webkit-backface-visibility: hidden; /* iOS 렌더링 버그 방지 */
+  -webkit-transform: translateZ(0);    /* iOS에서 뭉개짐 방지 */
+}
+
+/* 다크모드 적용 시 배경 반투명 처리 */
+body.dark-mode #heroSection {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #444;
+}
+
+/* 내부 이미지 스타일 */
+.hero-img {
+  width: 80%;               /* 기본 너비 비율 */
+  max-width: 1200px;        /* PC 최대 크기 제한 */
+  height: auto;             /* 원본 비율 유지 */
+  object-fit: contain;      /* 이미지 전체 보이기 */
+  display: block;           /* 여백 제거 */
+  transition: width 0.3s ease;
+}
+
+/* ========== 📱 모바일 반응형 대응 ========== */
+
+/* 작은 태블릿 이하 (768px 이하) */
+@media (max-width: 768px) {
+  .hero-img {
+    width: 90%;             /* 이미지 더 크게 표시 */
+    max-width: 100%;        /* 제한 해제 */
+  }
+
+  #heroSection {
+    padding: 1.5rem 0;      /* 여백 축소 */
+  }
+}
+
+/* 소형 스마트폰 (480px 이하) */
+@media (max-width: 480px) {
+  .hero-img {
+    width: 95%;             /* 거의 전체 화면 너비 사용 */
+  }
+
+  #heroSection {
+    padding: 1rem 0;
+  }
+}
 
     /* ===================================================
        6. 본문 콘텐츠 영역
