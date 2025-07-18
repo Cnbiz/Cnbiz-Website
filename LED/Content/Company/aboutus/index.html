@@ -94,21 +94,25 @@
        - 이미지 크기 및 위치 설정
     =================================================== */
 	#heroSection {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 100vw;
-      height: auto;
-      background: none;
-      z-index: 1000;
-      text-align: center;
-      border-bottom: 2px solid #333;
+     position: relative; /* 고정 필요시 fixed 유지 */
+     top: 60px;
+     width: 100vw;
+     height: auto;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 2rem 0; /* 상하 여백 조절 */
+     background-color: #000; /* 배경 대비용 (선택) */
+     z-index: 1000;
+     border-bottom: 2px solid #333;
 	}
 
+	/* 이미지 정중앙 + 크기 조절 가능 */
 	.hero-img {
-      width: 100%;
-      height: auto;  /* 비율 유지 */
-      max-width: 1600px; /* 원한다면 최대 너비 제한 */
+      width: 80%;         /* 너비: 원하는 비율로 조절 가능 (ex: 100%, 60% 등) */
+      max-width: 1200px;  /* 최대 너비 제한 */
+      height: auto;       /* 비율 유지 */
+      object-fit: contain;
 	}
 
     /* ===================================================
@@ -440,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 <!-- 히어로 섹션: 고정 배경 이미지 -->
 <section id="heroSection">
-  <img src="/LED/Main.png" alt="LED 이미지" class="hero-img" />
+  <img src="/LED/Main.png" alt="LED 메인 이미지" class="hero-img" />
 </section>
 <!-- 본문 콘텐츠 -->
 <main>
