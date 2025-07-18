@@ -1,0 +1,244 @@
+<?php
+include 'config.php'; // 같은 폴더에 있으면 이렇게, 다른 경로에 있으면 경로 수정
+?>
+<!DOCTYPE html>
+<html dir="ltr" lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주식회사 씨앤비즈 | 오시는 길</title>
+
+  <!-- 🔗 파비콘 아이콘 설정 -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #333;
+      color: white;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1001;
+    }
+
+    .logo-container img {
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .top-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+    }
+
+    .top-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px 10px;
+      display: block;
+    }
+
+    .top-nav ul li a:hover,
+    .top-nav ul li a.active {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    main {
+      padding: 130px 20px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .site-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      font-size: clamp(12px, 1.2vw, 15px);
+      z-index: 9999;
+    }
+
+    @media (max-width: 768px) {
+      .site-footer {
+        padding: 15px 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-footer {
+        padding: 10px 0;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ✅ 다크모드 스타일 (우선순위 강화: !important 추가) */
+    body.dark-mode {
+      background-color: #111 !important;
+      color: #eee !important;
+    }
+
+    body.dark-mode header {
+      background-color: #222 !important;
+    }
+
+    body.dark-mode .top-nav ul li a {
+      color: #eee !important;
+    }
+
+    body.dark-mode .top-nav ul li a:hover,
+    body.dark-mode .top-nav ul li a.active {
+      background-color: #444 !important;
+    }
+
+    body.dark-mode .site-footer {
+      background: rgba(255,255,255,0.08) !important;
+      color: #f0f0f0 !important;
+    }
+
+    body.dark-mode .site-footer a {
+      color: #ffdd55 !important;
+    }
+
+    body {
+      padding-bottom: 70px;
+      font-size: clamp(13px, 1.6vw, 18px);
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+      header, nav, footer {
+        padding: 10px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 13px;
+      }
+      .top-nav ul {
+        flex-direction: column;
+      }
+      .top-nav ul li {
+        margin-bottom: 10px;
+      }
+      footer {
+        text-align: center;
+      }
+    }
+  </style>
+
+  <!-- ✅ SEO 메타 정보 -->
+  <meta http-equiv="Content-Language" content="ko" />
+  <meta name="description" content="주식회사 씨앤비즈 공식 웹사이트 - 회사 소개, 연혁, 오시는 길 등 정보 제공" />
+  <meta name="keywords" content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길, LED" />
+  <meta name="author" content="주식회사 씨앤비즈" />
+  <meta name="robots" content="index, follow" />
+</head>
+
+<body>
+  <!-- ✅ 상단 헤더 -->
+  <header>
+    <div class="logo-container">
+      <a href="https://landing.cnbiznet.co.kr">
+        <img src="/LED/CnbizLogo.png" alt="회사 로고" />
+      </a>
+    </div>
+    <nav class="top-nav">
+      <ul>
+        <li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
+        <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
+        <li><a class="active" href="/LED/Content/Company/location/">오시는 길</a></li>
+      </ul>
+    </nav>
+	
+  </header>
+
+  <main>
+    <h1>오시는 길</h1>
+    <p>경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 10층 1009호</p>
+
+    <!-- ✅ 네이버 지도 표시 -->
+    <div id="map" style="width:100%; height:350px; margin-top:20px; border-radius:8px; overflow:hidden;"></div>
+  </main>
+
+  <!-- ✅ 다크/라이트 모드 토글 버튼 -->
+  <button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; padding: 10px 16px; font-size: 14px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">
+    🌓 모드 전환
+  </button>
+
+  <!-- ✅ 네이버 지도 API 불러오기 -->
+  <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=<?php echo $NAVER_CLIENT_ID; ?>"></script>
+
+
+  <!-- ✅ Footer -->
+  <footer class="site-footer">
+    업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
+    대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805<br>
+    문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a> |
+    기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a><br>
+    Copyright © 2023 (주)씨앤비즈. All rights reserved.
+  </footer>
+
+  <!-- ✅ 스크립트: 다크모드 및 네이버 지도 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggle = document.getElementById('themeToggleBtn');
+      const currentMode = localStorage.getItem('color-mode');
+      if (currentMode === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
+      });
+
+      const mapOptions = {
+        center: new naver.maps.LatLng(37.440376, 127.172604),
+        zoom: 16,
+        zoomControl: true,
+        zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
+      };
+      const map = new naver.maps.Map('map', mapOptions);
+      new naver.maps.Marker({
+        position: mapOptions.center,
+        map: map,
+        title: '주식회사 씨앤비즈'
+      });
+    });
+  </script>
+</body>
+</html>
