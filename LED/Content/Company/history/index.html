@@ -1,63 +1,77 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!DOCTYPE html> <!-- 이 문서가 HTML5 문서임을 브라우저에 알려줌 -->
+<html lang="ko"> <!-- 문서의 주 언어가 한국어임을 선언 -->
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-<title>주식회사 씨앤비즈 | 회사연혁</title>
+<meta charset="utf-8" /> <!-- 한글 깨짐 방지를 위해 UTF-8 문자셋 사용 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" /> 
+<!-- 화면 크기에 따라 글씨와 요소가 깨지지 않도록 반응형 설정 -->
 
 <!-- 2025.07.19 수정 -->
-<!-- ✅ Tailwind CSS: CDN으로 가져오기 -->
-<!-- 반응형 레이아웃, 다크모드, 모바일/PC 해상도 대응 모두 지원 -->
+
+<title>주식회사 씨앤비즈 | 회사연혁</title> <!-- 브라우저 탭에 표시될 제목 -->
+
+<!-- ✅ Tailwind CSS 불러오기: 버튼·레이아웃 등을 쉽게 스타일링 할 수 있는 프레임워크 -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  // Tailwind 다크모드: class 기반으로 설정
-  // <html> 또는 <body>에 class="dark" 추가 시 다크모드 적용
+  // Tailwind CSS에서 다크모드를 class 기반으로 적용하겠다고 설정
   tailwind.config = { darkMode: 'class' }
 </script>
 
-<!-- ✅ Lucide: 가벼운 SVG 아이콘 라이브러리 -->
+<!-- ✅ Lucide: 깔끔하고 가벼운 SVG 아이콘을 사용하기 위한 스크립트 -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<!-- ✅ 파비콘 설정: 브라우저 탭과 모바일 홈화면에 작은 아이콘 표시 -->
+<!-- ✅ 브라우저 탭에 작은 아이콘(파비콘)을 설정 -->
 <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
-<!-- ✅ 품질 및 해상도 최적화 메타태그 -->
-<meta name="format-detection" content="telephone=no, email=no, address=no">
-<meta name="theme-color" content="#1f2937"> <!-- 다크모드용 기본 색상 -->
-<meta name="apple-mobile-web-app-capable" content="yes"> <!-- iOS 웹앱 모드 지원 -->
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- ✅ 모바일/브라우저 품질과 최적화를 위한 메타태그들 -->
+<meta name="format-detection" content="telephone=no, email=no, address=no"> <!-- 전화·메일 자동링크 방지 -->
+<meta name="theme-color" content="#1f2937"> <!-- 브라우저 툴바 색 (어두운 그레이톤) -->
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- iOS에서 웹앱처럼 보이게 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- iOS 상태바 색상 -->
 </head>
 
-<!-- ✅ body: 기본 글자색/배경색 설정 + 다크모드 전환 지원 -->
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+<!-- body: 기본 배경 흰색, 글씨 어두운 회색. 다크모드 시 반대. 부드러운 색 전환 효과 추가 -->
 
-<!-- ✅ 상단 고정 헤더: PC/모바일 모두 반응형 -->
+<!-- ✅ 상단 고정 헤더 -->
 <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center h-14 px-4 bg-gray-800 text-white shadow">
-  <!-- 로고 -->
+  <!-- 왼쪽: 회사 로고 -->
   <a href="/" class="flex items-center gap-2">
     <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8">
   </a>
-  <!-- 네비게이션 메뉴: 화면 크기에 따라 적절히 정렬 -->
+  <!-- 오른쪽: 메뉴 (회사소개, 회사연혁, 오시는 길) -->
   <nav class="flex gap-4 text-sm">
     <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
-    <a href="/LED/Content/Company/history/" class="font-bold text-yellow-400">회사연혁</a>
+    <a href="/LED/Content/Company/history/" class="font-bold text-yellow-400">회사연혁</a> <!-- 현재 페이지는 진하게 표시 -->
     <a href="/LED/Content/Company/location/" class="hover:text-yellow-400">오시는 길</a>
   </nav>
 </header>
 
-<!-- ✅ 메인 콘텐츠: 가운데 정렬, 헤더 공간 확보를 위한 상단 패딩 -->
-<main class="max-w-4xl mx-auto px-4 pt-20 pb-12">
-  <!-- 제목: 아이콘 + 텍스트 -->
-  <h1 class="text-3xl font-bold mb-8 flex items-center gap-2">
+<!-- ✅ Hero 섹션: 큰 배경 이미지에 SINCE 2011 문구 대신 이미지를 바로 출력 -->
+<section 
+  class="relative w-full h-[250px] md:h-[350px] flex items-center justify-center bg-cover bg-center mt-14"
+  style="background-image: url('SINCE_2011.png');">
+  <!-- relative: 안쪽 요소 위치 기준. bg-cover: 화면 꽉 채우기, bg-center: 가운데 정렬 -->
+  <!-- mt-14: 헤더 높이만큼 위쪽 여백 확보 -->
+</section>
+
+<!-- ✅ 메인 콘텐츠: 연혁 타임라인 -->
+<main class="max-w-4xl mx-auto px-4 py-12">
+  <!-- max-w-4xl: 최대 너비 제한, mx-auto: 가운데 정렬, px-4: 좌우 여백, py-12: 위아래 여백 -->
+
+  <!-- 제목: 캘린더 아이콘 + "회사연혁" -->
+  <h2 class="text-3xl font-bold mb-8 flex items-center gap-2">
     <i data-lucide="calendar" class="w-6 h-6"></i> 회사연혁
-  </h1>
+  </h2>
 
-  <!-- ✅ 수직 타임라인: PC/모바일 모두 자연스러운 반응형 -->
+  <!-- 타임라인을 나타내는 ol 리스트 -->
   <ol class="relative border-l border-gray-300 dark:border-gray-600">
+    <!-- relative: 안쪽 요소 위치 기준, border-l: 왼쪽 세로선 -->
 
-    <!-- ✏️ 2025 -->
-    <li class="mb-10 ml-6">
-      <!-- 연도 왼쪽 마커: 원형 + 아이콘 -->
+    <!-- 각 연도별 항목 -->
+    <!-- 2025 -->
+    <li class="mb-10 ml-6"> <!-- mb-10: 아래 여백, ml-6: 왼쪽 들여쓰기 -->
+      <!-- 왼쪽 둥근 원 + 별 아이콘 -->
       <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-4 ring-white dark:ring-gray-900">
         <i data-lucide="star" class="w-3 h-3 text-white"></i>
       </span>
@@ -65,17 +79,18 @@
       <p class="text-sm text-gray-600 dark:text-gray-300">현재</p>
     </li>
 
-    <!-- ✏️ 2024 -->
+    <!-- 2024 -->
     <li class="mb-10 ml-6">
-      <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
+      <span class="absolute -left-3 w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
       <h3 class="mb-1 text-lg font-semibold text-blue-700 dark:text-blue-400">2024</h3>
       <p class="text-sm text-gray-600 dark:text-gray-300">추가 예정</p>
     </li>
 
-    <!-- ✏️ 2022 -->
+    <!-- 2022 -->
     <li class="mb-10 ml-6">
-      <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
+      <span class="absolute -left-3 w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
       <h3 class="mb-1 text-lg font-semibold text-blue-700 dark:text-blue-400">2022</h3>
+      <!-- 연도별 상세 내용은 ul 목록으로 -->
       <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
         <li>식약처 문서전산화 시스템 2차 수주</li>
         <li>Nice평가정보 기술평가우수인증기업 선정</li>
@@ -84,9 +99,9 @@
       </ul>
     </li>
 
-    <!-- ✏️ 2021 -->
+    <!-- 2021 -->
     <li class="mb-10 ml-6">
-      <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
+      <span class="absolute -left-3 w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
       <h3 class="mb-1 text-lg font-semibold text-blue-700 dark:text-blue-400">2021</h3>
       <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
         <li>부산하이테크단지 DB시스템 구축</li>
@@ -94,20 +109,19 @@
       </ul>
     </li>
 
-    <!-- ✏️ 2020 -->
+    <!-- 2020 -->
     <li class="mb-10 ml-6">
-      <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
+      <span class="absolute -left-3 w-6 h-6 bg-blue-500 rounded-full ring-4 ring-white dark:ring-gray-900"></span>
       <h3 class="mb-1 text-lg font-semibold text-blue-700 dark:text-blue-400">2020</h3>
       <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
         <li>대구 지방경찰청 NMS시스템 구축</li>
         <li>인천 동구청 NMS시스템 구축</li>
       </ul>
     </li>
-
   </ol>
 </main>
 
-<!-- ✅ 푸터: 모든 화면에서 깔끔하게 표시 -->
+<!-- ✅ 푸터: 회사 정보와 저작권 안내 -->
 <footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
@@ -118,36 +132,35 @@
   <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
-<!-- ✅ 다크모드 토글 버튼: 모바일/PC 모든 화면에서 하단 오른쪽 고정 -->
+<!-- ✅ 오른쪽 아래에 항상 뜨는 다크모드 토글 버튼 -->
 <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
   <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
 </button>
 
-<!-- ✅ 스크립트: Lucide 아이콘 초기화, 다크모드 토글, 저작권 연도 자동 업데이트 -->
+<!-- ✅ 자바스크립트: 아이콘 초기화, 다크모드 전환, 저작권 연도 표시 -->
 <script>
-  // Lucide 아이콘 초기화
-  lucide.createIcons();
+  lucide.createIcons(); // 페이지 로드 시 모든 아이콘을 SVG로 변환
 
-  // 다크모드 토글 함수
+  // 다크모드를 켜고 끄는 함수
   function toggleTheme() {
-    document.documentElement.classList.toggle('dark'); // 'dark' 클래스 추가/제거
-    const isDark = document.documentElement.classList.contains('dark');
-    document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
-    lucide.createIcons(); // 아이콘 다시 그리기
-    localStorage.setItem('color-mode', isDark ? 'dark' : 'light'); // 상태 저장
+    document.documentElement.classList.toggle('dark'); // html 태그에 'dark' 클래스를 추가/삭제
+    const isDark = document.documentElement.classList.contains('dark'); // 현재 상태 확인
+    document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon'); // 아이콘 변경
+    lucide.createIcons(); // 변경된 아이콘 다시 그리기
+    localStorage.setItem('color-mode', isDark ? 'dark' : 'light'); // 사용자가 선택한 모드를 저장
   }
 
-  // 페이지 로드 시 localStorage 값에 따라 다크모드 적용
+  // 페이지 처음 로드될 때, 이전에 선택한 다크모드가 있으면 적용
   if (localStorage.getItem('color-mode') === 'dark') {
     document.documentElement.classList.add('dark');
     document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
     lucide.createIcons();
   }
 
-  // 저작권 연도: 시작 연도와 현재 연도 표시 (예: 2023–2025)
+  // 현재 연도 자동 표시 (예: 2023–2025)
   document.addEventListener("DOMContentLoaded", () => {
-    const startYear = 2023;
-    const year = new Date().getFullYear();
+    const startYear = 2023; // 시작 연도
+    const year = new Date().getFullYear(); // 현재 연도
     document.getElementById("copyrightYear").textContent =
       `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
   });
