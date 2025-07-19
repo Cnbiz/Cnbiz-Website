@@ -1,496 +1,117 @@
 <!DOCTYPE html>
-
-<html dir="ltr" lang="ko">
+<html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" name="viewport"/>
-<title>주식회사 씨앤비즈 | 회사연혁</title>
-<!-- 파비콘 설정 -->
-<link href="/LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
-<style>
-    /* ===================================================
-       1. 기본 초기화 및 전역 설정
-       - 모든 요소에 box-sizing: border-box 적용하여
-         padding, border 포함 너비 계산 간편화
-       - html, body 기본 margin/padding 제거
-       - 모바일 100vh 문제 해결용 CSS 변수 --vh 선언
-       - 기본 글꼴 및 배경색, 텍스트 색상 지정
-       - 좌우 스크롤 방지 위해 overflow-x: hidden
-    =================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    html, body {
-      margin: 0; padding: 0;
-      width: 100vw; /* 뷰포트 너비 고정 */
-      height: 100%;
-      font-family: Arial, sans-serif; /* 기본 산세리프체 */
-      background: #fff;
-      overflow-x: hidden; /* 좌우 스크롤 방지 */
-      --vh: 1vh; /* 모바일 100vh 문제 대응용 변수 */
-      color: #222;
-    }
-
-    /* ===================================================
-       2. HEADER (상단 고정 네비게이션 바)
-       - 화면 상단에 고정하여 항상 보이도록 설정
-       - 높이 60px, 배경 어두운 회색(#333), 텍스트 흰색
-       - 좌우 여백 20px, flexbox로 좌측 로고와 우측 메뉴 배치
-       - z-index 1001로 다른 요소 위에 표시
-       - 스크롤시 그림자 효과를 부드럽게 토글
-    =================================================== */
-    header {
-      position: fixed; /* 화면 상단에 고정 */
-      top: 0; left: 0; right: 0;
-      height: 60px; /* 고정 높이 */
-      background-color: #333;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      z-index: 1001; /* 다른 요소 위에 표시 */
-      transition: box-shadow 0.3s ease; /* 스크롤시 그림자 전환 애니메이션 */
-    }
-    header.scrolled {
-      box-shadow: 0 2px 12px rgba(0,0,0,0.3); /* 스크롤 발생시 그림자 추가 */
-    }
-    /* 로고 이미지 스타일 */
-    .logo-container img {
-      height: 40px;
-      cursor: pointer;
-      user-select: none; /* 텍스트 선택 방지 */
-      animation: slide-in-left 0.7s ease-out;
-    }
-
-    /* 네비게이션 메뉴 스타일 */
-    .top-nav ul {
-      display: flex;
-      gap: 15px;
-      margin: 0; padding: 0;
-      list-style: none;
-    }
-    .top-nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .top-nav ul li a:hover,
-    .top-nav ul li a.active {
-      background-color: #555;
-    }
-
-    /* ===================================================
-       3. 히어로 + 메인 통합 스크롤 영역 설정
-       - 이제 heroSection은 고정 높이의 빈 공간 역할
-         (스크롤 대상에 포함시키기 위해)
-       - heroSection 내부 배경 이미지는 고정 위치가 아닌
-         그냥 백그라운드로 세팅
-       - main 콘텐츠 영역은 heroSection 아래서 시작하되
-         스크롤 가능
-       - heroSection 높이와 main의 패딩을 동일하게 맞춤
-    =================================================== */
-    #heroSection {
-      width: 100vw;
-      height: calc(var(--vh,1vh) * 30); /* 뷰포트 높이 30% */
-      background: url('/LED/SINCE_2011.png') center/cover no-repeat;
-      border-bottom: 2px solid #333;
-      /* fixed 제거하여 스크롤 대상에 포함 */
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px; /* main 안쪽 여백 */
-      font-size: 16px;
-      line-height: 1.6;
-      color: #222;
-      animation: fade-in 1s ease-in;
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 1rem;
-    }
-    main a {
-      color: #0066cc;
-      text-decoration: underline;
-    }
-
-    /* 회사 연혁 이미지 스타일 */
-    .history-image {
-      width: 100%;
-      max-width: 900px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      display: block;
-      margin: 20px 0 40px 0;
-    }
-
-    /* ===================================================
-       4. FOOTER (페이지 하단 정보 영역)
-       - 전체 화면 너비 고정 (100vw)
-       - 배경 어두운 색(#111), 텍스트 밝은 회색(#ccc)
-       - 내부 콘텐츠 최대 너비 900px, 가운데 정렬
-       - flexbox로 항목 가로 정렬, 줄바꿈 가능
-       - '|' 구분자 스타일 및 클릭 방지 설정
-       - 텍스트 선택 가능
-       - 반응형 폰트 크기 및 패딩 조절
-    =================================================== */
-    footer {
-      width: 100vw;
-      background-color: #111;
-      color: #ccc;
-      font-size: 14px;
-      line-height: 1.5;
-      padding: 20px 10px;
-      box-sizing: border-box;
-      user-select: text;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      font-weight: 400;
-    }
-    footer > div {
-      max-width: 900px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      color: #ccc;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    footer span,
-    footer a {
-      white-space: nowrap;
-      color: #ccc;
-    }
-    footer strong {
-      color: #fff;
-      font-weight: 700;
-    }
-    footer a {
-      text-decoration: none;
-      font-weight: 700;
-      color: #fff;
-    }
-    footer a:hover,
-    footer a:focus {
-      text-decoration: underline;
-      outline: none;
-    }
-    .separator {
-      user-select: none;
-      color: #666;
-      padding: 0 6px;
-      font-weight: 400;
-      pointer-events: none;
-    }
-
-    /* ===================================================
-       5. 반응형 스타일: 화면 폭 768px 이하 시 적용
-       - 로고 이미지 크기 축소 (40px → 30px)
-       - 히어로 섹션 높이 25vh로 줄임
-       - main 패딩, 폰트 크기 축소
-       - 네비게이션 메뉴 글자 크기 및 패딩 축소
-       - 푸터 폰트 크기, 간격 조정
-    =================================================== */
-    @media (max-width: 768px) {
-      .logo-container img { height: 30px; }
-      #heroSection { height: calc(var(--vh,1vh) * 25); }
-      main {
-        padding: 15px;
-        font-size: 14px;
-      }
-      h1 { font-size: 1.6rem; }
-      .top-nav ul li a {
-        font-size: 14px;
-        padding: 6px 10px;
-      }
-      footer {
-        font-size: 12px;
-        padding: 15px 10px;
-        justify-content: center;
-      }
-      footer > div {
-        max-width: 100%;
-        gap: 8px;
-      }
-    }
-
-    /* ===================================================
-       6. 애니메이션 정의
-       - fade-in: 점차 투명도 0 → 1로 부드럽게 나타남
-       - slide-in-left: 좌측 -30px에서 원위치로 슬라이드하며 나타남
-    =================================================== */
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slide-in-left {
-      from {
-        transform: translateX(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주식회사 씨앤비즈 | 회사연혁</title>
   
-/* ===================================================
-   🌗 다크/라이트 모드 대응 스타일
-   - body.dark-mode 클래스가 추가되면 색상 전환
-   - 기본 라이트 → 다크 배경/글자/네비/푸터 스타일 정의
-=================================================== */
-body.dark-mode {
-  background-color: #111 !important;
-  color: #eee !important;
-}
-body.dark-mode header {
-  background-color: #222 !important;
-}
-body.dark-mode .top-nav ul li a {
-  color: #ccc !important;
-}
-body.dark-mode .top-nav ul li a:hover,
-body.dark-mode .top-nav ul li a.active {
-  background-color: #444 !important;
-}
-body.dark-mode footer {
-  background-color: #000 !important;
-  color: #aaa !important;
-}
+  <!-- 2025.07.19 수정 -->
+  <!-- ✅ Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- ✅ Tailwind 다크모드(class 기반) 설정 -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
 
-/* ===================================================
-   🔠 clamp() 사용한 반응형 폰트 스케일링
-=================================================== */
-body {
-  font-size: clamp(13px, 1.6vw, 18px);
-}
+  <!-- ✅ Lucide 아이콘 -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- 🔗 파비콘 -->
+  <link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
-/* ===================================================
-   🍔 모바일 햄버거 메뉴 스타일 정의
-=================================================== */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  width: 28px;
-  height: 22px;
-  justify-content: space-between;
-}
-.hamburger span {
-  background: #fff;
-  height: 3px;
-  border-radius: 2px;
-  width: 100%;
-}
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-  .top-nav ul {
-    display: none;
-    flex-direction: column;
-    background: #222;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    padding: 10px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-  .top-nav ul.show {
-    display: flex;
-  }
-}
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 
-
-/* 🔠 clamp() 반응형 폰트 스케일링 보강 */
-body {
-  font-size: clamp(13px, 1.6vw, 18px);
-}
-img, video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-.container, .wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-</style>
-<meta content="ko" http-equiv="Content-Language"/><meta content="씨앤비즈 회사연혁 페이지 - 회사 소개, 연혁, 오시는 길" name="description"/><meta content="씨앤비즈, CNBIZ, 연혁, 회사연혁, LED" name="keywords"/><meta content="CNBIZ Co., Ltd" name="author"/><meta content="index, follow" name="robots"/></head>
-<body><script>
-/* 🌗 시스템 다크모드 자동 감지 */
-document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("color-mode");
-  if (!saved) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) document.body.classList.add("dark-mode");
-  }
-});
-</script>
-<!-- ===================================================
-       1. HEADER 섹션: 상단 고정 네비게이션 바
-       - 로고 클릭 시 홈페이지 이동 기능 포함
-       - fixed 위치로 항상 상단에 고정되어 있음
-  =================================================== -->
-<header id="header">
-<div class="logo-container">
-<img alt="회사 로고" id="logoClick" src="/LED/CnbizLogo.png" srcset="/LED/CnbizLogo.png 1x, /LED/CnbizLogo.png 2x"/>
-</div>
-<!-- 🍔 모바일용 햄버거 버튼 (접힘/펼침) -->
-<div aria-label="모바일 메뉴 열기" class="hamburger" id="hamburgerBtn" role="button" tabindex="0">
-<span></span>
-<span></span>
-<span></span>
-</div>
-<nav aria-label="주요 메뉴" class="top-nav">
-<ul>
-<li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
-<li><a class="active" href="/LED/Content/Company/history/">회사연혁</a></li>
-<li><a href="/LED/Content/Company/location/">오시는 길</a></li>
-</ul>
-</nav>
+<!-- ✅ Header: 상단 고정 네비게이션 -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center h-14 px-4 bg-gray-800 text-white shadow">
+  <a href="/" class="flex items-center gap-2">
+    <img src="/LED/CnbizLogo.png" alt="회사 로고" class="h-8">
+  </a>
+  <nav class="flex gap-4 text-sm">
+    <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
+    <a href="/LED/Content/Company/history/" class="font-bold text-yellow-400">회사연혁</a>
+    <a href="/LED/Content/Company/location/" class="hover:text-yellow-400">오시는 길</a>
+  </nav>
 </header>
-<!-- ===================================================
-       2. HERO 섹션
-       - fixed 제거, 이제 heroSection은 단순히 이미지 보여주는
-         블록 요소로 스크롤 영역에 포함됨
-       - main 콘텐츠가 이 아래 자연스럽게 이어짐
-  =================================================== -->
-<section aria-hidden="true" id="heroSection"></section>
-<!-- ===================================================
-       3. MAIN 콘텐츠 영역
-       - heroSection 아래 자연스러운 흐름으로 위치
-       - 회사연혁 텍스트 및 이미지 포함
-       - 스크롤 시 heroSection과 main이 같이 스크롤 됨
-  =================================================== -->
-<main>
-<h1>회사연혁</h1>
-<p>아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.</p>
-<!-- 회사 연혁 이미지: main 안에 포함하여 자연스럽게 스크롤 -->
-<img alt="씨앤비즈 회사 연혁 타임라인 이미지" class="history-image" src="/LED/history.png" srcset="/LED/history.png 1x, /LED/history.png 2x"/>
+
+<!-- ✅ Hero 섹션: Figma 스타일 큰 배경 이미지 -->
+<section aria-hidden="true" class="pt-14"> 
+  <!-- pt-14: header 높이 만큼 패딩 -->
+  <!-- <div class="w-full h-64 md:h-96 bg-center bg-cover border-b-2 border-gray-700" -->
+       <!-- style="background-image: url('/LED/SINCE_2011.png');"> -->
+  <!-- </div>   -->
+  <div class="w-full h-64 md:h-96 bg-center bg-cover border-b-2 border-gray-700"
+       style="background-image: url('SINCE_2011.png');">
+  </div>
+</section>
+
+<!-- ✅ Main 콘텐츠 -->
+<main class="max-w-5xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-4 flex items-center gap-2">
+    <i data-lucide="calendar" class="w-6 h-6"></i> 회사연혁
+  </h1>
+  <p class="mb-6 text-gray-600 dark:text-gray-300">
+    <!-- 씨앤비즈의 발자취를 한눈에 확인하세요. -->
+  </p>
+  <!-- <img src="/LED/history.png" alt="씨앤비즈 연혁 타임라인" class="w-full rounded-xl shadow" /> -->
+  <img src="history.png" alt="씨앤비즈 연혁 타임라인" class="w-full rounded-xl shadow" />
 </main>
-<!-- ===================================================
-       4. FOOTER 섹션: 회사 정보 및 저작권 안내
-       - 항상 콘텐츠 마지막에 위치
-  =================================================== -->
-<footer aria-label="회사 정보 및 저작권" role="contentinfo">
-<div>
-<span>업체명 : 주식회사 씨앤비즈</span>
-<span class="separator">|</span>
-<span>대표자 : 차호진</span>
-<span class="separator">|</span>
-<span>주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</span>
-<span class="separator">|</span>
-<span>대표전화 : 031-706-6641</span>
-<span class="separator">|</span>
-<span> 팩스 : 031-704-6648</span>
-<span class="separator">|</span>
-<span>문의메일 : <a href="sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a></span>
-<span class="separator">|</span>
-<span>기술지원 : <a href="cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a></span>
-<span class="separator">|</span>
-<span>Copyright © 2025 주식회사 씨앤비즈 All rights reserved.</span>
+
+<!-- ✅ 푸터 -->
+<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>
+    문의메일 :
+    <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
+    | 기술지원 :
+    <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
+  </div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.
 </div>
 </footer>
-<!-- ===================================================
-       5. JavaScript: 헤더 스크롤 효과 및 로고 클릭 이벤트
-       - 스크롤 위치 50px 넘으면 header에 그림자 추가
-       - 로고 클릭 시 홈페이지 루트 경로로 이동
-  =================================================== -->
+
+<!-- ✅ 다크모드 토글 버튼 -->
+<button onclick="toggleTheme()"
+  class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
+  <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
+</button>
+
+<!-- ✅ 스크립트: 아이콘 렌더링 & 다크모드 토글 -->
 <script>
-    // 헤더 엘리먼트 선택
-    const header = document.getElementById('header');
+  lucide.createIcons();
 
-    // 윈도우 스크롤 이벤트: 50px 이상 스크롤시 header에 그림자 추가
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // 로고 클릭 시 홈페이지 이동 (루트 경로)
-    document.getElementById('logoClick').addEventListener('click', () => {
-      window.location.href = '/';
-    });
-  </script>
-<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 14px; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; z-index: 9999;">🌗 모드 전환</button><script>
-/* ===================================================
-   🌙 다크모드 토글 기능
-   - 로컬 스토리지에 모드 저장하여 유지
-   - 페이지 로드 시 모드 적용
-=================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("themeToggleBtn");
-  const saved = localStorage.getItem("color-mode");
-  if (saved === "dark") document.body.classList.add("dark-mode");
-  btn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const mode = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    localStorage.setItem("color-mode", mode);
-  });
-});
-</script><script>
-/* ===================================================
-   🍔 햄버거 메뉴 토글 기능
-=================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("hamburgerBtn");
-  const navList = document.querySelector(".top-nav ul");
-  if (btn && navList) {
-    btn.addEventListener("click", () => {
-      navList.classList.toggle("show");
-    });
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+    lucide.createIcons();
+    localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
   }
-});
-</script><script>
-/* 🌍 브라우저 언어 자동 감지 및 다국어 콘텐츠 변경 */
-document.addEventListener("DOMContentLoaded", () => {
-  const lang = navigator.language || navigator.userLanguage;
-  const htmlTag = document.documentElement;
 
-  const content = {
-    ko: {
-      title: "회사연혁",
-      desc: "아래 회사 연혁 이미지는 스크롤해서 확인하실 수 있습니다.",
-      footer: "Copyright © 2025 주식회사 씨앤비즈 All rights reserved."
-    },
-    en: {
-      title: "Company History",
-      desc: "Scroll down to see the company timeline image below.",
-      footer: "Copyright © 2025 CNBIZ Co., Ltd. All rights reserved."
-    }
-  };
-
-  const langKey = lang.startsWith("en") ? "en" : "ko";
-  htmlTag.lang = langKey;
-
-  const t = content[langKey];
-  if (t) {
-    const h1 = document.querySelector("main h1");
-    const p = document.querySelector("main p");
-    const footer = document.querySelector("footer span:last-child");
-    if (h1) h1.textContent = t.title;
-    if (p) p.textContent = t.desc;
-    if (footer) footer.textContent = t.footer;
+  // 페이지 로드 시 저장된 다크모드 적용
+  if (localStorage.getItem('color-mode') === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+    lucide.createIcons();
   }
+</script>
+<script>
+/*
+ 🛡️ 자동으로 '2023–현재연도' 형식 출력
+ - startYear를 원하는 시작년도(2023)로 설정
+ - 현재 연도가 같으면 '2023'만 출력
+ - 다르면 '2023–2025' 형식 출력
+*/
+document.addEventListener("DOMContentLoaded", () => {
+  const startYear = 2023;
+  const currentYear = new Date().getFullYear();
+  const text = (currentYear > startYear)
+    ? `${startYear}–${currentYear}`
+    : `${startYear}`;
+  document.getElementById("copyrightYear").textContent = `Copyright © ${text}`;
 });
-</script></body>
+</script>
+</body>
 </html>
