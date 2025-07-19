@@ -549,12 +549,22 @@ body.dark-mode .features li {
   margin-bottom: 0; /* ⬅️ 마지막 리스트 항목의 아래쪽 여백을 **없애서** 마지막 항목이 너무 멀리 떨어지지 않게 설정합니다. */
 }
 
+/* 서브메뉴 텍스트 스타일 수정 */
 .submenu ul li a {
-  text-decoration: none; /* ⬅️ 링크에 기본적으로 적용되는 밑줄을 제거하여, 텍스트가 더 깔끔하게 보이도록 합니다. */
-  color: var(--text-dark); /* ⬅️ 링크 텍스트 색상은 `--text-dark`로 설정하여, 텍스트 색이 다크모드와 맞춰지도록 합니다. */
-  transition: color 0.2s; /* ⬅️ 링크 텍스트 색상이 **부드럽게** 변화하도록 0.2초 동안 색상이 변화하는 애니메이션을 추가합니다. */
+  text-decoration: none; /* 기본적으로 밑줄 제거 */
+  color: var(--text-dark); /* --text-dark 변수를 사용하여 다크모드 및 라이트모드에서 동적으로 텍스트 색상 변경 */
+  font-weight: bold; /* 텍스트 굵기 */
+  font-size: 13px; /* 텍스트 크기 */
+  transition: color 0.2s ease; /* 색상 변화 시 부드러운 전환 효과 */
 }
-
+/* 라이트 모드에서 텍스트 색상 설정 */
+body:not(.dark) .submenu ul li a {
+  color: #fff; /* 라이트모드에서는 어두운 회색 */
+}
+/* 다크 모드에서 텍스트 색상 설정 */
+body.dark-mode .submenu ul li a {
+  color: #f0f0f0; /* 다크모드에서는 밝은 색으로 변경 */
+}
 .submenu ul li a:hover {
   color: var(--primary-color); /* ⬅️ 링크에 마우스를 올리면 **`--primary-color`**로 설정된 색상으로 텍스트 색이 변화합니다. */
 }
@@ -1087,10 +1097,7 @@ body.dark-mode .features li {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* 살짝 그림자 효과로 입체감 부여 */
   background: white;        /* 흰색 배경으로 iframe 내용 돋보이게 */
 }  
-footer {
-  margin-bottom: 0;
-  padding: 20px; /* 고정 height 대신 */
-}
+
 </style>
 
 <script>
@@ -1162,7 +1169,7 @@ footer {
    🌙 다크모드에서 Footer 스타일 변경
    =============================== */
 body.dark-mode .site-footer {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
   /*
     배경을 거의 투명한 흰색으로 변경해 어두운 배경과 조화롭게 함
     !important 붙여 우선순위 보장 (다른 스타일 덮어쓰지 못하도록)
