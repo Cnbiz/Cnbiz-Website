@@ -5,33 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>주식회사 씨앤비즈 | 오시는 길</title>
 
-<!-- ✅ Tailwind CSS CDN -->
+<!-- 2025.07.19 수정 -->
+<!-- ✅ Tailwind CSS CDN (반응형 지원 포함) -->
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Tailwind 설정: 다크모드 class 방식
+  tailwind.config = { darkMode: 'class' }
+</script>
 
-<!-- ✅ Tailwind 다크모드 설정 -->
-<script> tailwind.config = { darkMode: 'class' } </script>
-
-<!-- ✅ Lucide Icons -->
+<!-- ✅ Lucide Icons (최신 버전 아이콘 사용) -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<!-- 🔗 파비콘 -->
+<!-- ✅ 파비콘 (브라우저 탭 아이콘) -->
 <link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
 <link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
 
-<!-- ✅ SEO -->
-<meta name="description" content="주식회사 씨앤비즈 공식 웹사이트 - 회사 소개, 연혁, 오시는 길 등 정보 제공" />
-<meta name="keywords" content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길, LED" />
+<!-- ✅ SEO 메타데이터 (검색 최적화) -->
+<meta name="description" content="주식회사 씨앤비즈 공식 웹사이트 - 오시는 길, 회사 소개, 연혁 등 정보 제공" />
+<meta name="keywords" content="씨앤비즈, CNBIZ, 오시는 길, LED, 회사소개, 연혁" />
 <meta name="author" content="주식회사 씨앤비즈" />
 <meta name="robots" content="index, follow" />
 </head>
 
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 
-<!-- ✅ 헤더 -->
+<!-- ✅ 고정 상단 헤더 -->
 <header class="fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-3 bg-gray-800 text-white z-50 shadow">
-  <a href="https://landing.cnbiznet.co.kr" class="flex items-center gap-2">
-    <img src="/LED/CnbizLogo.png" alt="회사 로고" class="h-8">
+  <a href="https://landing.cnbiznet.co.kr" class="flex items-center gap-2" aria-label="홈으로 이동">
+    <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8">
   </a>
   <nav class="flex gap-4 text-sm">
     <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
@@ -40,111 +42,140 @@
   </nav>
 </header>
 
-<!-- ✅ 메인 콘텐츠 -->
-<main class="flex-1 pt-20 px-4 max-w-5xl mx-auto">
-  <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
-    <i data-lucide="map-pin" class="w-5 h-5"></i> 오시는 길
+<!-- ✅ 메인 콘텐츠 (반응형) -->
+<main class="flex-1 pt-20 px-4 max-w-6xl mx-auto">
+  <!-- 제목 -->
+  <h1 class="text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2">
+    <i data-lucide="map-pin" class="w-5 h-5 md:w-6 md:h-6"></i> 오시는 길
   </h1>
-  <p class="mb-4 text-gray-600 dark:text-gray-300">
+  <p class="mb-4 text-gray-600 dark:text-gray-300 text-sm md:text-base">
     경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 10층 1009호
   </p>
 
+  <!-- ✅ 지도 + 안내 박스: 반응형 그리드 -->
   <div class="grid md:grid-cols-3 gap-4">
-    <!-- 🗺️ 지도 (2칸 차지) -->
+    <!-- 🗺️ 지도 (좌측 2/3) -->
     <div class="md:col-span-2 rounded-2xl overflow-hidden shadow">
-      <div id="map" class="w-full h-80 md:h-96"></div>
+      <div id="map" class="w-full h-72 md:h-96"></div>
     </div>
 
-    <!-- 📦 안내 박스 -->
-    <div class="rounded-2xl shadow p-4 bg-white dark:bg-gray-800">
-      <h3 class="font-semibold mb-3">찾아오시는 길 안내</h3>
-      <div class="flex justify-center gap-2 mb-4 text-sm">
-		<button onclick="showTab('public')" id="btn-public"
-		   class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-			<i data-lucide="train" class="w-4 h-4"></i> 대중교통
-		</button>
-	<button onclick="showTab('car')" id="btn-car"
-		   class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600">
-			<i data-lucide="car" class="w-4 h-4"></i> 자차
-    </button>
-    <button onclick="showTab('walk')" id="btn-walk"
-			class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600">
-		<i data-lucide="footprints" class="w-4 h-4"></i> 도보
-	</button>
-	</div>
-      <div id="tab-public" class="text-gray-700 dark:text-gray-200 text-sm space-y-1">
-        <p>- 지하철 분당선 ○○역 2번 출구 도보 5분</p>
-        <p>- 버스 ○○번, ○○번 하차 도보 3분</p>
+    <!-- 📦 안내 박스 (우측 1/3) -->
+    <aside class="rounded-2xl shadow p-4 bg-white dark:bg-gray-800">
+      <h2 class="font-semibold mb-3 text-base md:text-lg">찾아오시는 길 안내</h2>
+
+      <!-- ✅ 탭 버튼: 대중교통/자동차/도보 -->
+      <div class="flex justify-center gap-2 mb-4 text-xs md:text-sm">
+        <button onclick="showTab('public')" id="btn-public"
+          class="flex items-center gap-1 px-2.5 py-1 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+          <i data-lucide="train" class="w-4 h-4"></i> 대중교통
+        </button>
+        <button onclick="showTab('car')" id="btn-car"
+          class="flex items-center gap-1 px-2.5 py-1 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+          <i data-lucide="car" class="w-4 h-4"></i> 자동차
+        </button>
+        <button onclick="showTab('walk')" id="btn-walk"
+          class="flex items-center gap-1 px-2.5 py-1 rounded border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+          <i data-lucide="footprints" class="w-4 h-4"></i> 도보
+        </button>
       </div>
-      <div id="tab-car" class="hidden text-gray-700 dark:text-gray-200 text-sm space-y-1">
-        <p>- ‘○○빌딩’ 네비게이션 검색</p>
-        <p>- 지하 주차장(유료) 가능</p>
+
+      <!-- ✅ 탭 컨텐츠 -->
+      <div id="tab-public" class="text-gray-700 dark:text-gray-200 text-xs md:text-sm space-y-2">
+        <div class="flex items-start gap-2">
+          <i data-lucide="bus" class="w-4 h-4 mt-0.5"></i>
+          <span>단대오거리역 3번 출구 → <strong>87번 버스</strong> → 성남SKV1타워 하차 → 도보 1분</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <i data-lucide="bus" class="w-4 h-4 mt-0.5"></i>
+          <span>모란역 2,3번 출구 → <strong>340번 버스</strong> → 성남SKV1타워 하차 → 도보 1분</span>
+        </div>
       </div>
-      <div id="tab-walk" class="hidden text-gray-700 dark:text-gray-200 text-sm space-y-1">
-        <p>- ○○역 2번 출구 → 직진 200m → 우측 ○○빌딩 10층</p>
+      <div id="tab-car" class="hidden text-gray-700 dark:text-gray-200 text-xs md:text-sm space-y-2">
+        <div class="flex items-center gap-2">
+          <i data-lucide="navigation" class="w-4 h-4"></i>
+          <span>"우림라이온스밸리5차 주차장" <span class="ml-1 text-gray-500 dark:text-gray-400">내비게이션 검색</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="parking-square" class="w-4 h-4"></i> 주차장 이용 가능
+        </div>
       </div>
-    </div>
+      <div id="tab-walk" class="hidden text-gray-700 dark:text-gray-200 text-xs md:text-sm">
+        <div class="flex items-center gap-2">
+          <i data-lucide="info" class="w-4 h-4"></i> 대중교통 및 자차 이용 부탁 드립니다.
+        </div>
+      </div>
+    </aside>
   </div>
+
+  <!-- ✅ 외관 이미지 + 길찾기 버튼 (반응형, 중앙 배치) -->
+  <section class="flex flex-col items-center gap-3 mt-6">
+    <div class="flex gap-3">
+      <img src="building_outside_A.png" alt="건물 외관1" class="h-40 md:h-48 rounded-lg shadow object-cover">
+      <img src="building_outside_B.png" alt="건물 외관2" class="h-40 md:h-48 rounded-lg shadow object-cover">
+    </div>
+    <a href="https://map.naver.com/p/entry/place/주소" target="_blank"
+       class="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-xs md:text-sm shadow transition">
+      <i data-lucide="map" class="w-4 h-4"></i> 네이버 지도에서 길찾기
+    </a>
+  </section>
 </main>
 
-<!-- ✅ 푸터 -->
-<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
-  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
-  <div>
-    문의메일 :
-    <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
-    | 기술지원 :
-    <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
-  </div>
-  <div class="mt-1">Copyright © 2023 (주)씨앤비즈. All rights reserved.</div>
+<!-- ✅ 푸터 (반응형 텍스트 크기) -->
+<footer class="py-6 px-4 text-center text-[10px] md:text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+  <div>업체명: (주)씨앤비즈 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2023-성남중원-0805</div>
+  <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a></div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
-<!-- ✅ 다크/라이트 모드 버튼 -->
-<button onclick="toggleTheme()"
-  class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
+<!-- ✅ 다크모드 버튼 -->
+<button onclick="toggleTheme()" aria-label="다크모드 전환"
+        class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
   <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
 </button>
 
-<!-- ✅ 네이버 지도 (최신 방식) -->
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=z0ft9rtr2t"></script>
+<!-- ✅ 네이버 지도 스크립트 -->
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=z0ft9rtr2t"></script>
 
 <script>
-lucide.createIcons();
-
-/* 다크모드 토글 */
+// 다크모드 토글
 function toggleTheme() {
   document.documentElement.classList.toggle('dark');
-  const icon = document.getElementById('theme-icon');
-  icon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+  document.getElementById('theme-icon').setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
   lucide.createIcons();
   localStorage.setItem('color-mode', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 }
-if (localStorage.getItem('color-mode') === 'dark') {
-  document.documentElement.classList.add('dark');
-  document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+
+// 탭 전환
+function showTab(tab) {
+  ['public', 'car', 'walk'].forEach(t => {
+    document.getElementById('tab-' + t).classList.add('hidden');
+    document.getElementById('btn-' + t).classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-gray-100');
+  });
+  document.getElementById('tab-' + tab).classList.remove('hidden');
+  document.getElementById('btn-' + tab).classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-gray-100');
   lucide.createIcons();
 }
 
-/* 탭 전환 */
-function showTab(tab) {
-  ['public','car','walk'].forEach(t => {
-    document.getElementById('tab-'+t).classList.add('hidden');
-    document.getElementById('btn-'+t).classList.remove('bg-gray-100','dark:bg-gray-700');
-  });
-  document.getElementById('tab-'+tab).classList.remove('hidden');
-  document.getElementById('btn-'+tab).classList.add('bg-gray-100','dark:bg-gray-700');
-}
+// 초기 로딩 설정
+document.addEventListener('DOMContentLoaded', () => {
+  showTab('public'); // 기본 탭
+  lucide.createIcons();
+  if (localStorage.getItem('color-mode') === 'dark') document.documentElement.classList.add('dark');
+});
 
-/* 네이버 지도 */
+// 네이버 지도 표시
 window.onload = () => {
-  const map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.440376, 127.172604),
-    zoom:15
-  });
+  const map = new naver.maps.Map('map', { center: new naver.maps.LatLng(37.440376, 127.172604), zoom: 15 });
   new naver.maps.Marker({ position: new naver.maps.LatLng(37.440376, 127.172604), map });
 };
-</script>
 
+// 저작권 연도
+document.addEventListener("DOMContentLoaded", () => {
+  const startYear = 2023;
+  const year = new Date().getFullYear();
+  document.getElementById("copyrightYear").textContent = `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
+});
+</script>
 </body>
 </html>
