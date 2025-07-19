@@ -1,169 +1,166 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="ko">
+<html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>주식회사 씨앤비즈 | 오시는 길</title>
 
-<!-- 🔗 파비콘 아이콘 설정 -->
+<!-- ✅ Tailwind CSS CDN: 반응형 / 디자인용 -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- ✅ Lucide Icons CDN: 경량 SVG 아이콘 -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- 🔗 파비콘 설정 (원하는 경로로 변경 가능) -->
 <link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
 <link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
 
-<style>
-/* ===================================================
-   📌 기본 스타일
-=================================================== */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background: #333;
-  color: white;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1001;
-}
-.logo-container img {
-  height: 40px;
-  cursor: pointer;
-}
-.top-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 15px;
-}
-.top-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 6px 10px;
-  display: block;
-}
-.top-nav ul li a:hover,
-.top-nav ul li a.active {
-  background: #555;
-  border-radius: 4px;
-}
-main {
-  padding: 130px 20px 40px; /* 헤더 높이만큼 여백 */
-  max-width: 900px;
-  margin: 0 auto;
-}
-h1 {
-  margin-top: 0;
-}
-
-/* ===================================================
-   🌙 다크/라이트 모드 스타일
-   - body에 dark-mode 클래스가 있으면 다크 모드로 전환
-=================================================== */
-body.dark-mode {
-  background-color: #111;
-  color: #eee;
-}
-body.dark-mode header {
-  background-color: #222;
-}
-body.dark-mode .top-nav ul li a {
-  color: #eee;
-}
-body.dark-mode .top-nav ul li a:hover,
-body.dark-mode .top-nav ul li a.active {
-  background-color: #444;
-}
-</style>
+<!-- ✅ Tailwind 다크모드 설정 (class 기반) -->
+<script>
+  tailwind.config = { darkMode: 'class' }
+</script>
 
 <!-- ✅ SEO / 메타 정보 -->
-<meta http-equiv="Content-Language" content="ko" />
 <meta name="description" content="주식회사 씨앤비즈 공식 웹사이트 - 회사 소개, 연혁, 오시는 길 등 정보 제공" />
 <meta name="keywords" content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길, LED" />
 <meta name="author" content="주식회사 씨앤비즈" />
 <meta name="robots" content="index, follow" />
 </head>
 
-<body>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 
-<!-- ✅ 상단 헤더 / 네비게이션 -->
-<header>
-  <div class="logo-container">
-    <a href="https://landing.cnbiznet.co.kr">
-      <img src="/LED/CnbizLogo.png" alt="회사 로고" />
-    </a>
-  </div>
-  <nav class="top-nav">
-    <ul>
-      <li><a href="/LED/Content/Company/aboutus/">회사소개</a></li>
-      <li><a href="/LED/Content/Company/history/">회사연혁</a></li>
-      <li><a class="active" href="/LED/Content/Company/location/">오시는 길</a></li>
-    </ul>
+<!-- ✅ 상단 헤더: 반응형, Tailwind 적용 -->
+<header class="fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-3 bg-gray-800 text-white z-50 shadow">
+  <a href="https://landing.cnbiznet.co.kr" class="flex items-center gap-2">
+    <img src="/LED/CnbizLogo.png" alt="회사 로고" class="h-8">
+    <!-- <span class="font-semibold">씨앤비즈</span> -->
+  </a>
+  <nav class="flex gap-4 text-sm">
+    <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
+    <a href="/LED/Content/Company/history/" class="hover:text-yellow-400">회사연혁</a>
+    <a href="/LED/Content/Company/location/" class="font-bold text-yellow-400">오시는 길</a>
   </nav>
 </header>
 
-<main>
-  <h1>오시는 길</h1>
-  <p>경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 10층 1009호</p>
+<main class="pt-20 px-4 max-w-5xl mx-auto">
+  <!-- ✅ 페이지 제목 + 아이콘 -->
+  <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
+    <i data-lucide="map-pin" class="w-5 h-5"></i> 오시는 길
+  </h1>
+  <p class="mb-4 text-gray-600 dark:text-gray-300">
+    경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 10층 1009호
+  </p>
 
-  <!-- ✅ 네이버 지도 표시 영역 -->
-    <div id="map" style="width:70%; height:400px; margin-top:15px; border-radius:8px; overflow:hidden;"></div>
-  </main
+  <!-- ✅ 지도 + 안내 박스를 반응형 grid로 배치 -->
+  <div class="grid md:grid-cols-2 gap-4">
+    
+    <!-- 🗺️ 지도 영역 -->
+    <div class="rounded-2xl overflow-hidden shadow">
+      <div id="map" class="w-full h-72 md:h-96"></div>
+    </div>
+
+    <!-- 📦 안내 박스 -->
+    <div class="rounded-2xl shadow p-4 bg-white dark:bg-gray-800">
+      <h3 class="font-semibold mb-3">찾아오시는 길 안내</h3>
+      
+      <!-- ✅ 안내 탭 버튼 (대중교통 / 자차 / 도보) -->
+      <div class="flex gap-2 mb-4 text-sm">
+        <button onclick="showTab('public')" id="btn-public"
+          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
+          <i data-lucide="train" class="w-4 h-4"></i> 대중교통
+        </button>
+        <button onclick="showTab('car')" id="btn-car"
+          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600">
+          <i data-lucide="car" class="w-4 h-4"></i> 자차
+        </button>
+        <button onclick="showTab('walk')" id="btn-walk"
+          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600">
+          <i data-lucide="walk" class="w-4 h-4"></i> 도보
+        </button>
+      </div>
+
+      <!-- ✅ 탭별 안내 내용 -->
+      <div id="tab-public" class="text-gray-700 dark:text-gray-200 text-sm space-y-1">
+        <p>- 지하철 분당선 ○○역 2번 출구 도보 5분</p>
+        <p>- 버스 ○○번, ○○번 하차 도보 3분</p>
+      </div>
+      <div id="tab-car" class="hidden text-gray-700 dark:text-gray-200 text-sm space-y-1">
+        <p>- ‘○○빌딩’ 네비게이션 검색</p>
+        <p>- 지하 주차장(유료) 가능</p>
+      </div>
+      <div id="tab-walk" class="hidden text-gray-700 dark:text-gray-200 text-sm space-y-1">
+        <p>- ○○역 2번 출구 → 직진 200m → 우측 ○○빌딩 10층</p>
+      </div>
+    </div>
+  </div>
+</main>
 
 <!-- ✅ 다크/라이트 모드 토글 버튼 -->
-<button id="themeToggleBtn" style="position: fixed; bottom: 20px; right: 20px; z-index: 2000; padding: 10px 16px; font-size: 14px; background-color: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">
-  🌓 모드 전환
+<button onclick="toggleTheme()"
+  class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
+  <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
 </button>
 
-<!-- ✅ 네이버 지도 API 불러오기 -->
+<!-- ✅ 네이버 지도 API -->
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=z0ft9rtr2t"></script>
 
 <script>
 /* ===================================================
-   🌓 다크/라이트 모드 토글 기능
-   - 클릭 시 body에 'dark-mode' 클래스 추가/제거
-   - 로컬스토리지에 저장하여 새로고침 시 유지
-=================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  const themeToggle = document.getElementById('themeToggleBtn');
-  const currentMode = localStorage.getItem('color-mode');
-  if (currentMode === 'dark') {
-    document.body.classList.add('dark-mode');
+ 🪄 Lucide 아이콘 초기화
+================================================== */
+lucide.createIcons();
+
+/* ===================================================
+ 🌓 다크/라이트 모드 토글
+ - 클릭 시 html에 'dark' 클래스 추가/제거
+ - 로컬스토리지 저장으로 새로고침 시 유지
+================================================== */
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  const icon = document.getElementById('theme-icon');
+  if (document.documentElement.classList.contains('dark')) {
+    icon.setAttribute('data-lucide', 'sun');
+  } else {
+    icon.setAttribute('data-lucide', 'moon');
   }
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
-  });
+  lucide.createIcons(); // 아이콘 다시 렌더링
+}
+
+// 초기 모드 설정
+if (localStorage.getItem('color-mode') === 'dark') {
+  document.documentElement.classList.add('dark');
+  document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+  lucide.createIcons();
+}
+document.querySelector('button[onclick="toggleTheme()"]').addEventListener('click', () => {
+  const isDark = document.documentElement.classList.contains('dark');
+  localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
 });
 
 /* ===================================================
-   🗺️ 네이버 지도 초기화
-   - 페이지 로드 시 지도 생성 & 마커 추가
-   - 위도: 37.440376 / 경도: 127.172604
-=================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  const mapOptions = {
-    center: new naver.maps.LatLng(37.440376, 127.172604),
-    zoom: 17,
-    zoomControl: true,
-    zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
-  };
-  const map = new naver.maps.Map('map', mapOptions);
-
-  // 📍 마커 추가
-  new naver.maps.Marker({
-    position: mapOptions.center,
-    map: map,
-    title: '주식회사 씨앤비즈'
+ 🧭 탭 전환 기능
+ - 버튼 클릭 시 해당 안내 내용만 표시
+================================================== */
+function showTab(tab) {
+  ['public','car','walk'].forEach(t => {
+    document.getElementById('tab-'+t).classList.add('hidden');
+    document.getElementById('btn-'+t).classList.remove('bg-gray-100','dark:bg-gray-700');
   });
-});
+  document.getElementById('tab-'+tab).classList.remove('hidden');
+  document.getElementById('btn-'+tab).classList.add('bg-gray-100','dark:bg-gray-700');
+}
+
+/* ===================================================
+ 🗺️ 네이버 지도 초기화
+================================================== */
+window.onload = () => {
+  const map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.440376,127.172604),
+    zoom:16
+  });
+  new naver.maps.Marker({ position: new naver.maps.LatLng(37.440376,127.172604), map });
+};
 </script>
 
 </body>
