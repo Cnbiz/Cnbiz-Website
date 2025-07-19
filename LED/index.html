@@ -518,7 +518,9 @@ body.dark-mode .features li {
 
   /* ----------------------------- 배경 이미지 설정 (옵션) ----------------------------- */
   /* 배경 이미지를 사용할 경우 */
-  background-image: url('submenu-bg.png'); /* ⬅️ 서브메뉴의 배경에 이미지를 추가할 수 있습니다. 이미지 URL을 설정하여 서브메뉴 배경에 사용합니다. */
+  
+  /* background-image: url('submenu-bg.png'); */
+  /* ⬅️ 서브메뉴의 배경에 이미지를 추가할 수 있습니다. 이미지 URL을 설정하여 서브메뉴 배경에 사용합니다. */
   background-repeat: no-repeat; /* ⬅️ 배경 이미지를 반복하지 않도록 설정합니다. 이미지는 한 번만 표시됩니다. */
   background-position: right bottom; /* ⬅️ 배경 이미지의 위치를 **오른쪽 하단**으로 설정하여, 이미지가 서브메뉴의 오른쪽 하단에 배치되도록 합니다. */
   background-size: contain; /* ⬅️ 배경 이미지의 크기를 서브메뉴 크기에 맞게 비율을 유지하며 조정합니다. 이미지가 왜곡되지 않고 비율이 유지됩니다. */
@@ -1213,7 +1215,7 @@ body {
 <div class="submenu"><ul><li><a href="#">투명OLED</a></li><li><a href="#">투명LCD</a></li><li><a href="#">모니터</a></li><li><a href="#">영상통합제어시스템</a></li></ul></div>
 </li>
 <li><a href="./Content/Company/work/">시공사례</a>
-<div class="submenu"><ul><li><a href="#">함체제작사례</a></li><li><a href="#">제작문의</a></li></ul></div>
+<div class="submenu"><ul><li><a href="#">LED디스플레이</a></li><li><a href="#">사이니지</a></li></ul></div>
 </li>
 <li><a href="#">고객센터</a>
 <div class="submenu"><ul><li><a href="#">공지사항</a></li><li><a href="#">상담문의</a></li><li><a href="#">전시홍보관 방문예약</a></li></ul></div>
@@ -1362,21 +1364,6 @@ body {
       }
     });
   </script>
-<script>
-  const video = document.getElementById('heroVideo');
-  const hero = document.getElementById('heroSection');
-
-  // 비디오가 재생 준비가 되면 (버퍼링 등 끝났을 때)
-  video.addEventListener('canplay', () => {
-    // .hero에 클래스 추가 -> 배경 이미지 제거
-    hero.classList.add('video-loaded');
-  });
-
-  // 혹은 비디오가 재생이 시작됐을 때도 처리 가능
-  // video.addEventListener('play', () => {
-  //   hero.classList.add('video-loaded');
-  // });
-</script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
   
