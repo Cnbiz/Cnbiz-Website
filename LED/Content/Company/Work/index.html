@@ -123,19 +123,15 @@
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 
-<!-- ✅ 추가: 좌측 상단 로고, 우측 상단 홈버튼 (고정) -->
-<div class="fixed top-2 left-2 z-50">
+<!-- ✅ 새 header: flex로 좌-중앙-우 배치 -->
+<header class="bg-[var(--header-footer-bg)] text-[var(--accent-light)] py-3 text-xl font-semibold shadow-md flex justify-between items-center px-4">
   <a href="https://landing.cnbiznet.co.kr">
     <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8">
   </a>
-</div>
-<div class="fixed top-2 right-2 z-50">
-  <a href="/" class="text-xs text-white bg-[var(--header-footer-bg)] px-2 py-1 rounded hover:bg-[var(--accent)]">홈으로</a>
-</div>
-
-<!-- 이하 기존 코드 그대로 -->
-<header class="bg-[var(--header-footer-bg)] text-[var(--accent-light)] text-center py-4 text-xl font-semibold shadow-md">
-  ✨ 시공사례 게시판
+  <div>✨ 시공사례 게시판</div>
+  <a href="/" class="text-white">
+    <i data-lucide="home" class="w-5 h-5"></i>
+  </a>
 </header>
 
 <div class="container mx-auto mt-4 px-4 flex flex-wrap justify-center gap-2">
