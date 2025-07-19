@@ -6,7 +6,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈 | LED 디스플레이</title>
 
-<!-- 2025.07.17 수정본 -->
+<!-- 2025.07.19 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
@@ -145,7 +145,7 @@ html, body {
    📝 헤더 텍스트 (h1) 스타일
    =============================== */
 .hero h1 {
-  font-size: clamp(1.5rem, 5vw, 3.5rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
+  font-size: clamp(1.2rem, 2.5vw, 3rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
   /* clamp(최소값, 중간값, 최대값) 사용:
      최소값은 1.5rem, 중간값은 뷰포트의 5% (5vw), 최대값은 3.5rem로 설정. 화면 크기에 따라 동적으로 변화하지만 
      최소 1.5rem, 최대 3.5rem로 제한 */
@@ -163,7 +163,7 @@ html, body {
    📝 본문 텍스트 (p) 스타일
    =============================== */
 .hero p {
-  font-size: clamp(1rem, 4vw, 2rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
+  font-size: clamp(0.7rem, 2vw, 1.5rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
   /* clamp(최소값, 중간값, 최대값) 사용:
      최소값은 1rem, 중간값은 뷰포트의 4% (4vw), 최대값은 2rem로 설정. 화면 크기에 따라 동적으로 변화하지만 
      최소 1rem, 최대 2rem로 제한 */
@@ -199,11 +199,11 @@ html, body {
    📦 [2] 개별 카드 스타일 
    =========================================== */
 .slide-card {
-  background: black;            /* 카드 자체는 완전한 검정색 */
+  background: rgba(0, 0, 0, 0.3); /* 50% 투명한 검정색 */
   color: #fff;                  /* 기본 글자색은 흰색으로 설정 (가독성 확보) */
-  width: 200px;                 /* 고정된 카드 너비 (기본값) */
-  padding: 15px;                /* 카드 내부 여백: 내용물과 테두리 사이 간격 */
-  border-radius: 10px;          /* 모서리를 부드럽게 둥글게 처리 */
+  width: 250px;                 /* 고정된 카드 너비 (기본값) */
+  padding: 20px;                /* 카드 내부 여백: 내용물과 테두리 사이 간격 */
+  border-radius: 20px;          /* 모서리를 부드럽게 둥글게 처리 */
   text-align: center;           /* 카드 내 콘텐츠 중앙 정렬 */
   text-decoration: none;        /* 링크 밑줄 제거 (카드 전체가 링크인 경우) */
   transition: all 0.3s ease;    /* hover 시 모든 변화 부드럽게 처리 (애니메이션) */
@@ -239,7 +239,7 @@ html, body {
    📝 [6] 카드 설명문 (p) 스타일 
    =========================================== */
 .slide-card p {
-  font-size: 1.3rem;            /* 설명문 폰트 크기 키워서 강조 */
+  font-size: 0.8rem;            /* 설명문 폰트 크기 키워서 강조 */
   font-weight: bold;            /* 진하게 강조 */
   line-height: 1.3;             /* 줄 간격 조절로 가독성 향상 */
   margin: 10px 0;               /* 상하 여백 10px 설정 */
@@ -1246,27 +1246,27 @@ body {
 
 <!-- Custom slider -->
 <section class="custom-slider">
-  <a class="slide-card" href="./Content/Company/work/img/work_29.jpg">
+  <a class="slide-card" href="./Content/Company/work">
     <img src="./Content/Company/work/img/small_work_29.jpg" />
     <h3>사이니지</h3>
     <p>판교 I사 ELV홀</p>
     <span>자세히 보기 →</span>
   </a>
-  <a class="slide-card" href="./Content/Company/work/img/work_3.jpg">
+  <a class="slide-card" href="./Content/Company/work/">
     <img src="./Content/Company/work/img/small_work_3.jpg" />
     <h3>대형 LED디스플레이</h3>
     <p>판교 I사 임원실</p>
     <span>자세히 보기 →</span>
   </a>
-  <a class="slide-card" href="./Content/Company/work/img/work_1.jpg">
+  <a class="slide-card" href="./Content/Company/work/">
     <img src="./Content/Company/work/img/small_work_1.jpg" />
     <h3>전자칠판 및 빔프로젝트</h3>
     <p>판교 I사 회의실</p>
     <span>자세히 보기 →</span>
   </a>
-  <a class="slide-card" href="./Content/Company/work/img/work_2.jpg">
+  <a class="slide-card" href="./Content/Company/work/">
     <img src="./Content/Company/work/img/small_work_2.jpg" />
-    <h3>전자칠판 및 빔프로젝트 음향장치</h3>
+    <h3>빔프로젝트 음향장치</h3>
     <p>판교 I사 회의실</p>
     <span>자세히 보기 →</span>
   </a>
