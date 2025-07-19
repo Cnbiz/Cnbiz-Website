@@ -5,123 +5,138 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>주식회사 씨앤비즈 | 회사소개</title>
 
-<!-- 2025.07.19 수정 -->
-<!-- ✅ Tailwind CSS: 유틸리티 클래스 기반 CSS 프레임워크 (darkMode: class 방식) -->
+ <!-- 2025.07.19 수정 -->
+<!-- ✅ Tailwind CSS: 유틸리티 CSS 프레임워크 (darkMode: class 방식) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  // Tailwind 설정에서 다크모드 적용 방식을 'class'로 지정
-  // → <html> 태그에 직접 'dark' 클래스를 추가/삭제하여 다크모드 전환
+  // Tailwind 설정: 다크모드를 class 방식으로 설정
+  // → <html> 태그에 'dark' 클래스를 넣었다 뺐다 하여 다크모드 전환
   tailwind.config = { darkMode: 'class' }
 </script>
 
-<!-- ✅ Lucide: 아이콘 라이브러리 (예: 해, 달 아이콘) -->
+<!-- ✅ Lucide: SVG 아이콘 라이브러리 -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-  /* 📌 표의 모든 셀(th, td)에 은은한 테두리와 안쪽 여백 설정 */
+  /* ✅ 표 셀(th, td)에 테두리 + 여백 */
   table th, table td {
-    border: 1px solid rgba(120,120,120,0.6); /* 테두리 색 */
-    padding: 0.5rem; /* 셀 내부 여백 */
+    border: 1px solid rgba(120,120,120,0.6); /* 회색 테두리 */
+    padding: 0.5rem; /* 안쪽 여백 */
   }
 
-  /* 🌙 다크모드일 때 강조 색상 변경 */
-  html.dark .highlight {
-    color: #3399ff !important;
-  }
+  /* ✅ 다크모드 강조 색 (ex: "최적의 System") */
+  html.dark .highlight { color: #3399ff !important; }
 
-  /* 📌 푸터를 항상 페이지 맨 아래에 고정시키기 위한 flex 레이아웃 설정 */
+  /* ✅ 푸터를 항상 하단에 고정 */
   html, body { height: 100%; }
   body > footer { margin-top: auto; }
+
+  /* ✨ [추가] 애니메이션 5종 정의 */
+
+  /* 1) fadeIn: 천천히 나타나기 */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .fadeIn { animation: fadeIn 1s ease-out; }
+
+  /* 2) slideUp: 아래에서 위로 올라오며 등장 */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .slideUp { animation: slideUp 1s ease-out; }
+
+  /* 3) zoomIn: 살짝 작게 시작해 확대 */
+  @keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .zoomIn { animation: zoomIn 1s ease-out; }
+
+  /* 4) rotateIn: 회전하면서 등장 */
+  @keyframes rotateIn {
+    from { opacity: 0; transform: rotate(-2deg); }
+    to   { opacity: 1; transform: rotate(0); }
+  }
+  .rotateIn { animation: rotateIn 1s ease-out; }
+
+  /* 5) blurToClear: 흐림 → 선명 */
+  @keyframes blurToClear {
+    from { opacity: 0; filter: blur(4px); }
+    to   { opacity: 1; filter: blur(0); }
+  }
+  .blurToClear { animation: blurToClear 1s ease-out; }
 </style>
 </head>
 
 <body class="flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
-<!-- 
-  flex flex-col : 세로로 쌓이는 레이아웃 
-  bg-gray-50 : 기본 배경(라이트모드)
-  text-gray-900 : 기본 글자색(라이트모드)
-  dark:bg-gray-900 / dark:text-gray-100 : 다크모드 시 색상 변경
-  transition-colors : 다크모드 전환 시 색상 부드럽게 변화
+<!--  
+  flex flex-col : 세로 레이아웃
+  transition-colors : 모드 변경 시 부드러운 색상 전환
 -->
 
-<!-- ✅ HEADER: 상단 고정된 내비게이션 영역 -->
+<!-- ✅ HEADER -->
 <header class="fixed top-0 w-full bg-gray-800 text-white flex justify-between items-center px-5 h-14 shadow z-50">
-  <!-- 왼쪽: 로고 (클릭 시 landing.cnbiznet.co.kr 로 이동) -->
   <a href="https://landing.cnbiznet.co.kr" class="flex items-center gap-2">
     <img src="/LED/CnbizLogo.png" alt="로고" class="h-8">
   </a>
-  <!-- 오른쪽: 메뉴 항목 -->
-  <nav class="flex gap-5 text-sm">
-    <a href="#" class="hover:text-yellow-400">회사소개</a>
-    <a href="#">회사연혁</a>
-    <a href="#">오시는 길</a>
+  <nav class="flex gap-4 text-sm">
+    <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
+    <a href="/LED/Content/Company/history/" class="hover:text-yellow-400">회사연혁</a>
+    <a href="/LED/Content/Company/location/" class="font-bold text-yellow-400">오시는 길</a>
   </nav>
 </header>
 
-<!-- ✅ HERO: 상단 큰 배너 이미지 -->
-<section class="mt-16 mx-auto max-w-4xl w-11/12 rounded-2xl overflow-hidden shadow-lg"
+<!-- ✅ HERO (자동 랜덤 애니메이션 적용) -->
+<section id="hero" class="mt-20 mx-auto max-w-4xl w-11/12 rounded-2xl overflow-hidden shadow-lg"
   style="background: url('aboutus.png') center/cover no-repeat; height: 400px;">
 </section>
-<!-- 
-  mt-16 : 헤더 높이만큼 아래 여백 확보
-  max-w-4xl : 최대 너비 제한 (PC)
-  w-11/12 : 화면 너비의 약 91% 사용
-  rounded-2xl : 둥근 모서리
-  shadow-lg : 그림자 효과
--->
 
-<!-- ✅ 본문: 좌/우 2열 구성 (PC), 모바일에서는 세로 스택 -->
+<!-- ✅ 본문 -->
 <main class="max-w-6xl mx-auto p-4 mt-6 grid md:grid-cols-2 gap-6">
-<!-- 
-  max-w-6xl : 최대 너비 제한
-  mx-auto : 좌우 가운데 정렬
-  p-4 : 패딩
-  mt-6 : 위쪽 여백
-  grid + md:grid-cols-2 : PC에서는 2열, 모바일은 1열
-  gap-6 : 칸 사이 간격
--->
+  <!-- 왼쪽: 회사 정보 표 -->
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-4 mx-auto">
+    <table class="mt-2.5 w-full text-sm break-words">
+      <tr>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">회사명</th>
+        <td>주식회사 씨앤비즈</td>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">대표</th>
+        <td>차호진</td>
+      </tr>
+      <tr>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">주소</th>
+        <td colspan="3">경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</td>
+      </tr>
+      <tr>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">설립일</th>
+        <td>2019.3 ㈜씨앤비즈 법인설립</td>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">홈페이지</th>
+        <td class="text-blue-600 dark:text-blue-400">www.cnbiznet.co.kr</td>
+      </tr>
+      <tr>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">전화</th>
+        <td>031-706-6641</td>
+        <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">팩스</th>
+        <td>031-704-6648</td>
+      </tr>
+    </table>
+  </div>
 
-<!-- 📌 왼쪽: 회사 정보 표 -->
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-4 mx-auto">
-  <table class="mt-2.5 w-full text-sm break-words">
-    <!-- mt-2.5 : 표 위쪽 여백 -->
-    <tr>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">회사명</th>
-      <td>주식회사 씨앤비즈</td>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">대표</th>
-      <td>차호진</td>
-    </tr>
-    <tr>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">주소</th>
-      <td colspan="3">경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</td>
-    </tr>
-    <tr>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">설립일</th>
-      <td>2019.3 ㈜씨앤비즈 법인설립</td>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">홈페이지</th>
-      <td class="text-blue-600 dark:text-blue-400">www.cnbiznet.co.kr</td>
-    </tr>
-    <tr>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:70px;">전화</th>
-      <td>031-706-6641</td>
-      <th class="bg-gray-800 text-white font-semibold text-center align-middle" style="width:90px;">팩스</th>
-      <td>031-704-6648</td>
-    </tr>
-  </table>
-</div>
-
-<!-- 📌 오른쪽: 회사 소개 글 -->
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-  <h2 class="text-xl font-bold mb-2">고객의 요구에 맞춰 <span class="text-blue-500 highlight">최적의 System</span>을 제공합니다.</h2>
-  <p class="leading-relaxed text-sm md:text-base">
-    고객이 요구하는 Total IT Solution을 고객의 입장에서 제공하는 전문기업이며,<br>
-    최신 IT Solution Trend를 받을 수 있는 System을 운영합니다.<br>
-    또한 각종 경영관리·보안 등 요구사항에 최적화된 Solution을 맞춤 Consulting으로 제공합니다.
-  </p>
-</div>
+  <!-- 오른쪽: 소개 문단 -->
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+    <h2 class="text-xl font-bold mb-2">고객의 요구에 맞춰<br>
+      <span class="text-blue-500 highlight">최적의 System</span>을 제공합니다.
+    </h2>
+    <p class="leading-relaxed text-sm md:text-base">
+      고객이 요구하는 Total IT Solution을 고객의 입장에서<br>제공하는 전문기업이며,
+      최신 IT Solution Trend를 받을 수 있는 System을 운영합니다.
+      또한 각종 경영관리·보안 등 요구사항에<br>최적화된 Solution을 맞춤 Consulting으로 제공합니다.
+    </p>
+  </div>
 </main>
 
-<!-- ✅ FOOTER: 페이지 하단 고정 -->
+<!-- ✅ FOOTER -->
 <footer class="text-center text-xs py-4 mt-auto bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-300">
   업체명: 주식회사 씨앤비즈 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
   대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2023-성남중원-0805<br>
@@ -130,7 +145,7 @@
   Copyright © 2023–2025 (주)씨앤비즈. All rights reserved.
 </footer>
 
-<!-- ✅ 다크모드 토글 버튼 (오른쪽 하단) -->
+<!-- ✅ 다크모드 토글 버튼 -->
 <button onclick="toggleTheme()" aria-label="다크모드 전환"
   class="fixed bottom-4 right-4 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
   <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
@@ -142,17 +157,24 @@ function toggleTheme(){
   const html = document.documentElement;
   html.classList.toggle('dark'); // dark 클래스 on/off
   const mode = html.classList.contains('dark') ? 'dark' : 'light';
-  localStorage.setItem('color-mode', mode); // 모드 상태 저장
+  localStorage.setItem('color-mode', mode); // 로컬스토리지에 저장
   document.getElementById('theme-icon').setAttribute('data-lucide', mode==='dark' ? 'sun' : 'moon');
-  lucide.createIcons(); // 아이콘 다시 그리기
+  lucide.createIcons(); // 아이콘 다시 렌더링
 }
 
-/* ✅ 페이지 로드 시: 저장된 모드 적용 + 아이콘 설정 */
+/* ✅ 페이지 로드 시 초기 설정 (다크모드 + 아이콘 + 랜덤 애니메이션) */
 document.addEventListener('DOMContentLoaded', () => {
+  // 저장된 모드 적용
   if(localStorage.getItem('color-mode')==='dark'){
     document.documentElement.classList.add('dark');
   }
+  // Lucide 아이콘 초기화
   lucide.createIcons();
+
+  // 🌟 애니메이션 5종 중 하나를 랜덤으로 선택해서 hero에 추가
+  const animations = ['fadeIn','slideUp','zoomIn','rotateIn','blurToClear'];
+  const randomClass = animations[Math.floor(Math.random() * animations.length)];
+  document.getElementById('hero').classList.add(randomClass);
 });
 </script>
 </body>
