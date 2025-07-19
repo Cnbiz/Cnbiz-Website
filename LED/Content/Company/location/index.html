@@ -5,36 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>주식회사 씨앤비즈 | 오시는 길</title>
 
-<!-- ✅ Tailwind CSS CDN: 반응형 / 디자인용 -->
+<!-- ✅ Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- ✅ Lucide Icons CDN: 경량 SVG 아이콘 -->
+<!-- ✅ Tailwind 다크모드 설정 -->
+<script> tailwind.config = { darkMode: 'class' } </script>
+
+<!-- ✅ Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<!-- 🔗 파비콘 설정 (원하는 경로로 변경 가능) -->
+<!-- 🔗 파비콘 -->
 <link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
 <link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
 
-<!-- ✅ Tailwind 다크모드 설정 (class 기반) -->
-<script>
-  tailwind.config = { darkMode: 'class' }
-</script>
-
-<!-- ✅ SEO / 메타 정보 -->
+<!-- ✅ SEO -->
 <meta name="description" content="주식회사 씨앤비즈 공식 웹사이트 - 회사 소개, 연혁, 오시는 길 등 정보 제공" />
 <meta name="keywords" content="씨앤비즈, CNBIZ, 회사소개, 연혁, 오시는 길, LED" />
 <meta name="author" content="주식회사 씨앤비즈" />
 <meta name="robots" content="index, follow" />
 </head>
 
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
 
-<!-- ✅ 상단 헤더: 반응형, Tailwind 적용 -->
+<!-- ✅ 헤더 -->
 <header class="fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-3 bg-gray-800 text-white z-50 shadow">
   <a href="https://landing.cnbiznet.co.kr" class="flex items-center gap-2">
     <img src="/LED/CnbizLogo.png" alt="회사 로고" class="h-8">
-    <!-- <span class="font-semibold">씨앤비즈</span> -->
   </a>
   <nav class="flex gap-4 text-sm">
     <a href="/LED/Content/Company/aboutus/" class="hover:text-yellow-400">회사소개</a>
@@ -43,8 +40,8 @@
   </nav>
 </header>
 
-<main class="pt-20 px-4 max-w-5xl mx-auto">
-  <!-- ✅ 페이지 제목 + 아이콘 -->
+<!-- ✅ 메인 콘텐츠 -->
+<main class="flex-1 pt-20 px-4 max-w-5xl mx-auto">
   <h1 class="text-2xl font-bold mb-2 flex items-center gap-2">
     <i data-lucide="map-pin" class="w-5 h-5"></i> 오시는 길
   </h1>
@@ -52,35 +49,29 @@
     경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 10층 1009호
   </p>
 
-  <!-- ✅ 지도 + 안내 박스를 반응형 grid로 배치 -->
-  <div class="grid md:grid-cols-2 gap-4">
-    
-    <!-- 🗺️ 지도 영역 -->
-    <div class="rounded-2xl overflow-hidden shadow">
-      <div id="map" class="w-full h-80 md:h-100"></div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <!-- 🗺️ 지도 (2칸 차지) -->
+    <div class="md:col-span-2 rounded-2xl overflow-hidden shadow">
+      <div id="map" class="w-full h-80 md:h-96"></div>
     </div>
 
     <!-- 📦 안내 박스 -->
     <div class="rounded-2xl shadow p-4 bg-white dark:bg-gray-800">
       <h3 class="font-semibold mb-3">찾아오시는 길 안내</h3>
-      
-      <!-- ✅ 안내 탭 버튼 (대중교통 / 자차 / 도보) -->
-      <div class="flex gap-2 mb-4 text-sm">
-        <button onclick="showTab('public')" id="btn-public"
-          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
-          <i data-lucide="train" class="w-4 h-4"></i> 대중교통
-        </button>
-        <button onclick="showTab('car')" id="btn-car"
-          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600">
-          <i data-lucide="car" class="w-4 h-4"></i> 자차
-        </button>
-        <button onclick="showTab('walk')" id="btn-walk"
-          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded border border-gray-300 dark:border-gray-600">
-          <i data-lucide="walk" class="w-4 h-4"></i> 도보
-        </button>
-      </div>
-
-      <!-- ✅ 탭별 안내 내용 -->
+      <div class="flex justify-center gap-2 mb-4 text-sm">
+		<button onclick="showTab('public')" id="btn-public"
+		   class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
+			<i data-lucide="train" class="w-4 h-4"></i> 대중교통
+		</button>
+	<button onclick="showTab('car')" id="btn-car"
+		   class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600">
+			<i data-lucide="car" class="w-4 h-4"></i> 자차
+    </button>
+    <button onclick="showTab('walk')" id="btn-walk"
+			class="flex items-center justify-center gap-1 px-3 py-1 rounded border border-gray-300 dark:border-gray-600">
+		<i data-lucide="footprints" class="w-4 h-4"></i> 도보
+	</button>
+	</div>
       <div id="tab-public" class="text-gray-700 dark:text-gray-200 text-sm space-y-1">
         <p>- 지하철 분당선 ○○역 2번 출구 도보 5분</p>
         <p>- 버스 ○○번, ○○번 하차 도보 3분</p>
@@ -96,51 +87,46 @@
   </div>
 </main>
 
-<!-- ✅ 다크/라이트 모드 토글 버튼 -->
+<!-- ✅ 푸터 -->
+<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>
+    문의메일 :
+    <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
+    | 기술지원 :
+    <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
+  </div>
+  <div class="mt-1">Copyright © 2023 (주)씨앤비즈. All rights reserved.</div>
+</footer>
+
+<!-- ✅ 다크/라이트 모드 버튼 -->
 <button onclick="toggleTheme()"
   class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
   <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
 </button>
 
-<!-- ✅ 네이버 지도 API -->
+<!-- ✅ 네이버 지도 (최신 방식) -->
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=z0ft9rtr2t"></script>
+
 <script>
-/* ===================================================
- 🪄 Lucide 아이콘 초기화
-================================================== */
 lucide.createIcons();
 
-/* ===================================================
- 🌓 다크/라이트 모드 토글
- - 클릭 시 html에 'dark' 클래스 추가/제거
- - 로컬스토리지 저장으로 새로고침 시 유지
-================================================== */
+/* 다크모드 토글 */
 function toggleTheme() {
   document.documentElement.classList.toggle('dark');
   const icon = document.getElementById('theme-icon');
-  if (document.documentElement.classList.contains('dark')) {
-    icon.setAttribute('data-lucide', 'sun');
-  } else {
-    icon.setAttribute('data-lucide', 'moon');
-  }
-  lucide.createIcons(); // 아이콘 다시 렌더링
+  icon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+  lucide.createIcons();
+  localStorage.setItem('color-mode', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 }
-
-// 초기 모드 설정
 if (localStorage.getItem('color-mode') === 'dark') {
   document.documentElement.classList.add('dark');
   document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
   lucide.createIcons();
 }
-document.querySelector('button[onclick="toggleTheme()"]').addEventListener('click', () => {
-  const isDark = document.documentElement.classList.contains('dark');
-  localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
-});
 
-/* ===================================================
- 🧭 탭 전환 기능
- - 버튼 클릭 시 해당 안내 내용만 표시
-================================================== */
+/* 탭 전환 */
 function showTab(tab) {
   ['public','car','walk'].forEach(t => {
     document.getElementById('tab-'+t).classList.add('hidden');
@@ -150,15 +136,13 @@ function showTab(tab) {
   document.getElementById('btn-'+tab).classList.add('bg-gray-100','dark:bg-gray-700');
 }
 
-/* ===================================================
- 🗺️ 네이버 지도 초기화
-================================================== */
+/* 네이버 지도 */
 window.onload = () => {
   const map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.440376,127.172604),
-    zoom:17
+    center: new naver.maps.LatLng(37.440376, 127.172604),
+    zoom:15
   });
-  new naver.maps.Marker({ position: new naver.maps.LatLng(37.440376,127.172604), map });
+  new naver.maps.Marker({ position: new naver.maps.LatLng(37.440376, 127.172604), map });
 };
 </script>
 
