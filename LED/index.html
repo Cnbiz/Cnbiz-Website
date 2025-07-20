@@ -299,8 +299,12 @@ html, body {
     width: 100%; /* 화면에 맞춰 카드 크기 100%로 설정 */
   }
 }
-
-
+  /* 카드 내 이미지가 부모 컨테이너에 맞게 조정되도록 반응형 스타일 추가 */
+  .slide-card img {
+    width: 100%;    /* 부모 요소 너비에 맞춰 이미지 크기 조정 */
+    height: auto;   /* 비율 유지 */
+    object-fit: cover; /* 비율 유지하며 카드 공간을 꽉 채우도록 설정 */
+  }
 /* ✅ 다크 모드: 반투명하게 덮어쓰기 */
 body.dark-mode .custom-slider {
   background: rgba(255, 255, 255, 0.05) !important; /* ⬅️ 다크 모드에서 custom-slider 배경색을 거의 투명한 흰색으로 설정하여 어두운 배경과 자연스럽게 섞이도록 함 */
