@@ -199,7 +199,7 @@ html, body {
    📦 [2] 개별 카드 스타일 
    =========================================== */
 .slide-card {
-  background: rgba(0, 0, 0, 0.3); /* 50% 투명한 검정색 */
+  background: rgba(0, 0, 0, 0.1); /* 50% 투명한 검정색 */
   color: #fff;                  /* 기본 글자색은 흰색으로 설정 (가독성 확보) */
   font-weight: bold;            /* 기본 글자 진하고 두껍게 설정 (가독성 확보) */
   width: 250px;                 /* 고정된 카드 너비 (기본값) */
@@ -321,6 +321,21 @@ body.dark-mode .features {
 body.dark-mode .features h2,
 body.dark-mode .features li {
   color: #f0f0f0; /* ⬅️ h2와 li 요소의 텍스트 색상도 밝은 회색으로 변경하여, 전체 디자인이 어두운 배경과 잘 어울리게 설정 */
+}
+/* 기본(라이트모드): 텍스트를 검정으로 설정 */
+.slide-card,
+.slide-card h3,
+.slide-card p,
+.slide-card span {
+  color: #000; /* 기본 검정색 */
+}
+
+/* 다크모드일 때만 흰색으로 덮어쓰기 */
+body.dark-mode .slide-card,
+body.dark-mode .slide-card h3,
+body.dark-mode .slide-card p,
+body.dark-mode .slide-card span {
+  color: #fff;
 }
 
 /* ===============================
@@ -829,6 +844,12 @@ body.dark-mode .submenu ul li a {
   color: #000;                  /* 검은 텍스트 */
 }
 
+/* 라이트 모드(= body에 dark-mode 클래스 없는 경우)에서만 .theme-toggle 버튼을 검정색으로 */
+body:not(.dark-mode) .fixed-btn.theme-toggle {
+  background-color: #000;  /* 검정 배경 */
+  color: #fff;             /* 흰색 텍스트 */
+}
+
 /* ────────────────────────────────
    ✅ 카카오톡 버튼 특수 처리
    - 카카오톡 버튼은 밝은 배경에 어두운 텍스트라
@@ -858,7 +879,16 @@ body.dark-mode .submenu ul li a {
   }
 
   .fixed-btn .label {
-    display: none !important;
+    opacity: 0;
+    max-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-width 0.3s ease;
+  }
+
+  .right-fixed-menu.open .fixed-btn .label {
+    opacity: 1;
+    max-width: 100px;
   }
 }
 
@@ -1228,7 +1258,13 @@ body {
 <div class="submenu"><ul><li><a href="#">투명OLED</a></li><li><a href="#">투명LCD</a></li><li><a href="#">모니터</a></li><li><a href="#">영상통합제어시스템</a></li></ul></div>
 </li>
 <li><a href="./Content/Company/work/">시공사례</a>
-<div class="submenu"><ul><li><a href="#">LED디스플레이</a></li><li><a href="#">사이니지</a></li></ul></div>
+<div class="submenu">
+<ul>
+<li><a href="./Content/Company/work/">시공사례</a>
+<li><a href="#">LED디스플레이</a></li>
+<li><a href="#">사이니지</a></li>
+</ul>
+</div>
 </li>
 <li><a href="#">고객센터</a>
 <div class="submenu"><ul><li><a href="#">공지사항</a></li><li><a href="#">상담문의</a></li><li><a href="#">전시홍보관 방문예약</a></li></ul></div>
@@ -1378,130 +1414,89 @@ body {
     });
   </script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-  
-    // 햄버거 메뉴 토글 기능
-const btn = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.top-nav');
-
-btn?.addEventListener('click', () => {
-  nav.classList.toggle('active');
-});
-
-const menuItems = document.querySelectorAll('.top-nav > ul > li > a');
-menuItems.forEach(item => {
-  item.addEventListener('click', e => {
-    const isMobile = window.innerWidth <= 768;
-    const submenu = item.nextElementSibling;
-
-    if (isMobile && submenu?.classList.contains('submenu')) {
-      e.preventDefault();
-
-      // 다른 서브메뉴 닫기
-      document.querySelectorAll('.submenu.open').forEach(sm => {
-        if (sm !== submenu) sm.classList.remove('open');
-      });
-
-      submenu.classList.toggle('open');
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  // 햄버거 메뉴 토글 (있는 경우)
+  const btn = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.top-nav');
+  btn?.addEventListener('click', () => {
+    nav.classList.toggle('active');
   });
-});
-    // 비디오 로드 시 배경 이미지 제거
-    const video = document.getElementById('heroVideo');
-    const hero = document.getElementById('heroSection');
-    video.addEventListener('canplay', () => {
-      hero.classList.add('video-loaded');
+
+  // 모바일 서브메뉴
+  const menuItems = document.querySelectorAll('.top-nav > ul > li > a');
+  menuItems.forEach(item => {
+    item.addEventListener('click', e => {
+      const isMobile = window.innerWidth <= 768;
+      const submenu = item.nextElementSibling;
+      if (isMobile && submenu?.classList.contains('submenu')) {
+        e.preventDefault();
+        document.querySelectorAll('.submenu.open').forEach(sm => {
+          if (sm !== submenu) sm.classList.remove('open');
+        });
+        submenu.classList.toggle('open');
+      }
     });
   });
-</script>
-<script>
-  function setHeroHeight() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+  // 비디오 로드 시 배경 제거
+  const video = document.getElementById('heroVideo');
+  const hero = document.getElementById('heroSection');
+  video?.addEventListener('canplay', () => {
+    hero?.classList.add('video-loaded');
+  });
+
+  // 모바일 클릭 시 우측 메뉴 펼치기
+  const rightMenu = document.querySelector('.right-fixed-menu');
+  if (rightMenu) {
+    rightMenu.addEventListener('click', () => {
+      rightMenu.classList.toggle('open');
+    });
   }
 
-  window.addEventListener('resize', setHeroHeight);
-  window.addEventListener('load', setHeroHeight);
-  window.addEventListener('DOMContentLoaded', setHeroHeight); // ✅ 추가!
-</script>
-<!-- ✅ ChatGPT: 다크/라이트 모드 토글 버튼 -->
-<!-- ✅ ChatGPT 추가: 다크/라이트 모드 전환 스크립트 -->
-<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
-<!-- ✅ ChatGPT 추가: 다크/라이트 모드 토글 스크립트 -->
-<!-- ✅ ChatGPT: 다크/라이트 모드 토글 기능 (스타일까지 포함해서 수정) -->
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // DOM이 모두 로드되고 난 후 스크립트를 실행합니다.
-  
-  // 테마 토글 버튼을 id로 찾아 변수에 저장
+  // 다크모드 토글
   const themeToggle = document.getElementById("themeToggle");
-
+  let iconSpan, labelSpan; // ✅ 여기서 선언 (밖에)
   if (themeToggle) {
-    // 버튼 내부의 아이콘과 라벨(span 요소)도 미리 찾아 변수에 저장
-    // 이렇게 하면 DOM을 매번 찾지 않아도 되서 성능상 유리합니다.
-    const iconSpan = themeToggle.querySelector('.icon');
-    const labelSpan = themeToggle.querySelector('.label');
-
-    // 로컬스토리지에서 이전에 저장한 테마 모드를 불러옵니다.
-    // 저장된 값이 없으면 기본값으로 "light"를 사용합니다.
+    iconSpan = themeToggle.querySelector('.icon');
+    labelSpan = themeToggle.querySelector('.label');
     const savedTheme = localStorage.getItem("theme") || "light";
-    applyTheme(savedTheme);  // 불러온 테마를 초기 적용합니다.
+    applyTheme(savedTheme); // 초기 적용
 
-    // 사용자가 버튼을 클릭했을 때 실행되는 이벤트 리스너 등록
     themeToggle.addEventListener("click", () => {
-      // document.body의 클래스 리스트에 dark-mode 토글(추가/제거)
       const isDark = document.body.classList.toggle("dark-mode");
-      
-      // 토글 결과에 따라 새 테마 값을 "dark" 또는 "light"로 설정
       const newTheme = isDark ? "dark" : "light";
-
-      // 변경된 테마를 로컬스토리지에 저장해 새로고침 후에도 유지되도록 함
       localStorage.setItem("theme", newTheme);
-
-      // 바뀐 테마에 맞춰 UI 텍스트 및 스타일을 업데이트
       applyTheme(newTheme);
     });
 
-    // 마우스가 버튼 위에 올라갔을 때 실행되는 이벤트 리스너
     themeToggle.addEventListener("mouseover", () => {
-      // 버튼의 너비를 확장하여 텍스트가 보일 공간 확보
       themeToggle.style.width = "150px";
-
-      // 텍스트 라벨의 투명도를 1로 올려 텍스트를 보이게 함
-      themeToggle.querySelector('.label').style.opacity = '1';
+      if (labelSpan) labelSpan.style.opacity = '1';
     });
+    // 마우스 아웃 이벤트는 주석 중
+  }
 
-    <!-- // 마우스가 버튼에서 떠날 때 실행되는 이벤트 리스너 -->
-    <!-- themeToggle.addEventListener("mouseout", () => { -->
-      <!-- // 버튼 너비 스타일을 빈 값으로 초기화하여 CSS 기본값으로 복구 -->
-      <!-- themeToggle.style.width = ""; -->
-
-      <!-- // 텍스트 라벨을 투명하게 만들어 다시 숨김 처리 -->
-      <!-- themeToggle.querySelector('.label').style.opacity = '0'; -->
-    <!-- }); -->
-
-    /**
-     * applyTheme 함수
-     * - 현재 테마 모드(light/dark)에 따라 화면 및 버튼 UI를 업데이트
-     * @param {string} mode - "light" 또는 "dark"
-     */
-    function applyTheme(mode) {
-      const isDark = mode === "dark";
-
-      // 바디 태그에 'dark-mode' 클래스 토글 적용
-      // 이 클래스는 CSS에서 다크 모드 스타일을 적용하는 데 사용됨
-      document.body.classList.toggle("dark-mode", isDark);
-
-      // 아이콘을 햇님 또는 달 모양으로 변경
-      if (iconSpan) iconSpan.textContent = isDark ? "☀️" : "🌙";
-
-      // 텍스트 라벨을 현재 모드에 맞게 변경
-      if (labelSpan) labelSpan.textContent = isDark ? "라이트모드" : "다크모드";
-    }
+  // ✅ applyTheme 함수에서 iconSpan, labelSpan 사용
+  function applyTheme(mode) {
+    const isDark = mode === "dark";
+    document.body.classList.toggle("dark-mode", isDark);
+    if (iconSpan) iconSpan.textContent = isDark ? "☀️" : "🌙";
+    if (labelSpan) labelSpan.textContent = isDark ? "라이트모드" : "다크모드";
   }
 });
 </script>
+
+<script>
+// 화면 높이 대응 (모바일 100vh 문제 대응)
+function setHeroHeight() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('resize', setHeroHeight);
+window.addEventListener('load', setHeroHeight);
+window.addEventListener('DOMContentLoaded', setHeroHeight);
+</script>
+
 <!--
 ✅ 전체 역할 및 코드 상세 설명
 - 기존 infinite-slider 제거
