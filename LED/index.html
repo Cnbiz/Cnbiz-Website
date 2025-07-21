@@ -1199,22 +1199,14 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 <iframe src="landing.html" title="프로모션 팝업"></iframe>
 </div>
 
-<!-- 📜 팝업 동작 스크립트 -->
 <script>
-window.onload = function () {
-  const today = getTodayKey();
-  const dismissed = localStorage.getItem('popupDismissedToday');
-  if (dismissed !== today) {
-    document.getElementById('popupOverlay').style.display = 'flex';
-    document.body.classList.add('no-scroll');
-  }
-};
-
+// 전역 함수
 function getTodayKey() {
   const t = new Date();
   return `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
 }
 
+// 전역 이벤트 리스너
 window.addEventListener('message', e => {
   if (!e.data || !e.data.action) return;
 
@@ -1232,9 +1224,16 @@ window.addEventListener('message', e => {
     window.location.href = 'https://cnbiznet.co.kr';
   }
 });
-</script>
-<script>
+
 document.addEventListener('DOMContentLoaded', () => {
+  // 📜 팝업 동작
+  const today = getTodayKey();
+  const dismissed = localStorage.getItem('popupDismissedToday');
+  if (dismissed !== today) {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    document.body.classList.add('no-scroll');
+  }
+
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.top-nav');
@@ -1255,6 +1254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
   // ✅ 비디오 로드 시 배경 제거
   const video = document.getElementById('heroVideo');
   const hero = document.getElementById('heroSection');
