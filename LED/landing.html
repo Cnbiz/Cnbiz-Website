@@ -632,26 +632,23 @@ if (!message) {
     document.addEventListener('contextmenu', (e) => e.preventDefault());
   </script>
   
- <!-- 메인 사이트 이동 버튼 클릭 시 부모창에 메시지 전송 -->
-<script>
+ <script>
 window.addEventListener('DOMContentLoaded', () => {
   const todayKey = getTodayKey();
   const saved = localStorage.getItem('hidePopupDate');
-  
+
   if (saved === todayKey) {
     document.querySelector(".popup-wrapper").style.display = "none";
     document.getElementById("closeBtn").style.display = "none";
-
-    // ⭐ body 배경도 제거
-    document.body.style.background = "none";
+    
+    // (선택) 배경 제거는 iframe 자체를 부모에서 꺼주므로 사실상 불필요
+    // document.body.style.background = "none";
   }
 
-  // 메인 이동 버튼
   document.getElementById('mainBtn').addEventListener('click', () => {
     window.parent.postMessage({ action: 'goToMain' }, '*');
   });
 
-  // 팝업 닫기 버튼
   document.getElementById('closeBtn').addEventListener('click', closePopup);
 });
 </script>
