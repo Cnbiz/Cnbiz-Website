@@ -30,6 +30,7 @@
 
     /* === 팝업 전체 래퍼 스타일 === */
     .popup-wrapper {
+	  display: none;
       background-color: var(--bg-light);
       max-width: 100vh;
       max-height: 200vh;
@@ -637,7 +638,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (saved === todayKey) {
     document.querySelector(".popup-wrapper").style.display = "none";
     document.getElementById("closeBtn").style.display = "none";
-    document.body.style.background = "none";
   }
 });
 </script>
