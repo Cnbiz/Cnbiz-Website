@@ -1216,6 +1216,13 @@ window.addEventListener('message', e => {
     }
     document.getElementById('popupOverlay').style.display = 'none';
     document.body.classList.remove('no-scroll');
+
+    // ⭐ iframe 자체도 숨기거나 src 제거
+    const iframe = document.querySelector('#popupOverlay iframe');
+    if (iframe) {
+      iframe.src = ''; // src 제거 (추천)
+      // 또는 iframe.style.display = 'none';
+    }
   }
 
   if (e.data.action === 'goToMain') {
@@ -1233,6 +1240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('popupOverlay').style.display = 'flex';
     document.body.classList.add('no-scroll');
   }
+});
+
 
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
