@@ -6,10 +6,6 @@
 <title>주식회사 씨앤비즈 | 회사소개</title>
 
  <!-- 2025.07.19 수정 -->
- <!-- ✅ 파비콘 (브라우저 탭 아이콘) -->
-<link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
 <!-- ✅ Tailwind CSS: 유틸리티 CSS 프레임워크 (darkMode: class 방식) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -141,13 +137,15 @@
   </div>
 </main>
 
-<!-- ✅ FOOTER -->
-<footer class="text-center text-xs py-4 mt-auto bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-  업체명: 주식회사 씨앤비즈 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
-  대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2023-성남중원-0805<br>
-  문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline">sales@cnbiznet.co.kr</a> |
-  기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline">cto@cnbiznet.co.kr</a><br>
-  Copyright © 2023–2025 (주)씨앤비즈. All rights reserved.
+<!-- ✅ 푸터: 회사 정보와 저작권 안내 -->
+<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>
+    문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
+    | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
+  </div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
 <!-- ✅ 다크모드 토글 버튼 -->
@@ -180,7 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const animations = ['fadeIn','slideUp','zoomIn','rotateIn','blurToClear'];
   const randomClass = animations[Math.floor(Math.random() * animations.length)];
   document.getElementById('hero').classList.add(randomClass);
+
+  // ✅ 현재 연도 자동 표시 (예: 2023–2025)
+  const startYear = 2023; // 시작 연도
+  const year = new Date().getFullYear(); // 현재 연도
+  document.getElementById("copyrightYear").textContent =
+    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
 });
+
+
 </script>
 </body>
 </html>
