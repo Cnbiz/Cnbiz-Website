@@ -652,9 +652,7 @@ body.dark-mode .submenu ul li a {
   z-index: 1; /* ⬅️ 텍스트가 **비디오 위에 표시**되도록 설정합니다. */
 }
 
-/* ────────────────────────────────
- ✅ 기본 버튼 & 라이트 모드 고정
-───────────────────────────────── */
+/* ───────────── 기본 스타일 ───────────── */
 .theme-toggle {
   display: flex;
   color: white;
@@ -668,9 +666,6 @@ body.dark-mode .submenu ul li a {
   text-decoration: none;
 }
 
-/* ────────────────────────────────
- ✅ 우측 고정 메뉴 컨테이너
-───────────────────────────────── */
 .right-fixed-menu {
   position: fixed;
   top: 100px;
@@ -681,9 +676,6 @@ body.dark-mode .submenu ul li a {
   z-index: 9999;
 }
 
-/* ────────────────────────────────
- ✅ 공통 버튼 기본 스타일
-───────────────────────────────── */
 .fixed-btn {
   display: flex;
   align-items: center;
@@ -704,11 +696,8 @@ body.dark-mode .submenu ul li a {
   gap: 4px;
 }
 
-/* ────────────────────────────────
- ✅ 아이콘 스타일
-───────────────────────────────── */
 .fixed-btn .icon {
-  background-color: rgba(0, 0, 0, 0.0);
+  background-color: rgba(0, 0, 0, 0);
   padding: 4px;
   border-radius: 50%;
   display: inline-flex;
@@ -723,12 +712,9 @@ body.dark-mode .submenu ul li a {
   transition: transform 0.3s ease;
 }
 
-/* ────────────────────────────────
- ✅ 라벨 기본 (PC)
-───────────────────────────────── */
 .fixed-btn .label {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.2rem;         /* PC용 기본 폰트 */
   opacity: 0;
   max-width: 0;
   white-space: nowrap;
@@ -739,16 +725,15 @@ body.dark-mode .submenu ul li a {
   transition: opacity 0.3s ease, max-width 0.3s ease;
 }
 
-/* ────────────────────────────────
- ✅ PC hover 시 메뉴 확장
-───────────────────────────────── */
 .right-fixed-menu:hover .fixed-btn {
   width: 150px !important;
   padding: 6px 14px !important;
 }
+
 .right-fixed-menu:hover .fixed-btn .icon {
   transform: translateX(-10px);
 }
+
 .right-fixed-menu:hover .fixed-btn .label {
   opacity: 1;
   font-size: 1rem;
@@ -758,15 +743,10 @@ body.dark-mode .submenu ul li a {
   margin-right: -10px;
 }
 
-/* ────────────────────────────────
- ✅ 마우스 오버 시 테마토글 라벨 색 변경
-───────────────────────────────── */
-.fixed-btn.theme-toggle:hover .label { color: white; }
-.right-fixed-menu .theme-toggle:hover { background-color: #333; color: inherit; }
+.fixed-btn.theme-toggle:hover .label {
+  color: white;
+}
 
-/* ────────────────────────────────
- ✅ 버튼별 색상 & 라이트 모드 대응
-───────────────────────────────── */
 .fixed-btn.phone    { background-color: #4CAF50; }
 .fixed-btn.kakao    { background-color: #ffeb00; color: #3c1e1e; }
 .fixed-btn.visit    { background-color: #007bff; }
@@ -778,24 +758,32 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   background-color: #000;
   color: #fff;
 }
-.fixed-btn.kakao:hover { color: #3c1e1e; }
 
-/* ────────────────────────────────
- ✅ 모바일 (≤768px): 클릭 시 open 클래스로 확장
-───────────────────────────────── */
+.fixed-btn.kakao:hover {
+  color: #3c1e1e;
+}
+
+.right-fixed-menu .theme-toggle:hover {
+  background-color: #333;
+  color: inherit;
+}
+
+/* ───────────── 모바일 (≤768px) ───────────── */
 @media (max-width: 768px) {
   .right-fixed-menu {
     top: 80px;
     right: 4px;
     max-width: 60px;
   }
+
   .fixed-btn {
     width: 40px;
     padding: 6px;
     font-size: 0;
   }
+
   .fixed-btn .label {
-    font-size: 0.9rem;
+    font-size: 0.8rem;            /* ✅ 모바일에서 작은 폰트 */
     transform: scaleX(0);
     transform-origin: left;
     opacity: 0;
@@ -803,37 +791,37 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
     overflow: hidden;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
+
   .right-fixed-menu.open .fixed-btn {
-    width: 150px !important;
-    padding: 6px 14px !important;
+    width: 140px !important;     /* 텍스트 공간 */
+    padding: 6px 10px !important;
   }
+
   .right-fixed-menu.open .fixed-btn .label {
     transform: scaleX(1);
     opacity: 1;
   }
 }
 
-/* ────────────────────────────────
- ✅ 작은 모바일 (≤375px): 폰트 더 작게
-───────────────────────────────── */
+/* ───────────── 작은 모바일 (≤375px) ───────────── */
 @media (max-width: 375px) {
   .right-fixed-menu {
     top: 60px;
     right: 2px;
     max-width: 50px;
   }
+
   .fixed-btn {
     width: 35px;
     padding: 5px;
   }
+
   .fixed-btn .label {
     font-size: 0.8rem;
   }
 }
 
-/* ────────────────────────────────
- ✅ 태블릿(769~1024px): hover 시 확장
-───────────────────────────────── */
+/* ───────────── 태블릿 PC hover (769–1024px) ───────────── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .fixed-btn:hover {
     width: 150px;
@@ -844,13 +832,12 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   }
 }
 
-/* ────────────────────────────────
- ✅ iOS 렌더링 최적화
-───────────────────────────────── */
+/* ───────────── iOS 터치 최적화 ───────────── */
 @supports (-webkit-touch-callout: none) {
   .fixed-btn { -webkit-tap-highlight-color: transparent; }
   .right-fixed-menu { -webkit-overflow-scrolling: touch; }
 }
+
 
     /* ───── 무한 슬라이더 애니메이션 ───── */
     .infinite-slider {
