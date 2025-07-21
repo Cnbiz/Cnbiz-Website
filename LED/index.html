@@ -794,15 +794,15 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
   .right-fixed-menu.open .fixed-btn {
     width: 140px !important;     /* 텍스트 공간 */
-    gap: -30px !important;
+	gap: -20px !important;
     padding: 6px 10px !important;
   }
   .right-fixed-menu.open .fixed-btn .icon {
-    margin-right: -30px !important;
+    margin-right: -20px !important;
   }
   .right-fixed-menu.open .fixed-btn .label {
     font-size: 0.8rem !important;
-    padding-left: 4px !important;
+	padding-left: 4px !important;
     transform: scaleX(1);
     opacity: 1;
   }
@@ -1362,21 +1362,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 모바일 클릭 시 우측 메뉴 펼치기
+  document.addEventListener('DOMContentLoaded', () => {
   const rightMenu = document.querySelector('.right-fixed-menu');
   if (rightMenu) {
-    // 기존: 클릭 시 open 토글
+    // 메뉴 클릭 시 open 토글 + 이벤트 버블링 막기
     rightMenu.addEventListener('click', (e) => {
       rightMenu.classList.toggle('open');
-      e.stopPropagation(); // 이벤트 버블링 막아서 아래 document 클릭까지 전달 안 되게
+      e.stopPropagation();   // ✅ 중요: document 로 이벤트 전파 막음
     });
 
-    // 바깥 클릭 시 닫기
-    document.addEventListener('click', (e) => {
-      if (!rightMenu.contains(e.target)) {
-        rightMenu.classList.remove('open');
-      }
+    // 메뉴 바깥 클릭 시 메뉴 닫기
+    document.addEventListener('click', () => {
+      rightMenu.classList.remove('open');
     });
   }
+});
+
   // 다크모드 토글
   const themeToggle = document.getElementById("themeToggle");
   let iconSpan, labelSpan; // ✅ 여기서 선언 (밖에)
