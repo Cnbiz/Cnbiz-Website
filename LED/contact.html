@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주식회사 씨앤비즈 | 문의하기</title>
+  <style>
+    /* 
+      기본 페이지 레이아웃 및 배경 설정
+      - body에 margin 제거 및 padding 20px 적용
+      - Noto Sans KR 폰트 사용
+      - 배경 이미지 고정, 중앙 정렬 및 커버 크기 설정
+      - 화면 중앙에 폼 컨테이너를 수직, 수평 가운데 정렬
+      - 최소 높이 100vh로 화면 꽉 채우기
+      - box-sizing: border-box로 패딩과 보더 포함 크기 계산
+    */
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: url('bg-image.png') center center / cover no-repeat fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /*
+      폼 컨테이너 스타일
+      - 배경은 흰색, 투명도 85%로 반투명 효과
+      - 내부 여백 24px, 둥근 모서리 16px
+      - 은은한 그림자 효과로 부드러운 입체감 부여
+      - 최대 너비 600px, 100% 너비에 맞춰 반응형 지원
+      - grid 레이아웃으로 자식 요소 간격 16px 설정
+    */
+    .form-container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      display: grid;
+      grid-gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    /*
+      화면 너비 600px 이상일 때 적용되는 스타일
+      - 연락처와 이메일 입력 필드를 2열 그리드 배치로 변경
+      - 열 간격 16px
+    */
+    @media screen and (min-width: 600px) {
+      .contact-email-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 16px;
+      }
+    }
+
+    /*
+      모든 라벨 공통 스타일
+      - 글자 크기 0.95rem, 진하게 표시 (font-weight: 600)
+      - 밑 여백 6px, 블록 요소로 취급해 줄바꿈 효과
+    */
+    label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    /*
+      텍스트, 이메일, 텍스트 영역 입력창 스타일 통합
+      - 너비 100%로 부모 요소 너비에 꽉 찬 크기
+      - 패딩 12px, 보더 1px 솔리드 회색(#ccc)
+      - 둥근 모서리 6px
+      - 상속받은 폰트 및 박스 사이징 적용
+    */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    /*
+      문의 내용 텍스트 영역 특화 스타일
+      - 상하 방향으로만 크기 조절 가능하도록 리사이즈 허용
+      - 최소 높이를 250px로 기본적으로 크게 설정
+    */
+    textarea {
+      resize: vertical;
+      min-height: 250px;
+    }
+
+    /*
+      문의 보내기 버튼 스타일
+      - 블록 요소, 너비 100%로 꽉 찬 버튼
+      - 상하 패딩 14px, 폰트 크기 1.3rem, 굵은 글씨체
+      - 파란색 배경 (#007bff), 흰색 글자
+      - 테두리 없고 둥근 모서리 6px
+      - 마우스 커서 포인터로 변경
+      - 배경색 전환 애니메이션 0.3초
+      - 버튼 상단 마진 16px으로 위 요소와 간격 확보
+    */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 14px 0;
+      font-size: 1.3rem;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      box-sizing: border-box;
+      margin-top: 16px;
+    }
+    .btn-submit:hover {
+      background-color: #0056b3;
+    }
+
+    /*
+      상태 메시지 출력 영역 기본 스타일
+      - 글자 굵기 600
+      - 가운데 정렬
+      - 최소 높이 확보(1.5em)로 공간 고정
+      - 색상 변화에 부드러운 전환 효과 추가
+    */
+    #statusMessage {
+      font-weight: 600;
+      text-align: center;
+      min-height: 1.5em;
+      transition: color 0.3s ease;
+      white-space: pre-line; /* 줄바꿈 허용 */
+    }
+
+    /*
+      상태 메시지 별 색상 구분 클래스
+      - error: 빨간색
+      - success: 초록색, 글씨 굵게
+      - info: 검은색 (기본 상태 메시지)
+    */
+    .status-error {
+      color: red;
+      font-weight: bold;
+    }
+    .status-success {
+      color: green;
+      font-weight: bold;
+    }
+    .status-info {
+      color: black;
+      font-weight: bold;
+    }
+
+    /*
+      회사 로고 영역 스타일
+      - 가운데 정렬
+      - 위쪽 마진을 -16px으로 줄여서 폼과 적당한 위치 조절
+      - 로고 이미지 최대 너비 160px, 자동 높이 비율 유지
+    */
+    .logo-wrapper {
+      text-align: center;
+      margin-top: -16px;
+    }
+    .logo-wrapper img {
+      max-width: 160px;
+      height: auto;
+    }
+
+    /*
+      봇 차단용 히든 필드 숨기기
+      - display: none으로 화면에 노출되지 않도록 처리
+    */
+    .honeypot {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container" role="main" aria-label="문의하기 폼">
+    <!-- 
+      폼 제목 영역
+      - 그리드 컬럼 전체 사용(1부터 끝까지)
+      - 가운데 정렬, 파란색 텍스트, 두꺼운 글씨, 하단 여백 8px
+    -->
+    <h1 style="grid-column: 1/-1; text-align:center; color:#007bff; margin:0 0 8px; font-weight: bold;">
+      📧 문 의 하 기 📧
+    </h1>
+
+    <form id="contact-form" novalidate>
+      <!-- 이름 입력 필드 (필수) -->
+      <div>
+        <label for="user_name">이름</label>
+        <input type="text" id="user_name" name="user_name" required autocomplete="name" />
+      </div>
+
+      <!-- 연락처와 이메일 입력 필드 그룹, 반응형 2열 배치 -->
+      <div class="contact-email-group">
+        <div>
+          <label for="user_contact">연락처</label>
+          <input type="text" id="user_contact" name="user_contact" autocomplete="tel" />
+        </div>
+        <div>
+          <label for="user_email">이메일</label>
+          <input type="email" id="user_email" name="user_email" autocomplete="email" />
+        </div>
+      </div>
+
+      <!-- 문의 내용 입력 필드 (필수) -->
+      <div>
+        <label for="message">문의 내용</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+
+      <!-- 봇 방지용 히든 필드 (스크린리더 접근성 고려) -->
+      <div class="honeypot">
+        <label for="honeypot">Leave empty</label>
+        <input type="text" id="honeypot" name="honeypot" autocomplete="off" />
+      </div>
+
+      <!-- 문의 보내기 버튼 -->
+      <button type="submit" class="btn-submit" id="submitBtn">문의 보내기</button>
+
+      <!-- 상태 메시지 출력 영역 
+           - role="alert" 및 aria-live="polite" 속성으로 접근성 지원 -->
+      <div id="statusMessage" role="alert" aria-live="polite"></div>
+    </form>
+
+    <!-- 회사 로고 영역 -->
+    <div class="logo-wrapper">
+      <img src="CnbizLogo_A.png" alt="회사 로고" />
+    </div>
+  </div>
+
+  <!-- EmailJS SDK 로드 -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // EmailJS 초기화 - 본인의 USER_ID로 변경 필수
+    emailjs.init("INC6ZLU2QLdLBsFsX");
+
+    // 폼, 상태메시지, 제출 버튼 요소 참조
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('statusMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    /**
+     * 이메일 형식 유효성 검사 함수
+     * @param {string} email
+     * @returns {boolean} 올바른 이메일 형식인지 여부
+     */
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    /**
+     * 상태 메시지를 텍스트 및 상태 타입에 따라 설정하는 함수
+     * @param {string} text - 상태 메시지 내용
+     * @param {'error'|'success'|'info'} type - 메시지 타입에 따른 스타일 지정
+     */
+    function setStatusMessage(text, type) {
+      status.textContent = text;
+      // 기존 모든 상태 클래스 제거
+      status.className = '';
+      // 상태에 맞는 클래스 추가
+      switch(type) {
+        case 'error':
+          status.classList.add('status-error');
+          break;
+        case 'success':
+          status.classList.add('status-success');
+          break;
+        case 'info':
+        default:
+          status.classList.add('status-info');
+      }
+    }
+
+    // 폼 제출 이벤트 핸들러
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // 기본 폼 제출 차단
+
+      // 각 입력값 trim 처리
+      const name = form.user_name.value.trim();
+      const contact = form.user_contact.value.trim();
+      const email = form.user_email.value.trim();
+      const message = form.message.value.trim();
+      const honeypot = form.honeypot.value.trim();
+
+      // 봇 차단용 히든 필드가 비어있지 않으면 스팸으로 간주하여 차단
+      if (honeypot !== "") {
+        setStatusMessage("스팸으로 판단되어 전송이 차단되었습니다.", 'error');
+        return;
+      }
+
+      // 이름 필수 체크 - 미입력 시 에러 메시지 출력 및 해당 필드 포커스 이동
+      if (!name) {
+        setStatusMessage("이름을 입력해 주세요.", 'error');
+        form.user_name.focus();
+        return;
+      }
+
+      // 문의 내용 필수 체크 - 미입력 시 에러 메시지 출력 및 해당 필드 포커스 이동
+      if (!message) {
+        setStatusMessage("문의 내용을 입력해 주세요.", 'error');
+        form.message.focus();
+        return;
+      }
+
+      // 연락처 또는 이메일 둘 중 하나는 필수 입력
+      if (!contact && !email) {
+        setStatusMessage("연락처 또는 이메일 중 최소 한 가지는 입력해 주세요.", 'error');
+        return;
+      }
+
+      // 이메일이 입력되었으면 형식 유효성 검사 진행
+      if (email && !isValidEmail(email)) {
+        setStatusMessage("유효한 이메일 주소를 입력해 주세요.", 'error');
+        form.user_email.focus();
+        return;
+      }
+
+      // 모든 유효성 검사 통과 시 제출 버튼 비활성화 및 안내 메시지 출력
+      submitBtn.disabled = true;
+      setStatusMessage("전송 중입니다...", 'info');
+
+      // EmailJS sendForm API를 사용해 폼 데이터 전송
+      emailjs.sendForm('service_fhruub9', 'template_io1sgjd', this)
+        .then(() => {
+          // 성공 시 성공 메시지 출력 및 폼 초기화
+          setStatusMessage(
+            "문의가 성공적으로 전송되었으며,\n담당자가 빠른 확인 후 연락 드리겠습니다.",
+            'success'
+          );
+          form.reset();
+        })
+        .catch((err) => {
+          // 실패 시 에러 메시지 출력
+          setStatusMessage(`전송 실패: ${err.text || err}`, 'error');
+        })
+        .finally(() => {
+          // 완료 후 제출 버튼 다시 활성화
+          submitBtn.disabled = false;
+        });
+    });
+  </script>
+</body>
+</html>
