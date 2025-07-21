@@ -1349,12 +1349,15 @@ body {
 
 </div>
 
-  <!-- 🧾 Footer 회사 정보 -->
-<footer class="site-footer">
-  업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호<br>
-  대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805<br>
-  문의메일 : <a href="mailto:sales@cnbiznet.co.kr">sales@cnbiznet.co.kr</a> | 기술지원 : <a href="mailto:cto@cnbiznet.co.kr">cto@cnbiznet.co.kr</a><br>
-  Copyright © 2023 (주)씨앤비즈. All rights reserved.
+  <!-- ✅ 푸터: 회사 정보와 저작권 안내 -->
+<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>
+    문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
+    | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
+  </div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
 <!-- 🪟 팝업 (iframe 포함) -->
@@ -1459,13 +1462,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function applyTheme(mode) {
+   function applyTheme(mode) {
     const isDark = mode === "dark";
     document.body.classList.toggle("dark-mode", isDark);
     if (iconSpan) iconSpan.textContent = isDark ? "☀️" : "🌙";
     if (labelSpan) labelSpan.textContent = isDark ? "라이트모드" : "다크모드";
   }
+
+  // ✅ 현재 연도 자동 표시
+  const startYear = 2023; // 시작 연도
+  const year = new Date().getFullYear(); // 현재 연도
+  document.getElementById("copyrightYear").textContent =
+    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
 });
+
 </script>
 <script>
 // 화면 높이 대응 (모바일 100vh 문제 대응)
