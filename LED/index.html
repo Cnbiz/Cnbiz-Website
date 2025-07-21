@@ -1362,16 +1362,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 모바일 클릭 시 우측 메뉴 펼치기
-  document.addEventListener('DOMContentLoaded', () => {
-  const rightMenu = document.querySelector('.right-fixed-menu');
+    const rightMenu = document.querySelector('.right-fixed-menu');
+
   if (rightMenu) {
-    // 메뉴 클릭 시 open 토글 + 이벤트 버블링 막기
+    // 메뉴 자체나 내부 버튼 클릭 시 메뉴 열고 이벤트 전파 막음
     rightMenu.addEventListener('click', (e) => {
-      rightMenu.classList.toggle('open');
-      e.stopPropagation();   // ✅ 중요: document 로 이벤트 전파 막음
+      rightMenu.classList.add('open');  // ✅ 토글이 아니라 add 로 고정
+      e.stopPropagation();              // ✅ document 까지 전달 막음
     });
 
-    // 메뉴 바깥 클릭 시 메뉴 닫기
+    // 바깥을 클릭하면 접힘
     document.addEventListener('click', () => {
       rightMenu.classList.remove('open');
     });
