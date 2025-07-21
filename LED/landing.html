@@ -579,16 +579,12 @@ if (!message) {
 	// 변경 후 closePopup 함수: 부모창에 메시지를 보내 팝업 닫기를 위임하는 함수
 	function closePopup() {
   const todayCheck = document.getElementById('todayCheck').checked;
+  // 오늘 하루 안보기 저장
   if (todayCheck) {
     localStorage.setItem('hidePopupDate', getTodayKey());
   }
 
-  document.querySelector(".popup-wrapper").style.display = "none";
-  document.getElementById("closeBtn").style.display = "none";
-
-  // 💡 배경까지 제거
-  document.body.style.background = "none";
-
+  // 부모 페이지에 닫기 메시지 보내서 iframe 꺼달라고 요청
   window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
 }
 
