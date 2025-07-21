@@ -576,16 +576,13 @@ if (!message) {
 	
     // === 팝업 닫기 신규 소스 ===
 	
-	// 변경 후 closePopup 함수: 부모창에 메시지를 보내 팝업 닫기를 위임하는 함수
+	// 팝업 닫기 버튼 눌렀을 때
 	function closePopup() {
-  const todayCheck = document.getElementById('todayCheck').checked;
-  // 오늘 하루 안보기 저장
-  if (todayCheck) {
+	const todayCheck = document.getElementById('todayCheck').checked;
+	if (todayCheck) {
     localStorage.setItem('popupDismissedToday', getTodayKey());
-  }
-
-  // 부모 페이지에 닫기 메시지 보내서 iframe 꺼달라고 요청
-  window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
+	}
+	window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
 }
 
       // === 다국어 텍스트 변경 함수 (한국어/영어) ===
@@ -633,23 +630,15 @@ if (!message) {
   </script>
   
  <script>
+// 페이지 처음 로드 시
 window.addEventListener('DOMContentLoaded', () => {
   const todayKey = getTodayKey();
   const saved = localStorage.getItem('popupDismissedToday');
-
   if (saved === todayKey) {
     document.querySelector(".popup-wrapper").style.display = "none";
     document.getElementById("closeBtn").style.display = "none";
-    
-    // (선택) 배경 제거는 iframe 자체를 부모에서 꺼주므로 사실상 불필요
-    // document.body.style.background = "none";
+    document.body.style.background = "none";
   }
-
-  document.getElementById('mainBtn').addEventListener('click', () => {
-    window.parent.postMessage({ action: 'goToMain' }, '*');
-  });
-
-  document.getElementById('closeBtn').addEventListener('click', closePopup);
 });
 </script>
 
