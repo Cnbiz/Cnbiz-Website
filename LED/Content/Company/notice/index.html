@@ -69,22 +69,14 @@
   </div>
 </main>
 
-<!-- ✅ 모달 (반응형 + 애니메이션 + 로딩 효과) -->
+<!-- ✅ 모달 (로딩 스피너 제거) -->
 <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
   <div id="modalContent" 
        class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-11/12 max-w-lg mx-auto p-5 transform scale-95 opacity-0 transition-all duration-500">
     <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
       <i data-lucide="x" class="w-5 h-5"></i>
     </button>
-    <!-- 🔄 로딩 스피너 -->
-    <div id="modalLoading" class="flex justify-center items-center h-40">
-      <svg class="animate-spin h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
-      </svg>
-    </div>
-    <!-- ✏️ 상세내용 -->
-    <div id="modalContentInner" class="hidden">
+    <div id="modalContentInner">
       <h2 id="modalTitle" class="text-lg md:text-xl font-bold mb-4 text-center break-words"></h2>
       <img id="modalImage" src="" alt="상세 이미지" class="mb-4 rounded w-full object-cover">
       <div id="modalDesc" class="space-y-1 text-sm text-center"></div>
@@ -184,34 +176,26 @@ function renderNotices(list){
   });
 }
 
-// ✅ 모달 열기 (로딩 → 내용 표시)
+// ✅ 모달 열기 (로딩 제거)
 function showDetail(title){
-  const item=data.find(d=>d.title===title);
+  const item = data.find(d => d.title === title);
   if(item){
-    const loading=document.getElementById('modalLoading');
-    const content=document.getElementById('modalContentInner');
-    loading.classList.remove('hidden'); content.classList.add('hidden');
+    document.getElementById('modalTitle').textContent = item.title;
+    document.getElementById('modalImage').src = item.image;
+    document.getElementById('modalDesc').innerHTML = item.desc.map(t=>`<p>${t}</p>`).join('');
 
-    document.getElementById('modalTitle').textContent=item.title;
-    document.getElementById('modalImage').src=item.image;
-    document.getElementById('modalDesc').innerHTML=item.desc.map(t=>`<p>${t}</p>`).join('');
-
-    const modal=document.getElementById('modal');
-    const modalBox=document.getElementById('modalContent');
+    const modal = document.getElementById('modal');
+    const modalBox = document.getElementById('modalContent');
     modal.classList.remove('hidden'); 
-    setTimeout(()=>{modalBox.classList.remove('opacity-0','scale-95'); modalBox.classList.add('opacity-100','scale-100');},10);
+    setTimeout(()=>{ modalBox.classList.remove('opacity-0','scale-95'); modalBox.classList.add('opacity-100','scale-100'); }, 10);
 
-    // 이미지 로딩 후 로딩 숨김
-    document.getElementById('modalImage').onload=()=>{
-      loading.classList.add('hidden'); content.classList.remove('hidden');
-    }
     lucide.createIcons();
   }
 }
 
 // ✅ 모달 닫기 (애니메이션)
 function closeModal(){
-  const modalBox=document.getElementById('modalContent');
+  const modalBox = document.getElementById('modalContent');
   modalBox.classList.add('opacity-0','scale-95'); modalBox.classList.remove('opacity-100','scale-100');
   setTimeout(()=>document.getElementById('modal').classList.add('hidden'),300);
 }
