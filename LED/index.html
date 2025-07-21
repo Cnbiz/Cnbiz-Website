@@ -1149,12 +1149,14 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
 </div>
 
-  <!-- ✅ 푸터: 회사 정보와 저작권 안내 -->
+ <!-- ✅ 푸터: 회사 정보와 저작권 안내 (반응형) -->
 <footer class="
   py-4 px-2 text-center text-xs 
-  text-gray-800 dark:text-gray-200 leading-relaxed
-  md:py-6 md:px-4 md:text-sm
-  lg:py-8 lg:text-base
+  text-gray-800 dark:text-gray-200 leading-relaxed 
+  break-words
+  sm:text-sm sm:py-5 sm:px-3 sm:leading-normal
+  md:text-base md:py-6 md:px-4
+  lg:text-lg lg:py-8 lg:px-6
 ">
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
@@ -1173,41 +1175,38 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
-<!-- 🪟 팝업 (iframe 포함) -->
-<div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
-<iframe src="landing.html" title="프로모션 팝업"></iframe>
-</div>
+
 <!-- 📜 팝업 동작 스크립트 -->
 <script>
-    const today = new Date().toDateString();
+window.onload = function () {
+  const today = new Date().toDateString(); // ✅ 매번 오늘 날짜 계산
+  const dismissed = localStorage.getItem('popupDismissedToday');
+  if (dismissed !== today) {
+    document.getElementById('popupOverlay').style.display = 'flex';
+    document.body.classList.add('no-scroll');
+  }
+};
 
-    window.onload = function () {
-      const dismissed = localStorage.getItem('popupDismissedToday');
-      if (dismissed !== today) {
-        document.getElementById('popupOverlay').style.display = 'flex';
-        document.body.classList.add('no-scroll');
-      }
-    };
+// 팝업에서 메시지를 받아 처리
+window.addEventListener('message', e => {
+  if (!e.data || !e.data.action) return;
 
-    // 팝업에서 메시지를 받아 처리
-    window.addEventListener('message', e => {
-      if (!e.data || !e.data.action) return;
+  if (e.data.action === 'closePopup') {
+    if (e.data.todayCheck) {
+      const today = new Date().toDateString(); // ✅ 여기서도 다시 계산
+      localStorage.setItem('popupDismissedToday', today);
+    }
+    document.getElementById('popupOverlay').style.display = 'none';
+    document.body.classList.remove('no-scroll');
+  }
 
-      if (e.data.action === 'closePopup') {
-        if (e.data.todayCheck) {
-          localStorage.setItem('popupDismissedToday', today);
-        }
-        document.getElementById('popupOverlay').style.display = 'none';
-        document.body.classList.remove('no-scroll');
-      }
-
-      if (e.data.action === 'goToMain') {
-        document.getElementById('popupOverlay').style.display = 'none';
-        document.body.classList.remove('no-scroll');
-        window.location.href = 'https://cnbiznet.co.kr';
-      }
-    });
-  </script>
+  if (e.data.action === 'goToMain') {
+    document.getElementById('popupOverlay').style.display = 'none';
+    document.body.classList.remove('no-scroll');
+    window.location.href = 'https://cnbiznet.co.kr';
+  }
+});
+</script>
   <script>
 document.addEventListener('DOMContentLoaded', () => {
   // ✅ 햄버거 메뉴
