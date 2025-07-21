@@ -773,7 +773,7 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   .right-fixed-menu {
     top: 80px;
     right: 4px;
-    max-width: 60px;
+    max-width: 80px;
   }
 
   .fixed-btn {
@@ -1154,39 +1154,70 @@ body {
 
 </style>
 </head>
-<body><nav aria-label="주요 메뉴 네비게이션" class="top-nav">
-<button aria-label="메뉴 열기" class="menu-toggle">☰</button>
-<ul>
-<!-- 각 메뉴 항목과 서브메뉴 -->
-<li><a href="./Content/Company/aboutus/">회사소개</a>
-<div class="submenu">
-<ul>
-<li><a href="./Content/Company/aboutus/">회사소개</a></li>
-<li><a href="./Content/Company/history/">회사연혁</a></li>
-<li><a href="./Content/Company/location/">오시는 길</a></li>
-</ul>
-</div>
-</li>
-<li><a href="#">LED Display</a>
-<div class="submenu"><ul><li><a href="#">실내 LED Display</a></li><li><a href="#">실외 LED Display</a></li><li><a href="#">투명 LED Display</a></li><li><a href="#">투명 OLED Display</a></li><li></ul></div>
-</li>
-<li><a href="#">Smart Office</a>
-<div class="submenu"><ul><li><a href="#">스마트회의실</a></li><li><a href="#">스마트강의실</a></li><li><a href="#">스마트보드</a></li><li></ul></div>
-</li>
-<li><a href="./Content/Company/work/">시공사례</a>
-<div class="submenu">
-<ul>
-<li><a href="./Content/Company/work/">시공사례</a>
-<li><a href="#">LED디스플레이</a></li>
-<li><a href="#">사이니지</a></li>
-</ul>
-</div>
-</li>
-<li><a href="#">고객센터</a>
-<div class="submenu"><ul><li><a href="#">공지사항</a></li><li><a href="#">상담문의</a></li><li></ul></div>
-</li>
-</ul>
+<body>
+<nav aria-label="주요 메뉴 네비게이션" class="top-nav">
+  <button aria-label="메뉴 열기" class="menu-toggle">☰</button>
+  <ul>
+    <!-- 회사소개 -->
+    <li>
+      <a href="./Content/Company/aboutus/">회사소개</a>
+      <div class="submenu">
+        <ul>
+          <li><a href="./Content/Company/aboutus/">회사소개</a></li>
+          <li><a href="./Content/Company/history/">회사연혁</a></li>
+          <li><a href="./Content/Company/location/">오시는 길</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- LED Display -->
+    <li>
+      <a href="#">LED Display</a>
+      <div class="submenu">
+        <ul>
+          <li><a href="#">실내 LED Display</a></li>
+          <li><a href="#">실외 LED Display</a></li>
+          <li><a href="#">투명 LED Display</a></li>
+          <li><a href="#">투명 OLED Display</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Smart Office -->
+    <li>
+      <a href="#">Smart Office</a>
+      <div class="submenu">
+        <ul>
+          <li><a href="#">스마트회의실</a></li>
+          <li><a href="#">스마트강의실</a></li>
+          <li><a href="#">스마트보드</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- 시공사례 -->
+    <li>
+      <a href="./Content/Company/work/">시공사례</a>
+      <div class="submenu">
+        <ul>
+          <li><a href="./Content/Company/work/">시공사례</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- 고객센터 -->
+    <li>
+      <a href="#">고객센터</a>
+      <div class="submenu">
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">상담문의</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
 </nav>
+
 <!-- 🔝 상단 로고 -->
 <header class="site-header">
 <a href="https://landing.cnbiznet.co.kr">
