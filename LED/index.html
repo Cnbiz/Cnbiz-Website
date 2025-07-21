@@ -1052,7 +1052,9 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 <!-- ✅ 카드 그리드 -->
 <section class="mt-12 mb-4 mx-auto max-w-6xl px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
   <a href="./Content/Company/work"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
+   class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform 
+          md:hover:-translate-y-6 md:hover:scale-110 md:hover:shadow-3xl duration-300 
+          flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_29.jpg" alt="사이니지"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1151,12 +1153,29 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
  <!-- ✅ 푸터: 회사 정보와 저작권 안내 (반응형) -->
 <footer class="
-  py-4 px-2 text-center text-xs 
-  text-gray-800 dark:text-gray-200 leading-relaxed 
-  break-words
-  sm:text-sm sm:py-5 sm:px-3 sm:leading-normal
-  md:text-base md:py-6 md:px-4
-  lg:text-lg lg:py-8 lg:px-6
+  mt-10 /* ✅ 위쪽 요소(카드 등)와 푸터 사이에 여백을 추가. 
+           Tailwind에서 mt-8은 margin-top을 2rem(32px)만큼 주어 공간을 확보합니다. 레이아웃 상단과 푸터가 너무 붙어 보이지 않게 함 */
+  py-4 /* ✅ 푸터 상·하단에 padding을 1rem(16px)만큼 추가.콘텐츠가 푸터 영역과 너무 붙지 않도록 여백 확보 */
+  px-2 /* ✅ 푸터 좌·우에 padding을 0.5rem(8px) 추가. 작은 화면에서도 콘텐츠가 양쪽 끝에 딱 붙지 않도록 함 */
+  text-center /* ✅ 푸터 내부의 모든 텍스트를 가운데 정렬 */
+  text-xs /* ✅ 기본 글씨 크기를 extra small(0.75rem, 12px)로 설정. 모바일 등 작은 화면에서 기본적으로 작게 시작 */
+  text-gray-800 /* ✅ 라이트 모드 기준 텍스트 색상을 Tailwind 기본 회색 팔레트 중 800단계로 설정. 적당히 진한 회색으로 가독성을 높임 */
+  dark:text-gray-200 /* ✅ 다크 모드에서는 텍스트 색상을 밝은 회색(200단계)로 바꿔 가독성 유지 */
+  leading-relaxed /* ✅ 줄간격을 약간 여유 있게 설정. 기본보다 살짝 넓어져서 글자가 답답하지 않게 보임 */
+  break-words /* ✅ 긴 URL, 이메일, 회사명 등 긴 단어가 있을 때 화면을 벗어나지 않도록 강제로 줄바꿈 */
+  
+  /* === 반응형 설정 === */
+  sm:text-sm /* ✅ 화면 너비가 sm(640px 이상)일 때 글씨 크기를 small(0.875rem, 14px)로 키움 */
+  sm:py-5    /* ✅ 상·하단 padding을 조금 늘려 1.25rem(20px) */
+  sm:px-3    /* ✅ 좌·우 padding도 0.75rem(12px)로 늘림 */
+  sm:leading-normal /* ✅ 줄간격을 일반(normal)로 설정. 화면이 넓어지면 공간이 넉넉해 더 빡빡해도 읽기 편함 */
+  md:text-base /* ✅ md(768px 이상)에서는 글씨 크기를 base(1rem, 16px)로 키워서 PC/태블릿에서 잘 보이게 */
+  md:py-6     /* ✅ padding을 더 늘려서 상·하단 1.5rem(24px) */
+  md:px-4     /* ✅ 좌·우 padding도 1rem(16px)로 */
+  lg:text-base /* ✅ lg(1024px 이상)에서는 글씨 크기를 base(1rem, 16px)로 유지 */
+  lg:py-8     /* ✅ padding은 더 넓혀서 상·하단 2rem(32px) */
+  lg:px-6     /* ✅ 좌·우 padding을 1.5rem(24px) */
+  xl:text-base /* ✅ xl(1280px 이상)에서도 글씨 크기를 그대로 유지하여 PC 큰 화면에서도 너무 커지지 않게 제한 */
 ">
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
@@ -1175,11 +1194,14 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
 </footer>
 
-
+<!-- 🪟 팝업 (iframe 포함) -->
+<div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
+<iframe src="landing.html" title="프로모션 팝업"></iframe>
+</div>
 <!-- 📜 팝업 동작 스크립트 -->
 <script>
 window.onload = function () {
-  const today = new Date().toDateString(); // ✅ 매번 오늘 날짜 계산
+  const today = new Date().toDateString(); // 여기서 today 선언
   const dismissed = localStorage.getItem('popupDismissedToday');
   if (dismissed !== today) {
     document.getElementById('popupOverlay').style.display = 'flex';
