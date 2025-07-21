@@ -1065,7 +1065,9 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform 
+          md:hover:-translate-y-6 md:hover:scale-110 md:hover:shadow-3xl duration-300 
+          flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_3.jpg" alt="대형 LED디스플레이"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1076,7 +1078,9 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform 
+          md:hover:-translate-y-6 md:hover:scale-110 md:hover:shadow-3xl duration-300 
+          flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_1.jpg" alt="전자칠판 및 빔프로젝트"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1087,7 +1091,9 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform 
+          md:hover:-translate-y-6 md:hover:scale-110 md:hover:shadow-3xl duration-300 
+          flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_2.jpg" alt="빔프로젝트 음향장치"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1216,13 +1222,6 @@ window.addEventListener('message', e => {
     }
     document.getElementById('popupOverlay').style.display = 'none';
     document.body.classList.remove('no-scroll');
-
-    // ⭐ iframe 자체도 숨기거나 src 제거
-    const iframe = document.querySelector('#popupOverlay iframe');
-    if (iframe) {
-      iframe.src = ''; // src 제거 (추천)
-      // 또는 iframe.style.display = 'none';
-    }
   }
 
   if (e.data.action === 'goToMain') {
@@ -1240,8 +1239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('popupOverlay').style.display = 'flex';
     document.body.classList.add('no-scroll');
   }
-});
-
 
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
@@ -1311,6 +1308,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = new Date().getFullYear();
   document.getElementById("copyrightYear").textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
+	});
 </script>
 
 <!-- 📜 모바일 100vh 대응 -->
