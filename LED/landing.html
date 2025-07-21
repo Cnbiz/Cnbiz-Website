@@ -63,7 +63,12 @@
       color: #007bff;
       margin-bottom: 1rem;
     }
-
+	
+	/* ✅ 추가: 반응형 폰트 크기 */
+	#titleText {
+	font-size: clamp(1rem, 4vw, 1.8rem);
+	}
+	
     /* === 버튼 및 체크박스 영역 스타일 === */
     .actions {
       display: flex;
@@ -512,8 +517,8 @@ document.getElementById('closeBtn').addEventListener('click', () => {
         return;
       }
 			
-		//이름 필수 체크
-		if (!name) {
+	//이름 필수 체크
+  if (!name) {
   setStatusMessage("이름을 입력해 주세요.", "error");
   form.user_name.focus();
   return false;
@@ -592,40 +597,12 @@ if (!message) {
 	window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
 	}
 
-   // === 팝업 닫기 함수 ===
-/*
-// 기존 closePopup 함수: 모바일과 PC에서 각각 다르게 처리하는 함수
-
-function closePopup() {
-  // '오늘 하루 이 창 다시 열지 않기' 체크박스 상태 확인
-  const checkbox = document.getElementById('todayCheck');
-  if (checkbox.checked) {
-    // 체크되어 있으면 오늘 날짜를 키로 로컬스토리지에 저장하여 다시 열리지 않도록 처리
-    localStorage.setItem('hideLandingToday', getTodayKey());
-  }
-
-  if (isMobile()) {
-    // 모바일 기기일 경우 처리
-    if (document.referrer && document.referrer !== location.href) {
-      // 이전 페이지가 있으면 history.back() 으로 뒤로 이동
-      history.back();
-    } else {
-      // 이전 페이지가 없으면 메인 사이트로 이동
-      location.href = "https://cnbiznet.co.kr";
-		 
-    }
-  } else {
-    // PC인 경우 현재 창을 닫기 시도
-    window.close();
-  }
-}
-*/
     // === 다국어 텍스트 변경 함수 (한국어/영어) ===
     function updateTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
       
-	  document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
+	  document.getElementById('titleText').textContent = isKorean ? '🎉 최저가 프로모션 🎉' : '🎉 Lowest Price Promotion 🎉';
 	  document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
       document.getElementById('checkboxText').textContent = isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
       document.getElementById('closeBtn').textContent = isKorean ? '✕ 닫기' : '✕ Close';
