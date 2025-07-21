@@ -5,7 +5,7 @@
   <title>주식회사 씨앤비즈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* === 2025.07.17 수정완료 === */
+    /* === 2025.07.21 수정완료 === */
     /* === 기본 색상 변수 선언 === */
     :root {
       --bg-light: rgba(255,255,255,0.92);
@@ -66,7 +66,7 @@
 	
 	/* ✅ 추가: 반응형 폰트 크기 */
 	#titleText {
-	font-size: clamp(1.5rem, 4vw, 1.8rem);
+	font-size: clamp(1rem, 4vw, 1.8rem);
 	}
 	
     /* === 버튼 및 체크박스 영역 스타일 === */
@@ -384,20 +384,6 @@
     </label>
   </div>
 </div>
-
-<script>
-  // 메인 사이트 이동 버튼 클릭 시 부모창에 메시지 전송
-document.getElementById('mainBtn').addEventListener('click', () => {
-  window.parent.postMessage({ action: 'goToMain' }, '*');
-});
-
-document.getElementById('closeBtn').addEventListener('click', () => {
-  const isChecked = document.getElementById('todayCheck').checked;
-  window.parent.postMessage({ action: 'closePopup', todayCheck: isChecked }, '*');
-});
-</script>
-
-
     <!-- === 이미지와 문의 폼을 나란히 배치하는 컨테이너 === -->
     <div class="content-wrapper">
       <!-- === 랜딩 이미지 === -->
@@ -517,8 +503,8 @@ document.getElementById('closeBtn').addEventListener('click', () => {
         return;
       }
 			
-	//이름 필수 체크
-  if (!name) {
+		//이름 필수 체크
+		if (!name) {
   setStatusMessage("이름을 입력해 주세요.", "error");
   form.user_name.focus();
   return false;
@@ -597,6 +583,34 @@ if (!message) {
 	window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
 	}
 
+   // === 팝업 닫기 함수 ===
+/*
+// 기존 closePopup 함수: 모바일과 PC에서 각각 다르게 처리하는 함수
+
+function closePopup() {
+  // '오늘 하루 이 창 다시 열지 않기' 체크박스 상태 확인
+  const checkbox = document.getElementById('todayCheck');
+  if (checkbox.checked) {
+    // 체크되어 있으면 오늘 날짜를 키로 로컬스토리지에 저장하여 다시 열리지 않도록 처리
+    localStorage.setItem('hideLandingToday', getTodayKey());
+  }
+
+  if (isMobile()) {
+    // 모바일 기기일 경우 처리
+    if (document.referrer && document.referrer !== location.href) {
+      // 이전 페이지가 있으면 history.back() 으로 뒤로 이동
+      history.back();
+    } else {
+      // 이전 페이지가 없으면 메인 사이트로 이동
+      location.href = "https://cnbiznet.co.kr";
+		 
+    }
+  } else {
+    // PC인 경우 현재 창을 닫기 시도
+    window.close();
+  }
+}
+*/
     // === 다국어 텍스트 변경 함수 (한국어/영어) ===
     function updateTexts() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
@@ -625,6 +639,7 @@ if (!message) {
 
     // === 페이지 로드 시 실행 함수 ===
     window.onload = function () {
+	
       // 이전에 저장한 테마 가져오기 및 적용
       const preferredTheme = localStorage.getItem('preferredTheme');
       const prefersDarkScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -634,24 +649,29 @@ if (!message) {
 
       // 텍스트 다국어 업데이트
       updateTexts();
-
-      // 오늘 하루 닫기 체크 여부 확인 후 팝업 닫기 실행
-      const hideLandingToday = localStorage.getItem('hideLandingToday');
-      const todayKey = getTodayKey();
-      if (hideLandingToday === todayKey) {
-        closePopup();
-        return;
-      }
-
+	  }
       /* === (주석 처리된 자동 닫기 기능) ===
       if (!isMobile()) {
         setTimeout(() => { closePopup(); }, 700000);
       }
       */
-    };
-
     // === 우클릭 방지 (컨텍스트 메뉴 방지) ===
     document.addEventListener('contextmenu', (e) => e.preventDefault());
   </script>
+  
+  <!-- 메인 사이트 이동 버튼 클릭 시 부모창에 메시지 전송 -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('mainBtn').addEventListener('click', () => {
+      window.parent.postMessage({ action: 'goToMain' }, '*');
+    });
+
+    document.getElementById('closeBtn').addEventListener('click', () => {
+      const isChecked = document.getElementById('todayCheck').checked;
+      window.parent.postMessage({ action: 'closePopup', todayCheck: isChecked }, '*');
+    });
+  });
+</script>
+
 </body>
 </html>
