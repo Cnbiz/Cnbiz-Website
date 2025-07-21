@@ -1204,6 +1204,21 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 <div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
 <iframe src="landing.html" title="프로모션 팝업"></iframe>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = getTodayKey(); // 오늘 날짜
+    const dismissed = localStorage.getItem('popupDismissedToday'); // 저장된 날짜
+
+    if (dismissed !== today) {
+      // 오늘 안보기 체크 안 되어 있으면 팝업 열기
+      document.getElementById('popupOverlay').style.display = 'flex';
+      document.body.classList.add('no-scroll');
+    } else {
+      // ✅ 오늘 이미 닫았다면 팝업 숨김
+      document.getElementById('popupOverlay').style.display = 'none';
+    }
+  });
+</script>
 
 <script>
 // 전역 함수
@@ -1225,20 +1240,14 @@ window.addEventListener('message', e => {
   }
 
   if (e.data.action === 'goToMain') {
+    if (e.data.todayCheck) {
+      localStorage.setItem('popupDismissedToday', getTodayKey());
+    }
     document.getElementById('popupOverlay').style.display = 'none';
     document.body.classList.remove('no-scroll');
     window.location.href = 'https://cnbiznet.co.kr';
   }
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  // 📜 팝업 동작
-  const today = getTodayKey();
-  const dismissed = localStorage.getItem('popupDismissedToday');
-  if (dismissed !== today) {
-    document.getElementById('popupOverlay').style.display = 'flex';
-    document.body.classList.add('no-scroll');
-  }
 
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
@@ -1308,7 +1317,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = new Date().getFullYear();
   document.getElementById("copyrightYear").textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
-	});
+
 </script>
 
 <!-- 📜 모바일 100vh 대응 -->
