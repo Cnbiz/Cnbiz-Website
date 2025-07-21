@@ -59,7 +59,7 @@
 }*/
     /* === 팝업 타이틀 스타일 === */
     h1 {
-      font-size: 1rem;
+      font-size: 1.5rem;
       color: #007bff;
       margin-bottom: 1rem;
     }
@@ -585,18 +585,12 @@ if (!message) {
 	
     // === 팝업 닫기 신규 소스 ===
 	
-// 변경 후 closePopup 함수: 부모창에 메시지를 보내 팝업 닫기를 위임하는 함수
-function closePopup() {
-  // '오늘 하루 이 창 다시 열지 않기' 체크박스 상태 확인
-  const checkbox = document.getElementById('todayCheck');
-  if (checkbox.checked) {
-    // 체크되어 있으면 오늘 날짜를 키로 로컬스토리지에 저장하여 다시 열리지 않도록 처리
-    localStorage.setItem('hideLandingToday', getTodayKey());
-  }
-  // 부모 창(window.parent)에게 'closePopup' 메시지 전송
-  // 이 메시지를 받은 부모 창에서 팝업(iframe) 창 닫기 작업을 수행하도록 함
-  window.parent.postMessage('closePopup', '*');
-}
+	// 변경 후 closePopup 함수: 부모창에 메시지를 보내 팝업 닫기를 위임하는 함수
+	function closePopup() {
+	const todayCheck = document.getElementById('todayCheck').checked;
+	// 부모 창에 todayCheck 값을 포함해서 객체 형태로 전달!
+	window.parent.postMessage({ action: 'closePopup', todayCheck }, '*');
+	}
 
    // === 팝업 닫기 함수 ===
 /*
@@ -631,8 +625,8 @@ function closePopup() {
       const lang = document.documentElement.lang || navigator.language || 'ko';
       const isKorean = lang.startsWith('ko');
       
-      document.getElementById('titleText').textContent = isKorean ? '🎉최저가 프로모션!🎉' : '🎉Lowest Price Promotion!🎉';
-      document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
+	  document.getElementById('titleText').textContent = isKorean ? '🎉씨앤비즈에 오신 걸 환영합니다!🎉' : '🎉Welcome to CNBIZ!🎉';
+	  document.getElementById('mainBtn').textContent = isKorean ? '메인 사이트 이동' : 'Go to Main Site';
       document.getElementById('checkboxText').textContent = isKorean ? '오늘 하루 이 창 다시 열지 않기' : "Don't show again today";
       document.getElementById('closeBtn').textContent = isKorean ? '✕ 닫기' : '✕ Close';
       document.getElementById('themeToggleBtn').textContent = isDark()
