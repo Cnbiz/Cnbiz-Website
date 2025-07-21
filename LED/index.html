@@ -830,6 +830,11 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
     transform: scaleX(1);                /* 펼치기 */
     opacity: 1;
   }
+
+  /* ✅ 카카오 버튼만 label에 왼쪽 padding 추가 */
+  .right-fixed-menu.open .fixed-btn.kakao .label {
+    padding-left: 8px !important;
+  }
 }
 
 /* ───────────── 📱 작은 모바일 (≤375px) ───────────── */
@@ -1331,7 +1336,7 @@ body {
   </a>
   
   <!-- 📍 오시는 길 링크 -->
-  <a class="fixed-btn visit" href="./Content/Company/work/">
+  <a class="fixed-btn visit" href="./Content/Company/location/">
     <span class="icon">📍</span>
     <span class="label">오시는 길</span>
   </a>
