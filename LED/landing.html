@@ -581,7 +581,7 @@ if (!message) {
   const todayCheck = document.getElementById('todayCheck').checked;
   // 오늘 하루 안보기 저장
   if (todayCheck) {
-    localStorage.setItem('hidePopupDate', getTodayKey());
+    localStorage.setItem('popupDismissedToday', getTodayKey());
   }
 
   // 부모 페이지에 닫기 메시지 보내서 iframe 꺼달라고 요청
@@ -635,7 +635,7 @@ if (!message) {
  <script>
 window.addEventListener('DOMContentLoaded', () => {
   const todayKey = getTodayKey();
-  const saved = localStorage.getItem('hidePopupDate');
+  const saved = localStorage.getItem('popupDismissedToday');
 
   if (saved === todayKey) {
     document.querySelector(".popup-wrapper").style.display = "none";
