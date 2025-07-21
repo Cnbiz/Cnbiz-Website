@@ -1198,10 +1198,11 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 <div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
 <iframe src="landing.html" title="프로모션 팝업"></iframe>
 </div>
+
 <!-- 📜 팝업 동작 스크립트 -->
 <script>
 window.onload = function () {
-  const today = new Date().toDateString(); // 여기서 today 선언
+  const today = getTodayKey();
   const dismissed = localStorage.getItem('popupDismissedToday');
   if (dismissed !== today) {
     document.getElementById('popupOverlay').style.display = 'flex';
@@ -1209,14 +1210,17 @@ window.onload = function () {
   }
 };
 
-// 팝업에서 메시지를 받아 처리
+function getTodayKey() {
+  const t = new Date();
+  return `${t.getFullYear()}-${t.getMonth() + 1}-${t.getDate()}`;
+}
+
 window.addEventListener('message', e => {
   if (!e.data || !e.data.action) return;
 
   if (e.data.action === 'closePopup') {
     if (e.data.todayCheck) {
-      const today = new Date().toDateString(); // ✅ 여기서도 다시 계산
-      localStorage.setItem('popupDismissedToday', today);
+      localStorage.setItem('popupDismissedToday', getTodayKey());
     }
     document.getElementById('popupOverlay').style.display = 'none';
     document.body.classList.remove('no-scroll');
@@ -1229,7 +1233,7 @@ window.addEventListener('message', e => {
   }
 });
 </script>
-  <script>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
@@ -1297,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startYear = 2023;
   const year = new Date().getFullYear();
   document.getElementById("copyrightYear").textContent =
-    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;  
+    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
 });
 </script>
 
