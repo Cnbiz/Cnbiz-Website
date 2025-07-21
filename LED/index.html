@@ -1455,11 +1455,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // 모바일 클릭 시 우측 메뉴 펼치기
   const rightMenu = document.querySelector('.right-fixed-menu');
   if (rightMenu) {
-    rightMenu.addEventListener('click', () => {
+    // 기존: 클릭 시 open 토글
+    rightMenu.addEventListener('click', (e) => {
       rightMenu.classList.toggle('open');
+      e.stopPropagation(); // 이벤트 버블링 막아서 아래 document 클릭까지 전달 안 되게
+    });
+
+    // 바깥 클릭 시 닫기
+    document.addEventListener('click', (e) => {
+      if (!rightMenu.contains(e.target)) {
+        rightMenu.classList.remove('open');
+      }
     });
   }
-
   // 다크모드 토글
   const themeToggle = document.getElementById("themeToggle");
   let iconSpan, labelSpan; // ✅ 여기서 선언 (밖에)
