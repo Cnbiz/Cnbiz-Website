@@ -12,8 +12,9 @@
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 
-<!-- ✅ Tailwind CSS 불러오기: 버튼·레이아웃 등을 쉽게 스타일링 할 수 있는 프레임워크 -->
+<!-- Tailwind 최신 CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
+
 <script>
   // Tailwind CSS에서 다크모드를 class 기반으로 적용하겠다고 설정
   tailwind.config = {
@@ -1047,21 +1048,22 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
     <p>탁월한 화질과 유연한 설치로 기업의 가치를 높입니다.</p>
   </div>
 </section>
-<!-- 어디든 HTML에 더미라도 써두기 -->
-<div class="animate-slide-fade-up animate-slide-fade-down animate-slide-fade-left animate-slide-fade-right animate-scale-fade hidden"></div>
-<!-- Custom slider - 작고 중앙 정렬 -->
-<section class="custom-slider mt-12 mb-4 mx-auto max-w-6xl px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+
+<!-- ✅ 카드 그리드 -->
+<section class="mt-12 mb-4 mx-auto max-w-6xl px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
   <a href="./Content/Company/work"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow hover:shadow-lg transition duration-300 flex flex-col overflow-hidden">
-    <img src="./Content/Company/work/img/work_29.jpg" alt="사이니지" class="aspect-[4/3] object-cover">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
+    <img src="./Content/Company/work/img/work_29.jpg" alt="사이니지"
+         class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
       <h3 class="text-white font-semibold text-sm md:text-base">사이니지</h3>
       <p class="text-gray-400 text-xs">판교 I사 ELV홀</p>
       <span class="text-yellow-500 text-xs underline">자세히 보기 →</span>
     </div>
   </a>
+
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow hover:shadow-lg transition duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_3.jpg" alt="대형 LED디스플레이"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1072,7 +1074,7 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow hover:shadow-lg transition duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_1.jpg" alt="전자칠판 및 빔프로젝트"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1083,7 +1085,7 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
   <a href="./Content/Company/work/"
-     class="bg-gray-800 border border-gray-700 rounded-xl shadow hover:shadow-lg transition duration-300 flex flex-col overflow-hidden">
+     class="bg-gray-800 border border-gray-700 rounded-xl shadow transition-transform transform hover:-translate-y-6 hover:scale-110 hover:shadow-3xl duration-300 flex flex-col overflow-hidden">
     <img src="./Content/Company/work/img/work_2.jpg" alt="빔프로젝트 음향장치"
          class="aspect-[4/3] object-cover">
     <div class="p-3 text-center space-y-1">
@@ -1093,6 +1095,7 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
     </div>
   </a>
 </section>
+
 
 <!-- 
   📌 우측 고정 메뉴 전체 컨테이너
@@ -1172,36 +1175,41 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
 <!-- 🪟 팝업 (iframe 포함) -->
 <div aria-modal="true" class="overlay" id="popupOverlay" role="dialog">
-  <iframe src="landing.html" title="프로모션 팝업"></iframe>
+<iframe src="landing.html" title="프로모션 팝업"></iframe>
 </div>
-
-<!-- 📜 전체 스크립트 -->
+<!-- 📜 팝업 동작 스크립트 -->
 <script>
+    const today = new Date().toDateString();
+
+    window.onload = function () {
+      const dismissed = localStorage.getItem('popupDismissedToday');
+      if (dismissed !== today) {
+        document.getElementById('popupOverlay').style.display = 'flex';
+        document.body.classList.add('no-scroll');
+      }
+    };
+
+    // 팝업에서 메시지를 받아 처리
+    window.addEventListener('message', e => {
+      if (!e.data || !e.data.action) return;
+
+      if (e.data.action === 'closePopup') {
+        if (e.data.todayCheck) {
+          localStorage.setItem('popupDismissedToday', today);
+        }
+        document.getElementById('popupOverlay').style.display = 'none';
+        document.body.classList.remove('no-scroll');
+      }
+
+      if (e.data.action === 'goToMain') {
+        document.getElementById('popupOverlay').style.display = 'none';
+        document.body.classList.remove('no-scroll');
+        window.location.href = 'https://cnbiznet.co.kr';
+      }
+    });
+  </script>
+  <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const today = new Date().toDateString();
-
-  // ✅ 팝업 보여주기
-  const dismissed = localStorage.getItem('popupDismissedToday');
-  if (dismissed !== today) {
-    document.getElementById('popupOverlay').style.display = 'flex';
-    document.body.classList.add('no-scroll');
-  }
-
-  // ✅ 팝업 메시지 처리
-  window.addEventListener('message', e => {
-    if (!e.data || !e.data.action) return;
-    if (e.data.action === 'closePopup') {
-      if (e.data.todayCheck) localStorage.setItem('popupDismissedToday', today);
-      document.getElementById('popupOverlay').style.display = 'none';
-      document.body.classList.remove('no-scroll');
-    }
-    if (e.data.action === 'goToMain') {
-      document.getElementById('popupOverlay').style.display = 'none';
-      document.body.classList.remove('no-scroll');
-      window.location.href = 'https://cnbiznet.co.kr';
-    }
-  });
-
   // ✅ 햄버거 메뉴
   const btn = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.top-nav');
@@ -1222,7 +1230,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
   // ✅ 비디오 로드 시 배경 제거
   const video = document.getElementById('heroVideo');
   const hero = document.getElementById('heroSection');
@@ -1269,21 +1276,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startYear = 2023;
   const year = new Date().getFullYear();
   document.getElementById("copyrightYear").textContent =
-    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
-
-  // ✅ 슬라이드 카드 랜덤 애니메이션
-   const cards = document.querySelectorAll('.custom-slider a'); 
-   const animations = [
-    'animate-slide-fade-up',
-    'animate-slide-fade-down',
-    'animate-slide-fade-left',
-    'animate-slide-fade-right',
-    'animate-scale-fade'
-  ];
-  cards.forEach(card => {
-    const randomClass = animations[Math.floor(Math.random() * animations.length)];
-    card.classList.add(randomClass);
-  });
+    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;  
 });
 </script>
 
