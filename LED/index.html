@@ -794,11 +794,15 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
   .right-fixed-menu.open .fixed-btn {
     width: 140px !important;     /* 텍스트 공간 */
+	gap: 2px !important;
     padding: 6px 10px !important;
   }
-
+  .right-fixed-menu.open .fixed-btn .icon {
+    margin-right: 4px !important;
+  }
   .right-fixed-menu.open .fixed-btn .label {
     font-size: 0.8rem !important;
+	padding-left: 4px !important;
     transform: scaleX(1);
     opacity: 1;
   }
