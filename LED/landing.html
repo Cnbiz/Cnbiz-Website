@@ -638,8 +638,12 @@ window.addEventListener('DOMContentLoaded', () => {
   if (saved === todayKey) {
     document.querySelector(".popup-wrapper").style.display = "none";
     document.getElementById("closeBtn").style.display = "none";
+  } else {
+    // 오늘 안 보기 안했으면 팝업을 보여줌
+    document.querySelector(".popup-wrapper").style.display = "block"; // 또는 flex
   }
 });
+
 </script>
 
 </body>
