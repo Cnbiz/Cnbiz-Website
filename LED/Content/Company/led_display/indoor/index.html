@@ -269,16 +269,10 @@ const data = [
 let currentCategory = '실내 LED디스플레이';
 let swiper;
 
- function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    if (menu.classList.contains('show')) {
-      menu.classList.remove('show');
-      menu.classList.add('hide');
-    } else {
-      menu.classList.remove('hide');
-      menu.classList.add('show');
-    }
-  }
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('show');
+}
 function setCategory(category) {
   currentCategory = category;
   document.querySelectorAll('.category-btn').forEach((btn) =>
