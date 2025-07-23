@@ -523,6 +523,24 @@ function renderSlides() {
 
 function initSwiper(filtered) {
   swiper = new Swiper('.swiper', {
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    effect: 'coverflow',
+    coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
+    autoplay: { delay: 1500, disableOnInteraction: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    speed: 1500,
+    on: {
+      init: () => updateFocusedTitle(filtered),
+      slideChange: () => updateFocusedTitle(filtered)
+    },
+    // 📱 반응형 설정 추가
+	breakpoints: {
+  // ✅ 화면 폭이 0px 이상 ~ 768px 이하일 때 (주로 모바일)
+  0: {
     slidesPerView: 1,       // 한 화면에 슬라이드 1장만 보이도록
     spaceBetween: 10,       // 슬라이드 사이 간격 좁게 (모바일 공간 절약)
     coverflowEffect: {
@@ -543,8 +561,8 @@ function initSwiper(filtered) {
       depth: 120,           // 깊이감 증가 (더 강한 입체 효과)
       modifier: 1,          // 기본값 유지
       slideShadows: true    // 그림자 표시 (더 리치한 비주얼)
-      }
     }
+  }
   });
   updateFocusedTitle(filtered);
 }
