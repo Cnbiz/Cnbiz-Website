@@ -120,25 +120,22 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
 /* 모바일 메뉴 */
 @media(max-width:768px){
-  #mobileMenu {
-    display: none;              /* 기본은 숨김 */
-    flex-wrap: nowrap;         /* 줄바꿈 안 함 */
-    overflow-x: auto;          /* 가로 스크롤 허용 */
-    gap: 10px;                 /* 간격 */
-    padding: 0.5rem;
-    background-color: rgba(30, 41, 59, 0.95); /* 딥블루 배경 약간 투명 */
-  }
+ #mobileMenu {
+  display: none;
+  flex-direction: column;     /* ✅ 세로로 정렬 */
+  gap: 0;
+  padding: 0.5rem;
+}
   #mobileMenu.show {
     display: flex;             /* 열릴 때 flex로 표시 */
   }
   #mobileMenu a {
-    white-space: nowrap;
-    display: inline-block;
-    width: auto;
-    font-size: 1rem;
-    padding: 10px 15px;
-    flex-shrink: 0;            /* 줄어들지 않게 */
-  }
+  display: block;             /* ✅ 블록 형태 */
+  width: 100%;                /* ✅ 꽉 채우기 */
+  font-size: 1rem;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);  /* ✅ 구분선 */
+}
   .mobile-submenu {
     padding-left:1rem;
     font-size:0.9rem;
@@ -272,10 +269,16 @@ const data = [
 let currentCategory = '실내 LED디스플레이';
 let swiper;
 
-function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('show');
-}
-
+ function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    if (menu.classList.contains('show')) {
+      menu.classList.remove('show');
+      menu.classList.add('hide');
+    } else {
+      menu.classList.remove('hide');
+      menu.classList.add('show');
+    }
+  }
 function setCategory(category) {
   currentCategory = category;
   document.querySelectorAll('.category-btn').forEach((btn) =>
