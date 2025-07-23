@@ -6,13 +6,13 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>주식회사 씨앤비즈</title>
 
-<!-- 2025.07.22 수정본 -->
+<!-- 2025.07.24 수정본 -->
 <!-- 🔗 파비콘 아이콘 설정 -->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 
-<!-- Tailwind 최신 CDN -->
+<!-- ✅ Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <script>
@@ -159,7 +159,7 @@ html, body {
    📝 헤더 텍스트 (h1) 스타일
    =============================== */
 .hero h1 {
-  font-size: clamp(1.2rem, 2.5vw, 3rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
+  font-size: clamp(1.5rem, 5vw, 3.5rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
   /* clamp(최소값, 중간값, 최대값) 사용:
      최소값은 1.5rem, 중간값은 뷰포트의 5% (5vw), 최대값은 3.5rem로 설정. 화면 크기에 따라 동적으로 변화하지만 
      최소 1.5rem, 최대 3.5rem로 제한 */
@@ -177,7 +177,7 @@ html, body {
    📝 본문 텍스트 (p) 스타일
    =============================== */
 .hero p {
-  font-size: clamp(0.7rem, 2vw, 1.5rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
+  font-size: clamp(1rem, 2.5vw, 1.75rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
   /* clamp(최소값, 중간값, 최대값) 사용:
      최소값은 1rem, 중간값은 뷰포트의 4% (4vw), 최대값은 2rem로 설정. 화면 크기에 따라 동적으로 변화하지만 
      최소 1rem, 최대 2rem로 제한 */
@@ -1045,8 +1045,18 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
  <!-- 👉 이 안에 넣어야 영상 위에 표시됩니다 -->
   <div class="hero-content">
     <h1>주식회사 씨앤비즈</h1>
-	<p>Total IT Solution</P>
+	<p>Total IT Solution</p>
   </div>
+</section>
+
+<!-- Our Product 섹션 (텍스트) -->
+<section class="my-12 text-center">
+  <h2 class="text-2xl md:text-3xl font-bold text-[var(--accent-light)]">
+  Our Product
+  </h2>
+  <p class="text-base md:text-lg text-gray-500 dark:text-gray-300 mt-2">
+    주식회사 씨앤비즈의 다양한 제품을 확인해보세요!
+  </p>
 </section>
 
 <!-- ✅ 카드 그리드 -->
@@ -1104,7 +1114,6 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 </section>
 
-
 <!-- 
   📌 우측 고정 메뉴 전체 컨테이너
   ▸ 화면 오른쪽에 고정되어 항상 떠 있는 버튼 모음
@@ -1156,6 +1165,24 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
   </a>
 
 </div>
+
+<!-- 공지사항 영역 -->
+<section id="notice"
+  class="max-w-4xl mx-auto !mt-0 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-300"
+  style="padding-top: 0;">  
+  <iframe id="noticeFrame" src="./Content/Company/notice/sub_notice/"
+          width="100%" height="350"
+          style="border:none; border-radius:12px; display:block; margin:0; padding:0;"
+          scrolling="no"></iframe>
+
+  <!-- 전체보기 버튼 -->
+  <div class="text-right mx-6 mt-2">
+    <a href="./Content/Company/notice/" 
+       class="inline-block bg-gay-600 text-gay-600 px-1 py-1 font-bold rounded hover:bg-yellow-500 transition">
+        ➡️ 전 체 보 기 ➡️
+    </a>
+  </div>
+</section>
 
  <!-- ✅ 푸터: 회사 정보와 저작권 안내 (반응형) -->
 <footer class="
