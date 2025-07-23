@@ -1,239 +1,313 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <!-- ✅ 모바일 반응형을 위한 viewport 설정 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>주식회사 씨앤비즈 | 공지사항</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>주식회사 씨앤비즈 | 공지사항</title>
 
-  <!-- 2025.07.23 수정본 -->
-  <!-- ✅ 파비콘 (브라우저 탭 아이콘) 설정 -->
-  <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
-  <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
-  <link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<!-- 2025.07.21 수정본 -->
+<!-- 🔗 파비콘 아이콘 설정 -->
+<link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 
-  <!-- ✅ Tailwind CSS: 유틸리티 기반 반응형 프레임워크 -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // 다크모드 설정을 class 기반으로 적용
-    tailwind.config = {
-      darkMode: 'class'
-    };
-  </script>
+<meta name="theme-color" content="#1f2937"> <!-- 다크모드용 브라우저 색상 -->
+<link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
-  <!-- ✅ Lucide 아이콘: 홈, 닫기, 달/해 등 SVG 아이콘 사용 -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<!-- ✅ Tailwind CSS: 반응형·다크모드·폰트 최적화 -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script> tailwind.config = { darkMode: 'class' } </script>
 
-  <!-- ✅ 텍스트 안티앨리어싱: 글자 깨짐 방지 -->
-  <style>
-    html, body {
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-    }
-  </style>
+<!-- ✅ Lucide 아이콘 (홈·닫기·달/해 아이콘) -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- ✅ 텍스트 깨짐 방지, 안티앨리어싱 최적화 -->
+<style>
+  html, body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* 모바일 글씨 너무 작아지는 문제 방지 */
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  /* 테이블 내 제목 줄바꿈 방지 최대 너비 지정 */
+  table td, table th {
+    word-break: break-word;
+    max-width: 100%;
+  }
+  /* 검색 입력 폰트 최소 크기 */
+  #searchInput {
+    font-size: 1rem !important; /* 16px */
+  }
+  /* 모달 이미지 최소 높이 유지 */
+  #modalImage {
+    min-height: 150px;
+  }
+  /* 모달 텍스트 줄간격과 가독성 */
+  #modalDesc p {
+    line-height: 1.6;
+  }
+</style>
 </head>
 
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors flex flex-col min-h-screen">
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors flex flex-col min-h-screen font-sans">
 
-  <!-- ✅ 헤더: 상단 고정 네비게이션 바 -->
-  <header class="flex justify-between items-center h-16 px-4 sm:px-6 bg-gray-800 text-white shadow fixed top-0 left-0 right-0 z-50">
-    <!-- 회사 로고 (좌측) -->
-    <a href="/" class="flex items-center gap-2">
-      <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8">
-    </a>
-    <!-- 홈 아이콘 (우측) -->
-    <a href="/" class="hover:text-yellow-400">
-      <i data-lucide="home" class="w-6 h-6"></i>
-    </a>
-  </header>
+<!-- ✅ 상단 헤더: 좌측 로고 + 우측 홈아이콘 -->
+<header class="flex justify-between items-center h-16 px-4 sm:px-6 bg-gray-800 text-white shadow fixed top-0 left-0 right-0 z-50">
+  <a href="/" class="flex items-center gap-2">
+    <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8 sm:h-10" />
+  </a>
+  <a href="/" class="hover:text-yellow-400" aria-label="홈으로 이동">
+    <i data-lucide="home" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+  </a>
+</header>
 
-  <!-- ✅ 메인 콘텐츠 시작 -->
-  <main class="flex-1 mt-16 md:mt-20 flex flex-col items-center px-4">
+<!-- ✅ 메인 콘텐츠 -->
+<main class="flex-1 mt-16 md:mt-20 flex flex-col items-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
+  <h1 class="text-2xl sm:text-3xl font-extrabold mt-4 mb-4 flex items-center select-none">
+    📢 <span class="ml-2">공지사항</span>
+  </h1>
 
-    <!-- 페이지 타이틀 -->
-    <h1 class="text-2xl md:text-3xl font-bold mt-4 mb-4 flex items-center">
-      📢 <span class="ml-2">공지사항</span>
-    </h1>
-
-    <!-- ✅ 검색창 (공지사항 제목 검색) -->
-    <div class="flex justify-end w-full max-w-3xl mb-4">
-      <input id="searchInput" type="text" placeholder="검색어를 입력하세요"
-             class="border rounded px-3 py-2 w-60 mr-2 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
-      <button onclick="searchNotices()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">검색</button>
-    </div>
-
-    <!-- ✅ 공지사항 테이블 -->
-    <div class="overflow-x-auto w-full max-w-3xl bg-white dark:bg-gray-800 shadow rounded">
-      <table class="w-full text-base border-t border-gray-300 dark:border-gray-600">
-        <!-- 테이블 헤더 -->
-        <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
-          <tr>
-            <th class="py-3 text-center">번호</th>
-            <th class="py-3 text-left">제목</th>
-            <th class="py-3 text-center">작성자</th>
-            <th class="py-3 text-center">작성일</th>
-          </tr>
-        </thead>
-        <!-- 테이블 바디: JS에서 렌더링 -->
-        <tbody id="noticeTable"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- ✅ 공지 상세 모달 -->
-  <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-    <div id="modalContent" class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-11/12 max-w-lg mx-auto p-5 transform scale-95 opacity-0 transition-all duration-500 relative">
-      <!-- 닫기 버튼 -->
-      <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <!-- 로딩 스피너 -->
-      <div id="modalLoading" class="flex justify-center items-center h-40">
-        <svg class="animate-spin h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
-        </svg>
-      </div>
-      <!-- 상세 내용 -->
-      <div id="modalContentInner" class="hidden">
-        <h2 id="modalTitle" class="text-lg md:text-xl font-bold mb-4 text-center break-words"></h2>
-        <img id="modalImage" src="" alt="상세 이미지" class="mb-4 rounded w-full object-cover">
-        <div id="modalDesc" class="space-y-1 text-sm text-center"></div>
-      </div>
-    </div>
+  <!-- 🔍 검색창 -->
+  <div class="flex justify-end w-full max-w-3xl mb-4">
+    <input id="searchInput" type="text" placeholder="검색어를 입력하세요"
+           class="border rounded px-3 py-2 w-60 sm:w-72 mr-2 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition duration-200" />
+    <button onclick="searchNotices()" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded min-w-[72px] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      검색
+    </button>
   </div>
 
-  <!-- ✅ 푸터 -->
-  <footer class="mt-10 py-4 px-2 text-center text-xs text-gray-800 dark:text-gray-200 leading-relaxed break-words sm:text-sm md:text-base md:py-6 md:px-4">
-    <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
-    <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
-    <div>
-      문 의:
-      <a href="mailto:sales@cnbiznet.co.kr" class="underline font-bold !text-blue-600 dark:!text-yellow-400">
-        sales@cnbiznet.co.kr
-      </a>
-      | 기술지원:
-      <a href="mailto:cto@cnbiznet.co.kr" class="underline font-bold !text-blue-600 dark:!text-yellow-400">
-        cto@cnbiznet.co.kr
-      </a>
+  <!-- 📋 공지사항 테이블 -->
+  <div class="overflow-x-auto w-full max-w-3xl bg-white dark:bg-gray-800 shadow rounded border border-gray-200 dark:border-gray-600">
+    <table class="w-full text-base border-t border-gray-300 dark:border-gray-600 table-auto">
+      <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
+        <tr>
+          <th class="py-3 text-center min-w-[48px]">번호</th>
+          <th class="py-3 min-w-[180px]">제목</th>
+          <th class="py-3 text-center min-w-[80px]">작성자</th>
+          <th class="py-3 text-center min-w-[100px]">작성일</th>
+        </tr>
+      </thead>
+      <tbody id="noticeTable"></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- ✅ 모달 (반응형 + 애니메이션 + 로딩 효과) -->
+<div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden px-2">
+  <div id="modalContent" 
+       class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg mx-auto p-5 relative transform scale-95 opacity-0 transition-all duration-500">
+    <button onclick="closeModal()" aria-label="모달 닫기"
+            class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400 rounded">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <!-- 🔄 로딩 스피너 -->
+    <div id="modalLoading" class="flex justify-center items-center h-40">
+      <svg class="animate-spin h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-label="로딩중">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
+      </svg>
     </div>
-    <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
-  </footer>
+    <!-- ✏️ 상세내용 -->
+    <div id="modalContentInner" class="hidden text-center">
+      <h2 id="modalTitle" class="text-lg md:text-xl font-bold mb-4 break-words select-text"></h2>
+      <img id="modalImage" src="" alt="상세 이미지" class="mb-4 rounded w-full object-cover max-h-80 mx-auto" />
+      <div id="modalDesc" class="space-y-2 text-sm sm:text-base leading-relaxed px-2"></div>
+    </div>
+  </div>
+</div>
 
-  <!-- ✅ 다크모드 토글 버튼 -->
-  <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
-    <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
-  </button>
+<!-- ✅ 푸터: 회사 정보와 저작권 안내 (반응형) -->
+<footer class="
+  mt-10
+  py-4
+  px-2
+  text-center
+  text-xs
+  text-gray-800
+  dark:text-gray-200
+  leading-relaxed
+  break-words
+  sm:text-sm
+  sm:py-5
+  sm:px-3
+  sm:leading-normal
+  md:text-base
+  md:py-6
+  md:px-4
+  lg:text-base
+  lg:py-8
+  lg:px-6
+  xl:text-base
+  select-text
+">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>
+    문 의:
+    <a href="mailto:sales@cnbiznet.co.kr" 
+       class="underline font-bold !text-blue-600 dark:!text-yellow-400 break-words">
+       sales@cnbiznet.co.kr
+    </a>
+    | 기술지원:
+    <a href="mailto:cto@cnbiznet.co.kr" 
+       class="underline font-bold !text-blue-600 dark:!text-yellow-400 break-words">
+       cto@cnbiznet.co.kr
+    </a>
+  </div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
+</footer>
 
-  <!-- ✅ 스크립트 (계속 아래 이어짐) -->
-  <script>
-    // 아이콘 렌더링
-    lucide.createIcons();
+<!-- ✅ 다크모드 토글 버튼 -->
+<button onclick="toggleTheme()" aria-label="다크모드 토글" 
+        class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow
+               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
+  <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
+</button>
 
-    // 공지사항 렌더링 함수
-    function renderNotices(list) {
-      const table = document.getElementById('noticeTable');
-      table.innerHTML = '';
+<!-- ✅ JavaScript -->
+<script>
+lucide.createIcons(); // 아이콘 렌더링
 
-      // 공지사항 먼저 표시
-      list.filter(d => d.type === 'notice').forEach(d => {
-        table.innerHTML += `
-          <tr class="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700">
-            <td class="text-center">
-              <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">공지</span>
-            </td>
-            <td class="cursor-pointer hover:underline break-words" onclick="showDetail('${d.title}')">${d.title}</td>
-            <td class="text-center">${d.author}</td>
-            <td class="text-center">${d.date}</td>
-          </tr>`;
-      });
+// 📌 공지 데이터 (더 많은 항목 추가)
+const data = [
+  { id:0, type:'notice', title:'24년 대한적십자혈장분획센터 납품 ❤', author:'관리자', date:'2024-08-12',
+    image:'img/notice_10.png', desc:['2024년 대한적십자혈장분획센터 전산장비 납품','납품일: 2024.7.16(수) 충북 음성','물품명: 서버랙, KVM, 노트북, 모니터, 데스크탑, 복합기, S/W'] },
+  { id:0, type:'notice', title:'24년 식품의약품안전처 DB 전산화 4차 수주 ❤', author:'관리자', date:'2024-06-26',
+    image:'img/notice_9.png', desc:['2024년 식품의약품안전처 DB전산화 4차 수주: 2024.5.14','2024년부터 폐업조직은행 데이타베이스(DB) 구축화 사업 참여'] },
+  { id:8, type:'normal', title:'대한적십자 혈장분획센터 전산장비 납품 ❤', author:'관리자', date:'2023-07-26',
+    image:'img/notice_8.png', desc:['대한적십자 혈장분획센터 전산장비 납품(2023.7.26)','서버:HPE DL20 Gen10 ','노트북:삼성 갤럭시북2 NT550XEZ','데스크탑:레노버 ThinkCentre M70t Gen3','모니터:LG 24MQ400.','복합기:MF645Cx'] },
+  { id:7, type:'normal', title:'판교사 사이니지 디스플레이 공사 ❤', author:'관리자', date:'2023-10-02',
+    image:'img/notice_7.png', desc:['판교I사 사이니지 디스플레이 공사: 2023.9 ','E/V홀 정보공유 디스플레이'] },
+  { id:6, type:'normal', title:'판교A사 실외형 LED 전광판 및 AV시스템 구축 ❤', author:'관리자', date:'2023-07-27',
+    image:'img/notice_6.png', desc:['판교A사 실외형 LED 전광판 및 AV시스템 구축: 2023.7'] },
+  { id:5, type:'normal', title:'판교B사 CCTV 200대 증설 프로젝트 완료 ❤', author:'관리자', date:'2023-07-26',
+    image:'img/notice_5.png', desc:['판교B사 CCTV 200대 증설 프로젝트 완료: 2023.7.25'] },
+  { id:4, type:'normal', title:'판교C사 서브넷망 증설 및 네트워크 장비 증설 ❤', author:'관리자', date:'2023-07-18',
+    image:'img/notice_4.png', desc:['판교C사 서브넷망 증설 및 네트워크 장비 증설: 2023.7'] },
+  { id:3, type:'normal', title:'판교D사 네트워크 장비 추가 구축 ❤', author:'관리자', date:'2023-06-22',
+    image:'img/notice_3.png', desc:['판교D사 네트워크 장비 추가 구축: 2023.6'] },
+  { id:2, type:'normal', title:'판교E사 무선랜(Wi-Fi) 구축 ❤', author:'관리자', date:'2023-06-22',
+    image:'img/notice_2.png', desc:['판교E사 무선랜(Wi-Fi) 구축: 2023.6'] },
+  { id:1, type:'normal', title:'판교F사 NAS 증설 및 백업시스템 구축 ❤', author:'관리자', date:'2023-06-22',
+    image:'img/notice_1.png', desc:['판교F사 NAS 증설 및 백업시스템 구축: 2023.6'] },
+];
 
-      // 일반 항목 표시
-      list.filter(d => d.type === 'normal').forEach(d => {
-        table.innerHTML += `
-          <tr class="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700">
-            <td class="text-center">${d.id}</td>
-            <td class="cursor-pointer hover:underline break-words" onclick="showDetail('${d.title}')">${d.title}</td>
-            <td class="text-center">${d.author}</td>
-            <td class="text-center">${d.date}</td>
-          </tr>`;
-      });
-    }
+// 공지사항 테이블 출력 함수
+function renderNotices(filteredData) {
+  const tbody = document.getElementById('noticeTable');
+  tbody.innerHTML = '';
+  filteredData.forEach((item, index) => {
+    const tr = document.createElement('tr');
+    tr.className = index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-700' : 'bg-white dark:bg-gray-800';
+    tr.innerHTML = `
+      <td class="text-center py-2 px-3 whitespace-nowrap">${filteredData.length - index}</td>
+      <td class="cursor-pointer py-2 px-3 break-words hover:text-blue-600 dark:hover:text-yellow-400" tabindex="0" role="button" aria-pressed="false"
+          onclick="openModal(${index})" onkeypress="if(event.key==='Enter'){openModal(${index})}">
+        ${item.title}
+      </td>
+      <td class="text-center py-2 px-3 whitespace-nowrap">${item.author}</td>
+      <td class="text-center py-2 px-3 whitespace-nowrap">${item.date}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-    // 모달 열기
-    function showDetail(title) {
-      const item = data.find(d => d.title === title);
-      if (!item) return;
-
-      const loading = document.getElementById('modalLoading');
-      const content = document.getElementById('modalContentInner');
-      loading.classList.remove('hidden');
-      content.classList.add('hidden');
-
-      document.getElementById('modalTitle').textContent = item.title;
-      document.getElementById('modalImage').src = item.image;
-      document.getElementById('modalDesc').innerHTML = item.desc.map(t => `<p>${t}</p>`).join('');
-
-      const modal = document.getElementById('modal');
-      const modalBox = document.getElementById('modalContent');
-      modal.classList.remove('hidden');
-
-      // 애니메이션 효과
-      setTimeout(() => {
-        modalBox.classList.remove('opacity-0', 'scale-95');
-        modalBox.classList.add('opacity-100', 'scale-100');
-      }, 10);
-
-      // 이미지 로딩 후 본문 보여주기
-      document.getElementById('modalImage').onload = () => {
-        loading.classList.add('hidden');
-        content.classList.remove('hidden');
-      };
-
-      lucide.createIcons(); // 아이콘 다시 렌더링
-    }
-
-    // 모달 닫기
-    function closeModal() {
-      const modalBox = document.getElementById('modalContent');
-      modalBox.classList.add('opacity-0', 'scale-95');
-      modalBox.classList.remove('opacity-100', 'scale-100');
-      setTimeout(() => document.getElementById('modal').classList.add('hidden'), 300);
-    }
-
-    // 검색 기능
-    function searchNotices() {
-      const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
-      renderNotices(data.filter(d => d.title.toLowerCase().includes(keyword)));
-    }
-
-    // 다크모드 토글
-    function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
-      lucide.createIcons();
-      localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
-    }
-
-    // 초기 다크모드 상태 적용
-    if (localStorage.getItem('color-mode') === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
-      lucide.createIcons();
-    }
-
-    // 연도 자동 계산
-    const startYear = 2023;
-    const year = new Date().getFullYear();
-    document.getElementById("copyrightYear").textContent =
-      `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
-
-    // 공지사항 데이터
-    const data = [ /* ...생략된 항목 (공지 데이터 배열)... */ ];
-
-    // 초기 렌더링
+// 검색 함수
+function searchNotices() {
+  const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!keyword) {
     renderNotices(data);
-  </script>
+    return;
+  }
+  const filtered = data.filter(item =>
+    item.title.toLowerCase().includes(keyword) ||
+    item.author.toLowerCase().includes(keyword) ||
+    item.date.toLowerCase().includes(keyword) ||
+    item.desc.some(d => d.toLowerCase().includes(keyword))
+  );
+  renderNotices(filtered);
+}
+
+// 모달 열기 함수
+function openModal(index) {
+  const modal = document.getElementById('modal');
+  const modalLoading = document.getElementById('modalLoading');
+  const modalContentInner = document.getElementById('modalContentInner');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalImage = document.getElementById('modalImage');
+  const modalDesc = document.getElementById('modalDesc');
+
+  modal.classList.remove('hidden');
+  // 초기 애니메이션 효과 (scale, opacity)
+  const modalBox = document.getElementById('modalContent');
+  modalBox.style.opacity = '0';
+  modalBox.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    modalBox.style.opacity = '1';
+    modalBox.style.transform = 'scale(1)';
+  }, 10);
+
+  modalLoading.style.display = 'flex';
+  modalContentInner.style.display = 'none';
+
+  // 이미지, 텍스트 로딩 시뮬레이션 (200ms 딜레이)
+  setTimeout(() => {
+    const item = data[index];
+    modalTitle.textContent = item.title;
+    modalImage.src = item.image;
+    modalImage.alt = `${item.title} 이미지`;
+    modalDesc.innerHTML = item.desc.map(line => `<p>${line}</p>`).join('');
+    modalLoading.style.display = 'none';
+    modalContentInner.style.display = 'block';
+    // 포커스 모달 닫기 버튼으로 이동 접근성 강화
+    document.querySelector('#modalContent button').focus();
+  }, 200);
+}
+
+// 모달 닫기 함수
+function closeModal() {
+  const modal = document.getElementById('modal');
+  const modalBox = document.getElementById('modalContent');
+  modalBox.style.opacity = '0';
+  modalBox.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    modal.classList.add('hidden');
+  }, 300);
+}
+
+// 다크모드 토글 함수
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('theme-icon');
+  if (html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    icon.setAttribute('data-lucide', 'moon');
+  } else {
+    html.classList.add('dark');
+    icon.setAttribute('data-lucide', 'sun');
+  }
+  lucide.createIcons();
+}
+
+// 페이지 로드 시 초기화
+window.addEventListener('DOMContentLoaded', () => {
+  renderNotices(data);
+
+  // 현재 연도 출력
+  document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+  // 시스템 다크모드 감지 및 적용 (기본설정)
+  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.classList.add('dark');
+    document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+    lucide.createIcons();
+  }
+});
+</script>
 </body>
 </html>
