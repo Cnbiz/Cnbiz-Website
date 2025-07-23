@@ -102,7 +102,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 @media (max-width: 640px) {
   .swiper-button-prev { left: -15px; }
   .swiper-button-next { right: -15px; }
-  .swiper-slide { width: 250px; height: 250px; }
+  .swiper-slide { width: 250px; height: 250px; margin-top: 1px;  }
   .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 3px; }
   .swiper-pagination-bullet-active { transform: scale(1.2); }
   #focusedTitle { font-size: 1rem; margin-top: -50px; }
@@ -120,8 +120,19 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
 /* 모바일 메뉴 */
 @media(max-width:768px){
-  #mobileMenu { display:none; flex-direction:column; background:var(--header-footer-bg); }
-  #mobileMenu a { padding:.5rem; border-top:1px solid rgba(255,255,255,0.2); color:white; }
+  #mobileMenu a {
+    white-space: nowrap;     /* 줄바꿈 금지 */
+    overflow: visible;       /* 넘침 숨기지 않음 */
+    display: inline-block;   /* 크기 조정 가능 */
+    width: auto;             /* 텍스트 길이에 맞게 넓이 자동 조정 */
+    font-size: 1rem;         /* 고정 폰트 크기 */
+    padding: 10px 15px;      /* 버튼 패딩 */
+  }
+  #mobileMenu {
+    display: flex;           /* flex로 줄바꿈 없이 가로 배열 */
+    gap: 10px;               /* 메뉴 간격 */
+    overflow-x: auto;        /* 가로 스크롤 가능 */
+  }
   #mobileMenu.show { display:flex; }
   .mobile-submenu { padding-left:1rem; font-size:0.9rem; }
 }
