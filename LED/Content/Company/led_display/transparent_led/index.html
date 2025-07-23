@@ -1,0 +1,386 @@
+<!---------------------------------------------------------------- 
+📌 투명 LED디스플레이 반응형 페이지 전체 구성 요약 (최종 업데이트)
+───────────────────────────────────────────────
+1) Head
+ - 메타태그: viewport 등 반응형 대응
+ - Tailwind CSS (유틸리티 CSS)
+ - Swiper (슬라이더 라이브러리)
+ - Lucide (아이콘 라이브러리)
+ - 사용자 CSS: hover, 카드, 다크모드 색상 등
+
+2) Body
+ - 헤더: 로고 / 타이틀 / 네비게이션 메뉴
+   - PC: 상단 메뉴
+   - 모바일: 햄버거 메뉴 버튼 + 펼침 메뉴
+ - 카테고리 버튼 + 검색 입력창 (필터용)
+ - 메인 Swiper 슬라이더 (카드 형태)
+ - 포커스 타이틀: 현재 강조되는 슬라이드 이름
+ - 모달: 이미지 크게 보기
+ - 푸터: 회사 정보, 연락처, 이메일, 저작권
+
+3) 기능 스크립트
+ - 카테고리 선택, 검색 필터
+ - **필터된 데이터 배열을 priority 기준으로 정렬 →**
+   **Swiper에 순서대로 적용 → 우선순위대로 무한 반복 재생**
+ - Swiper 초기화 & 슬라이드 변경 시 포커스 타이틀 갱신
+ - 모달 열기·닫기
+ - 다크모드 토글 + 아이콘 변경 + 로컬스토리지 저장
+ - 햄버거 메뉴 토글 (모바일)
+ - 연도 자동 갱신
+
+───────────────────────────────────────────────
+✅ 모든 디바이스 (PC / 모바일 / iOS) 반응형 최적화
+✅ 다크모드 대응
+✅ 최고 품질 이미지 표시 & 해상도 유지
+✅ 데이터 무한 추가 가능 + priority로 정렬 가능
+───────────────────────────────────────────────
+📌 추가 설명:
+ - data 배열에 priority 속성을 부여 (숫자, 낮을수록 높은 우선순위)
+ - renderSlides() 함수에서 필터 후 sort()로 우선순위 정렬
+ - Swiper에 정렬된 배열을 그대로 반영 → 원하는 순서로 슬라이드 무한 재생
+ - 모바일 햄버거 메뉴(toggleMobileMenu) 함수로 토글
+---------------------------------------------------------------->
+
+<!-- 2025.07.23 밤샘작업 추가 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주식회사 씨앤비즈 | LED 디스플레이</title>
+
+<!-- 🔗 파비콘 -->
+<link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+
+<!-- ✅ Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script> tailwind.config = { darkMode: 'class' } </script>
+
+<!-- ✅ Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- ✅ Lucide 아이콘 -->
+<script src="https://unpkg.com/lucide@0.258.0"></script>
+
+<style>
+:root {
+  --main-bg: #ffffff;
+  --header-footer-bg: #1e293b;
+  --accent: #2563eb;
+  --accent-light: #3b82f6;
+  --modal-bg: rgba(0,0,0,0.85);
+  --pagination-bullet: #94a3b8;
+}
+.dark { --pagination-bullet: #475569; }
+body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-bg); }
+
+/* 카드 hover + 기본 스타일 */
+.thumb-card:hover { animation: hoverAnimation 0.5s ease forwards; box-shadow: 0 30px 50px rgba(0,0,0,0.3); }
+@keyframes hoverAnimation { 0%{transform: translateY(0) scale(1);} 100%{transform: translateY(-30px) scale(1.1);} }
+.thumb-card { border-radius:1rem; overflow:hidden; background:#f8fafc; cursor:pointer; transition:transform .5s, box-shadow .5s; }
+.thumb { width:100%; height:100%; object-fit:cover; border-radius:1rem; transition:transform .5s; }
+.thumb-card:hover .thumb { transform: scale(1.1); }
+
+/* 카테고리 버튼 */
+.category-btn { padding:.3rem .8rem; border-radius:.4rem; background:#e2e8f0; color:#111; font-weight:600; transition:.3s; }
+.category-btn:hover, .category-btn.active { background:var(--accent); color:#fff; }
+.category-btn.active { box-shadow:0 0 8px var(--accent-light); }
+
+/* Swiper */
+.swiper { width:100%; max-width:1200px; padding:120px 0; }
+.swiper-slide { width:400px; height:400px; border-radius:1rem; box-shadow:0 6px 15px rgba(0,0,0,.15); background:#fff; display:flex; justify-content:center; align-items:center; }
+.swiper-pagination-bullet { width:15px; height:15px; background:var(--pagination-bullet); opacity:1; margin:0 6px; border-radius:50%; cursor:pointer; transition:.3s; }
+.swiper-pagination-bullet-active { background:var(--accent); box-shadow:0 0 12px var(--accent-light); transform:scale(1.4); }
+.swiper-button-prev, .swiper-button-next { top:95%; }
+.swiper-button-prev { left:45px; }
+.swiper-button-next { right:45px; }
+.swiper-button-prev::after, .swiper-button-next::after { font-size:30px; color:var(--accent); font-weight:bold; }
+@media (max-width:640px){ .swiper-button-prev{left:-15px;} .swiper-button-next{right:-15px;} }
+
+/* 포커스 타이틀 */
+#focusedTitle { text-align:center; font-weight:600; color:var(--accent-light); margin-top:-85px; font-size:1.5rem; }
+
+/* PC 드롭다운 메뉴 */
+.nav-item { position:relative; }
+.submenu { display:none; position:absolute; top:100%; left:0; background:var(--header-footer-bg); min-width:300px; font-weight: z-index:20; }
+.nav-item:hover .submenu { display:block; }
+.submenu a { display:block; padding:.5rem 1rem; color:white; font-size:0.9rem; }
+.submenu a.active { color:#facc15; font-weight:bold; }
+
+/* 모바일 메뉴 */
+@media(max-width:768px){
+  #mobileMenu { display:none; flex-direction:column; background:var(--header-footer-bg); }
+  #mobileMenu a { padding:.5rem; border-top:1px solid rgba(255,255,255,0.2); color:white; }
+  #mobileMenu.show { display:flex; }
+  .mobile-submenu { padding-left:1rem; font-size:0.9rem; }
+}
+  /* 상단 메뉴 버튼 텍스트 굵게 */
+  #menu-led > button,
+  #menu-transparent > button {
+   font-weight: 700;
+}
+  #submenu-led, #submenu-transparent {
+   font-weight: 700; /* 또는 700 이상 숫자 */
+   min-width: 0px; /* 원하는 너비 지정 */
+   width: max-content; /* 내용에 따라 자동 너비 조절 */
+   background: rgba(30, 41, 59, 0.87); /* 기존 #1e293b 색상에 87% 불투명도 적용 */
+}
+  
+</style>
+</head>
+<body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
+
+<!-- ✅ 헤더: PC + 모바일 -->
+<header class="bg-[var(--header-footer-bg)] text-[var(--accent-light)] py-3 px-4 flex items-center">
+
+  <!-- 왼쪽 로고 -->
+  <a href="/">
+    <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8" />
+  </a>
+
+  <!-- 중앙 타이틀: flex-grow 해서 중앙 정렬 -->
+  <div class="flex-grow text-center">
+    <span class="text-xl font-bold select-none">✨ LED 디스플레이</span>
+  </div>
+
+  <!-- 오른쪽 메뉴: 오른쪽 끝에서 왼쪽으로 2rem 이동 -->
+  <nav class="hidden md:flex gap-6 text-sm text-white mr-[2rem]">
+    <div class="relative" id="menu-led">
+      <button class="hover:text-yellow-300">LED디스플레이</button>
+      <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-led">
+        <a href="#" class="block px-3 py-1 hover:text-yellow-300">실내 LED디스플레이</a>
+        <a href="#" class="block px-3 py-1 hover:text-yellow-300">실외 LED디스플레이</a>
+      </div>
+    </div>
+    <div class="relative" id="menu-transparent">
+      <button class="hover:text-yellow-300">투명 디스플레이</button>
+      <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-transparent">
+        <a href="#" class="block px-3 py-1 font-bold text-yellow-400 hover:text-yellow-300">투명 LED디스플레이</a>
+        <a href="#" class="block px-3 py-1 hover:text-yellow-300">투명 OLED디스플레이</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 모바일 햄버거 -->
+  <button onclick="toggleMobileMenu()" class="md:hidden text-white ml-auto">
+    <i data-lucide="menu" class="w-6 h-6"></i>
+  </button>
+
+<!-- ✅ 모바일 메뉴 -->
+<div id="mobileMenu" class="md:hidden">
+  <div class="border-t border-gray-600">
+    <span class="block px-4 py-2 text-sm">LED디스플레이</span>
+    <a href="#" class="block px-6 py-1 text-xs">실내 LED디스플레이</a>
+    <a href="#" class="block px-6 py-1 text-xs">실외 LED디스플레이</a>
+  </div>
+  <div class="border-t border-gray-600">
+    <span class="block px-4 py-2 text-sm">투명 디스플레이</span>
+    <a href="#" class="block px-6 py-1 text-xs font-bold text-yellow-400">투명 LED디스플레이</a>
+    <a href="#" class="block px-6 py-1 text-xs">투명 OLED디스플레이</a>
+  </div>
+</div>
+</header>
+<!-- ✅ 카테고리 & 검색 -->
+<div class="container mx-auto mt-4 px-4 flex flex-wrap justify-center gap-2">
+  <button class="category-btn active" onclick="setCategory('투명 LED디스플레이')">투명 LED디스플레이</button>
+  <button class="category-btn" onclick="setCategory('옥외용 LED디스플레이')">옥외용 LED디스플레이</button>
+  <input type="text" id="searchInput" placeholder="투명 LED디스플레이 검색..."
+    class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 ml-2 text-black"
+    oninput="renderSlides()">
+</div>
+
+<!-- ✅ 메인 Swiper -->
+<main>
+  <div class="swiper">
+    <div class="swiper-wrapper" id="swiperWrapper"></div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</main>
+<div id="focusedTitle"></div>
+
+<!-- ✅ 모달 -->
+<div id="modal" class="fixed inset-0 bg-[var(--modal-bg)] flex flex-col items-center justify-center hidden z-50 p-4" onclick="closeModal()">
+  <div id="modalContent" class="flex flex-col items-center" onclick="event.stopPropagation()">
+    <img id="modalImg" src="" alt="큰 이미지" class="rounded-lg shadow-2xl border-4 border-[var(--accent)] mb-2 cursor-pointer object-contain max-h-[80vh]" onclick="closeModal()" />
+    <div class="modal-title text-[var(--accent-light)] font-bold mt-2" id="modalTitle"></div>
+    <div class="modal-desc text-slate-200 text-center" id="modalDesc"></div>
+  </div>
+</div>
+
+<!-- ✅ 푸터 -->
+<footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
+  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> |
+    기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a></div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
+</footer>
+
+<!-- ✅ 다크모드 토글 버튼 -->
+<button onclick="toggleTheme()"
+  class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
+  <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
+</button>
+
+<script>
+// ✅ 데이터: 투명 LED디스플레이 중심 카드
+const data = [
+  { src: 'img/indoor_led_1.jpg', title: '투명 LED디스플레이 모델 A', desc: '고화질 투명용 디스플레이', category: '투명 LED디스플레이', priority: 1 },
+  { src: 'img/indoor_led_2.jpg', title: '투명 LED디스플레이 모델 B', desc: '밝고 선명한 화면', category: '투명 LED디스플레이', priority: 2 },
+  { src: 'img/indoor_led_3.jpg', title: '투명 LED디스플레이 모델 C', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 3 },
+  { src: 'img/indoor_led_4.jpg', title: '투명 LED디스플레이 모델 D', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 4 },
+  { src: 'img/indoor_led_5.jpg', title: '투명 LED디스플레이 모델 E', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 5 },
+  { src: 'img/indoor_led_6.jpg', title: '투명 LED디스플레이 모델 F', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 6 },
+  { src: 'img/indoor_led_7.jpg', title: '투명 LED디스플레이 모델 G', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 7 },
+  { src: 'img/indoor_led_8.jpg', title: '투명 LED디스플레이 모델 H', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 8 },
+  { src: 'img/indoor_led_9.jpg', title: '투명 LED디스플레이 모델 I', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 9 },
+  { src: 'img/indoor_led_10.jpg', title: '투명 LED디스플레이 모델 J', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 10 },
+  { src: 'img/indoor_led_11.jpg', title: '투명 LED디스플레이 모델 K', desc: '투명용 고휘도', category: '투명 LED디스플레이', priority: 11 },
+];
+
+// 초기 카테고리
+let currentCategory = '투명 LED디스플레이';
+let swiper;
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('show');
+}
+
+function setCategory(category) {
+  currentCategory = category;
+  document.querySelectorAll('.category-btn').forEach((btn) =>
+    btn.classList.toggle('active', btn.textContent === category)
+  );
+  renderSlides();
+}
+
+function renderSlides() {
+  const keyword = document.getElementById('searchInput').value.toLowerCase();
+  let filtered = data.filter(item =>
+    item.category === currentCategory &&
+    (item.title.toLowerCase().includes(keyword) || item.desc.toLowerCase().includes(keyword))
+  );
+  filtered.sort((a, b) => a.priority - b.priority);
+
+  const wrapper = document.getElementById('swiperWrapper');
+  wrapper.innerHTML = '';
+  filtered.forEach((item, index) => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide thumb-card';
+    slide.innerHTML = `<img src="${item.src}" class="thumb" alt="${item.title}" />`;
+    slide.addEventListener('click', () => showModal(item));
+    wrapper.appendChild(slide);
+  });
+
+  if (swiper) swiper.destroy(true, true);
+  initSwiper(filtered);
+}
+
+function initSwiper(filtered) {
+  swiper = new Swiper('.swiper', {
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    effect: 'coverflow',
+    coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
+    autoplay: { delay: 1500, disableOnInteraction: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    speed: 1500,
+    on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
+  });
+  updateFocusedTitle(filtered);
+}
+
+function updateFocusedTitle(filtered) {
+  if (!swiper || filtered.length === 0) return;
+  const realIndex = swiper.realIndex % filtered.length;
+  const item = filtered[realIndex];
+  document.getElementById('focusedTitle').textContent = item ? item.title : '';
+}
+
+function showModal(item) {
+  document.getElementById('modalImg').src = item.src;
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalDesc').textContent = item.desc;
+  document.getElementById('modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  document.getElementById('theme-icon').setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+  lucide.createIcons();
+  localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
+}
+
+window.onload = () => {
+  if (localStorage.getItem('color-mode') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+  document.getElementById('theme-icon').setAttribute('data-lucide',
+    document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+  lucide.createIcons();
+  renderSlides();
+  const startYear = 2023;
+  const year = new Date().getFullYear();
+  document.getElementById('copyrightYear').textContent =
+    `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
+};
+</script>
+<script>
+  function setupDropdown(menuId, submenuId) {
+    const menu = document.getElementById(menuId);
+    const submenu = document.getElementById(submenuId);
+
+    let isOverMenu = false;
+    let isOverSubmenu = false;
+
+    function showSubmenu() {
+      submenu.classList.remove('hidden');
+    }
+    function hideSubmenu() {
+      submenu.classList.add('hidden');
+    }
+
+    menu.addEventListener('mouseenter', () => {
+      isOverMenu = true;
+      showSubmenu();
+    });
+    menu.addEventListener('mouseleave', () => {
+      isOverMenu = false;
+      setTimeout(() => {
+        if (!isOverSubmenu) hideSubmenu();
+      }, 150);
+    });
+
+    submenu.addEventListener('mouseenter', () => {
+      isOverSubmenu = true;
+      showSubmenu();
+    });
+    submenu.addEventListener('mouseleave', () => {
+      isOverSubmenu = false;
+      setTimeout(() => {
+        if (!isOverMenu) hideSubmenu();
+      }, 150);
+    });
+  }
+
+  setupDropdown('menu-led', 'submenu-led');
+  setupDropdown('menu-transparent', 'submenu-transparent');
+</script>
+</body>
+</html>
