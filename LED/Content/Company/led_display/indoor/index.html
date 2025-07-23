@@ -99,9 +99,15 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 .swiper-button-prev { left:45px; }
 .swiper-button-next { right:45px; }
 .swiper-button-prev::after, .swiper-button-next::after { font-size:30px; color:var(--accent); font-weight:bold; }
-@media (max-width:640px){ .swiper-button-prev{left:-15px;} .swiper-button-next{right:-15px;} }
-@media (max-width:640px){ .swiper-slide {width: 250px; height: 250px;} }
- 
+@media (max-width: 640px) {
+  .swiper-button-prev { left: -15px; }
+  .swiper-button-next { right: -15px; }
+  .swiper-slide { width: 250px; height: 250px; }
+  .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 3px; }
+  .swiper-pagination-bullet-active { transform: scale(1.2); }
+  #focusedTitle { font-size: 1rem; margin-top: -50px; }
+}
+
 /* 포커스 타이틀 */
 #focusedTitle { text-align:center; font-weight:600; color:var(--accent-light); margin-top:-85px; font-size:1.5rem; }
 
@@ -284,28 +290,33 @@ function renderSlides() {
 
 function initSwiper(filtered) {
   swiper = new Swiper('.swiper', {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    loop: true,
-    centeredSlides: true,
-    effect: 'coverflow',
-    coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
-    autoplay: { delay: 1500, disableOnInteraction: false },
-    pagination: { el: '.swiper-pagination', clickable: true },
-    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-    speed: 1500,
-    breakpoints: {
-    0: { slidesPerView: 1, spaceBetween: 10 },
-    640: { slidesPerView: 2, spaceBetween: 20 },
+  slidesPerView: 4,
+  spaceBetween: 30,
+  loop: true,
+  centeredSlides: true,
+  effect: 'coverflow',
+  coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
+  autoplay: { delay: 1500, disableOnInteraction: false },
+  pagination: { el: '.swiper-pagination', clickable: true },
+  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  speed: 1500,
+  breakpoints: {
+    640: { slidesPerView: 1, spaceBetween: 10 },
+    768: { slidesPerView: 2, spaceBetween: 20 },
     1024: { slidesPerView: 3, spaceBetween: 30 },
+    1280: { slidesPerView: 4, spaceBetween: 30 }
   },
-    on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
-  });
+  on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
+});
   updateFocusedTitle(filtered);
 }
 
 function updateFocusedTitle(filtered) {
-  if (!swiper || filtered.length === 0) return;
+  if (!swiper) return;
+  if (filtered.length === 0) {
+    document.getElementById('focusedTitle').textContent = '';  // 타이틀 초기화
+    return;
+  }
   const realIndex = swiper.realIndex % filtered.length;
   const item = filtered[realIndex];
   document.getElementById('focusedTitle').textContent = item ? item.title : '';
