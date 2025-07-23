@@ -102,8 +102,8 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 @media (max-width: 640px) {
   .swiper-button-prev { left: -15px; }
   .swiper-button-next { right: -15px; }
-  .swiper-slide { width: 250px; height: 250px; margin-top: 1px;  }
-  .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 3px; }
+  .swiper-slide { width: 250px; height: 250px; margin-top: 0px;  }
+  .swiper-pagination-bullet { width: 5px; height: 5px; margin: 1px; }
   .swiper-pagination-bullet-active { transform: scale(1.2); }
   #focusedTitle { font-size: 1rem; margin-top: -50px; }
 }
@@ -318,7 +318,6 @@ function initSwiper(filtered) {
   breakpoints: {
     640: { slidesPerView: 1, spaceBetween: 10 },
     768: { slidesPerView: 2, spaceBetween: 20 },
-    1024: { slidesPerView: 3, spaceBetween: 30 },
   },
   on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
 });
