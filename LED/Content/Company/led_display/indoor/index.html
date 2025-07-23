@@ -99,14 +99,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 .swiper-button-prev { left:45px; }
 .swiper-button-next { right:45px; }
 .swiper-button-prev::after, .swiper-button-next::after { font-size:30px; color:var(--accent); font-weight:bold; }
-@media (max-width: 640px) {
-  .swiper-button-prev { left: -15px; }
-  .swiper-button-next { right: -15px; }
-  .swiper-slide { width: 250px; height: 250px; margin-top: 0px;  }
-  .swiper-pagination-bullet { width: 5px; height: 5px; margin: 1px; }
-  .swiper-pagination-bullet-active { transform: scale(1.2); }
-  #focusedTitle { font-size: 1rem; margin-top: -50px; }
-}
+@media (max-width:640px){ .swiper-button-prev{left:-15px;} .swiper-button-next{right:-15px;} }
 
 /* 포커스 타이틀 */
 #focusedTitle { text-align:center; font-weight:600; color:var(--accent-light); margin-top:-85px; font-size:1.5rem; }
@@ -120,26 +113,11 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
 /* 모바일 메뉴 */
 @media(max-width:768px){
- #mobileMenu {
-  display: none;
-  flex-direction: column;     /* ✅ 세로로 정렬 */
-  gap: 0;
-  padding: 0.5rem;
+  #mobileMenu { display:none; flex-direction:column; background:var(--header-footer-bg); }
+  #mobileMenu a { padding:.5rem; border-top:1px solid rgba(255,255,255,0.2); color:white; }
+  #mobileMenu.show { display:flex; }
+  .mobile-submenu { padding-left:1rem; font-size:0.9rem; }
 }
-  #mobileMenu.show {
-    display: flex;             /* 열릴 때 flex로 표시 */
-  }
-  #mobileMenu a {
-  display: block;             /* ✅ 블록 형태 */
-  width: 100%;                /* ✅ 꽉 채우기 */
-  font-size: 1rem;
-  padding: 10px 15px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);  /* ✅ 구분선 */
-}
-  .mobile-submenu {
-    padding-left:1rem;
-    font-size:0.9rem;
-  }
   /* 상단 메뉴 버튼 텍스트 굵게 */
   #menu-led > button,
   #menu-transparent > button {
@@ -164,7 +142,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
     <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8" />
   </a>
 
-  <!-- 중앙 타이틀: flex-grow 해서 중앙 정렬 -->
+   <!-- 중앙 타이틀: flex-grow 해서 중앙 정렬 -->
   <div class="flex-grow text-center">
     <span class="text-xl font-bold select-none">🔲 LED 디스플레이</span>
   </div>
@@ -206,6 +184,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
   </div>
 </div>
 </header>
+
 <!-- ✅ 카테고리 & 검색 -->
 <div class="container mx-auto mt-4 px-4 flex flex-wrap justify-center gap-2">
   <button class="category-btn active" onclick="setCategory('실내 LED디스플레이')">실내 LED디스플레이</button>
@@ -270,9 +249,9 @@ let currentCategory = '실내 LED디스플레이';
 let swiper;
 
 function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  menu.classList.toggle('show');
+  document.getElementById('mobileMenu').classList.toggle('show');
 }
+
 function setCategory(category) {
   currentCategory = category;
   document.querySelectorAll('.category-btn').forEach((btn) =>
@@ -305,22 +284,18 @@ function renderSlides() {
 
 function initSwiper(filtered) {
   swiper = new Swiper('.swiper', {
-  slidesPerView: 3,
-  spaceBetween: 30,
-  loop: true,
-  centeredSlides: true,
-  effect: 'coverflow',
-  coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
-  autoplay: { delay: 1500, disableOnInteraction: false },
-  pagination: { el: '.swiper-pagination', clickable: true },
-  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-  speed: 1500,
-  breakpoints: {
-    640: { slidesPerView: 1, spaceBetween: 10 },
-    768: { slidesPerView: 2, spaceBetween: 20 },
-  },
-  on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
-});
+    slidesPerView: 3,
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    effect: 'coverflow',
+    coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true },
+    autoplay: { delay: 1500, disableOnInteraction: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    speed: 1500,
+    on: { init: () => updateFocusedTitle(filtered), slideChange: () => updateFocusedTitle(filtered) }
+  });
   updateFocusedTitle(filtered);
 }
 
