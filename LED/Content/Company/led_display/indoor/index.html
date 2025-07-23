@@ -184,6 +184,12 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 .nav-item {
   position: relative;
 }
+#submenu-led, #submenu-transparent {
+   font-weight: 700; /* 또는 700 이상 숫자 */
+   min-width: 0px; /* 원하는 너비 지정 */
+   width: max-content; /* 내용에 따라 자동 너비 조절 */
+   background: rgba(30, 41, 59, 0.87); /* 기존 #1e293b 색상에 87% 불투명도 적용 */
+  }
 .submenu {
   display: none;
   position: absolute;
@@ -212,50 +218,42 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
     display: block;
   }
 }
-/* 모바일 메뉴 */
+/* ✅ PC 전용 메뉴: PC(769px 이상)에서 보여줌 */
+@media (min-width: 769px) {
+  nav.md\\:flex {
+    display: flex;
+  }
+  #mobileMenu {
+    display: none;
+  }
+
+  nav.md\\:flex > div.relative:hover > div.absolute {
+    display: block !important;
+  }
+}
+/* ✅ 모바일 전용 메뉴 + 슬라이더 반응형 스타일 */
 @media (max-width: 768px) {
-  .swiper-button-prev {
-  left: 20px;
-  width: 20px;  /* 기본 44px에서 축소 */
-  height: 20px;
-  top: 92%;
+  /* PC 메뉴는 숨김 */
+  nav.md\\:flex {
+    display: none;
   }
-  .swiper-button-next {
-  right: 20px;
-  width: 20px;  /* 기본 44px에서 축소 */
-  height: 20px;
-  top: 92%;
+
+  /* 모바일 메뉴 보여줌 */
+  #mobileMenu {
+    display: block;
+    flex-direction: column;
+    background: var(--header-footer-bg);
   }
-  .swiper {
-    padding: 90px 0; /* 패딩을 줄여서 높이를 낮춤 */
-  }
-  .swiper-slide {
-    width: 300px; /* 슬라이드 크기 축소 */
-    height: 300px;
-  }
-  .swiper-pagination {
-    bottom: 15px !important;
-  }
-  .swiper-pagination-bullet {
-    width: 12px;  /* 기존 15px → 12px 축소 */
-    height: 12px;
-    margin: 0 4px; /* 좌우 마진 축소 */
-  }
-  #focusedTitle {
-    margin-top: -77px; /* 기존 -85px에서 축소 */
-    font-size: 1.2rem; /* 글자 크기도 조절 가능 */
-  }
+
+  /* 모바일 전용 드롭다운 메뉴 */
   .submenu {
-    display: none; /* 기본은 닫힘 */
+    display: none;
     position: absolute;
     flex-direction: column;
     background: var(--header-footer-bg);
     width: 100%;
     padding: 0;
     box-shadow: none;
-  }
-  .nav-item .submenu {
-    display: none;
   }
   .nav-item.active .submenu {
     display: flex;
@@ -265,28 +263,9 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.95rem;
     color: white;
-  }
-  nav.md\\:flex {
-    display: none;
-  }
-  #mobileMenu {
-    display: block;
-    flex-direction: column;
-    background: var(--header-footer-bg);
-  }
-   body {
-    padding-bottom: -400px; /* 푸터 높이만큼 공간 확보 */
-  }
-}
-
-/* PC용 메뉴 기본 보임 처리 */
-nav.md\\:flex {
-  display: flex;
-}
-
-/* 모바일 전용 */
-@media (max-width: 768px) {
-  #mobileMenu .submenu {
+  }	
+  /* #mobileMenu 안쪽 submenu 전용 처리 (중복 방지용, position static 등) */
+    #mobileMenu .submenu {
     position: static;
     display: none; /* 기본은 닫힘 */
     flex-direction: column;
@@ -294,12 +273,50 @@ nav.md\\:flex {
     width: 100%;
     padding: 0;
   }
-  #mobileMenu .nav-item.active .submenu {
+	#mobileMenu .nav-item.active .submenu {
     display: flex;
+  }
+  /* 슬라이더 이전/다음 버튼 위치와 크기 축소 */
+  .swiper-button-prev {
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    top: 92%;
+  }
+  .swiper-button-next {
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    top: 92%;
+  }
+
+  /* 슬라이더 패딩과 슬라이드 크기 축소 */
+  .swiper {
+    padding: 90px 0;
+  }
+  .swiper-slide {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* 페이지네이션 점 위치와 크기 조정 */
+  .swiper-pagination {
+    bottom: 15px !important;
+  }
+  .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    margin: 0 4px;
+  }
+
+  /* 포커스 타이틀 조정 */
+  #focusedTitle {
+    margin-top: -77px;
+    font-size: 1.2rem;
   }
 }
 
-/* 모바일 전용 메뉴 스타일 */
+/* 모바일 전용 메뉴 show 상태 스타일 */
 #mobileMenu.show {
   display: flex;
   flex-direction: column;
@@ -330,30 +347,30 @@ nav.md\\:flex {
     <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8" />
   </a>
 
-   <!-- 중앙 타이틀: flex-grow 해서 중앙 정렬 -->
+  <!-- 중앙 타이틀: flex-grow 해서 중앙 정렬 -->
   <div class="flex-grow text-center">
     <span class="text-xl font-bold select-none">🔲 LED 디스플레이</span>
   </div>
 
   <!-- 오른쪽 메뉴: 오른쪽 끝에서 왼쪽으로 2rem 이동 -->
-  <nav class="hidden md:flex gap-6 text-sm text-white mr-[2rem]">
-    <div class="relative" id="menu-led">
-      <button class="hover:text-yellow-300">LED디스플레이</button>
-      <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-led">
-        <a href="#" class="block px-3 py-1 font-bold text-yellow-400 hover:text-yellow-300">실내 LED디스플레이</a>
-        <a href="#" class="block px-3 py-1 hover:text-yellow-300">실외 LED디스플레이</a>
-      </div>
+  <nav class="md:flex gap-6 text-sm text-white mr-[2rem]">
+  <div class="relative nav-item" id="menu-led">
+    <button class="hover:text-yellow-300">LED디스플레이</button>
+    <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-led">
+      <a href="#" class="block px-3 py-1 font-bold text-yellow-400 hover:text-yellow-300">실내 LED디스플레이</a>
+      <a href="#" class="block px-3 py-1 hover:text-yellow-300">실외 LED디스플레이</a>
     </div>
-    <div class="relative" id="menu-transparent">
-      <button class="hover:text-yellow-300">투명 디스플레이</button>
-      <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-transparent">
-        <a href="#" class="block px-3 py-1 hover:text-yellow-300">투명 LED디스플레이</a>
-        <a href="#" class="block px-3 py-1 hover:text-yellow-300">투명 OLED디스플레이</a>
-      </div>
+  </div>
+  <div class="relative nav-item" id="menu-transparent">
+    <button class="hover:text-yellow-300">투명 디스플레이</button>
+    <div class="absolute left-0 mt-1 bg-[var(--header-footer-bg)] rounded shadow py-1 z-50 text-xs hidden" id="submenu-transparent">
+      <a href="#" class="block px-3 py-1 hover:text-yellow-300">투명 LED디스플레이</a>
+      <a href="#" class="block px-3 py-1 hover:text-yellow-300">투명 OLED디스플레이</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
- <!-- 모바일 햄버거 버튼 -->
+<!-- 모바일 햄버거 버튼 -->
 <button onclick="toggleMobileMenu()" class="md:hidden text-white ml-auto z-50 relative">
   <i data-lucide="menu" id="hamburger-icon" class="w-6 h-6"></i>
 </button>
