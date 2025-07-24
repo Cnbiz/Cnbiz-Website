@@ -533,7 +533,10 @@
       lucide.createIcons();
     }
     // 현재 연도 자동 출력
-    document.getElementById('copyrightYear').textContent=new Date().getFullYear();
+    const startYear = 2023;
+	const year = new Date().getFullYear();
+	document.getElementById("copyrightYear").textContent =
+	`Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
 
     // 공지사항 출력
     renderNotices(data);
