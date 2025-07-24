@@ -220,21 +220,21 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 }
 /* ✅ PC 전용 메뉴: PC(769px 이상)에서 보여줌 */
 @media (min-width: 769px) {
-  nav.md\\:flex {
+  nav.md\:flex {
     display: flex;
   }
   #mobileMenu {
     display: none;
   }
 
-  nav.md\\:flex > div.relative:hover > div.absolute {
+  nav.md\:flex > div.relative:hover > div.absolute {
     display: block !important;
   }
 }
 /* ✅ 모바일 전용 메뉴 + 슬라이더 반응형 스타일 */
 @media (max-width: 768px) {
   /* PC 메뉴는 숨김 */
-  nav.md\\:flex {
+  nav.md\:flex {
     display: none;
   }
 
@@ -281,18 +281,18 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
     left: 20px;
     width: 20px;
     height: 20px;
-    top: 92%;
+    top: 95%;
   }
   .swiper-button-next {
     right: 20px;
     width: 20px;
     height: 20px;
-    top: 92%;
+    top: 95%;
   }
 
   /* 슬라이더 패딩과 슬라이드 크기 축소 */
   .swiper {
-    padding: 90px 0;
+    padding: 60px 0;
   }
   .swiper-slide {
     width: 300px;
@@ -301,7 +301,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
   /* 페이지네이션 점 위치와 크기 조정 */
   .swiper-pagination {
-    bottom: 15px !important;
+    bottom: 5px !important;
   }
   .swiper-pagination-bullet {
     width: 12px;
@@ -311,7 +311,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
   /* 포커스 타이틀 조정 */
   #focusedTitle {
-    margin-top: -77px;
+    margin-top: -55px;
     font-size: 1.2rem;
   }
 }
@@ -335,6 +335,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
   color: white;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 </style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
