@@ -3,56 +3,66 @@
 <head>
 <meta charset="UTF-8" />
 
-<!-- 2025.07.24 수정
+<!-- 
+  2025.07.24 수정
   뷰포트 설정: 모바일 기기에서 화면 크기에 맞게 페이지를 축소/확대하지 않고
   1:1 비율로 보여주도록 설정합니다.
-  maximum-scale=1, user-scalable=no 는 사용자가 확대/축소를 못 하도록 제한합니다.-->
-  
+  maximum-scale=1, user-scalable=no 는 사용자가 확대/축소를 못 하도록 제한하는 옵션입니다.
+-->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
 <title>주식회사 씨앤비즈 | 공지사항</title>
 
-<!-- 파비콘 (브라우저 탭 아이콘) - 크기별 3개 지정 -->
+<!--
+  파비콘 설정 (브라우저 탭에 표시되는 아이콘)
+  3가지 크기별 아이콘을 지정하여 다양한 환경에 대응합니다.
+-->
 <link href="Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="Cnbiz_link_icon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="Cnbiz_link_icon-48.png" rel="icon" sizes="48x48" type="image/png"/>
 
 <!--
-  테마 컬러: 모바일 브라우저 주소창 등에 적용되는 색상입니다.
-  어두운 회색(#1f2937)은 기본적인 브랜드 컬러로 추정됩니다.
+  테마 컬러 설정
+  모바일 브라우저 주소창 등 UI의 색상을 브랜드 색상(#1f2937)으로 지정합니다.
 -->
 <meta name="theme-color" content="#1f2937">
 
 <!-- Tailwind CSS 불러오기: 빠르게 반응형 UI 및 유틸리티 클래스 사용 가능 -->
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Tailwind 다크모드 설정: 클래스명 'dark' 가 있으면 다크모드 적용 -->
+
+<!-- Tailwind 다크모드 설정: 'dark' 클래스를 html 태그에 붙이면 다크모드 적용 -->
 <script> tailwind.config = { darkMode: 'class' } </script>
 
-<!-- Lucide 아이콘 라이브러리 불러오기 -->
+<!-- Lucide 아이콘 라이브러리 불러오기 (SVG 아이콘 사용용) -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-  /* 기본 글꼴 렌더링 최적화 */
+  /* 기본 글꼴 렌더링 최적화
+     - 글꼴을 더 부드럽고 가독성 좋게 표시하도록 설정
+     - font-size: 16px 와 line-height: 1.5 로 기본 폰트 크기와 줄간격 지정
+  */
   html, body {
-    text-rendering: optimizeLegibility; /* 글꼴의 가독성 향상 */
-    -webkit-font-smoothing: antialiased; /* 사파리/크롬에서 글꼴을 더 부드럽게 렌더링 */
-    -moz-osx-font-smoothing: grayscale; /* 파이어폭스에서 부드러운 글꼴 */
-    font-size: 16px; line-height: 1.5; /* 기본 폰트 크기와 줄간격 */
+    text-rendering: optimizeLegibility; /* 글꼴 가독성 향상 */
+    -webkit-font-smoothing: antialiased; /* 크롬/사파리 부드러운 글꼴 */
+    -moz-osx-font-smoothing: grayscale; /* 파이어폭스 부드러운 글꼴 */
+    font-size: 16px;
+    line-height: 1.5;
   }
 
-  /* 테이블 레이아웃 고정, 너비 100% 유지
-     table-layout: fixed 는 각 열 너비를 명시적으로 지정할 수 있게 해줌
+  /* 테이블 전체 스타일
+     - 너비 100% 강제 지정 (중요도 높음 !important)
+     - table-layout: fixed 로 열 너비를 고정하여 레이아웃 안정화
   */
   table {
-    width: 100% !important; /* 어떤 스타일보다 우선 적용 */
+    width: 100% !important;
     table-layout: fixed;
   }
 
-  /* 모든 th, td 공통 스타일
-     white-space: nowrap 으로 줄바꿈 방지해서 한 줄에 출력
-     overflow-x: visible !important 로 텍스트가 잘리지 않고 넘치게 함
-     text-overflow: clip 으로 말줄임표(...) 대신 텍스트가 끝까지 보여지도록 함
-     좌우 패딩 8px로 여백 확보
+  /* 테이블 헤더(th), 데이터(td) 공통 스타일
+     - white-space: nowrap 으로 텍스트 줄바꿈 방지(한 줄로 표시)
+     - overflow-x: visible 으로 텍스트 잘림 방지 및 넘치게 허용
+     - text-overflow: clip 으로 말줄임표 없이 텍스트 끝까지 표시
+     - 좌우 패딩 8px로 공간 확보
   */
   table th, table td {
     white-space: nowrap;
@@ -62,10 +72,7 @@
     padding-right: 8px;
   }
 
-  /* 번호 열 (첫 번째 열) 너비 고정
-     60px 로 넉넉하게 지정해서 4자리 숫자도 들어갈 수 있음
-     텍스트 중앙 정렬
-  */
+  /* 첫 번째 열 (번호) 고정 너비 60px, 중앙 정렬 */
   th:nth-child(1), td:nth-child(1) {
     width: 60px;
     min-width: 60px;
@@ -73,7 +80,7 @@
     text-align: center;
   }
 
-  /* 작성자 열 (3번째 열) 너비 고정 90px, 중앙 정렬 */
+  /* 세 번째 열 (작성자) 고정 너비 90px, 중앙 정렬 */
   th:nth-child(3), td:nth-child(3) {
     width: 90px;
     min-width: 90px;
@@ -81,7 +88,7 @@
     text-align: center;
   }
 
-  /* 작성일 열 (4번째 열) 너비 고정 110px, 중앙 정렬 */
+  /* 네 번째 열 (작성일) 고정 너비 110px, 중앙 정렬 */
   th:nth-child(4), td:nth-child(4) {
     width: 110px;
     min-width: 110px;
@@ -89,10 +96,11 @@
     text-align: center;
   }
 
-  /* 제목 열 (2번째 열)
-     나머지 공간을 모두 차지하되
-     텍스트가 잘리지 않게 white-space: nowrap 과 overflow-x: visible 적용
-     좌우 패딩은 8px
+  /* 두 번째 열 (제목)
+     - 나머지 너비 전부 차지
+     - 텍스트 줄바꿈 없이 한 줄로 표시
+     - 넘침 허용
+     - 좌우 8px 패딩 유지
   */
   th:nth-child(2), td:nth-child(2) {
     overflow-x: visible !important;
@@ -101,10 +109,10 @@
     padding-right: 8px;
   }
 
-  /* 모바일 화면 (640px 이하) 대응 */
+  /* 모바일 화면 (최대 너비 640px) 대응 */
   @media (max-width: 640px) {
     table th, table td {
-      font-size: 14px; /* 글자 크기 약간 축소 */
+      font-size: 14px; /* 글자 크기 조금 축소 */
       padding-left: 4px; /* 좌우 패딩 축소 */
       padding-right: 4px;
     }
@@ -120,55 +128,83 @@
 
 <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors flex flex-col min-h-screen font-sans">
 <!--
-  전체 body 배경과 텍스트 색상 정의.
-  Tailwind 다크모드 지원: dark 클래스가 있으면 배경-검정, 글자-흰색 적용.
-  flex, flex-col, min-h-screen 으로 페이지 높이 100% + 세로 레이아웃
-  font-sans 는 산세리프 글꼴 사용
+  전체 body 스타일
+  - 기본 배경은 흰색, 텍스트는 짙은 회색
+  - 다크모드 적용 시 배경은 진한 회색, 텍스트는 밝은 회색
+  - 색상 전환은 부드럽게 트랜지션 효과
+  - flex 컨테이너를 세로 방향으로 배치하여 레이아웃 구성
+  - 최소 화면 높이 100%로 화면 꽉 채움
+  - 산세리프 글꼴 사용
 -->
 
 <header class="flex justify-between items-center h-16 px-4 sm:px-6 bg-gray-800 text-white shadow fixed top-0 left-0 right-0 z-50">
   <!--
-    헤더: 좌측 로고, 우측 홈 아이콘 배치
-    flex 로 수평 정렬, justify-between 으로 양 끝 정렬
-    고정 높이 4rem(64px), 고정 위치 상단, z-50 으로 앞에 표시
+    헤더 영역
+    - flex 컨테이너로 좌우 끝 정렬 (justify-between)
+    - 세로 중앙 정렬 (items-center)
+    - 높이 64px (h-16)
+    - 좌우 패딩 1rem(16px), 큰 화면에선 1.5rem
+    - 배경 진한 회색, 텍스트 흰색
+    - 그림자 효과
+    - 화면 상단 고정 (fixed)
+    - z-index 50으로 다른 요소보다 앞에 표시
   -->
   <a href="/" class="flex items-center gap-2">
+    <!--
+      로고 영역
+      - flex 컨테이너로 로고 이미지와 텍스트 간격 8px(gap-2)
+    -->
     <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8 sm:h-10" />
-    <!-- 로고 이미지 높이 32px, 작은 화면에서는 40px -->
+    <!-- 로고 이미지 높이 32px, 큰 화면에선 40px -->
   </a>
   <a href="/" class="hover:text-yellow-400" aria-label="홈으로 이동">
+    <!--
+      홈 아이콘
+      - Lucide 아이콘
+      - 기본 크기 24px(6단위), 큰 화면엔 28px(7단위)
+      - 마우스 오버 시 노란색으로 색상 변경
+      - 접근성 aria-label 설정 (스크린리더용)
+    -->
     <i data-lucide="home" class="w-6 h-6 sm:w-7 sm:h-7"></i>
-    <!-- Lucide 아이콘, 마우스 오버 시 노란색으로 변경 -->
   </a>
 </header>
-
 <main class="flex-1 mt-16 md:mt-20 flex flex-col items-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
   <!--
     메인 영역
-    flex-1 로 남은 공간 모두 차지, margin-top 으로 헤더 아래 공간 확보
-    중앙 정렬, 좌우 여백 padding
-    최대 너비 4xl (약 56rem = 896px)
+    - flex-1: 부모 flex 컨테이너에서 남은 공간을 모두 차지하여 세로로 늘어남
+    - margin-top: 헤더 높이(64px)만큼 띄워서 겹치지 않게 (모바일 64px, 데스크탑 80px)
+    - flex 컬럼 방향, 중앙 정렬
+    - 좌우 패딩: 1rem(16px), 큰 화면에선 1.5rem
+    - 최대 너비: 56rem(896px)
+    - 가로 중앙 정렬 (mx-auto)
+    - 너비 100%로 화면 꽉 채움
   -->
   <h1 class="text-2xl sm:text-3xl font-extrabold mt-4 mb-4 flex items-center select-none">
+    <!--
+      페이지 제목
+      - 기본 글자 크기 24px, 큰 화면에선 30px
+      - 폰트 두껍게 (extrabold)
+      - 위아래 마진 1rem
+      - flex 컨테이너로 아이콘과 텍스트 수평 정렬
+      - select-none: 텍스트 드래그 방지 (선택 불가)
+    -->
     📢 <span class="ml-2">공지사항</span>
   </h1>
-  <!--
-    공지사항 제목
-    폰트 크기 반응형, 굵게
-    select-none 으로 사용자가 텍스트 드래그 안 되게 설정
-  -->
 
   <div class="overflow-x-auto w-full max-w-3xl bg-white dark:bg-gray-800 shadow rounded border border-gray-200 dark:border-gray-600">
     <!--
-      테이블 감싸는 div
-      가로 스크롤 가능하게 overflow-x-auto 설정 (필요시 가로 스크롤 생김)
-      너비 100%, 최대 너비 3xl(48rem, 약 768px)
-      백그라운드, 다크모드 배경, 그림자, 둥근 테두리, 경계선 스타일
+      테이블 감싸는 박스
+      - 가로 오버플로우시 스크롤 가능 (overflow-x-auto)
+      - 너비 100% 최대 너비 48rem (768px)
+      - 배경 흰색, 다크모드 시 짙은 회색
+      - 그림자와 둥근 모서리, 테두리 있음
     -->
     <table class="text-base border-t border-gray-300 dark:border-gray-600" style="table-layout: fixed;">
       <!--
         공지사항 테이블
-        기본 폰트 크기, 상단 테두리, 테이블 레이아웃 고정
+        - 기본 폰트 크기(16px)
+        - 상단 테두리
+        - 테이블 레이아웃 고정으로 열 너비 안정화
       -->
       <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
         <tr>
@@ -180,24 +216,29 @@
       </thead>
       <tbody id="noticeTable"></tbody>
       <!--
-        JS 로 동적 생성되는 공지사항 목록 영역
+        공지사항 데이터가 동적으로 삽입되는 tbody 영역
+        초기에는 비어있음
       -->
     </table>
   </div>
 
   <div class="flex justify-end w-full max-w-3xl mt-4 mb-8">
     <!--
-      검색창 및 버튼 감싸는 div
-      우측 정렬, 너비 100%에 최대 너비 3xl 동일
-      margin-top/bottom 으로 여백 확보
+      검색창 및 버튼 감싸는 영역
+      - flex로 우측 정렬
+      - 최대 너비 48rem(768px), 너비 100%
+      - 위아래 마진 확보 (1rem 위, 2rem 아래)
     -->
     <input id="searchInput" type="text" placeholder="검색어를 입력하세요"
            class="border rounded px-3 py-2 w-60 sm:w-72 mr-2 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-200" />
     <!--
       검색어 입력창
-      Tailwind 클래스로 테두리, 둥근 모서리, 패딩, 너비 지정(240~288px),
-      어두운 배경/테두리/글자 색상 지정,
-      포커스 시 파란색 링 표시, 트랜지션 효과
+      - 테두리, 둥근 모서리
+      - 좌우 패딩 12px, 상하 8px
+      - 기본 너비 240px, 큰 화면에선 288px
+      - 오른쪽 마진 8px
+      - 다크모드 배경, 테두리, 텍스트 색상 조절
+      - 포커스 시 파란색 링 표시, 부드러운 전환 효과
     -->
     <button onclick="searchNotices()" 
             class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded min-w-[72px] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -205,93 +246,112 @@
     </button>
     <!--
       검색 버튼
-      파란색 배경과 흰 글자,
-      마우스 오버 시 조금 더 진한 파란색,
-      최소 너비 72px,
-      포커스 시 파란색 링 표시, 트랜지션 효과
+      - 파란색 배경, 흰색 텍스트
+      - 마우스 오버 시 더 진한 파란색
+      - 최소 너비 72px
+      - 포커스 시 파란색 링 표시, 부드러운 전환 효과
+      - 클릭하면 searchNotices() 함수 호출
     -->
   </div>
 
-<!-- 모달(팝업) 영역 시작 -->
-<div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden px-2">
-  <!--
-    모달 전체 검은 반투명 배경 (opacity 50%)
-    화면 전체 덮음 (fixed + inset-0)
-    flex 박스로 중앙 정렬
-    z-50 로 가장 위에 표시
-    hidden 으로 기본 숨김 처리
-    px-2 로 좌우 작은 여백 확보
-  -->
-  <div id="modalContent" 
-       class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg mx-auto p-5 relative transform scale-95 opacity-0 transition-all duration-500">
+  <!-- 모달(팝업) 영역 시작 -->
+  <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden px-2">
     <!--
-      모달 내용 박스
-      흰색 또는 다크모드 회색 배경,
-      둥근 모서리, 그림자 효과,
-      너비 100% 최대 32rem (512px),
-      가로 중앙 정렬 mx-auto,
-      내부 패딩 20px,
-      상대 위치로 닫기 버튼 배치 용이,
-      초기 크기 95%, 투명도 0 으로 트랜지션 효과 시작
+      모달 배경
+      - 화면 전체 덮기 (fixed, inset-0)
+      - 반투명 검정색 배경 (50% 투명도)
+      - flex로 중앙 정렬 (가로/세로)
+      - z-index 50으로 가장 위에 위치
+      - 기본 상태는 숨김(hidden)
+      - 좌우 여백 8px
     -->
-    <button onclick="closeModal()" aria-label="모달 닫기"
-            class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400 rounded">
-      <i data-lucide="x" class="w-5 h-5"></i>
-      <!-- 닫기 버튼: 오른쪽 상단 배치, 회색에서 호버 시 진한색, 다크모드에서도 색상 변경 -->
-    </button>
-    <div id="modalLoading" class="flex justify-center items-center h-40">
-      <!-- 로딩 스피너 표시 영역: 높이 160px, flex 중앙 정렬 -->
-      <svg class="animate-spin h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-label="로딩중">
+    <div id="modalContent" 
+         class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg mx-auto p-5 relative transform scale-95 opacity-0 transition-all duration-500">
+      <!--
+        모달 박스
+        - 흰색 또는 다크모드 회색 배경
+        - 둥근 모서리, 그림자
+        - 너비 100%, 최대 32rem (512px)
+        - 가로 중앙 정렬
+        - 내부 패딩 20px
+        - 상대 위치 지정(닫기 버튼 위치 조절용)
+        - 초기 상태: 95% 크기, 투명도 0 (트랜지션 효과 준비)
+        - transition-all: 크기, 투명도 등 모든 변화 부드럽게 전환, 0.5초
+      -->
+      <button onclick="closeModal()" aria-label="모달 닫기"
+              class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-yellow-400 rounded">
+        <i data-lucide="x" class="w-5 h-5"></i>
         <!--
-          원형 스피너 애니메이션 SVG
-          circle 과 path 로 구성, 회전 애니메이션 (animate-spin)
+          닫기 버튼
+          - 오른쪽 상단에 절대 위치
+          - 기본 회색, 호버 시 짙은 회색, 다크모드 색상 변경
+          - 포커스 링 표시 및 반응성 강조
         -->
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
-      </svg>
-    </div>
-    <div id="modalContentInner" class="hidden text-center">
-      <!--
-        실제 모달 콘텐츠 영역.
-        로딩 후 보여주며 기본 hidden 상태.
-        텍스트 중앙 정렬.
-      -->
-      <h2 id="modalTitle" class="text-lg md:text-xl font-bold mb-4 break-words select-text"></h2>
-      <!--
-        모달 제목.
-        반응형 폰트 크기, 굵게, 아래 여백 1rem,
-        긴 단어가 깨지지 않고 줄 바꿈 됨 (break-words),
-        사용자가 텍스트 드래그 가능(select-text)
-      -->
-      <img id="modalImage" src="" alt="상세 이미지" class="mb-4 rounded w-full object-cover max-h-80 mx-auto" />
-      <!--
-        모달 이미지 영역
-        아래 여백 1rem,
-        둥근 모서리,
-        가로 최대 100%, 높이 최대 320px,
-        중앙 정렬,
-        object-cover 로 비율 유지하며 잘림 없이 표시
-      -->
-      <div id="modalDesc" class="space-y-2 text-sm sm:text-base leading-relaxed px-2"></div>
-      <!--
-        상세 설명 영역
-        문단간 수직 간격 0.5rem,
-        작은 화면에선 작은 글씨, 큰 화면에선 기본 크기,
-        줄간격 넉넉하게,
-        좌우 여백 8px
-      -->
+      </button>
+      <div id="modalLoading" class="flex justify-center items-center h-40">
+        <!--
+          로딩 스피너 영역
+          - 높이 160px
+          - flex 중앙 정렬
+        -->
+        <svg class="animate-spin h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-label="로딩중">
+          <!--
+            원형 스피너 SVG
+            circle: 배경 원
+            path: 회전하는 부위
+            animate-spin 클래스: Tailwind에서 제공하는 회전 애니메이션
+          -->
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z"/>
+        </svg>
+      </div>
+      <div id="modalContentInner" class="hidden text-center">
+        <!--
+          실제 모달 콘텐츠
+          - 초기에는 hidden 상태
+          - 로딩 후 보여줌
+          - 텍스트 중앙 정렬
+        -->
+        <h2 id="modalTitle" class="text-lg md:text-xl font-bold mb-4 break-words select-text"></h2>
+        <!--
+          모달 제목
+          - 반응형 글자 크기 (18px ~ 20px)
+          - 굵은 글씨체
+          - 아래 마진 1rem
+          - 긴 단어도 줄 바꿈 가능 (break-words)
+          - 텍스트 선택 가능 (select-text)
+        -->
+        <img id="modalImage" src="" alt="상세 이미지" class="mb-4 rounded w-full object-cover max-h-80 mx-auto" />
+        <!--
+          모달 이미지
+          - 아래 마진 1rem
+          - 둥근 모서리
+          - 너비 100%, 최대 높이 320px
+          - 중앙 정렬
+          - object-cover: 이미지 비율 유지하면서 잘림 없이 꽉 채움
+        -->
+        <div id="modalDesc" class="space-y-2 text-sm sm:text-base leading-relaxed px-2"></div>
+        <!--
+          상세 설명 영역
+          - 문단간 수직 간격 0.5rem
+          - 작은 화면에서 작고, 큰 화면에서 기본 크기
+          - 줄간격 넉넉함
+          - 좌우 8px 패딩
+        -->
+      </div>
     </div>
   </div>
-</div>
 
 <footer class="mt-10 py-4 px-2 text-center text-xs text-gray-800 dark:text-gray-200 leading-relaxed break-words sm:text-sm sm:py-5 sm:px-3 md:text-base md:py-6 md:px-4 lg:text-base lg:py-8 lg:px-6 xl:text-base select-text">
   <!--
     푸터 영역
-    상단 마진 2.5rem, 상하 패딩, 중앙 정렬,
-    매우 작은 폰트부터 큰 화면에선 기본 크기로 조정
-    글자색은 밝은 모드, 다크모드 대비
-    줄간격 넉넉하고 단어 깨짐 없이 자동 줄바꿈
-    텍스트 선택 가능
+    - 상단 마진 2.5rem
+    - 상하 좌우 패딩, 크기에 따라 다르게 적용 (xs~xl)
+    - 중앙 정렬
+    - 폰트 크기 반응형 (작은 화면은 아주 작고, 데스크탑은 기본 크기)
+    - 밝은 모드와 다크모드에서 글자색 조절
+    - 줄간격 넉넉하고 단어 깨짐 없이 자동 줄바꿈 처리
+    - 텍스트 선택 가능
   -->
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
@@ -304,14 +364,17 @@
 <button onclick="toggleTheme()" aria-label="다크모드 토글" 
         class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
   <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
-  <!-- 초기 아이콘은 달 모양 (moon) -->
+  <!--
+    초기 아이콘은 달 모양 (moon)
+    다크모드 토글 시 해바라기 아이콘으로 변경됨
+  -->
 </button>
 
 <script>
-  // Lucide 아이콘 초기화
+  // Lucide 아이콘 초기화 (페이지 내 모든 data-lucide 속성에 아이콘 삽입)
   lucide.createIcons();
 
-  // 공지사항 데이터 배열
+  // 공지사항 데이터 배열 (예시 데이터)
   const data = [
     { id:0, type:'notice', title:'24년 대한적십자혈장분획센터 납품 ❤', author:'관리자', date:'2024-08-12',
       image:'img/notice_10.png', desc:['2024년 대한적십자혈장분획센터 전산장비 납품','납품일: 2024.7.16(수) 충북 음성','물품명: 서버랙, KVM, 노트북, 모니터, 데스크탑, 복합기, S/W'] },
@@ -344,8 +407,8 @@
     tbody.innerHTML=''; // 기존 내용 초기화
 
     list.forEach((item,idx)=>{
-      // 홀수/짝수 행 색상을 다르게 하여 가독성 향상
-      // 클릭 가능한 제목 열에 접근성 위해 tabindex, role, aria-pressed 적용
+      // 홀수/짝수 행 배경색 다르게 설정하여 가독성 향상
+      // 제목 td는 클릭 가능하도록 tabindex=0, role=button, aria-pressed 접근성 설정
       tbody.innerHTML+=`<tr class="${idx%2===0?'bg-gray-50 dark:bg-gray-700':'bg-white dark:bg-gray-800'}">
         <td class="py-2 px-3 text-center">${list.length-idx}</td>
         <td class="py-2 px-3 cursor-pointer hover:text-blue-600 dark:hover:text-yellow-400" tabindex="0" role="button" aria-pressed="false" onclick="openModal(${idx})" onkeypress="if(event.key==='Enter'){openModal(${idx})}">${item.title}</td>
@@ -357,103 +420,131 @@
 
   /**
    * 검색 버튼 클릭 시 호출되는 함수
-   * 검색어가 포함된 공지사항만 필터링하여 다시 렌더링
+   * 입력한 검색어가 제목, 작성자, 작성일, 상세설명에 포함된 항목만 필터링 후 렌더링
    */
   function searchNotices(){
     const keyword=document.getElementById('searchInput').value.trim().toLowerCase();
-    if(!keyword) {
-      // 검색어 없으면 전체 목록 렌더링
-      renderNotices(data);
+    if(!keyword){
+      renderNotices(data); // 검색어 없으면 전체 출력
       return;
     }
-    // 제목, 작성자, 작성일, 상세 설명에서 검색어 포함 여부 체크
-    const filtered=data.filter(item =>
-      item.title.toLowerCase().includes(keyword) ||
-      item.author.toLowerCase().includes(keyword) ||
-      item.date.toLowerCase().includes(keyword) ||
-      item.desc.some(d => d.toLowerCase().includes(keyword))
-    );
+    const filtered=data.filter(item=>{
+      // 제목, 작성자, 작성일에 검색어 포함 여부 체크
+      if(item.title.toLowerCase().includes(keyword)) return true;
+      if(item.author.toLowerCase().includes(keyword)) return true;
+      if(item.date.toLowerCase().includes(keyword)) return true;
+      // 상세 설명 배열의 각 항목에 검색어 포함 여부 체크
+      if(item.desc.some(d=>d.toLowerCase().includes(keyword))) return true;
+      return false;
+    });
     renderNotices(filtered);
   }
 
   /**
    * 모달 열기 함수
-   * @param {number} i - 공지사항 데이터 배열 인덱스
+   * @param {number} index - data 배열에서 클릭한 공지사항 인덱스
    */
-  function openModal(i){
-    const m=document.getElementById('modal'),
-          l=document.getElementById('modalLoading'),
-          c=document.getElementById('modalContentInner');
-    const item=data[i];
-    m.classList.remove('hidden'); // 모달 보이기
-    const box=document.getElementById('modalContent');
-    // 트랜지션 초기 상태 (작게, 투명)
-    box.style.opacity='0';
-    box.style.transform='scale(0.95)';
-    // 10ms 뒤 트랜지션 적용 (크기, 불투명도 증가)
-    setTimeout(()=>{
-      box.style.opacity='1';
-      box.style.transform='scale(1)';
-    },10);
+  function openModal(index){
+    const modal=document.getElementById('modal');
+    const loading=document.getElementById('modalLoading');
+    const content=document.getElementById('modalContentInner');
+    const title=document.getElementById('modalTitle');
+    const image=document.getElementById('modalImage');
+    const desc=document.getElementById('modalDesc');
 
-    l.style.display='flex';  // 로딩 스피너 표시
-    c.style.display='none';  // 내용 숨김
+    modal.classList.remove('hidden');
+    // 모달 트랜지션 초기화 (로딩 상태)
+    loading.style.display='flex';
+    content.style.display='none';
+    modal.querySelector('#modalContent').classList.remove('opacity-100','scale-100');
+    modal.querySelector('#modalContent').classList.add('opacity-0','scale-95');
 
-    // 200ms 뒤에 실제 내용 표시 (이미지 및 설명 로딩 흉내)
+    // 애니메이션을 잠시 둔다 (트랜지션 효과)
+    setTimeout(() => {
+      modal.querySelector('#modalContent').classList.remove('opacity-0','scale-95');
+      modal.querySelector('#modalContent').classList.add('opacity-100','scale-100');
+    }, 10);
+
+    // 데이터 설정
+    const item=data[index];
+    title.textContent=item.title;
+    if(item.image){
+      image.src=item.image;
+      image.alt=item.title + " 이미지";
+      image.style.display='block';
+    } else {
+      image.style.display='none';
+    }
+    // 상세 설명 배열을 <p> 태그로 묶어서 삽입
+    desc.innerHTML = '';
+    item.desc.forEach(d=>{
+      const p=document.createElement('p');
+      p.textContent=d;
+      desc.appendChild(p);
+    });
+
+    // 로딩 숨기고 내용 보여주기
     setTimeout(()=>{
-      document.getElementById('modalTitle').textContent=item.title;
-      document.getElementById('modalImage').src=item.image;
-      document.getElementById('modalDesc').innerHTML=item.desc.map(d=>`<p>${d}</p>`).join('');
-      l.style.display='none';  // 로딩 숨김
-      c.style.display='block'; // 내용 표시
-      // 모달 내 닫기 버튼에 포커스 강제 이동 (접근성 향상)
-      document.querySelector('#modalContent button').focus();
-    },200);
+      loading.style.display='none';
+      content.style.display='block';
+    }, 300); // 300ms 후 내용 표시
   }
 
   /**
    * 모달 닫기 함수
    */
   function closeModal(){
-    const box=document.getElementById('modalContent');
-    // 트랜지션 시작: 작게, 투명
-    box.style.opacity='0';
-    box.style.transform='scale(0.95)';
-    // 300ms 뒤 완전히 숨김 처리
-    setTimeout(()=>document.getElementById('modal').classList.add('hidden'),300);
+    const modal=document.getElementById('modal');
+    modal.classList.add('hidden');
   }
 
   /**
    * 다크모드 토글 함수
-   * html 태그에 dark 클래스 추가/제거
-   * 버튼 아이콘도 달/해바라기 모양으로 변경
    */
   function toggleTheme(){
-    const html=document.documentElement,
-          icon=document.getElementById('theme-icon');
+    const html=document.documentElement;
+    const icon=document.getElementById('theme-icon');
     if(html.classList.contains('dark')){
       html.classList.remove('dark');
-      icon.setAttribute('data-lucide','moon'); // 달 모양
+      localStorage.setItem('theme','light');
+      icon.setAttribute('data-lucide','moon');
     } else {
       html.classList.add('dark');
-      icon.setAttribute('data-lucide','sun'); // 해바라기 모양
+      localStorage.setItem('theme','dark');
+      icon.setAttribute('data-lucide','sun');
     }
-    lucide.createIcons(); // 아이콘 갱신
+    lucide.createIcons();
   }
 
-  // 페이지 로드 시 초기 실행 코드
-  window.addEventListener('DOMContentLoaded',()=>{
-    renderNotices(data); // 초기 공지사항 렌더링
-    // 푸터에 현재 연도 표시
-    document.getElementById('copyrightYear').textContent=new Date().getFullYear();
-
-    // OS 다크모드 선호도 체크하여 초기 다크모드 설정
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+  /**
+   * 페이지 로드 시 실행 함수
+   * - 저장된 테마 불러오기
+   * - 전체 공지사항 출력
+   */
+  function init(){
+    const savedTheme=localStorage.getItem('theme');
+    if(savedTheme==='dark'){
       document.documentElement.classList.add('dark');
       document.getElementById('theme-icon').setAttribute('data-lucide','sun');
       lucide.createIcons();
     }
+    // 현재 연도 자동 출력
+    document.getElementById('copyrightYear').textContent=new Date().getFullYear();
+
+    // 공지사항 출력
+    renderNotices(data);
+  }
+
+  // 페이지 로드 시 init 함수 실행
+  window.addEventListener('DOMContentLoaded', init);
+
+  // ESC 키 누르면 모달 닫기
+  window.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      closeModal();
+    }
   });
 </script>
+
 </body>
 </html>
