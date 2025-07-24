@@ -38,91 +38,115 @@
 
 <style>
   /* 기본 글꼴 렌더링 최적화
-     - 글꼴을 더 부드럽고 가독성 좋게 표시하도록 설정
-     - font-size: 16px 와 line-height: 1.5 로 기본 폰트 크기와 줄간격 지정
-  */
-  html, body {
-    text-rendering: optimizeLegibility; /* 글꼴 가독성 향상 */
-    -webkit-font-smoothing: antialiased; /* 크롬/사파리 부드러운 글꼴 */
-    -moz-osx-font-smoothing: grayscale; /* 파이어폭스 부드러운 글꼴 */
-    font-size: 16px;
-    line-height: 1.5;
-  }
+   - 글꼴을 더 부드럽고 가독성 좋게 표시하도록 설정
+   - font-size: 16px 와 line-height: 1.5 로 기본 폰트 크기와 줄간격 지정
+*/
+html, body {
+  text-rendering: optimizeLegibility; /* 글꼴 가독성 향상 */
+  -webkit-font-smoothing: antialiased; /* 크롬/사파리 부드러운 글꼴 */
+  -moz-osx-font-smoothing: grayscale; /* 파이어폭스 부드러운 글꼴 */
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+}
 
-  /* 테이블 전체 스타일
-     - 너비 100% 강제 지정 (중요도 높음 !important)
-     - table-layout: fixed 로 열 너비를 고정하여 레이아웃 안정화
-  */
-  table {
-    width: 100% !important;
-    table-layout: fixed;
-  }
+/* 테이블 전체 스타일
+   - 너비 100% 강제 지정 (중요도 높음 !important)
+   - table-layout: fixed 로 열 너비를 고정하여 레이아웃 안정화
+*/
+table {
+  width: 100% !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
 
-  /* 테이블 헤더(th), 데이터(td) 공통 스타일
-     - white-space: nowrap 으로 텍스트 줄바꿈 방지(한 줄로 표시)
-     - overflow-x: visible 으로 텍스트 잘림 방지 및 넘치게 허용
-     - text-overflow: clip 으로 말줄임표 없이 텍스트 끝까지 표시
-     - 좌우 패딩 8px로 공간 확보
-  */
+/* 테이블 헤더(th), 데이터(td) 공통 스타일
+   - white-space: nowrap 으로 텍스트 줄바꿈 방지(한 줄로 표시)
+   - overflow-x: hidden 으로 넘침 숨김 처리 (스크롤 방지)
+   - text-overflow: ellipsis 으로 넘치는 텍스트 말줄임표 처리
+   - 좌우 패딩 8px로 공간 확보
+   - 테두리 추가로 구분 명확히
+*/
+table th, table td {
+  white-space: nowrap;
+  overflow-x: hidden !important;
+  text-overflow: ellipsis;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+/* 첫 번째 열 (번호) 고정 너비 60px, 중앙 정렬 */
+th:nth-child(1), td:nth-child(1) {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  text-align: center;
+}
+
+/* 세 번째 열 (작성자) 고정 너비 90px, 중앙 정렬 */
+th:nth-child(3), td:nth-child(3) {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+  text-align: center;
+}
+
+/* 네 번째 열 (작성일) 고정 너비 110px, 중앙 정렬 */
+th:nth-child(4), td:nth-child(4) {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+  text-align: center;
+}
+
+/* 두 번째 열 (제목)
+   - 나머지 너비 전부 차지
+   - 텍스트 줄바꿈 없이 한 줄로 표시
+   - 넘침은 숨기고 말줄임표 처리
+   - 좌우 8px 패딩 유지
+*/
+th:nth-child(2), td:nth-child(2) {
+  overflow-x: hidden !important;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* 모바일 화면 (최대 너비 640px) 대응 */
+@media (max-width: 640px) {
   table th, table td {
-    white-space: nowrap;
-    overflow-x: visible !important;
-    text-overflow: clip;
-    padding-left: 8px;
-    padding-right: 8px;
+    font-size: 14px; /* 글자 크기 조금 축소 */
+    padding-left: 4px; /* 좌우 패딩 축소 */
+    padding-right: 4px;
   }
-
-  /* 첫 번째 열 (번호) 고정 너비 60px, 중앙 정렬 */
+  /* 번호 열 너비 유지 */
   th:nth-child(1), td:nth-child(1) {
     width: 60px;
     min-width: 60px;
     max-width: 60px;
-    text-align: center;
   }
-
-  /* 세 번째 열 (작성자) 고정 너비 90px, 중앙 정렬 */
+  /* 작성자 열 너비 축소 */
   th:nth-child(3), td:nth-child(3) {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+  }
+  /* 작성일 열 너비 축소 */
+  th:nth-child(4), td:nth-child(4) {
     width: 90px;
     min-width: 90px;
     max-width: 90px;
-    text-align: center;
   }
-
-  /* 네 번째 열 (작성일) 고정 너비 110px, 중앙 정렬 */
-  th:nth-child(4), td:nth-child(4) {
-    width: 110px;
-    min-width: 110px;
-    max-width: 110px;
-    text-align: center;
-  }
-
-  /* 두 번째 열 (제목)
-     - 나머지 너비 전부 차지
-     - 텍스트 줄바꿈 없이 한 줄로 표시
-     - 넘침 허용
-     - 좌우 8px 패딩 유지
-  */
+  /* 제목 열도 폭 조절 */
   th:nth-child(2), td:nth-child(2) {
-    overflow-x: visible !important;
-    white-space: nowrap;
-    padding-left: 8px;
-    padding-right: 8px;
+    max-width: calc(100% - 230px);
   }
-
-  /* 모바일 화면 (최대 너비 640px) 대응 */
-  @media (max-width: 640px) {
-    table th, table td {
-      font-size: 14px; /* 글자 크기 조금 축소 */
-      padding-left: 4px; /* 좌우 패딩 축소 */
-      padding-right: 4px;
-    }
-    /* 번호 열 너비 유지 */
-    th:nth-child(1), td:nth-child(1) {
-      width: 60px;
-      min-width: 60px;
-      max-width: 60px;
-    }
-  }
+}
 </style>
 </head>
 
