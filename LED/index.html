@@ -159,7 +159,7 @@ html, body {
    📝 헤더 텍스트 (h1) 스타일
    =============================== */
 .hero h1 {
-  font-size: clamp(1.5rem, 5vw, 3.5rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
+  font-size: clamp(1.2rem, 4.5vw, 3rem); /* ⬅️ 글자 크기 설정: 반응형으로 크기 조정 (clamp 함수 사용) */
   /* clamp(최소값, 중간값, 최대값) 사용:
      최소값은 1.5rem, 중간값은 뷰포트의 5% (5vw), 최대값은 3.5rem로 설정. 화면 크기에 따라 동적으로 변화하지만 
      최소 1.5rem, 최대 3.5rem로 제한 */
@@ -1168,17 +1168,16 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
 
 <!-- 공지사항 영역 -->
 <section id="notice"
-  class="max-w-4xl mx-auto !mt-0 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-300"
-  style="padding-top: 0;">  
+  class="max-w-4xl mx-auto !mt-0 bg-gray-900 dark:bg-gray-900 p-0 rounded-xl shadow-lg transition-all duration-300">
   <iframe id="noticeFrame" src="./Content/Company/notice/sub_notice/"
-          width="100%" height="350"
+          width="100%" height="450"
           style="border:none; border-radius:12px; display:block; margin:0; padding:0;"
           scrolling="no"></iframe>
 
   <!-- 전체보기 버튼 -->
-  <div class="text-right mx-6 mt-2">
+  <div class="text-right mx-6 mt-0">
     <a href="./Content/Company/notice/" 
-       class="inline-block bg-gay-600 text-gay-600 px-1 py-1 font-bold rounded hover:bg-yellow-500 transition">
+       class="inline-block bg-gray-900 text-white px-2 py-3 font-bold rounded hover:bg-yellow-500 transition">
         ➡️ 전 체 보 기 ➡️
     </a>
   </div>
