@@ -76,11 +76,14 @@
   --pagination-bullet: #94a3b8;
 }
 .dark { --pagination-bullet: #475569; }
-body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-bg); } 
-       min-height: 100vh; /* 최소 높이를 100vh로 설정하여 푸터가 화면 하단에 고정되도록 함 */
-	   height: 100%;
-       display: flex;
-       flex-direction: column;
+body {
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: var(--main-bg);
+  min-height: 100vh; /* 최소 높이를 화면 크기로 설정 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 /* 카드 hover + 기본 스타일 */
 .thumb-card {
@@ -344,8 +347,9 @@ footer {
     margin: 0 4px;
   }
   footer {
-    padding-top: 140px; /* 모바일에서 푸터 위 여백을 줄여주기 */
-    padding-bottom: 70px; /* 하단 여백을 줄여서 화면을 최적화 */
+    padding-top: 120px; /* 모바일에서 푸터 위 여백을 줄여주기 */
+    padding-bottom: 60px; /* 하단 여백을 줄여서 화면을 최적화 */
+	z-index: 10;
   }
   .move-btn {
     font-size: 0.85rem; /* 기본 1rem 보다 작게 */
@@ -353,6 +357,7 @@ footer {
 	min-width: auto; /* 필요하면 최소 너비 제거 */
     text-align: center;
 	margin-bottom: 20px;
+	z-index: 25; /* 버튼이 메뉴 위로 나오도록 */
   }
   .button-container {
     display: flex;
@@ -365,19 +370,20 @@ footer {
     font-size: 0.75rem; /* 기본 1rem 보다 작게 */
     min-width: auto; /* 필요하면 최소 너비 제거 */
     padding: 0.3rem 0.5rem; /* 패딩도 줄이기 */
+	z-index: 25 !important; /* 버튼이 메뉴 위로 나오도록 */
   }
   #searchInput {
     font-size: 0.75rem;
     padding: 0.2rem 0.4rem;
 	margin-bottom: 50px;
+	z-index: 25; /* 검색창이 버튼 위로 나오도록 */
   }
   /* 포커스 타이틀 */
   #focusedTitle {
-    margin-top: -195px !important;
+    margin-top: -200px !important;
     font-size: 1.2rem;
   }
 }
-
 /* 모바일 전용 메뉴 show 상태 스타일 */
 #mobileMenu.show {
   display: flex;
@@ -397,7 +403,32 @@ footer {
   color: white;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-
+@media (min-width: 1024px) and (orientation: landscape) {
+  .category-btn {
+    font-size: 0.75rem; /* 기본 1rem 보다 작게 */
+    min-width: auto; /* 필요하면 최소 너비 제거 */
+    padding: 0.3rem 0.5rem; /* 패딩도 줄이기 */
+    z-index: 25 !important; /* 버튼이 메뉴 위로 나오도록 */
+  }
+  footer {
+    padding-top: 100px !important; /* 푸터 위 여백을 적절히 조정 */
+    padding-bottom: 50px; /* 푸터 하단 여백을 적절히 조정 */
+    z-index: 10;
+  }
+}
+@media (min-width: 769px) and (orientation: landscape) {
+  .category-btn {
+    font-size: 0.75rem; /* 기본 1rem 보다 작게 */
+    min-width: auto; /* 필요하면 최소 너비 제거 */
+    padding: 0.3rem 0.5rem; /* 패딩도 줄이기 */
+    z-index: 25 !important; /* 버튼이 메뉴 위로 나오도록 */
+  }
+  footer {
+    padding-top: 100px !important; /* 푸터 위 여백을 적절히 조정 */
+    padding-bottom: 50px; /* 푸터 하단 여백을 적절히 조정 */
+    z-index: 10;
+  }
+}
 </style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
@@ -484,7 +515,7 @@ footer {
 </div>
 
 <!-- ✅ 푸터 -->
-<footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
+<footer class="py-1 px-1 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
   <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> |
