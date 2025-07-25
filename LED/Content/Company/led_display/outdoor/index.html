@@ -175,13 +175,13 @@
   }
 
   #focusedTitle {
-    text-align: center;
-    font-weight: 600;
-    color: var(--accent-light);
-    font-size: clamp(1.1rem, 2vw, 1.5rem); /* ✅ clamp로 반응형 */
-    position: relative;
-    margin-top: clamp(-220px, -18vw, -135px); /* ✅ clamp로 반응형 */
-    z-index: 25;
+	text-align: center;
+	font-weight: 600;
+	color: var(--accent-light);
+	font-size: clamp(1.1rem, 2vw, 1.5rem); /* 반응형 폰트 크기 */
+	position: relative;
+	margin-top: clamp(-220px, -18vw, -135px); /* 반응형 margin-top */
+	z-index: 25;
   }
 
   .swiper {
@@ -189,7 +189,9 @@
     max-width: 1200px;
     padding: 90px 0;
   }
-
+	.swiper-wrapper {
+	position: relative;
+  }
   .swiper-slide {
     width: 400px;
     height: 400px;
@@ -232,22 +234,21 @@
     color: var(--accent);
     font-weight: bold;
   }
-
   /* ✅ 모바일 세로 */
   @media (orientation: portrait) and (max-width: 500px) {
-    #focusedTitle {
-      margin-top: -220px !important;
-      font-size: 1.1rem;
-    }
+	#focusedTitle {
+		margin-top: clamp(-180px, -16vw, -100px); /* 모바일에 맞는 margin-top */
+		font-size: 1.1rem; /* 모바일에 적합한 폰트 크기 */
   }
+}
 
   /* ✅ 태블릿 세로 */
   @media (orientation: portrait) and (min-width: 501px) and (max-width: 768px) {
-    #focusedTitle {
-      margin-top: -205px !important;
-      font-size: 1.2rem;
-    }
+  #focusedTitle {
+    margin-top: clamp(-200px, -17vw, -120px); /* 태블릿에 맞는 margin-top */
+    font-size: 1.2rem; /* 태블릿에 적합한 폰트 크기 */
   }
+}
 
   /* ✅ 모바일/태블릿 landscape (기존 유지) */
   @media (orientation: landscape) and (max-width: 768px) {
@@ -264,9 +265,9 @@
       padding: 0.4rem 0.7rem;
     }
     #focusedTitle {
-      margin-top: -205px !important;
-      font-size: 1.2rem;
-    }
+    margin-top: clamp(-180px, -15vw, -100px); /* 가로 모드에서 margin-top 보정 */
+    font-size: 1.2rem; /* 가로 모드에도 적합한 폰트 크기 */
+  }
     #searchInput {
       font-size: 0.75rem;
       padding: 0.2rem 0.4rem;
@@ -315,7 +316,7 @@
       z-index: 25;
     }
     #focusedTitle {
-      margin-top: -175px !important;
+      margin-top: -175px;
       font-size: 1.2rem;
     }
   }
@@ -325,7 +326,7 @@
       width: 100%;
       max-width: 754px;
       height: 29px;
-      margin-top: -175px !important;
+      margin-top: -175px;
       font-size: 1.2rem;
     }
   }
@@ -385,7 +386,6 @@
       <div class="swiper-button-next"></div>
     </div>
   </main>
-
   <div class="container mx-auto mt-12 sm:mt-15 px-4">
     <div class="flex flex-wrap justify-center gap-2">
       <button class="category-btn active" onclick="setCategory('전체')">전체</button>
@@ -435,9 +435,54 @@ const data = [
   { src: 'img/indoor_led_11.jpg', title: '실외 LED디스플레이 모델 K', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 11 },
 ];
 
-// 초기 카테고리
 let currentCategory = '실외 LED디스플레이';
 let swiper;
+
+// 포커스 타이틀 위치 조정 함수
+function adjustFocusedTitlePosition() {
+  const focusedTitle = document.getElementById('focusedTitle');
+  const pagination = document.querySelector('.swiper-pagination');
+  const categoryBtnsContainer = document.querySelector('.flex.flex-wrap.justify-center.gap-2');
+
+  if (!focusedTitle || !pagination || !categoryBtnsContainer) return;
+
+  const width = window.innerWidth;
+  const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+
+  const pagRect = pagination.getBoundingClientRect();
+  const catRect = categoryBtnsContainer.getBoundingClientRect();
+
+  // 두 요소 사이의 중간 위치 계산
+  const middleY = pagRect.bottom + (catRect.top - pagRect.bottom) / 2;
+
+  // 모바일에서 포커스 타이틀을 정확히 중앙에 배치
+  if (width <= 500) { // 모바일
+    focusedTitle.style.position = 'absolute';
+    focusedTitle.style.marginTop = '0';
+    const safeTop = Math.max(middleY - 20, 60); // 최소 60px로 보정
+    focusedTitle.style.top = `${safeTop}px`; // Y축 중앙 맞춤
+    focusedTitle.style.left = '50%';
+    focusedTitle.style.transform = 'translateX(-50%)'; // X축 중앙 정렬
+    focusedTitle.style.zIndex = '25';
+  } else if (width <= 1024) { // 태블릿
+    focusedTitle.style.position = 'absolute';
+    focusedTitle.style.marginTop = '0';
+    focusedTitle.style.top = `${middleY}px`; // Y축 중앙 맞춤
+    focusedTitle.style.left = '50%';
+    focusedTitle.style.transform = 'translateX(-50%)'; // X축 중앙 정렬
+    focusedTitle.style.zIndex = '25';
+  } else { // PC
+    focusedTitle.style.position = '';
+    focusedTitle.style.marginTop = '';
+    focusedTitle.style.top = '';
+    focusedTitle.style.left = '';
+    focusedTitle.style.transform = '';
+    focusedTitle.style.zIndex = '';
+  }
+}
+
+
+// 이하 기존 함수들...
 
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
@@ -445,14 +490,11 @@ function toggleMobileMenu() {
   if (isHidden) {
     menu.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-	// 바깥 클릭 이벤트 활성화
     document.addEventListener('click', outsideClickListener);
   } else {
     menu.classList.add('hidden');
     document.body.style.overflow = '';
-	// 바깥 클릭 이벤트 비활성화
     document.removeEventListener('click', outsideClickListener);
-	// 하위 메뉴도 모두 접기 (active 제거 + submenu 숨김)
     document.querySelectorAll('#mobileMenu .nav-item').forEach(navItem => {
       navItem.classList.remove('active');
       const submenu = navItem.querySelector('.submenu');
@@ -460,32 +502,27 @@ function toggleMobileMenu() {
     });
   }
 }
-// submenu 토글
+
 document.querySelectorAll('#mobileMenu .nav-item > span').forEach(span => {
   span.addEventListener('click', () => {
     const navItem = span.parentElement;
     const submenu = navItem.querySelector('.submenu');
-
     navItem.classList.toggle('active');
-
     if (navItem.classList.contains('active')) {
-      submenu.classList.remove('hidden');  // 보여주기
+      submenu.classList.remove('hidden');
     } else {
-      submenu.classList.add('hidden');     // 숨기기
+      submenu.classList.add('hidden');
     }
   });
 });
-// 바깥 클릭 감지 함수
+
 function outsideClickListener(event) {
   const menu = document.getElementById('mobileMenu');
   const hamburgerBtn = document.querySelector('button[onclick="toggleMobileMenu()"]');
-  // 클릭한 대상이 메뉴 또는 햄버거 버튼 안에 있으면 무시
   if (!menu.contains(event.target) && !hamburgerBtn.contains(event.target)) {
     menu.classList.add('hidden');
     document.body.style.overflow = '';
-    // 이벤트 제거 (한번 실행 후)
     document.removeEventListener('click', outsideClickListener);
-	 // 하위 메뉴도 모두 접기
     document.querySelectorAll('#mobileMenu .nav-item').forEach(navItem => {
       navItem.classList.remove('active');
       const submenu = navItem.querySelector('.submenu');
@@ -493,6 +530,7 @@ function outsideClickListener(event) {
     });
   }
 }
+
 function setCategory(category) {
   currentCategory = category;
   document.querySelectorAll('.category-btn').forEach((btn) =>
@@ -508,17 +546,15 @@ function renderSlides() {
     (item.title.toLowerCase().includes(keyword) || item.desc.toLowerCase().includes(keyword))
   );
   filtered.sort((a, b) => a.priority - b.priority);
-
   const wrapper = document.getElementById('swiperWrapper');
   wrapper.innerHTML = '';
-  filtered.forEach((item, index) => {
+  filtered.forEach((item) => {
     const slide = document.createElement('div');
     slide.className = 'swiper-slide thumb-card';
     slide.innerHTML = `<img src="${item.src}" class="thumb" alt="${item.title}" />`;
     slide.addEventListener('click', () => showModal(item));
     wrapper.appendChild(slide);
   });
-
   if (swiper) swiper.destroy(true, true);
   initSwiper(filtered);
 }
@@ -536,44 +572,37 @@ function initSwiper(filtered) {
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     speed: 1500,
     on: {
-      init: () => updateFocusedTitle(filtered),
-      slideChange: () => updateFocusedTitle(filtered)
+      init: () => {
+        updateFocusedTitle(filtered);
+        adjustFocusedTitlePosition();
+      },
+      slideChange: () => {
+        updateFocusedTitle(filtered);
+        adjustFocusedTitlePosition(); // 슬라이드 변경 시 포커스 타이틀 위치 재조정
+      }
     },
-    // 📱 반응형 설정 추가
-	breakpoints: {
-  // ✅ 화면 폭이 0px 이상 ~ 768px 이하일 때 (주로 모바일)
-  0: {
-    slidesPerView: 1,       // 한 화면에 슬라이드 1장만 보이도록
-    spaceBetween: 10,       // 슬라이드 사이 간격 좁게 (모바일 공간 절약)
-    coverflowEffect: {
-      rotate: 15,           // 회전 각도 축소 (덜 과한 느낌)
-      stretch: 0,           // 슬라이드 간 간격 유지
-      depth: 80,            // 깊이감 축소 (조금 덜 입체적)
-      modifier: 1,          // 기본값 유지
-      slideShadows: false   // 모바일에선 그림자 제거 (성능 & 깔끔함)
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        coverflowEffect: { rotate: 15, stretch: 0, depth: 80, modifier: 1, slideShadows: false }
+      },
+      769: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true }
+      }
     }
-  },
-  // ✅ 화면 폭이 769px 이상일 때 (태블릿·PC)
-  769: {
-    slidesPerView: 3,       // 한 화면에 슬라이드 3장 표시
-    spaceBetween: 30,       // 슬라이드 사이 여유 공간
-    coverflowEffect: {
-      rotate: 30,           // 회전 각도 크게 (더 입체적)
-      stretch: 0,           // 슬라이드 간 간격 유지
-      depth: 120,           // 깊이감 증가 (더 강한 입체 효과)
-      modifier: 1,          // 기본값 유지
-      slideShadows: true    // 그림자 표시 (더 리치한 비주얼)
-    }
-   }
-  }
   });
   updateFocusedTitle(filtered);
+  adjustFocusedTitlePosition();
 }
+
 
 function updateFocusedTitle(filtered) {
   if (!swiper) return;
   if (filtered.length === 0) {
-    document.getElementById('focusedTitle').textContent = '';  // 타이틀 초기화
+    document.getElementById('focusedTitle').textContent = '';
     return;
   }
   const realIndex = swiper.realIndex % filtered.length;
@@ -609,16 +638,30 @@ window.onload = () => {
   document.getElementById('theme-icon').setAttribute('data-lucide',
     document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
   lucide.createIcons();
+
   renderSlides();
+
+  // swiper가 초기화 되었으면 위치 조정 이벤트도 추가
+  if (typeof swiper !== 'undefined') {
+    swiper.on('slideChange', adjustFocusedTitlePosition);
+  }
+  adjustFocusedTitlePosition();
+
   const startYear = 2023;
   const year = new Date().getFullYear();
   document.getElementById('copyrightYear').textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
 };
+
+// 윈도우 크기 변경 및 방향 변경 시 위치 재조정
+window.addEventListener('resize', adjustFocusedTitlePosition);
+window.addEventListener('orientationchange', adjustFocusedTitlePosition);
 </script>
+
 
 </body>
 </html>
+
 <!------------------
 <script>
   function setupDropdown(menuId, submenuId) {
