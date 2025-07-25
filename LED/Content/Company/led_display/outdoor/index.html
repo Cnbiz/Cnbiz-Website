@@ -171,16 +171,16 @@
     margin-top: auto;
     padding-top: 200px;
     padding-bottom: 100px;
-    z-index: 0; /* 제일 뒤로 */
+    z-index: 0;
   }
 
   #focusedTitle {
     text-align: center;
     font-weight: 600;
     color: var(--accent-light);
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2vw, 1.5rem); /* ✅ clamp로 반응형 */
     position: relative;
-    margin-top: -135px;
+    margin-top: clamp(-220px, -18vw, -135px); /* ✅ clamp로 반응형 */
     z-index: 25;
   }
 
@@ -233,6 +233,49 @@
     font-weight: bold;
   }
 
+  /* ✅ 모바일 세로 */
+  @media (orientation: portrait) and (max-width: 500px) {
+    #focusedTitle {
+      margin-top: -220px !important;
+      font-size: 1.1rem;
+    }
+  }
+
+  /* ✅ 태블릿 세로 */
+  @media (orientation: portrait) and (min-width: 501px) and (max-width: 768px) {
+    #focusedTitle {
+      margin-top: -205px !important;
+      font-size: 1.2rem;
+    }
+  }
+
+  /* ✅ 모바일/태블릿 landscape (기존 유지) */
+  @media (orientation: landscape) and (max-width: 768px) {
+    .swiper { padding: 40px 0; }
+    .swiper-slide { width: 300px; height: 300px; }
+    .category-btn {
+      font-size: 0.75rem;
+      min-width: auto;
+      padding: 0.3rem 0.5rem;
+      z-index: 25;
+    }
+    .move-btn {
+      font-size: 1rem;
+      padding: 0.4rem 0.7rem;
+    }
+    #focusedTitle {
+      margin-top: -205px !important;
+      font-size: 1.2rem;
+    }
+    #searchInput {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.4rem;
+      margin-bottom: 50px;
+      z-index: 25;
+    }
+    footer { padding-top: 200px; padding-bottom: 100px; z-index: 0; }
+  }
+
   @media (orientation: portrait) and (max-width: 768px) {
     nav.md\:flex { display: none; }
     #mobileMenu {
@@ -272,46 +315,22 @@
       z-index: 25;
     }
     #focusedTitle {
-      margin-top: -205px !important;
+      margin-top: -175px !important;
       font-size: 1.2rem;
     }
   }
 
-  @media (orientation: landscape) and (max-width: 768px) {
-    .swiper { padding: 40px 0; }
-    .swiper-slide { width: 300px; height: 300px; }
-    .category-btn {
-      font-size: 0.75rem;
-      min-width: auto;
-      padding: 0.3rem 0.5rem;
-      z-index: 25;
-    }
-    .move-btn {
-      font-size: 1rem;
-      padding: 0.4rem 0.7rem;
-    }
+  @media (orientation: landscape) and (max-width: 754px) {
     #focusedTitle {
-      margin-top: -205px !important;
-      font-size: 1.2rem;
-    }
-    #searchInput {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.4rem;
-      margin-bottom: 50px;
-      z-index: 25;
-    }
-    footer { padding-top: 200px; padding-bottom: 100px; z-index: 0; }
-  }
-	@media (orientation: landscape) and (max-width: 754px) {
-	#focusedTitle {
-	  width: 100%;
+      width: 100%;
       max-width: 754px;
       height: 29px;
       margin-top: -175px !important;
       font-size: 1.2rem;
+    }
   }
-}
-	@media (min-width: 769px) and (max-width: 1024px) {
+
+  @media (min-width: 769px) and (max-width: 1024px) {
     .swiper { padding: 60px 0; }
     .swiper-slide { width: 350px; height: 350px; }
     .move-btn {
@@ -332,6 +351,7 @@
     footer { padding-top: 180px; padding-bottom: 90px; z-index: 0; }
   }
 </style>
+
 </head>
 
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
