@@ -178,7 +178,18 @@
       margin-top: auto;
       padding-top: 60px;
       padding-bottom: 30px;
-      z-index: 1; /* 낮은 값으로 설정 */
+      z-index: 1;
+    }
+
+    /* 포커스 타이틀 */
+    #focusedTitle {
+      text-align: center;
+      font-weight: 600;
+      color: var(--accent-light);
+      font-size: 1.5rem;
+      z-index: 999; /* 포커스타이틀을 다른 요소 위로 */
+      position: relative;
+      margin-top: -215px; /* 포커스 타이틀 위치 수정 */
     }
 
     /* Swiper */
@@ -234,15 +245,6 @@
       font-size: 30px;
       color: var(--accent);
       font-weight: bold;
-    }
-
-    /* 포커스 타이틀 */
-    #focusedTitle {
-      text-align: center;
-      font-weight: 600;
-      color: var(--accent-light);
-      margin-top: -135px;
-      font-size: 1.5rem;
     }
 
     /* 모바일 전용 메뉴 + 슬라이더 반응형 스타일 */
@@ -305,7 +307,7 @@
         font-size: 0.75rem;
         padding: 0.2rem 0.4rem;
         margin-bottom: 50px;
-        z-index: 25; /* 검색창 위로 올라오도록 */
+        z-index: 25;
       }
 
       #focusedTitle {
@@ -382,6 +384,7 @@
       <input type="text" id="searchInput" placeholder="실외 LED디스플레이 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
     </div>
   </div>
+<div id="focusedTitle"></div>
 
   <footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
     <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
@@ -390,7 +393,6 @@
     <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
   </footer>
 
-  <!-- ✅ 다크모드 토글 버튼 -->
   <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
     <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
   </button>
