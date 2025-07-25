@@ -169,29 +169,49 @@
 
   footer {
     margin-top: auto;
-    padding-top: 200px;
-    padding-bottom: 100px;
+    padding-top: 80px;
+    padding-bottom: 40px;
     z-index: 0;
   }
 
-  #focusedTitle {
-	text-align: center;
-	font-weight: 600;
-	color: var(--accent-light);
-	font-size: clamp(1.1rem, 2vw, 1.5rem); /* 반응형 폰트 크기 */
-	position: relative;
-	margin-top: clamp(-220px, -18vw, -135px); /* 반응형 margin-top */
-	z-index: 25;
+  .slider-category-wrapper {
+    position: relative;
   }
 
+  /* 포커스 타이틀 기본 스타일 */
+	#focusedTitle {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--accent-light);
+  text-align: center;
+  width: 90vw;
+  max-width: 400px;
+  margin: 12px auto 20px;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  opacity: 1;
+}
+#focusedTitle.mobile-focused-title {
+  position: absolute !important;
+  margin-top: 0 !important;
+  top: 60px !important; /* 위치 필요시 조정하세요 */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 25 !important;
+}
   .swiper {
     width: 100%;
     max-width: 1200px;
     padding: 90px 0;
   }
-	.swiper-wrapper {
-	position: relative;
+
+  .swiper-wrapper {
+    position: relative;
   }
+
   .swiper-slide {
     width: 400px;
     height: 400px;
@@ -234,56 +254,55 @@
     color: var(--accent);
     font-weight: bold;
   }
-  /* ✅ 모바일 세로 */
-  @media (orientation: portrait) and (max-width: 500px) {
-	#focusedTitle {
-		margin-top: clamp(-180px, -16vw, -100px); /* 모바일에 맞는 margin-top */
-		font-size: 1.1rem; /* 모바일에 적합한 폰트 크기 */
-  }
-}
 
-  /* ✅ 태블릿 세로 */
-  @media (orientation: portrait) and (min-width: 501px) and (max-width: 768px) {
-  #focusedTitle {
-    margin-top: clamp(-200px, -17vw, -120px); /* 태블릿에 맞는 margin-top */
-    font-size: 1.2rem; /* 태블릿에 적합한 폰트 크기 */
+  @media (max-width: 768px) {
+     #focusedTitle {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 100 !important;
+    width: 90vw;
+    max-width: 400px;
+    font-size: 1.2rem;
   }
-}
 
-  /* ✅ 모바일/태블릿 landscape (기존 유지) */
-  @media (orientation: landscape) and (max-width: 768px) {
     .swiper { padding: 40px 0; }
     .swiper-slide { width: 300px; height: 300px; }
+
     .category-btn {
       font-size: 0.75rem;
       min-width: auto;
       padding: 0.3rem 0.5rem;
       z-index: 25;
     }
+
     .move-btn {
       font-size: 1rem;
       padding: 0.4rem 0.7rem;
     }
-    #focusedTitle {
-    margin-top: clamp(-180px, -15vw, -100px); /* 가로 모드에서 margin-top 보정 */
-    font-size: 1.2rem; /* 가로 모드에도 적합한 폰트 크기 */
-  }
+
     #searchInput {
       font-size: 0.75rem;
       padding: 0.2rem 0.4rem;
       margin-bottom: 50px;
       z-index: 25;
     }
-    footer { padding-top: 200px; padding-bottom: 100px; z-index: 0; }
-  }
 
-  @media (orientation: portrait) and (max-width: 768px) {
+    footer {
+      padding-top: 140px;
+      padding-bottom: 70px;
+      z-index: 0;
+    }
+
     nav.md\:flex { display: none; }
+
     #mobileMenu {
       display: block;
       flex-direction: column;
       background: var(--header-footer-bg);
     }
+
     .submenu {
       display: none;
       position: absolute;
@@ -293,68 +312,66 @@
       padding: 0;
       box-shadow: none;
     }
+
     .nav-item.active .submenu { display: flex; }
-    .swiper { padding: 40px 0; }
-    .swiper-slide { width: 300px; height: 300px; }
-    footer { padding-top: 140px; padding-bottom: 70px; z-index: 0; }
-    .move-btn {
-      font-size: 0.85rem;
-      padding: 0.7em 0.4rem;
-      min-width: auto;
-      margin-bottom: 20px;
-    }
-    .category-btn {
-      font-size: 0.75rem;
-      min-width: auto;
-      padding: 0.3rem 0.5rem;
-      z-index: 25;
-    }
-    #searchInput {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.4rem;
-      margin-bottom: 50px;
-      z-index: 25;
-    }
-    #focusedTitle {
-      margin-top: -175px;
-      font-size: 1.2rem;
-    }
   }
 
-  @media (orientation: landscape) and (max-width: 754px) {
+  @media (max-width: 500px) {
     #focusedTitle {
-      width: 100%;
-      max-width: 754px;
-      height: 29px;
-      margin-top: -175px;
-      font-size: 1.2rem;
+      top: 180px;
+      font-size: 1.1rem;
     }
   }
+	/* PC 이상 (sm 이상)일 때 위치 조정 */
+    @media (min-width: 640px) {
+  #focusedTitle.focused-title {
+    position: absolute !important;
+    bottom: 195px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+  }
+}
+	/* 필요시 미디어쿼리로 모바일 폰트 크기만 조절 가능 */
+	@media (max-width: 639px) {
+  #focusedTitle.focused-title {
+    position: absolute !important;
+    bottom: -35px !important;  /* 적당한 수치로 조정하세요 */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 1 !important;
+  }
+}
 
   @media (min-width: 769px) and (max-width: 1024px) {
     .swiper { padding: 60px 0; }
     .swiper-slide { width: 350px; height: 350px; }
+
     .move-btn {
       font-size: 0.95rem;
       padding: 0.5rem 0.6rem;
       z-index: 25;
     }
+
     .category-btn {
       font-size: 0.9rem;
       padding: 0.3rem 0.6rem;
       z-index: 25;
     }
+
     #focusedTitle {
+      top: 260px;
       font-size: 1.4rem;
-      margin-top: -18%;
-      z-index: 25;
     }
-    footer { padding-top: 180px; padding-bottom: 90px; z-index: 0; }
+
+    footer {
+      padding-top: 40px;
+      padding-bottom: 20px;
+      z-index: 0;
+    }
   }
 </style>
-
 </head>
-
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
   <!-- ✅ 헤더: PC + 모바일 -->
   <header class="bg-[var(--header-footer-bg)] text-[var(--accent-light)] py-3 px-4 flex items-center justify-between relative">
@@ -385,31 +402,44 @@
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
-  </main>
-  <div class="container mx-auto mt-12 sm:mt-15 px-4">
-    <div class="flex flex-wrap justify-center gap-2">
-      <button class="category-btn active" onclick="setCategory('전체')">전체</button>
-      <button class="category-btn" onclick="setCategory('투명 LED디스플레이')">투명 LED디스플레이</button>
-      <button class="category-btn" onclick="setCategory('투명 OLED디스플레이')">투명 OLED디스플레이</button>
-      <button class="category-btn" onclick="setCategory('미디어파사드 LED디스플레이')">미디어파사드 LED디스플레이</button>
-      <button class="category-btn" onclick="setCategory('전광판 LED디스플레이')">전광판 LED디스플레이</button>
-    </div>
-    <div class="flex justify-center mt-2 sm:mt-3 mb-2 sm:mb-3">
-      <input type="text" id="searchInput" placeholder="실외 LED디스플레이 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
-    </div>
-  </div>
-  <div id="focusedTitle"></div>
-  
-<!-- ✅ 모달 -->
-<div id="modal" class="fixed inset-0 bg-[var(--modal-bg)] flex flex-col items-center justify-center hidden z-50 p-4" onclick="closeModal()">
-  <div id="modalContent" class="flex flex-col items-center" onclick="event.stopPropagation()">
-    <img id="modalImg" src="" alt="큰 이미지" class="rounded-lg shadow-2xl border-4 border-[var(--accent)] mb-2 cursor-pointer object-contain max-h-[80vh]" onclick="closeModal()" />
-    <div class="modal-title text-[var(--accent-light)] font-bold mt-2" id="modalTitle"></div>
-    <div class="modal-desc text-slate-200 text-center" id="modalDesc"></div>
-  </div>
-</div>
 
-  <footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
+    <!-- 포커스 타이틀 -->
+    <div id="focusedTitle" class="focused-title text-center font-semibold text-[var(--accent-light)]" style="
+		font-weight: 600;
+		font-size: clamp(1.1rem, 2vw, 1.5rem);
+		color: var(--accent-light);
+		text-align: center;
+		width: 100%;
+		max-width: 600px;
+		margin: 12px auto 20px;
+								">
+      <!-- JS에서 텍스트 넣기 -->
+    </div>
+
+    <div class="container mx-auto mt-12 px-4">
+      <div class="flex flex-wrap justify-center gap-2">
+        <button class="category-btn active" onclick="setCategory('전체')">전체</button>
+        <button class="category-btn" onclick="setCategory('투명 LED디스플레이')">투명 LED디스플레이</button>
+        <button class="category-btn" onclick="setCategory('투명 OLED디스플레이')">투명 OLED디스플레이</button>
+        <button class="category-btn" onclick="setCategory('미디어파사드 LED디스플레이')">미디어파사드 LED디스플레이</button>
+        <button class="category-btn" onclick="setCategory('전광판 LED디스플레이')">전광판 LED디스플레이</button>
+      </div>
+      <div class="flex justify-center mt-2 sm:mt-3 mb-2 sm:mb-3">
+        <input type="text" id="searchInput" placeholder="실외 LED디스플레이 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
+      </div>
+    </div>
+  </main>
+
+  <!-- ✅ 모달 -->
+  <div id="modal" class="fixed inset-0 bg-[var(--modal-bg)] flex flex-col items-center justify-center hidden z-50 p-4" onclick="closeModal()">
+    <div id="modalContent" class="flex flex-col items-center" onclick="event.stopPropagation()">
+      <img id="modalImg" src="" alt="큰 이미지" class="rounded-lg shadow-2xl border-4 border-[var(--accent)] mb-2 cursor-pointer object-contain max-h-[80vh]" onclick="closeModal()" />
+      <div class="modal-title text-[var(--accent-light)] font-bold mt-2" id="modalTitle"></div>
+      <div class="modal-desc text-slate-200 text-center" id="modalDesc"></div>
+    </div>
+  </div>
+
+  <footer class="py-20 px-40 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
     <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
     <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
     <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a></div>
@@ -419,7 +449,21 @@
   <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
     <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
   </button>
-  <script>
+  
+  <style>
+    body > main > .container.mx-auto.mt-12.px-4 > .flex.flex-wrap.justify-center.gap-2 {
+      margin-bottom: 16px !important;
+    }
+
+    body > main > .container.mx-auto.mt-12.px-4 > .flex.justify-center.mt-2.mb-2 {
+      margin-top: 0 !important;
+    }
+	div.focusedTitle.focused-title.text-center.font-semibold.text-[var(--accent-light)] {
+  color: red !important;
+}
+  </style>
+</body>
+<script>
 // ✅ 데이터: 실외 LED디스플레이 중심 카드
 const data = [
   { src: 'img/indoor_led_1.jpg', title: '실외 LED디스플레이 모델 A', desc: '고화질 실외용 디스플레이', category: '실외 LED디스플레이', priority: 1 },
@@ -438,115 +482,74 @@ const data = [
 let currentCategory = '실외 LED디스플레이';
 let swiper;
 
-// 포커스 타이틀 위치 조정 함수
-function adjustFocusedTitlePosition() {
-  const focusedTitle = document.getElementById('focusedTitle');
-  const pagination = document.querySelector('.swiper-pagination');
-  const categoryBtnsContainer = document.querySelector('.flex.flex-wrap.justify-center.gap-2');
+// 포커스 타이틀 위치 조정 (PC / 모바일 대응)
+function updateFocusedTitlePosition() {
+  const el = document.getElementById('focusedTitle');
+  if (!el) return;
 
-  if (!focusedTitle || !pagination || !categoryBtnsContainer) return;
-
-  const width = window.innerWidth;
-
-  if (width <= 500) { // 모바일만 JS 위치 보정
-    const pagRect = pagination.getBoundingClientRect();
-    const catRect = categoryBtnsContainer.getBoundingClientRect();
-    const middleY = pagRect.bottom + (catRect.top - pagRect.bottom) / 2;
-    const safeTop = Math.max(middleY - 20, 60);
-
-    focusedTitle.style.position = 'absolute';
-    focusedTitle.style.marginTop = '0';
-    focusedTitle.style.top = `${safeTop}px`;
-    focusedTitle.style.left = '50%';
-    focusedTitle.style.transform = 'translateX(-50%)';
-    focusedTitle.style.zIndex = '25';
+  if (window.innerWidth <= 768) {
+    Object.assign(el.style, {
+      position: 'fixed',
+      bottom: '20px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      zIndex: '100',
+      opacity: '1',
+      width: '90vw',
+      maxWidth: '400px',
+      fontSize: '1.2rem',
+    });
   } else {
-    // 태블릿/PC에서는 CSS가 적용되도록 인라인 스타일 제거
-    focusedTitle.style.position = '';
-    focusedTitle.style.marginTop = '';
-    focusedTitle.style.top = '';
-    focusedTitle.style.left = '';
-    focusedTitle.style.transform = '';
-    focusedTitle.style.zIndex = '';
-  }
-}
-// 이하 기존 함수들...
-
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const isHidden = menu.classList.contains('hidden');
-  if (isHidden) {
-    menu.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('click', outsideClickListener);
-  } else {
-    menu.classList.add('hidden');
-    document.body.style.overflow = '';
-    document.removeEventListener('click', outsideClickListener);
-    document.querySelectorAll('#mobileMenu .nav-item').forEach(navItem => {
-      navItem.classList.remove('active');
-      const submenu = navItem.querySelector('.submenu');
-      if (submenu) submenu.classList.add('hidden');
+    Object.assign(el.style, {
+      position: 'absolute',
+      bottom: '80px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      zIndex: '25',
+      opacity: '1',
+      width: '',
+      maxWidth: '',
+      fontSize: '',
     });
   }
 }
 
-document.querySelectorAll('#mobileMenu .nav-item > span').forEach(span => {
-  span.addEventListener('click', () => {
-    const navItem = span.parentElement;
-    const submenu = navItem.querySelector('.submenu');
-    navItem.classList.toggle('active');
-    if (navItem.classList.contains('active')) {
-      submenu.classList.remove('hidden');
-    } else {
-      submenu.classList.add('hidden');
-    }
-  });
-});
-
-function outsideClickListener(event) {
-  const menu = document.getElementById('mobileMenu');
-  const hamburgerBtn = document.querySelector('button[onclick="toggleMobileMenu()"]');
-  if (!menu.contains(event.target) && !hamburgerBtn.contains(event.target)) {
-    menu.classList.add('hidden');
-    document.body.style.overflow = '';
-    document.removeEventListener('click', outsideClickListener);
-    document.querySelectorAll('#mobileMenu .nav-item').forEach(navItem => {
-      navItem.classList.remove('active');
-      const submenu = navItem.querySelector('.submenu');
-      if (submenu) submenu.classList.add('hidden');
-    });
-  }
-}
-
+// 카테고리 변경 시 호출
 function setCategory(category) {
   currentCategory = category;
-  document.querySelectorAll('.category-btn').forEach((btn) =>
+  document.querySelectorAll('.category-btn').forEach(btn =>
     btn.classList.toggle('active', btn.textContent === category)
   );
   renderSlides();
 }
 
+// 슬라이드 생성 및 필터링
 function renderSlides() {
-  const keyword = document.getElementById('searchInput').value.toLowerCase();
-  let filtered = data.filter(item =>
-    (currentCategory === '전체' || item.category === currentCategory) &&
-    (item.title.toLowerCase().includes(keyword) || item.desc.toLowerCase().includes(keyword))
-  );
-  filtered.sort((a, b) => a.priority - b.priority);
+  const keyword = document.getElementById('searchInput')?.value.toLowerCase() || '';
+  const filtered = data
+    .filter(item =>
+      (currentCategory === '전체' || item.category === currentCategory) &&
+      (item.title.toLowerCase().includes(keyword) || item.desc.toLowerCase().includes(keyword))
+    )
+    .sort((a, b) => a.priority - b.priority);
+
   const wrapper = document.getElementById('swiperWrapper');
+  if (!wrapper) return;
   wrapper.innerHTML = '';
-  filtered.forEach((item) => {
+
+  filtered.forEach(item => {
     const slide = document.createElement('div');
     slide.className = 'swiper-slide thumb-card';
-    slide.innerHTML = `<img src="${item.src}" class="thumb" alt="${item.title}" />`;
+    slide.innerHTML = `<img src="${item.src}" class="thumb" alt="${item.title}" loading="lazy" />`;
     slide.addEventListener('click', () => showModal(item));
     wrapper.appendChild(slide);
   });
+
   if (swiper) swiper.destroy(true, true);
   initSwiper(filtered);
 }
 
+// Swiper 초기화
 function initSwiper(filtered) {
   swiper = new Swiper('.swiper', {
     slidesPerView: 3,
@@ -559,16 +562,6 @@ function initSwiper(filtered) {
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     speed: 1500,
-    on: {
-      init: () => {
-        updateFocusedTitle(filtered);
-        adjustFocusedTitlePosition();
-      },
-      slideChange: () => {
-        updateFocusedTitle(filtered);
-        adjustFocusedTitlePosition(); // 슬라이드 변경 시 포커스 타이틀 위치 재조정
-      }
-    },
     breakpoints: {
       0: {
         slidesPerView: 1,
@@ -580,13 +573,23 @@ function initSwiper(filtered) {
         spaceBetween: 30,
         coverflowEffect: { rotate: 30, stretch: 0, depth: 120, modifier: 1, slideShadows: true }
       }
+    },
+    on: {
+      init: () => {
+        updateFocusedTitle(filtered);
+        updateFocusedTitlePosition();
+      },
+      slideChange: () => {
+        updateFocusedTitle(filtered);
+        updateFocusedTitlePosition();
+      }
     }
   });
   updateFocusedTitle(filtered);
-  adjustFocusedTitlePosition();
+  updateFocusedTitlePosition();
 }
 
-
+// 포커스 타이틀 업데이트
 function updateFocusedTitle(filtered) {
   if (!swiper) return;
   if (filtered.length === 0) {
@@ -598,6 +601,7 @@ function updateFocusedTitle(filtered) {
   document.getElementById('focusedTitle').textContent = item ? item.title : '';
 }
 
+// 모달 열기
 function showModal(item) {
   document.getElementById('modalImg').src = item.src;
   document.getElementById('modalTitle').textContent = item.title;
@@ -606,11 +610,13 @@ function showModal(item) {
   document.body.style.overflow = 'hidden';
 }
 
+// 모달 닫기
 function closeModal() {
   document.getElementById('modal').classList.add('hidden');
   document.body.style.overflow = '';
 }
 
+// 다크모드 토글
 function toggleTheme() {
   document.documentElement.classList.toggle('dark');
   const isDark = document.documentElement.classList.contains('dark');
@@ -619,7 +625,16 @@ function toggleTheme() {
   localStorage.setItem('color-mode', isDark ? 'dark' : 'light');
 }
 
-window.onload = () => {
+// 윈도우 리사이즈 시 포커스 타이틀 위치 조정
+window.addEventListener('resize', updateFocusedTitlePosition);
+
+// 모달 배경 클릭 시 닫기
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+// 초기 실행
+window.addEventListener('load', () => {
   if (localStorage.getItem('color-mode') === 'dark') {
     document.documentElement.classList.add('dark');
   }
@@ -628,24 +643,14 @@ window.onload = () => {
   lucide.createIcons();
 
   renderSlides();
-
-  // swiper가 초기화 되었으면 위치 조정 이벤트도 추가
-  if (typeof swiper !== 'undefined') {
-    swiper.on('slideChange', adjustFocusedTitlePosition);
-  }
-  adjustFocusedTitlePosition();
+  updateFocusedTitlePosition();
 
   const startYear = 2023;
   const year = new Date().getFullYear();
   document.getElementById('copyrightYear').textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
-};
-
-// 윈도우 크기 변경 및 방향 변경 시 위치 재조정
-window.addEventListener('resize', adjustFocusedTitlePosition);
-window.addEventListener('orientationchange', adjustFocusedTitlePosition);
+});
 </script>
-
 
 </body>
 </html>
