@@ -302,14 +302,15 @@
     }
     footer { padding-top: 200px; padding-bottom: 100px; z-index: 0; }
   }
-	@media (orientation: landscape) {
+	@media (orientation: landscape) and (max-width: 768px) {
 	#focusedTitle {
-		width: 100%;
-		max-width: 754px;
-		height: 29px;
-		margin-top: -175px !important;
-		font-size: 1.2rem;
-    }
+	  width: 100%;
+      max-width: 754px;
+      height: 29px;
+      margin-top: -175px !important;
+      font-size: 1.2rem;
+  }
+}
 	@media (min-width: 769px) and (max-width: 1024px) {
     .swiper { padding: 60px 0; }
     .swiper-slide { width: 350px; height: 350px; }
