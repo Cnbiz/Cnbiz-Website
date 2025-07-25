@@ -252,7 +252,7 @@
     .nav-item.active .submenu { display: flex; }
     .swiper { padding: 40px 0; }
     .swiper-slide { width: 300px; height: 300px; }
-     footer { padding-top: 140px; padding-bottom: 70px; z-index: 0; }
+    footer { padding-top: 140px; padding-bottom: 70px; z-index: 0; }
     .move-btn {
       font-size: 0.85rem;
       padding: 0.7em 0.4rem;
@@ -370,7 +370,16 @@
       <input type="text" id="searchInput" placeholder="실외 LED디스플레이 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
     </div>
   </div>
-<div id="focusedTitle"></div>
+  <div id="focusedTitle"></div>
+  
+<!-- ✅ 모달 -->
+<div id="modal" class="fixed inset-0 bg-[var(--modal-bg)] flex flex-col items-center justify-center hidden z-50 p-4" onclick="closeModal()">
+  <div id="modalContent" class="flex flex-col items-center" onclick="event.stopPropagation()">
+    <img id="modalImg" src="" alt="큰 이미지" class="rounded-lg shadow-2xl border-4 border-[var(--accent)] mb-2 cursor-pointer object-contain max-h-[80vh]" onclick="closeModal()" />
+    <div class="modal-title text-[var(--accent-light)] font-bold mt-2" id="modalTitle"></div>
+    <div class="modal-desc text-slate-200 text-center" id="modalDesc"></div>
+  </div>
+</div>
 
   <footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
     <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
@@ -382,8 +391,7 @@
   <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
     <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
   </button>
-
-<script>
+  <script>
 // ✅ 데이터: 실외 LED디스플레이 중심 카드
 const data = [
   { src: 'img/indoor_led_1.jpg', title: '실외 LED디스플레이 모델 A', desc: '고화질 실외용 디스플레이', category: '실외 LED디스플레이', priority: 1 },
