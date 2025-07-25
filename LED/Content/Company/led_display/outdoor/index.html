@@ -137,6 +137,7 @@
       font-size: 1rem;
       font-weight: 700;
       transition: 0.3s;
+	  z-index: 25;
     }
 
     .category-btn:hover,
@@ -160,6 +161,7 @@
       transition: background-color 0.3s, color 0.3s;
       background: #e2e8f0;
       color: #111;
+	  z-index: 25;
     }
 
     .move-btn:hover {
@@ -187,7 +189,7 @@
       font-weight: 600;
       color: var(--accent-light);
       font-size: 1.5rem;
-      z-index: 999; /* 포커스타이틀을 다른 요소 위로 */
+      z-index: 25; /* 포커스타이틀을 다른 요소 위로 */
       position: relative;
       margin-top: -215px; /* 포커스 타이틀 위치 수정 */
     }
@@ -285,8 +287,9 @@
       }
 
       footer {
-        padding-top: 120px;
-        padding-bottom: 60px;
+        padding-top: 140px;
+        padding-bottom: 70px;
+		z-index: 1;
       }
 
       .move-btn {
@@ -301,6 +304,7 @@
         font-size: 0.75rem;
         min-width: auto;
         padding: 0.3rem 0.5rem;
+		z-index: 25;
       }
 
       #searchInput {
@@ -335,9 +339,16 @@
         margin-top: -175px !important;
         font-size: 1.2rem;
       }
+	  #searchInput {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+        margin-bottom: 50px;
+        z-index: 25;
+      }
       footer {
         padding-top: 100px;
         padding-bottom: 50px;
+		z-index: 1;
       }
     }
   </style>
