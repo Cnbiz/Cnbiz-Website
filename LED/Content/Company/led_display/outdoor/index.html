@@ -447,31 +447,21 @@ function adjustFocusedTitlePosition() {
   if (!focusedTitle || !pagination || !categoryBtnsContainer) return;
 
   const width = window.innerWidth;
-  const isPortrait = window.matchMedia('(orientation: portrait)').matches;
 
-  const pagRect = pagination.getBoundingClientRect();
-  const catRect = categoryBtnsContainer.getBoundingClientRect();
+  if (width <= 500) { // 모바일만 JS 위치 보정
+    const pagRect = pagination.getBoundingClientRect();
+    const catRect = categoryBtnsContainer.getBoundingClientRect();
+    const middleY = pagRect.bottom + (catRect.top - pagRect.bottom) / 2;
+    const safeTop = Math.max(middleY - 20, 60);
 
-  // 두 요소 사이의 중간 위치 계산
-  const middleY = pagRect.bottom + (catRect.top - pagRect.bottom) / 2;
-
-  // 모바일에서 포커스 타이틀을 정확히 중앙에 배치
-  if (width <= 500) { // 모바일
     focusedTitle.style.position = 'absolute';
     focusedTitle.style.marginTop = '0';
-    const safeTop = Math.max(middleY - 20, 60); // 최소 60px로 보정
-    focusedTitle.style.top = `${safeTop}px`; // Y축 중앙 맞춤
+    focusedTitle.style.top = `${safeTop}px`;
     focusedTitle.style.left = '50%';
-    focusedTitle.style.transform = 'translateX(-50%)'; // X축 중앙 정렬
+    focusedTitle.style.transform = 'translateX(-50%)';
     focusedTitle.style.zIndex = '25';
-  } else if (width <= 1024) { // 태블릿
-    focusedTitle.style.position = 'absolute';
-    focusedTitle.style.marginTop = '0';
-    focusedTitle.style.top = `${middleY}px`; // Y축 중앙 맞춤
-    focusedTitle.style.left = '50%';
-    focusedTitle.style.transform = 'translateX(-50%)'; // X축 중앙 정렬
-    focusedTitle.style.zIndex = '25';
-  } else { // PC
+  } else {
+    // 태블릿/PC에서는 CSS가 적용되도록 인라인 스타일 제거
     focusedTitle.style.position = '';
     focusedTitle.style.marginTop = '';
     focusedTitle.style.top = '';
@@ -480,8 +470,6 @@ function adjustFocusedTitlePosition() {
     focusedTitle.style.zIndex = '';
   }
 }
-
-
 // 이하 기존 함수들...
 
 function toggleMobileMenu() {
