@@ -336,11 +336,18 @@ background: var(--accent);
     margin: 0 4px;
   }
   .move-btn {
-    font-size: 0.95rem; /* 기본 1rem 보다 작게 */
-	padding: 0.3rem 0.5rem; /* 패딩도 줄이기 */
+    font-size: 0.85rem; /* 기본 1rem 보다 작게 */
+	padding: 0.25rem 0.4rem; /* 패딩도 줄이기 */
 	min-width: auto; /* 필요하면 최소 너비 제거 */
     text-align: center;
 	margin-bottom: 20px;
+  }
+  .button-container {
+    display: flex;
+    flex-direction: row; /* 버튼을 가로로 배열 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    flex-wrap: wrap; /* 모바일에서 줄바꿈이 되도록 */
+    gap: 0.5rem; /* 버튼 간의 간격 */
   }
   .category-btn {
     font-size: 0.75rem; /* 기본 1rem 보다 작게 */
@@ -465,7 +472,7 @@ background: var(--accent);
 </div>
 
 <!-- ✅ 푸터 -->
-<footer class="py-30 px-20 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
+<footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
   <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
   <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
   <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> |
