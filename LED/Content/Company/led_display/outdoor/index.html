@@ -76,7 +76,11 @@
   --pagination-bullet: #94a3b8;
 }
 .dark { --pagination-bullet: #475569; }
-body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-bg); }
+body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-bg); } 
+       min-height: 100vh; /* 최소 높이를 100vh로 설정하여 푸터가 화면 하단에 고정되도록 함 */
+	   height: 100%;
+       display: flex;
+       flex-direction: column;
 
 /* 카드 hover + 기본 스타일 */
 .thumb-card {
@@ -148,7 +152,11 @@ background: var(--accent);
   color: #fff;
   box-shadow: 0 0 8px var(--accent-light);
 }
-
+footer {
+  margin-top: auto; /* 푸터가 항상 페이지 하단에 위치하도록 */
+  padding-top: 60px; /* 푸터 위 여백을 충분히 확보 */
+  padding-bottom: 30px; /* 푸터 하단 여백을 충분히 확보 */
+}
 /* Swiper */
 .swiper {
   width: 100%;
@@ -334,6 +342,10 @@ background: var(--accent);
     width: 12px;
     height: 12px;
     margin: 0 4px;
+  }
+  footer {
+    padding-top: 140px; /* 모바일에서 푸터 위 여백을 줄여주기 */
+    padding-bottom: 70px; /* 하단 여백을 줄여서 화면을 최적화 */
   }
   .move-btn {
     font-size: 0.85rem; /* 기본 1rem 보다 작게 */
