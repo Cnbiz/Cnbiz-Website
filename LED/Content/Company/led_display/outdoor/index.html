@@ -125,6 +125,27 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
   box-shadow: 0 0 8px var(--accent-light);
 }
 
+/* ✅ 중앙 버튼 공통 스타일 */
+.move-btn {
+  padding: 0.55rem 0.85rem; /* py-1 px-3 */
+  border-radius: 0.4rem;  /* rounded-md */
+  font-weight: 700;        /* font-semibold */
+  font-size: 1rem;     /* text-sm */
+  transition: background-color 0.3s, color 0.3s;
+  background: #e2e8f0;
+  color: #111;
+}
+.move-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+/* ✅ 현재 페이지 강조 */
+.move-btn.OUTDOOR {
+background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 8px var(--accent-light);
+}
+
 /* Swiper */
 .swiper {
   width: 100%;
@@ -304,7 +325,7 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
 
   /* 페이지네이션 점 위치와 크기 조정 */
   .swiper-pagination {
-    bottom: 5px !important;
+    bottom: 5px ;
   }
   .swiper-pagination-bullet {
     width: 12px;
@@ -312,8 +333,11 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
     margin: 0 4px;
   }
   .move-btn {
-    min-width: 100px;
+    font-size: 0.95rem; /* 기본 1rem 보다 작게 */
+	padding: 0.3rem 0.5rem; /* 패딩도 줄이기 */
+	min-width: auto; /* 필요하면 최소 너비 제거 */
     text-align: center;
+	margin-bottom: 20px;
   }
   .category-btn {
     font-size: 0.75rem; /* 기본 1rem 보다 작게 */
@@ -323,10 +347,11 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
   #searchInput {
     font-size: 0.75rem;
     padding: 0.2rem 0.4rem;
+	margin-bottom: 50px;
   }
   /* 포커스 타이틀 */
   #focusedTitle {
-    margin-top: -145px;
+    margin-top: -195px !important;
     font-size: 1.2rem;
   }
 }
@@ -351,26 +376,6 @@ body { font-family:'Segoe UI','Noto Sans KR',sans-serif; background: var(--main-
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ✅ 중앙 버튼 공통 스타일 */
-.move-btn {
-  padding: 0.35rem 0.85rem; /* py-1 px-3 */
-  border-radius: 0.4rem;  /* rounded-md */
-  font-weight: 700;        /* font-semibold */
-  font-size: 1rem;     /* text-sm */
-  transition: background-color 0.3s, color 0.3s;
-  background: #e2e8f0;
-  color: #111;
-}
-.move-btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
-/* ✅ 현재 페이지 강조 */
-.move-btn.OUTDOOR {
-background: var(--accent);
-  color: #fff;
-  box-shadow: 0 0 8px var(--accent-light);
-}
 </style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors">
