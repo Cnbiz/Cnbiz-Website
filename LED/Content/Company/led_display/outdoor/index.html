@@ -119,6 +119,7 @@
     border-radius: 1rem;
     transition: transform 0.5s;
   }
+
 /* 포커스 타이틀 기본 스타일 */
 #focusedTitle {
   position: absolute;  /* 화면에 고정되지 않도록 설정 */
@@ -358,13 +359,14 @@
     top: 450px;  /* 태블릿 가로 모드에 맞는 위치 */
   }
 }
-
+<!-----
 /* 가로모드: 큰 화면 (PC 등) */
 @media (min-width: 1025px) and (orientation: landscape) {
   #focusedTitle {
     top: 475px !important;  /* 큰 화면 가로 모드에 맞는 위치 */
   }
-}
+}	
+         ------>
 
 /* 가로모드: iOS 기기 특화 */
 @media (max-width: 768px) and (orientation: landscape) and (device-os: ios) {
@@ -433,12 +435,31 @@
     </div>
   </div>
 
-  <footer class="py-70 px-100 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-auto">
-    <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
-    <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
-    <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a></div>
-    <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
-  </footer>
+  <footer class="overflow-x-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 py-6 text-center text-sm text-gray-500 dark:text-gray-400 leading-snug mt-auto">
+  
+  <!-- 첫 줄: 한 줄 유지, 잘림 방지 -->
+  <div class="inline-block min-w-fit whitespace-nowrap">
+    업체명: 주식회사 씨앤비즈 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호
+  </div>
+
+  <!-- 두 번째 줄 -->
+  <div class="mt-1">
+    대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2023-성남중원-0805
+  </div>
+
+  <!-- 세 번째 줄 -->
+  <div class="mt-1">
+    문의메일: 
+    <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a> |
+    기술지원: 
+    <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
+  </div>
+
+  <!-- 저작권 줄 -->
+  <div class="mt-1">
+    <span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.
+  </div>
+</footer>
 
   <button onclick="toggleTheme()" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-900 p-2 rounded-full shadow">
     <i data-lucide="moon" id="theme-icon" class="w-5 h-5"></i>
@@ -509,6 +530,9 @@ function renderSlides() {
 
   if (swiper) swiper.destroy(true, true);
   initSwiper(filtered);
+  
+  // 여기서 포커스 해제
+  document.activeElement.blur();
 }
 
 // 슬라이드 변경 시 포커스 타이틀 위치 업데이트
