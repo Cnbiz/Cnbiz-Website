@@ -41,7 +41,7 @@
  - 모바일 햄버거 메뉴(toggleMobileMenu) 함수로 토글
 ---------------------------------------------------------------->
 
-<!-- 2025.07.25 새벽작업 구성변경 및 추가 -->
+<!-- 2025.07.26 디테일링 추가 -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -328,14 +328,14 @@
 /* 태블릿 화면에서 타이틀 위치 */
 @media (min-width: 769px) and (max-width: 1024px) {
   #focusedTitle {
-    top: 500px !important;  /* 원하는 위치로 설정 */
+    top: 500px;  /* 원하는 위치로 설정 */
   }
 }
 
 /* 모바일 화면에서 타이틀 위치 */
 @media (max-width: 768px) {
   #focusedTitle {
-    top: 500px !important;  /* 원하는 위치로 설정 */
+    top: 500px;  /* 원하는 위치로 설정 */
   }
 }
 
@@ -359,14 +359,6 @@
     top: 450px;  /* 태블릿 가로 모드에 맞는 위치 */
   }
 }
-<!-----
-/* 가로모드: 큰 화면 (PC 등) */
-@media (min-width: 1025px) and (orientation: landscape) {
-  #focusedTitle {
-    top: 475px !important;  /* 큰 화면 가로 모드에 맞는 위치 */
-  }
-}	
-         ------>
 
 /* 가로모드: iOS 기기 특화 */
 @media (max-width: 768px) and (orientation: landscape) and (device-os: ios) {
@@ -593,13 +585,17 @@ function updateFocusedTitlePosition() {
   if (!focusedTitle) return;
 
   if (window.innerWidth <= 768 && window.matchMedia('(orientation: landscape)').matches) {
-    // 가로모드 768 이하: 위치 고정 (absolute) - 부모 기준
+    // 모바일 가로 모드
     focusedTitle.style.position = 'absolute';
-    focusedTitle.style.top = '20px';  // 원하는 위치
+    focusedTitle.style.top = '495px'; // 조정 필요시 변경
+  } else if (window.innerWidth >= 1025 && window.matchMedia('(orientation: landscape)').matches) {
+    // PC 큰 화면 가로 모드
+    focusedTitle.style.position = 'absolute';
+    focusedTitle.style.top = '475px';
   } else {
-    // 그 외 화면: absolute + 다른 위치
+    // 기본 세로 모드 혹은 기타
     focusedTitle.style.position = 'absolute';
-    focusedTitle.style.top = '80px';  
+    focusedTitle.style.top = '495px';  // 기본 위치
   }
   
   focusedTitle.style.left = '50%';
