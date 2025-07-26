@@ -121,7 +121,7 @@
   }
 /* 포커스 타이틀 기본 스타일 */
 #focusedTitle {
-  position: fixed;  /* 화면에 고정된 위치 */
+  position: absolute;  /* 화면에 고정되지 않도록 설정 */
   left: 50%;
   transform: translateX(-50%); /* 수평 중앙 정렬 */
   z-index: 50;
@@ -320,28 +320,56 @@
 /* PC 화면에서 타이틀 위치 */
 @media (min-width: 1025px) {
   #focusedTitle {
-    top: 495px;  /* 원하는 위치로 설정 */
+    top: 495px !important;  /* 원하는 위치로 설정 */
   }
 }
 
 /* 태블릿 화면에서 타이틀 위치 */
 @media (min-width: 769px) and (max-width: 1024px) {
   #focusedTitle {
-    top: 500px;  /* 원하는 위치로 설정 */
+    top: 500px !important;  /* 원하는 위치로 설정 */
   }
 }
 
 /* 모바일 화면에서 타이틀 위치 */
 @media (max-width: 768px) {
   #focusedTitle {
-    top: 500px;  /* 원하는 위치로 설정 */
+    top: 500px !important;  /* 원하는 위치로 설정 */
   }
 }
 
 /* 작은 모바일 화면에서 타이틀 위치 */
 @media (max-width: 480px) {
   #focusedTitle {
-    top: 545px;  /* 원하는 위치로 설정 */
+    top: 540px !important;  /* 원하는 위치로 설정 */
+  }
+}
+
+/* 가로모드: 일반 모바일 화면 (예: 가로 모드인 작은 모바일 화면) */
+@media (max-width: 768px) and (orientation: landscape) {
+  #focusedTitle {
+    top: 495px !important;  /* 모바일 가로 모드에 맞는 위치 */
+  }
+}
+
+/* 가로모드: 태블릿 화면 */
+@media (min-width: 770px) and (max-width: 1024px) and (orientation: landscape) {
+  #focusedTitle {
+    top: 450px;  /* 태블릿 가로 모드에 맞는 위치 */
+  }
+}
+
+/* 가로모드: 큰 화면 (PC 등) */
+@media (min-width: 1025px) and (orientation: landscape) {
+  #focusedTitle {
+    top: 475px !important;  /* 큰 화면 가로 모드에 맞는 위치 */
+  }
+}
+
+/* 가로모드: iOS 기기 특화 */
+@media (max-width: 768px) and (orientation: landscape) and (device-os: ios) {
+  #focusedTitle {
+    top: 420px !important;  /* iOS 가로 모드에 맞는 위치 */
   }
 }
 </style>
@@ -540,19 +568,29 @@ function updateFocusedTitlePosition() {
   const focusedTitle = document.getElementById('focusedTitle');
   if (!focusedTitle) return;
 
-  // 화면 크기에 따라 위치 자동 조정
-  if (window.innerWidth <= 768) {
-    focusedTitle.style.position = 'fixed';
-    focusedTitle.style.bottom = '20px';
-    focusedTitle.style.left = '50%';
-    focusedTitle.style.transform = 'translateX(-50%)';
-  } else {
+  if (window.innerWidth <= 768 && window.matchMedia('(orientation: landscape)').matches) {
+    // 가로모드 768 이하: 위치 고정 (absolute) - 부모 기준
     focusedTitle.style.position = 'absolute';
-    focusedTitle.style.bottom = '80px';
-    focusedTitle.style.left = '50%';
-    focusedTitle.style.transform = 'translateX(-50%)';
+    focusedTitle.style.top = '20px';  // 원하는 위치
+  } else {
+    // 그 외 화면: absolute + 다른 위치
+    focusedTitle.style.position = 'absolute';
+    focusedTitle.style.top = '80px';  
   }
+  
+  focusedTitle.style.left = '50%';
+  focusedTitle.style.transform = 'translateX(-50%)';
 }
+
+// 스크롤 이벤트로 타이틀 위치 조정
+window.addEventListener('scroll', function () {
+  updateFocusedTitlePosition(); // 스크롤에 따른 위치 자동 조정
+});
+
+// 페이지가 로드되면 타이틀 위치를 처음부터 조정
+window.addEventListener('load', function() {
+  updateFocusedTitlePosition(); // 처음 로드될 때 타이틀 위치 설정
+});
 
 // 모달 열기
 function showModal(item) {
