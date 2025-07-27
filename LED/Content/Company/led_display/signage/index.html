@@ -1,5 +1,5 @@
 <!---------------------------------------------------------------- 
-📌 실외 LED디스플레이 반응형 페이지 전체 구성 요약 (최종 업데이트)
+📌 사이니지 LED디스플레이 반응형 페이지 전체 구성 요약 (최종 업데이트)
 ───────────────────────────────────────────────
 1) Head
  - 메타태그: viewport 등 반응형 대응
@@ -41,14 +41,14 @@
  - 모바일 햄버거 메뉴(toggleMobileMenu) 함수로 토글
 ---------------------------------------------------------------->
 
-<!-- 2025.07.26 디테일링 추가 -->
+<!-- 2025.07.23 밤샘작업 추가 -->
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>주식회사 씨앤비즈 | 실외 LED디스플레이</title>
+<title>주식회사 씨앤비즈 | 사이니지</title>
 
 <!-- 🔗 파비콘 -->
 <link href="./LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -62,8 +62,6 @@
 <!-- ✅ Swiper -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- ✅ Lucide 아이콘 -->
 <script src="https://unpkg.com/lucide@0.258.0"></script>
@@ -176,7 +174,7 @@
     color: #fff;
   }
 
-  .move-btn.OUTDOOR {
+  .move-btn.SIGNAGE {
     background: var(--accent);
     color: #fff;
     box-shadow: 0 0 8px var(--accent-light);
@@ -386,10 +384,10 @@
       <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8" />
     </a>
     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden sm:block z-10 whitespace-nowrap">
-      <span class="text-xl font-bold select-none">🔲 실외 LED디스플레이</span>
+      <span class="text-xl font-bold select-none">🔲 사이니지</span>
     </div>
     <div class="sm:hidden ml-2 whitespace-nowrap flex-shrink-0 z-10">
-      <span class="text-xl font-bold select-none">🔲 실외 LED디스플레이</span>
+      <span class="text-xl font-bold select-none">🔲 사이니지</span>
     </div>
     <a href="/" class="hidden sm:block ml-2 text-white hover:text-yellow-300 flex-shrink-0 z-20" title="메인으로 이동">
       <i data-lucide="home" class="w-6 h-6"></i>
@@ -418,13 +416,13 @@
     <div class="container mx-auto mt-12 px-4">
       <div class="flex flex-wrap justify-center gap-2">
         <button class="category-btn active" onclick="setCategory('전체')">전체</button>
-        <button class="category-btn" onclick="setCategory('투명 LED디스플레이')">투명 LED디스플레이</button>
-        <button class="category-btn" onclick="setCategory('투명 OLED디스플레이')">투명 OLED디스플레이</button>
-        <button class="category-btn" onclick="setCategory('미디어파사드 LED디스플레이')">미디어파사드 LED디스플레이</button>
-        <button class="category-btn" onclick="setCategory('전광판 LED디스플레이')">전광판 LED디스플레이</button>
+        <button class="category-btn" onclick="setCategory('전광판 사이니지')">전광판 사이니지</button>
+        <button class="category-btn" onclick="setCategory('메뉴판 사이니지')">메뉴판 사이니지</button>
+        <button class="category-btn" onclick="setCategory('안내사항 사이니지')">안내사항 사이니지</button>
+        <button class="category-btn" onclick="setCategory('공지사항 사이니지')">공지사항 사이니지</button>
       </div>
       <div class="flex justify-center mt-2 sm:mt-3 mb-2 sm:mb-3">
-        <input type="text" id="searchInput" placeholder="실외 LED디스플레이 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
+        <input type="text" id="searchInput" placeholder="사이니지 검색..." class="p-1 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400 text-black w-full max-w-sm" oninput="renderSlides()">
       </div>
     </div>
   </main>
@@ -482,20 +480,21 @@
   </style>
 </body>
 <script>
-// ✅ 데이터: 실외 LED디스플레이 중심 카드
+// ✅ 데이터: 투명 LED디스플레이 중심 카드
 const data = [
-  { src: 'img/outdoor_led_1.jpg', title: '곡면 실외 LED디스플레이', desc: '도심을 빛내는 몰입형 광고 솔루션, 대형 곡면 실외 LED 디스플레이', category: '실외 LED디스플레이', priority: 1 },
-  { src: 'img/outdoor_led_2.jpg', title: '실외 LED디스플레이 모델 B', desc: '밝고 선명한 화면', category: '실외 LED디스플레이', priority: 2 },
-  { src: 'img/outdoor_led_3.jpg', title: '실외 LED디스플레이 모델 C', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 3 },
-  { src: 'img/outdoor_led_4.jpg', title: '실외 LED디스플레이 모델 D', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 4 },
-  { src: 'img/outdoor_led_5.jpg', title: '실외 LED디스플레이 모델 E', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 5 },
-  { src: 'img/outdoor_led_6.jpg', title: '실외 LED디스플레이 모델 F', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 6 },
-  { src: 'img/outdoor_led_7.jpg', title: '실외 LED디스플레이 모델 G', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 7 },
-  { src: 'img/outdoor_led_8.jpg', title: '실외 LED디스플레이 모델 H', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 8 },
-  { src: 'img/outdoor_led_9.jpg', title: '실외 LED디스플레이 모델 I', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 9 },
-  { src: 'img/outdoor_led_10.jpg', title: '실외 LED디스플레이 모델 J', desc: '실외용 고휘도', category: '실외 LED디스플레이', priority: 10 },
-  ];
+  { src: 'img/signage_1.jpg', title: '전광판 사이니지 A', desc: '고화질 투명용 디스플레이', category: '전광판 사이니지', priority: 1 },
+  { src: 'img/signage_2.jpg', title: '전광판 사이니지 B', desc: '밝고 선명한 화면', category: '전광판 사이니지', priority: 2 },
+  { src: 'img/signage_3.jpg', title: '메뉴판 사이니지 A', desc: '투명용 고휘도', category: '메뉴판 사이니지', priority: 3 },
+  { src: 'img/signage_4.jpg', title: '안내사항 사이니지 A', desc: '투명용 고휘도', category: '안내사항 사이니지', priority: 4 },
+  { src: 'img/signage_5.jpg', title: '공지사항 사이니지 A', desc: '투명용 고휘도', category: '공지사항 사이니지', priority: 5 },
+  { src: 'img/signage_6.jpg', title: '전광판 사이니지 C', desc: '투명용 고휘도', category: '전광판 사이니지', priority: 6 },
+  { src: 'img/signage_7.jpg', title: '안내사항 사이니지 B', desc: '투명용 고휘도', category: '안내사항 사이니지', priority: 7 },
+  { src: 'img/signage_8.jpg', title: '공지사항 사이니지 B', desc: '투명용 고휘도', category: '공지사항 사이니지', priority: 8 },
+  { src: 'img/signage_9.jpg', title: '메뉴판 사이니지 B', desc: '투명용 고휘도', category: '메뉴판 사이니지', priority: 9 },
+  { src: 'img/signage_10.jpg', title: '공지사항 사이니지 C', desc: '투명용 고휘도', category: '공지사항 사이니지', priority: 10 },
+];
 
+// 초기 카테고리
 let currentCategory = '전체';
 let swiper;
 
@@ -672,48 +671,3 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-
-
-<!------------------
-<script>
-  function setupDropdown(menuId, submenuId) {
-    const menu = document.getElementById(menuId);
-    const submenu = document.getElementById(submenuId);
-
-    let isOverMenu = false;
-    let isOverSubmenu = false;
-
-    function showSubmenu() {
-      submenu.classList.remove('hidden');
-    }
-    function hideSubmenu() {
-      submenu.classList.add('hidden');
-    }
-
-    menu.addEventListener('mouseenter', () => {
-      isOverMenu = true;
-      showSubmenu();
-    });
-    menu.addEventListener('mouseleave', () => {
-      isOverMenu = false;
-      setTimeout(() => {
-        if (!isOverSubmenu) hideSubmenu();
-      }, 150);
-    });
-
-    submenu.addEventListener('mouseenter', () => {
-      isOverSubmenu = true;
-      showSubmenu();
-    });
-    submenu.addEventListener('mouseleave', () => {
-      isOverSubmenu = false;
-      setTimeout(() => {
-        if (!isOverMenu) hideSubmenu();
-      }, 150);
-    });
-  }
-
-  setupDropdown('menu-led', 'submenu-led');
-  setupDropdown('menu-transparent', 'submenu-transparent');
-</script>
-------------------->
