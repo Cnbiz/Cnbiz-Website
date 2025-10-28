@@ -179,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const randomClass = animations[Math.floor(Math.random() * animations.length)];
   document.getElementById('hero').classList.add(randomClass);
 
-  // ✅ 현재 연도 자동 표시 (예: 2023–2025)
-  const startYear = 2023; // 시작 연도
+  // ✅ 현재 연도 자동 표시 (예: 2016–2025)
+  const startYear = 2016; // 시작 연도
   const year = new Date().getFullYear(); // 현재 연도
   document.getElementById("copyrightYear").textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
@@ -190,4 +190,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
