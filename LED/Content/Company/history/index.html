@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" /> 
 <!-- 화면 크기에 따라 글씨와 요소가 깨지지 않도록 반응형 설정 -->
 
-<!-- 2025.07.19 수정 -->
+<!-- 2025.10.28 수정 -->
 
-<title>주식회사 씨앤비즈 | 회사연혁</title> <!-- 브라우저 탭에 표시될 제목 -->
+<title>주식회사 씨앤비즈넷 | 회사연혁</title> <!-- 브라우저 탭에 표시될 제목 -->
 
 <!-- ✅ Tailwind CSS 불러오기: 버튼·레이아웃 등을 쉽게 스타일링 할 수 있는 프레임워크 -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -20,10 +20,8 @@
 <!-- ✅ Lucide: 깔끔하고 가벼운 SVG 아이콘을 사용하기 위한 스크립트 -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<!-- ✅ 파비콘 (브라우저 탭 아이콘) -->
-<link rel="icon" type="image/png" sizes="16x16" href="/LED/Cnbiz_link_icon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/LED/Cnbiz_link_icon-32.png" />
-<link rel="icon" type="image/png" sizes="48x48" href="/LED/Cnbiz_link_icon-48.png" />
+<!-- ✅ 브라우저 탭에 작은 아이콘(파비콘)을 설정 -->
+<link rel="icon" href="/LED/Cnbiz_link_icon-16.png" sizes="16x16" type="image/png" />
 
 <!-- ✅ 모바일/브라우저 품질과 최적화를 위한 메타태그들 -->
 <meta name="format-detection" content="telephone=no, email=no, address=no"> <!-- 전화·메일 자동링크 방지 -->
@@ -39,7 +37,7 @@
 <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center h-14 px-4 bg-gray-800 text-white shadow">
   <!-- 왼쪽: 회사 로고 -->
   <a href="/" class="flex items-center gap-2">
-    <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8">
+    <img src="/LED/CnbizLogo.png" alt="씨앤비즈넷 로고" class="h-8">
   </a>
   <!-- 오른쪽: 메뉴 (회사소개, 회사연혁, 오시는 길) -->
   <nav class="flex gap-4 text-sm">
@@ -125,13 +123,13 @@
 
 <!-- ✅ 푸터: 회사 정보와 저작권 안내 -->
 <footer class="py-6 px-4 text-center text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
-  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>업체명 : 주식회사 씨앤비즈넷 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2016-경기성남-0446</div>
   <div>
     문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline hover:text-yellow-500">sales@cnbiznet.co.kr</a>
     | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline hover:text-yellow-500">cto@cnbiznet.co.kr</a>
   </div>
-  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈넷. All rights reserved.</div>
 </footer>
 
 <!-- ✅ 오른쪽 아래에 항상 뜨는 다크모드 토글 버튼 -->
@@ -159,9 +157,9 @@
     lucide.createIcons();
   }
 
-  // 현재 연도 자동 표시 (예: 2023–2025)
+  // 현재 연도 자동 표시 (예: 2016–2025)
   document.addEventListener("DOMContentLoaded", () => {
-    const startYear = 2023; // 시작 연도
+    const startYear = 2016; // 시작 연도
     const year = new Date().getFullYear(); // 현재 연도
     document.getElementById("copyrightYear").textContent =
       `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
