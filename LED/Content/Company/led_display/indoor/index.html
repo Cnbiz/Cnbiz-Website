@@ -41,14 +41,14 @@
  - 모바일 햄버거 메뉴(toggleMobileMenu) 함수로 토글
 ---------------------------------------------------------------->
 
-<!-- 2025.07.23 밤샘작업 추가 -->
+<!-- 2025.10.28 수정 -->
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>주식회사 씨앤비즈 | 실내 LED디스플레이</title>
+<title>주식회사 씨앤비즈넷 | 실내 LED디스플레이</title>
 
 <!-- 🔗 파비콘 -->
 <link href="./LED/Cnbiz_link_icon-16.png" rel="icon" sizes="16x16" type="image/png"/>
@@ -381,7 +381,7 @@
   <!-- ✅ 헤더: PC + 모바일 -->
   <header class="bg-[var(--header-footer-bg)] text-[var(--accent-light)] py-3 px-4 flex items-center justify-between relative">
     <a href="/" class="z-20">
-      <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8" />
+      <img src="/LED/CnbizLogo.png" alt="씨앤비즈넷 로고" class="h-8" />
     </a>
     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden sm:block z-10 whitespace-nowrap">
       <span class="text-xl font-bold select-none">🔲 실내 LED디스플레이</span>
@@ -440,12 +440,12 @@
   
   <!-- 첫 줄: 한 줄 유지, 잘림 방지 -->
   <div class="inline-block min-w-fit whitespace-nowrap">
-    업체명: 주식회사 씨앤비즈 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호
+    업체명: 주식회사 씨앤비즈넷 | 대표자: 차호진 | 주소: 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호
   </div>
 
   <!-- 두 번째 줄 -->
   <div class="mt-1">
-    대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2023-성남중원-0805
+    대표전화: 031-706-6641 | 팩스: 031-704-6648 | 통신판매업신고번호: 2016-경기성남-0446
   </div>
 
   <!-- 세 번째 줄 -->
@@ -458,7 +458,7 @@
 
   <!-- 저작권 줄 -->
   <div class="mt-1">
-    <span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.
+    <span id="copyrightYear"></span> (주)씨앤비즈넷. All rights reserved.
   </div>
 </footer>
 
@@ -662,7 +662,7 @@ window.addEventListener('load', () => {
    renderSlides();
   updateFocusedTitlePosition(); // 처음 로드될 때 포커스 타이틀 위치 설정
 
-  const startYear = 2023;
+  const startYear = 2016;
   const year = new Date().getFullYear();
   document.getElementById('copyrightYear').textContent =
     `Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
