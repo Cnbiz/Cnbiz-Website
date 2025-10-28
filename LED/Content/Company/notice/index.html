@@ -4,14 +4,14 @@
 <meta charset="UTF-8" />
 
 <!-- 
-  2025.07.24 수정
+  2025.10.28 수정
   뷰포트 설정: 모바일 기기에서 화면 크기에 맞게 페이지를 축소/확대하지 않고
   1:1 비율로 보여주도록 설정합니다.
   maximum-scale=1, user-scalable=no 는 사용자가 확대/축소를 못 하도록 제한하는 옵션입니다.
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<title>주식회사 씨앤비즈 | 공지사항</title>
+<title>주식회사 씨앤비즈넷 | 공지사항</title>
 
 <!--
   파비콘 설정 (브라우저 탭에 표시되는 아이콘)
@@ -178,7 +178,7 @@ th:nth-child(2), td:nth-child(2) {
       로고 영역
       - flex 컨테이너로 로고 이미지와 텍스트 간격 8px(gap-2)
     -->
-    <img src="/LED/CnbizLogo.png" alt="씨앤비즈 로고" class="h-8 sm:h-10" />
+    <img src="/LED/CnbizLogo.png" alt="씨앤비즈넷 로고" class="h-8 sm:h-10" />
     <!-- 로고 이미지 높이 32px, 큰 화면에선 40px -->
   </a>
   <a href="/" class="hover:text-yellow-400" aria-label="홈으로 이동">
@@ -381,11 +381,11 @@ th:nth-child(2), td:nth-child(2) {
     - 줄간격 넉넉하고 단어 깨짐 없이 자동 줄바꿈 처리
     - 텍스트 선택 가능
   -->
-  <div>업체명 : 주식회사 씨앤비즈 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
-  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2023-성남중원-0805</div>
+  <div>업체명 : 주식회사 씨앤비즈넷 | 대표자 : 차호진 | 주소 : 경기 성남시 중원구 갈마치로 302 우림라이온스밸리5차 B동 1009호</div>
+  <div>대표전화 : 031-706-6641 | 팩스 : 031-704-6648 | 통신판매업신고번호 : 2016-경기성남-0446</div>
   <div>문의메일: <a href="mailto:sales@cnbiznet.co.kr" class="underline font-bold !text-blue-600 dark:!text-yellow-400 break-words">sales@cnbiznet.co.kr</a>
     | 기술지원: <a href="mailto:cto@cnbiznet.co.kr" class="underline font-bold !text-blue-600 dark:!text-yellow-400 break-words">cto@cnbiznet.co.kr</a></div>
-  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈. All rights reserved.</div>
+  <div class="mt-1"><span id="copyrightYear"></span> (주)씨앤비즈넷. All rights reserved.</div>
 </footer>
 
 <!-- 다크모드 토글 버튼 -->
@@ -557,7 +557,7 @@ th:nth-child(2), td:nth-child(2) {
       lucide.createIcons();
     }
     // 현재 연도 자동 출력
-    const startYear = 2023;
+    const startYear = 2016;
 	const year = new Date().getFullYear();
 	document.getElementById("copyrightYear").textContent =
 	`Copyright © ${year > startYear ? `${startYear}–${year}` : startYear}`;
