@@ -1,7 +1,5 @@
 {
-  "version": "1.0.1",
-  "exe_url": "exe 파일 링크",
-  "data_files": [
-    "데이터 파일 링크"
-  ]
+  "version": "1.0.2",
+  "exe_url": "https://landing.cnbiznet.co.kr/releases/Resize_Tool.zip"
+
 }
