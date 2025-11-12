@@ -30,7 +30,7 @@
       "exe_url": "https://landing.cnbiznet.co.kr/releases/resize_tool.zip",
       "changelog": "• 썸네일 생성 속도 향상\n• 저장 폴더 직접 지정 가능\n• 일부 화면 해상도 대응 개선"
     }
-  ]
+  ],
   "launcher": [
     {
       "id": "main_launcher",
@@ -40,5 +40,3 @@
     }
   ]
 }
-
-
