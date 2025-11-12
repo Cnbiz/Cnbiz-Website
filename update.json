@@ -1,9 +1,12 @@
 {
-  "main_launcher": {
-    "version": "1.0.1",
-    "exe_url": "https://landing.cnbiznet.co.kr/releases/CN_Launcher.zip",
-    "changelog": "• 로그인 화면 UI 개선\n• 자동 업데이트 안정화\n• 버그 수정"
-  },
+  "launcher": [
+    {
+      "id": "main_launcher",
+      "version": "1.0.1",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/CN_Launcher.zip",
+      "changelog": "• 로그인 화면 UI 개선\n• 자동 업데이트 안정화\n• 버그 수정"
+    }
+  ],
   "programs": [
     {
       "id": "asset_manager",
@@ -37,6 +40,3 @@
     }
   ]
 }
-
-
-
