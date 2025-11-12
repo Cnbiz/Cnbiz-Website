@@ -1,36 +1,41 @@
 {
-  "version": "1.0.1",
+  "main_launcher": {
+    "version": "1.1.1",
+    "exe_url": "https://landing.cnbiznet.co.kr/releases/CN_Launcher.zip",
+    "changelog": "• 로그인 화면 UI 개선\n• 자동 업데이트 안정화\n• 버그 수정"
+  },
   "programs": [
     {
       "id": "asset_manager",
       "version": "1.1.1",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/asset_manager_v2.1.0.zip",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/asset_manager.zip",
       "changelog": "• Firebase 로그인 안정화\n• 견적서 엑셀 자동 생성 기능 개선\n• 프로그램 종료 시 리소스 정리 최적화"
     },
     {
       "id": "contracts_manager",
       "version": "2.2.1",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/contracts_manager_v1.2.0.zip",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/contracts_manager.zip",
       "changelog": "• 만료 계약 알림 기능 개선\n• UI 일부 최적화\n• 로그 저장 기능 추가"
     },
     {
       "id": "quotation",
       "version": "3.3.1",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/quotation_v1.1.0.zip",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/quotation.zip",
       "changelog": "• 견적서 자동 생성 속도 향상\n• 모델명 입력 기능 개선\n• 다크 테마 적용"
     },
     {
       "id": "folder_cleanup",
       "version": "4.4.1",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/folder_cleanup_v1.1.0.zip",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/folder_cleanup.zip",
       "changelog": "• 폴더 정리 속도 향상\n• 선택 항목 정리 기능 추가\n• 오류 처리 안정화"
     },
     {
       "id": "resize_tool",
       "version": "5.5.4",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/resize_tool_v1.0.4.zip",
+      "exe_url": "https://landing.cnbiznet.co.kr/releases/resize_tool.zip",
       "changelog": "• 썸네일 생성 속도 향상\n• 저장 폴더 직접 지정 가능\n• 일부 화면 해상도 대응 개선"
     }
   ]
 }
+
 
