@@ -34,12 +34,13 @@
   "launcher": [
     {
       "id": "main_launcher",
-      "version": "1.0.3",
+      "version": "1.0.2",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/CN_Launcher_v1.0.3/CN_Launcher.zip",
       "changelog": "• 로그인 화면 UI 개선\n• 자동 업데이트 안정화\n• 버그 수정"
     }
   ]
 }
+
 
 
 
