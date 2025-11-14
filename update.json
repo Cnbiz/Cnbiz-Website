@@ -31,7 +31,7 @@
     {
       "id": "resize_tool",
       "version": "5.5.4",
-      "LOCAL_VERSION": "5.5.4",
+      "LOCAL_VERSION": "5.5.3",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/v1.0.4/resize_tool.zip",
       "changelog": "• 썸네일 생성 속도 향상\n• 저장 폴더 직접 지정 가능\n• 일부 화면 해상도 대응 개선"
     }
@@ -46,6 +46,7 @@
     }
   ]
 }
+
 
 
 
