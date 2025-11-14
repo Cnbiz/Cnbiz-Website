@@ -2,8 +2,8 @@
   "programs": [
     {
       "id": "asset_manager",
-      "version": "1.1.1",
-      "exe_url": "https://landing.cnbiznet.co.kr/releases/asset_manager.zip",
+      "version": "1.1.2",
+      "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/asset_manager/asset_manager.zip",
       "changelog": "• Firebase 로그인 안정화\n• 견적서 엑셀 자동 생성 기능 개선\n• 프로그램 종료 시 리소스 정리 최적화"
     },
     {
@@ -40,6 +40,7 @@
     }
   ]
 }
+
 
 
 
