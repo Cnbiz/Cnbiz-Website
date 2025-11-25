@@ -8,9 +8,9 @@
     },
     {
       "id": "contracts_manager",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/contracts_manager/contracts_manager.zip",
-      "changelog": " 만료 계약 알림 기능 개선\n• UI 일부 최적화\n 로그 저장 기능 추가"
+      "changelog": " 거래명세서 및 만료 생성 시 알림 팝업 추가\n 거래명세서 생성 시 Excel 문서 네임 변경"
     },
     {
       "id": "quotation",
@@ -40,6 +40,7 @@
     }
   ]
 }
+
 
 
 
