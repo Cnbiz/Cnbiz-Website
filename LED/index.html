@@ -807,6 +807,59 @@ body:not(.dark-mode) .fixed-btn.theme-toggle {
       100% { transform: translateX(-1920px); }
     }
 
+/* ===================== 반응형 ===================== */
+
+/* 태블릿 */
+@media (max-width: 1024px) {
+  .hero {
+    height: 80vh;
+    padding-top: 100px;
+  }
+  .hero-content {
+    padding: 15px;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .hero {
+    height: 70vh;
+    padding-top: 80px;
+  }
+  .hero-content {
+    padding: 10px;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 480px) {
+  .hero {
+    height: 60vh;
+    padding-top: 60px;
+  }
+  .hero-content {
+    padding: 8px;
+  }
+  .hero h1 {
+    font-size: 1.2rem;
+  }
+  .hero p {
+    font-size: 0.8rem;
+  }
+}
+
 /* ───── 반응형 대응: 고정 메뉴 + 상단 메뉴 통합 ───── */
 /* 화면의 최대 너비가 768px 이하일 때 적용 (모바일 및 작은 화면에서 반응형 디자인) */
 @media (max-width: 768px) {  /*(모바일 및 작은 화면에서 반응형 디자인)*/
