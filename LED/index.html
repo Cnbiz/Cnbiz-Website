@@ -127,9 +127,8 @@ html, body {
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-    
+    }
 	  /* ▶ 영상이 로드되면 이 클래스를 추가해 배경 이미지를 없애는 용도 */
-	}
 	.hero.video-loaded {
      background-image: none; /* 배경 이미지를 완전히 제거해서 영상이 보이도록 */
 	}
@@ -519,8 +518,9 @@ body.dark-mode .submenu ul li a {
   flex-direction: column; /* ⬅️ Flexbox 내에서 요소들을 **세로 방향**으로 배치합니다. */
   justify-content: flex-start; /* ⬅️ 요소들을 **위쪽 정렬**합니다. */
   align-items: center; /* ⬅️ 내부 요소들을 **수평 중앙 정렬**합니다. */
-  padding-top: 60px; /* ⬅️ Hero 영역 상단에 **60px의 여백**을 주어, 상단 내용이 너무 붙지 않도록 합니다. */
-  height: 45vh; /* ⬅️ Hero 영역의 높이를 **브라우저 화면의 45%**로 설정하여 비율을 유지합니다. */
+  padding-top: 180px; /* ⬅️ Hero 영역 상단에 **60px의 여백**을 주어, 상단 내용이 너무 붙지 않도록 합니다. */
+  height: 110vh; /* ⬅️ Hero 영역의 높이를 **브라우저 화면의 45%**로 설정하여 비율을 유지합니다. */
+  min-height: 600px; 
   background: url('Main_A.mp4') center/cover no-repeat; /* ⬅️ Hero 영역의 배경을 비디오로 설정하고, 비디오를 **center**로 정렬하여 **cover**로 설정하여 잘라내지 않고 꽉 차도록 합니다. */
   color: white; /* ⬅️ 텍스트 색상을 흰색으로 설정하여 배경과 대비가 잘 되도록 합니다. */
   text-align: center; /* ⬅️ 텍스트를 **가운데 정렬**합니다. */
