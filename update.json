@@ -34,7 +34,7 @@
       "id": "Cafe_monitoring",
       "version": "6.6.1",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/Cafe_monitoring/Cafe_monitoring.zip",
-      "changelog": " 네이버카페 게시글 모니터링\n 전산실사람등 & HR인사 카페\n 견적 관련 1분단위 수집 적용"
+      "changelog": " 네이버카페 게시글 모니터링\n 전산실사람들 & HR인사 카페\n 견적 관련 1분단위 수집 적용"
     }
   ],
   "launcher": [
@@ -46,6 +46,7 @@
     }
   ]
 }
+
 
 
 
