@@ -29,6 +29,12 @@
       "version": "5.5.4",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/resize_tool/resize_tool.zip",
       "changelog": " 썸네일 생성 속도 향상\n 저장 폴더 직접 지정 가능\n 일부 화면 해상도 대응 개선"
+    },
+    {
+      "id": "Cafe_monitoring",
+      "version": "6.6.1",
+      "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/Cafe_monitoring/Cafe_monitoring.zip",
+      "changelog": " 네이버카페 게시글 모니터링\n 전산실사람등 & HR인사 카페\n 견적 관련 1분단위 수집 적용"
     }
   ],
   "launcher": [
@@ -40,6 +46,7 @@
     }
   ]
 }
+
 
 
 
