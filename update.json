@@ -40,12 +40,13 @@
   "launcher": [
     {
       "id": "main_launcher",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/CN_Launcher/CN_Launcher.zip",
-      "changelog": " 서브프로그램 자동업데이트 구성 변경\n 프로그램 안정화 및 버그 수정"
+      "changelog": " 서브프로그램 게시판모니터링 추가\n 프로그램 안정화 및 버그 수정"
     }
   ]
 }
+
 
 
 
