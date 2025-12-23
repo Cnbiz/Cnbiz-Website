@@ -8,9 +8,9 @@
     },
     {
       "id": "contracts_manager",
-      "version": "2.2.2",
+      "version": "2.2.3",
       "exe_url": "https://github.com/Cnbiz/Cnbiz-Website/releases/download/contracts_manager/contracts_manager.zip",
-      "changelog": " 거래명세서 및 만료 생성 시 알림 팝업 추가\n 거래명세서 생성 시 Excel 문서 네임 변경"
+      "changelog": " 만료예정 비품 기준일자 당월포함하여 추출 하도록 변경"
     },
     {
       "id": "quotation",
@@ -40,6 +40,7 @@
     }
   ]
 }
+
 
 
 
